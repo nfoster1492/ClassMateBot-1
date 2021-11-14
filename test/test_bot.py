@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import discord.ext.test as dpytest
 from dotenv import load_dotenv
 import pytest
+from discord.ext import commands
 
 
 # ------------------------------------------------------------------------------------------------------
@@ -303,6 +304,7 @@ async def test_qanda(bot):
     user = dpytest.get_config().members[0]
     guild = dpytest.get_config().guilds[0]
     channel = await guild.create_text_channel('q-and-a')
+    gen_channel = await guild.create_text_channel('general')
     await guild.create_role(name="Instructor")
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
@@ -316,6 +318,31 @@ async def test_qanda(bot):
     await dpytest.message("$ask \"When is the last day of classes?\"", channel=channel)
     assert dpytest.verify().message().contains().content(
         'When is the last day of classes? by ' + user.name)
+    
+    # Test that a question asked in the wrong channel is deleted
+    msg = await dpytest.message("$ask \"When is the last day of classes?\"", channel=gen_channel)
+    with pytest.raises(discord.NotFound):
+        await gen_channel.fetch_message(msg.id)
+
+    # Tests that the bot sent the appropriate message (question)
+    assert dpytest.verify().message().contains().content(
+        'Please send questions to the #q-and-a channel.')
+
+    # Tests that the bot sends the appropriate message for unknown anonymous input (question)
+    await dpytest.message("$ask \"What class is this?\" wronganon", channel=channel)
+    assert dpytest.verify().message().contains().content(
+        'Unknown input for *anonymous* option. Please type **anonymous** or leave blank.')
+
+    # Tests incorrect use of ask command
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$ask", channel=channel)
+    assert dpytest.verify().message().contains().content(
+        'To use the ask command, do: $ask \"QUESTION\" anonymous*<optional>* \n '
+        '(For example: $ask \"What class is this?\" anonymous)')
+
+#TODO: tests for answering questions
+
+
 
 # --------------------
 # Tests cogs/reviewQs
