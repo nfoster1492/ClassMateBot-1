@@ -318,6 +318,10 @@ async def test_qanda(bot):
     await dpytest.message("$ask \"When is the last day of classes?\"", channel=channel)
     assert dpytest.verify().message().contains().content(
         'Q2: When is the last day of classes? by ' + user.name)
+
+    # placeholder monkey test for empty input (question)
+    #await dpytest.message("$ask \"\"", channel=channel)
+    #assert dpytest.verify().message().contains().content('STRING GOES HERE')
     
     # Test that a question asked in the wrong channel is deleted
     msg = await dpytest.message("$ask \"Is this the right channel?\"", channel=gen_channel)
@@ -381,6 +385,15 @@ async def test_qanda(bot):
     await dpytest.message("$answer 1 \"A Thing\" wronganon", channel=channel)
     assert dpytest.verify().message().contains().content(
         'Unknown input for *anonymous* option. Please type **anonymous** or leave blank.')
+
+    # Tests answering a nonexistent question (answer)
+    await dpytest.message("$answer 100 \"nope\"", channel=channel)
+    assert dpytest.verify().message().contains().content(
+        'Invalid question number: 100')
+
+    # placeholder monkey test for empty input (answer)
+    #await dpytest.message("$answer 100 \"\" ", channel=channel)
+    #assert dpytest.verify().message().contains().content('STRING GOES HERE')
 
     # Tests incorrect use of answer command
     with pytest.raises(commands.MissingRequiredArgument):
