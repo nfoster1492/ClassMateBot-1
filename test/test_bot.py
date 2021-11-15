@@ -320,7 +320,7 @@ async def test_qanda(bot):
         'Q2: When is the last day of classes? by ' + user.name)
     
     # Test that a question asked in the wrong channel is deleted
-    msg = await dpytest.message("$ask \"Is this the right channel?\"", channel=gen_channel) 
+    msg = await dpytest.message("$ask \"Is this the right channel?\"", channel=gen_channel)
     with pytest.raises(discord.NotFound):
         await gen_channel.fetch_message(msg.id)
 
@@ -341,7 +341,7 @@ async def test_qanda(bot):
         '(For example: $ask \"What class is this?\" anonymous)')
 
     # Test that an answer in the wrong channel is deleted
-    msga = await dpytest.message("$answer 1 \"Test\"", channel=gen_channel) 
+    msga = await dpytest.message("$answer 1 \"Test\"", channel=gen_channel)
     with pytest.raises(discord.NotFound):
         await gen_channel.fetch_message(msga.id)
 
