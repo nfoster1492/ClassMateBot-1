@@ -28,11 +28,27 @@ CREATE TABLE pinned_messages (
     guild_id        BIGINT NOT NULL,
     author_id       BIGINT NOT NULL,
     tag             VARCHAR NOT NULL,
-    description     VARCHAR NOT NULL,
+    description     VARCHAR NOT NULL
 );
 
 CREATE TABLE review_questions (
     guild_id        BIGINT NOT NULL,
     question        VARCHAR NOT NULL,
     answer          VARCHAR NOT NULL
+);
+
+CREATE TABLE questions (
+    guild_id        BIGINT NOT NULL,
+    number          BIGINT NOT NULL,
+    question        VARCHAR NOT NULL,
+    author_id       BIGINT,
+    msg_id          BIGINT NOT NULL
+);
+
+CREATE TABLE answers (
+    guild_id        BIGINT NOT NULL,
+    q_number        BIGINT NOT NULL,
+    answer          VARCHAR NOT NULL,
+    author_id       BIGINT,
+    author_role     VARCHAR NOT NULL
 );
