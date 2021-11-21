@@ -1,4 +1,5 @@
 # About $DALLAF (deleteAllAnswersFor) _(New Project 3 Command)_
+
 This command lets instructors remove all answers for a question in the #q-and-a channel.
 Deletes all answers for a question. Instructor only.
 

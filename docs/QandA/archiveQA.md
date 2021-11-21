@@ -1,8 +1,6 @@
-# About $getAnswersFor _(New Project 3 Command)_
+# About $archiveQA _(New Project 3 Command)_
 
-This command gets a question and all its answers and DMs them to the user.
-
-It will also notify the user if the question has been deleted (zombie) or hidden (ghost). 
+DMs the user all the questions and answers on the channel, excluding deleted (zombie) and hidden (ghost) questions.
 
 ```
 Zombies are questions that were manually deleted from the channel. They need to be
@@ -16,17 +14,17 @@ The code that implements the above mentioned functionality is located in [cogs/q
 
 # Code Description
 ## Functions
-getAllAnsFor(self, ctx, num): <br>
-This function takes as arguments the values provided by the constructor through self, context in which the command was called, and the number of the question to retrieve.
+archiveQA(self, ctx): <br>
+This function takes as arguments the values provided by the constructor through self and context in which the command was called.
 
 # How to run it? (Small Example)
 You are in the server that has the Classmate Bot active and online. You go to
-the #q-and-a channel channel, enter the command `$getAnswersFor QUESTION_NUM`.
+the #q-and-a channel channel, enter the command `$archiveQA`.
 
 ```
-$getAnswersFor QUESTION_NUM
-$getAnswersFor 3
-```
-Successful execution of this command will DM the user the question and all its answers.
+$archiveQA
 
-`![image](data/proj3media/getAnswersFor/)` 
+```
+Successful execution of this command will DM the user all the questions and answers on the channel, excluding deleted (zombie) and hidden (ghost) questions.
+
+`![image](SCREENSHOTS IN data/proj3media/archiveQA)` 
