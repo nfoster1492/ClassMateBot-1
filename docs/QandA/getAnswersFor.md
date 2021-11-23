@@ -11,6 +11,10 @@ Ghosts are questions that were deleted (or hidden) with the deleteQuestion comma
 Because their message IDs remain the same, their contents can just be unhidden.
 ```
 
+## Changes
+
+This command was introduced by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBot/).
+
 # Location of Code
 The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/cogs/qanda.py).
 
@@ -21,12 +25,17 @@ This function takes as arguments the values provided by the constructor through 
 
 # How to run it? (Small Example)
 You are in the server that has the Classmate Bot active and online. You go to
-the #q-and-a channel channel, enter the command `$getAnswersFor QUESTION_NUM`.
+the #q-and-a channel channel and enter the command `$getAnswersFor QUESTION_NUM`.
 
 ```
 $getAnswersFor QUESTION_NUM
 $getAnswersFor 3
 ```
+
+<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/getAnswersFor/answersfor1.png?raw=true" width="500">
+
 Successful execution of this command will DM the user the question and all its answers.
 
-`![image](data/proj3media/getAnswersFor/)` 
+<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/getAnswersFor/answersfor2.png?raw=true" width="500">
+
+

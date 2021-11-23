@@ -3,6 +3,10 @@
 This command lets instructors remove all answers for a question in the #q-and-a channel.
 Deletes all answers for a question. Instructor only.
 
+## Changes
+
+This command was introduced by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBot/).
+
 # Location of Code
 The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/cogs/qanda.py).
 
@@ -25,6 +29,14 @@ Or, if it's a ghost or zombie:
 $DALLAF <q_num>
 $DALLAF 7
 ```
-Successful execution of this command will delete all answers for the question on the channel and in the database, and DM the user the number of answers that were deleted.
 
-`![image](SCREENSHOTS IN data/proj3media/dallaf/)` 
+<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/dallaf/dallaf1.png?raw=true" width="500">
+
+Successful execution of this command will delete all answers for the question on the channel and in the database, 
+
+<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/dallaf/dallaf2.png?raw=true" width="500">
+
+and DM the user the number of answers that were deleted.
+
+<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/dallaf/dallaf3.png?raw=true" width="500">
+
