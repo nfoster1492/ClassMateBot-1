@@ -23,7 +23,7 @@ This function takes as arguments the values provided by the constructor through 
 
 # How to run it? (Small Example)
 You are in the server that has the Classmate Bot active and online. You go to
-the #q-and-a channel channel and enter the command `$deleteAllQA`.
+the #q-and-a channel and enter the command `$deleteAllQA`.
 
 `$deleteAllQA`
 
