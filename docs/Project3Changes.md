@@ -1,4 +1,4 @@
-# THIS IS STILL A WORK IN PROGRESS.
+# Project 3 Changes
 
 
 # bot.py
