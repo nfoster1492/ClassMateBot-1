@@ -16,10 +16,11 @@ This function takes as arguments the values provided by the constructor through 
 
 # How to run it? (Small Example)
 You are in the server that has the Classmate Bot active and online. From any channel,
- enter the command `$quizpoll "TITLE" [option 1] ... [option 6]`.
+ enter the command  
+ `$quizpoll "TITLE" [option 1] ... [option 6]`.
 
- Note that you can also enter:
-`$quizpoll "TITLE" [option 1] [option 2]`
+ Note that you can also enter:  
+`$quizpoll "TITLE" [option 1] [option 2]`  
 `$quizpoll "TITLE" [option 1] [option 2] [option 3]`
 
 You may have six options at most. At least two options are needed to run this command.
