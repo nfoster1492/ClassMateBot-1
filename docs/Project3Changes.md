@@ -3,15 +3,19 @@
 
 ## New Additions
 
+### AI moderator
+We implemented an AI moderator that will remove toxic, insulting and racist messages.
+
+### New commands
 We added various new commands. These are mentioned below along with their description.
 
-### Profanity filter commands:
+#### Profanity filter commands:
 
 * $toggleFilter: toggles the profanity filter on/off, instructor/admin only
 * $whitelist (word): adds a word or sentence to the whitelist, instructor/admin only
 * $dewhitelist (word): removes a word or sentence from the whitelist, instructor/admin only
 
-### New Q&A commands:
+#### New Q&A commands:
 
 * $getAnswersFor (num) -- get all answers for a question. Ignores ghosts and zombies.
 * $DALLAF (num) -- deletes all answers for a question. Instructor only.
@@ -19,7 +23,7 @@ We added various new commands. These are mentioned below along with their descri
 * $deleteAllQA -- deletes all questions and answers from the database and channel. Also cleans up ghosts and zombies. Instructor only.
 * $deleteQuestion (num) -- deletes a single question from the channel and leaves a database ghost. Instructor only.
 
-### Database integrity commands:
+#### Database integrity commands:
 
 * $spooky: Used to check the number of zombies and ghosts in the channel. Fun for students, useful for instructors.
 * $channelGhost (num): Get the ghost question and its answers with that number. Also works for zombies and non-ghost questions. (Basically, getAnswersFor but doesn't ignore ghosts or zombies.) Instructor only.
