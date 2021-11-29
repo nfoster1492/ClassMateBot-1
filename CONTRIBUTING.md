@@ -26,11 +26,11 @@ This project and everyone participating in it is governed by the [ClassMate Bot 
 ## I don't want to read this whole thing I just have a question!!!
 
 Reach out to one of the main contributors on Discord using their IDs:
-* Shikha Nair: incorgnito#5402
-* Pradhan Chetan Venkataramaiah: PrymMinistah#4253
-* Steve Jones: SteveJones92#6974
-* Alex Snezkho: Apollo#4953
-* Tanya Chu: TC#1784
+* Emily Tracey: EmilyTracey#2232
+* Jonathan Nguyen: jhnguye4#7636
+* Leila Moran: Catbird#8805
+* Peeysh Taneja: Peeyush#9003
+* Shraddha Mishra: shramish#4065
 
 *Note: Due to the dynamic nature of Discord IDs, these may change without prior notice on this page.*
 
@@ -113,7 +113,7 @@ Following these guidelines helps maintainers and the community understand your r
 
 ### Python Styleguide
 
-Changes to TeachersPetBot Python code should conform to [Google Python Style Guide](https://github.com/google/styleguide/blob/gh-pages/pyguide.md).
+Changes to ClassMateBot Python code should conform to [Google Python Style Guide](https://github.com/google/styleguide/blob/gh-pages/pyguide.md).
 
 All Python code is linted with Pylint. Ensure that before you commit any changes, your code passes all default pylint checks. Pylint can be installed with
 `pip install pylint`.
