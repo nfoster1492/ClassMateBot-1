@@ -6,7 +6,7 @@
 ### AI moderator
 We implemented an AI moderator that will remove toxic, insulting and racist messages.
 
-### New commands
+### New commands and tasks
 We added various new commands. These are mentioned below along with their description.
 
 #### Profanity filter commands:
@@ -31,6 +31,14 @@ We added various new commands. These are mentioned below along with their descri
 * $reviveGhost (num): Restores a ghost question (and answers). Instructor only.
 * $unearthZombies: gets all zombies (manually deleted questions) and assigns ghost status. Instructor only.
 
+### Reminder Commands
+* $overdue: lists all overdue reminders
+* $clearoverdue: deletes overdue reminders
+
+### Reminder Tasks
+* Reminder task that runs once per day at 8am to give reminders of anything due that day
+* Reminder task that runs once per hour to give reminder of anything due that hour
+
 ## Improvements
 
 We also modified some existing commands to allow easier input for user and handle corner cases. These improvements are mentioned below.
@@ -44,3 +52,12 @@ We also modified some existing commands to allow easier input for user and handl
 * Question number must be a valid number.
 * Users can't answer with empty strings.
 * Users can't answer deleted or hidden questions.
+
+### $addhw and $changeduedate
+* Now instuctor only.
+* Date input is more flexible. (ie both of these are now valid - NOV 30 2050, 11/30/2050)
+* Users can add a timezone to the time as well
+
+### $duetoday and $duethisweek
+* Shows time delta between now and duedate so users don't have to manually covert systen time to local
+* Dates are formatted with timezome (ie NOV 11 2050 12:00+0000)
