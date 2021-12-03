@@ -78,9 +78,11 @@ Voting for projects is a common occurence that many students must endure. With t
 ![image](https://user-images.githubusercontent.com/32313919/140250910-3aa8d6cd-000d-4b51-949a-0c60f3464c3b.png)
 
 
-### 3 - Deadline Reminder
+### 3 - Deadline Reminder (Updated in Project 3!)
 The next important thing our project covers is the Deadline reminder feature of our bot. Students may add homeworks, links, and due dates using the system, and then view their daily or weekly dues with ease. No longer will a student be vulnerable to those odd submission times like 3:00 PM. See homework specific to one class, due today, or due this week!
 ![$addhw CSC510 HW2 SEP 25 2024 17:02](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/addhomework.gif)
+
+***Deadlines now send automatic messgages for assignments that are due that day and assignments that are due within the hour!*** Checkout more [here](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/docs/Project3Changes.md)
 
 ### 4 - Personally Pinning Messages
 Another problem that the students face is that they cannot pin important messages they want to go back to later. With pinned messages, the student can save discord message links easily to point back to prior messages or just leave their own general messages. It is a very easy system to use and could be creatively used by a student in many different ways to promote better classroom success.
