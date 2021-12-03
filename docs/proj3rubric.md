@@ -19,8 +19,8 @@
 |.5|test cases exist  | https://github.com/CSC510-Group-25/ClassMateBot/blob/main/test/test_bot.py |
 |.5|Use of code coverage  | Codecov |
 |.5|other automated analysis tools  | Codacy, Snyk |
-|.5|test cases:a large proportion of the issues related to handling failing cases. |  |
+|.5|test cases:a large proportion of the issues related to handling failing cases. | https://github.com/CSC510-Group-25/ClassMateBot/issues?q=label%3Atest+ |
 |.5|test cases are routinely executed | [Pytest workflow](https://github.com/CSC510-Group-25/ClassMateBot/actions/workflows/pytest.yml) |
-|1|Documentation describing how this version improves on the older version|  |
+|1|Documentation describing how this version improves on the older version| [Proj3Changes](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/docs/Project3Changes.md) |
 |3|This version is a little(1), some(2), much(3) improved on the last version.|Tutor's assessment.| 
 |16| Total|
