@@ -26,11 +26,11 @@ This project and everyone participating in it is governed by the [ClassMate Bot 
 ## I don't want to read this whole thing I just have a question!!!
 
 Reach out to one of the main contributors on Discord using their IDs:
-* Emily Tracey: EmilyTracey#2232
-* Jonathan Nguyen: jhnguye4#7636
-* Leila Moran: Catbird#8805
-* Peeysh Taneja: Peeyush#9003
-* Shraddha Mishra: shramish#4065
+* Emily Tracey: etracey@ncsu.edu
+* Jonathan Nguyen: jhnguye4@ncsu.edu
+* Leila Moran: lmmoran@ncsu.edu
+* Peeysh Taneja: ptaneja@ncsu.edu
+* Shraddha Mishra: smishra9@ncsu.edu
 
 *Note: Due to the dynamic nature of Discord IDs, these may change without prior notice on this page.*
 
