@@ -145,18 +145,15 @@ An essential part of studying is going over questions related to the exam topics
 
 ### 8 - Polling **(NEW in Project 3!)**
 
-Users can now create polls! 
+Users can now create polls! Instructor can ask for student opinions.
 ![image](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/data/proj3media/polling/poll1.png?raw=true)
 
-ADD CONTENT HERE.
+![image](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/data/proj3media/polling/poll2.png?raw=true)
 
+We can also create Quiz Poll
+![image](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/data/proj3media/polling/quizpoll1.png?raw=true)
 
-ADD CONTENT HERE.
-
-
-ADD CONTENT HERE.
-
-
+![image](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/data/proj3media/polling/quizpoll2.png?raw=true)
 
 ---
 
