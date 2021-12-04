@@ -38,7 +38,10 @@ class Groups(commands.Cog):
         for i in range(100):
             role_name = "group_" + str(i)
             role = get(ctx.message.guild.roles, name=role_name)
-            await role.delete()
+            if role is None:
+                continue
+            else:
+                await role.delete()
 
         await ctx.author.send("Roles deleted!")
         print("Roles deleted!")
