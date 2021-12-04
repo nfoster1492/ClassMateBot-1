@@ -101,6 +101,10 @@ https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/docs/
 
 ## Other changes
 
+### Error handlers
+
+We added error handlers to everything to prevent the bot from breaking.
+
 ### Tests
 
 We added 70 (exhaustive!) tests for Q&A and coverage increased from 35% to 95%.
