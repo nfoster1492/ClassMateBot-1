@@ -146,8 +146,7 @@ An essential part of studying is going over questions related to the exam topics
 ### 8 - Polling **(NEW in Project 3!)**
 
 Users can now create polls! 
-
-ADD CONTENT HERE.
+![image](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/data/proj3media/polling/poll1.png?raw=true)
 
 ADD CONTENT HERE.
 
