@@ -8,7 +8,7 @@ We added various new commands. These are mentioned below along with their descri
 
 ## Profanity filter changes
 
-Previously, upon detecting profanity, the bot would delete the original message and replace it with "{User} says: \**" for all to see, thereby preventing users without admin priviledges from deleting or editing their messages.  
+Previously, upon detecting profanity, the bot would delete the original message and replace it with "{User} says: \**" for all to see, thereby preventing users without admin privileges from deleting or editing their messages.  
 
 Due to a bug, the censor did not function properly. Instead of single words being censored, the entire message would be replaced. 
 
