@@ -266,9 +266,9 @@ For the qanda.py file **(Updated in Project 3!)**
 
 For the reviewqs.py file
 
-:open_file_folder: [$addQuestion command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/ReviewQs/addQuestion.md) 
+:open_file_folder: [$addQuestion command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/ReviewQs/addQuestion.md) 
 
-:open_file_folder: [$getQuestion command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/ReviewQs/getQuestion.md) 
+:open_file_folder: [$getQuestion command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/ReviewQs/getQuestion.md) 
 
 
 For the polling.py file **(All new in Project 3!)**
