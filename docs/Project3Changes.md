@@ -113,5 +113,7 @@ eadlines/reminders: added 9 tests. Coverage increased from 62% to 75%
 
 Pinning.py: added 6 tests. Coverage increased from 64% to 83%
 
-Overall, we increased code coverage from 63% to 88%.
+groups.py: added 5 tests, Coverage increased from 52% to 67%
+
+Overall, we increased code coverage from 63% to 89%.
 
