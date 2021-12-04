@@ -62,13 +62,10 @@ async def test_groupError(bot):
     assert dpytest.verify().message().content(
         'To use the join command, do: $join <Num> where 0 <= <Num> <= 99 \n ( For example: $join 0 )')
 
-    try:
+    with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$join")
-        # should not reach here
-        assert False
-    except:
-        assert dpytest.verify().message().content(
-            'To use the join command, do: $join <Num> \n ( For example: $join 0 )')
+    assert dpytest.verify().message().content(
+        'To use the join command, do: $join <Num> \n ( For example: $join 0 )')
 
 
 # -----------------------
@@ -76,6 +73,13 @@ async def test_groupError(bot):
 # -----------------------
 @pytest.mark.asyncio
 async def test_deadline(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
     # Clear our reminders: Only if testing fails and leaves a reminders.JSON file with values behind
     # await dpytest.message("$clearreminders")
     # assert dpytest.verify().message().contains().content("All reminders have been cleared..!!")
@@ -98,6 +102,12 @@ async def test_deadline(bot):
     await dpytest.message("$addhw CSC510 HW1 DEC 21 2050 19:59")
     assert dpytest.verify().message().contains().content(
         "A date has been added for: CSC510 homework named: HW1 which is due on: 2050-12-21 19:59:00")
+
+    # Test adding an assignment twice
+    await dpytest.message("$addhw CSC510 HW1 DEC 21 2050 19:59")
+    assert dpytest.verify().message().contains().content(
+        "This homework has already been added..!!")
+
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearreminders")
     assert dpytest.verify().message().content("All reminders have been cleared..!!")
@@ -108,6 +118,13 @@ async def test_deadline(bot):
 # --------------------------------
 @pytest.mark.asyncio
 async def test_listreminders(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
     # Test listing multiple reminders
     await dpytest.message("$addhw CSC505 DANCE SEP 21 2050 10:00")
     assert dpytest.verify().message().contains().content(
@@ -115,20 +132,16 @@ async def test_listreminders(bot):
     # Test setting a 2nd reminder
     await dpytest.message("$addhw CSC510 HW1 DEC 21 2050 19:59")
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC510 homework named: HW1 which is due on: 2050-12-21 19:59:00")
+        "A date has been added for: CSC510 homework named: HW1 which is due on: ")
     await dpytest.message("$listreminders")
     assert dpytest.verify().message().contains().content(
-        "CSC505 homework named: DANCE which is due on: 2050-09-21 10:00:00")
+        "CSC505 homework named: DANCE which is due on:")
     assert dpytest.verify().message().contains().content(
-        "CSC510 homework named: HW1 which is due on: 2050-12-21 19:59:00")
+        "CSC510 homework named: HW1 which is due on:")
     # Test $coursedue
     await dpytest.message("$coursedue CSC505")
     assert dpytest.verify().message().contains().content(
-        "DANCE is due at 2050-09-21 10:00:00")
-    # Try to change the due date of DANCE to something impossible
-    await dpytest.message("$changeduedate CSC505 DANCE 4")
-    assert dpytest.verify().message().contains().content(
-        "Due date could not be parsed")
+        "DANCE is due at ")
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearreminders")
     assert dpytest.verify().message().contains().content("All reminders have been cleared..!!")
@@ -141,6 +154,13 @@ async def test_listreminders(bot):
 # ------------------------------
 @pytest.mark.asyncio
 async def test_duethisweek(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
     # Try adding a reminder due in an hour
     now = datetime.now() + timedelta(hours=1)
     dt_string = now.strftime("%b %d %Y %H:%M")
@@ -149,10 +169,129 @@ async def test_duethisweek(bot):
         "A date has been added for: CSC600 homework named: HW0")
     # Check to see that the reminder is due this week
     await dpytest.message("$duethisweek")
-    assert dpytest.verify().message().contains().content("CSC600 HW0 is due this week")
+    assert dpytest.verify().message().contains().content("CSC600 HW0 is due ")
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearreminders")
     assert dpytest.verify().message().contains().content("All reminders have been cleared..!!")
+
+# ------------------------------
+# Tests reminders due today
+# ------------------------------
+@pytest.mark.asyncio
+async def test_duetoday(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+    # Try adding a reminder due in an hour
+    now = datetime.now() + timedelta(hours=6)
+    dt_string = now.strftime("%b %d %Y %H:%M")
+    await dpytest.message(f'$addhw CSC600 HW0 {dt_string}')
+    assert dpytest.verify().message().contains().content(
+        "A date has been added for: CSC600 homework named: HW0")
+    # Check to see that the reminder is due today
+    await dpytest.message("$duetoday")
+    assert dpytest.verify().message().contains().content("CSC600 HW0 is due ")
+    # Clear reminders at the end of testing since we're using a local JSON file to store them
+    await dpytest.message("$clearreminders")
+    assert dpytest.verify().message().contains().content("All reminders have been cleared..!!")
+
+# ------------------------------
+# Tests overdue reminders
+# ------------------------------
+@pytest.mark.asyncio
+async def test_overdue(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+    # Try adding a reminder due in the past
+    await dpytest.message('$addhw CSC600 HW0 SEP 21 2000 10:00')
+    assert dpytest.verify().message().contains().content(
+        "A date has been added for: CSC600 homework named: HW0")
+    # Check to see that the reminder is overdue
+    await dpytest.message("$overdue")
+    assert dpytest.verify().message().contains().content("CSC600 homework named: HW0 which was due on: Sep 21 2000 10:00:00+0000")
+    # Clear reminders at the end of testing since we're using a local JSON file to store them
+    await dpytest.message("$clearoverdue")
+    assert dpytest.verify().message().contains().content("All overdue reminders have been cleared..!!")
+    # Confirm overdue was removed
+    await dpytest.message("$overdue")
+    assert dpytest.verify().message().contains().content("There are no overdue reminders")
+
+# ------------------------------
+# Tests deadline errors
+# ------------------------------
+@pytest.mark.asyncio
+async def test_deadline_errors(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+
+    # Tests timenow without an argument
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$timenow")
+    assert dpytest.verify().message().content(
+            "To use the timenow command (with current time), do: "
+            "$timenow MMM DD YYYY HH:MM ex. $timenow SEP 25 2024 17:02")
+
+    # Test timenow with bad argument
+    #with pytest.raises(commands.MissingRequiredArgument):
+    await dpytest.message("$timenow blab")
+    assert dpytest.verify().message().content(
+            "Due date could not be parsed")
+
+    # Test addhw with bad argument
+    #with pytest.raises(commands.MissingRequiredArgument):
+    await dpytest.message("$addhw blab blab blab")
+    assert dpytest.verify().message().content(
+            "Due date could not be parsed")
+
+    # Tests addhw without an argument
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$addhw")
+    assert dpytest.verify().message().content(
+            'To use the addhw command, do: $addhw CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n '
+            '( For example: $addhw CSC510 HW2 SEP 25 2024 17:02 EST )')
+
+
+    # Tests deletereminder without an argument
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$deletereminder")
+    assert dpytest.verify().message().content(
+            'To use the deletereminder command, do: $deletereminder CLASSNAME HW_NAME \n '
+            '( For example: $deletereminder CSC510 HW2 )')
+
+
+
+    # Tests changeduedate without an argument
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$changeduedate")
+    assert dpytest.verify().message().content(
+            'To use the changeduedate command, do: $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n'
+            ' ( For example: $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST)')
+
+    # Test changeduedate with bad argument
+    #with pytest.raises(commands.MissingRequiredArgument):
+    await dpytest.message("$changeduedate blab blab blab")
+    assert dpytest.verify().message().content(
+            "Due date could not be parsed")
+
+    # Tests coursedue without an argument
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$coursedue")
+    assert dpytest.verify().message().content(
+            'To use the coursedue command, do: $coursedue CLASSNAME \n ( For example: $coursedue CSC510 )')
 
 
 # --------------------
@@ -160,6 +299,7 @@ async def test_duethisweek(bot):
 # --------------------
 @pytest.mark.asyncio
 async def test_pinning(bot):
+  
     # Test pinning a message
     await dpytest.message("$pin TestMessage www.google.com this is a test")
     # print(dpytest.get_message().content)
@@ -172,12 +312,12 @@ async def test_pinning(bot):
     #clean up
     #await dpytest.message("$unpin TestMessage")
 
-
 # ----------------
 # Tests unpinning
 # ----------------
 @pytest.mark.asyncio
 async def test_unpinning(bot):
+  
     # Test pinning a message
     await dpytest.message("$pin TestMessage www.google.com this is a test")
     assert dpytest.verify().message().contains().content(
@@ -193,32 +333,120 @@ async def test_unpinning(bot):
     await dpytest.message("$unpin TestMessage")
     assert dpytest.verify().message().contains().content(
         "2 pinned message(s) has been deleted with tag: TestMessage")
+
+# ---------------------
+# Tests updating pins
+# ---------------------
+@pytest.mark.asyncio
+async def test_updatepin(bot):
+
     # Tests adding another message to update pins
     await dpytest.message("$pin TestMessage2 www.discord.com test")
     assert dpytest.verify().message().contains().content(
         "A new message has been pinned with tag: TestMessage2 and description: www.discord.com test")
+    # Tests updatepin
     await dpytest.message("$updatepin TestMessage2 www.zoom.com test")
     assert dpytest.verify().message().contains().content(
         "1 pinned message(s) has been deleted with tag: TestMessage2")
     assert dpytest.verify().message().contains().content(
         "A new message has been pinned with tag: TestMessage2 and description: www.zoom.com test")
 
+    # Tests updating a non-existent pin
+    await dpytest.message("$updatepin Tag Test")
+    # Confirm no message exists
+    assert dpytest.verify().message().contains().content(
+        "No message found with the combination of tagname: Tag, and author:")
+    # Ensure that a message is pinned.
+    assert dpytest.verify().message().contains().content(
+        "A new message has been pinned with tag: Tag and description: Test")
 
-# ----------------------
-# Tests invalid pinning
-# ----------------------
+# ------------------------
+# Tests pinnedmessages
+# ------------------------
 @pytest.mark.asyncio
-async def test_pinError(bot):
-    # Tests pinning without a message, will fail
-    try:
-        await dpytest.message("$pin")
+async def test_pinnedmessages(bot):
 
-        #shouldnt reach here
-        assert False
-    except:
-        assert dpytest.verify().message().content(
-            "To use the pin command, do: $pin TAGNAME DESCRIPTION \n ( For example: $pin HW8 https://"
-            "discordapp.com/channels/139565116151562240/139565116151562240/890813190433292298 HW8 reminder )")
+    # Tests getting pins by tag: no pinned messages
+    await dpytest.message("$pinnedmessages TestTag")
+    assert dpytest.verify().message().contains().content(
+        "No messages found with the given tagname and author combination")
+
+    # pin and dequeue
+    await dpytest.message("$pin Tag1 never gonna give you up")
+    assert dpytest.verify().message().contains().content(
+        "A new message has been pinned with tag: Tag1 and description: never gonna give you up")
+    # pin and dequeue
+    await dpytest.message("$pin Tag1 never gonna let you down")
+    assert dpytest.verify().message().contains().content(
+        "A new message has been pinned with tag: Tag1 and description: never gonna let you down")
+    # pin and dequeue
+    await dpytest.message("$pin Tag2 never gonna run around and desert you")
+    assert dpytest.verify().message().contains().content(
+        "A new message has been pinned with tag: Tag2 and description: never gonna run around and desert you")
+    
+    # Tests getting pins by tag
+    await dpytest.message("$pinnedmessages Tag1")
+    assert dpytest.verify().message().contains().content(
+        "Tag: Tag1, Description: never gonna give you up")
+    assert dpytest.verify().message().contains().content(
+        "Tag: Tag1, Description: never gonna let you down")
+
+    # Tests getting all pins
+    await dpytest.message("$pinnedmessages")
+    assert dpytest.verify().message().contains().content(
+        "Tag: Tag1, Description: never gonna give you up")
+    assert dpytest.verify().message().contains().content(
+        "Tag: Tag1, Description: never gonna let you down")
+    assert dpytest.verify().message().contains().content(
+        "Tag: Tag2, Description: never gonna run around and desert you")
+    
+    
+
+# ------------------------
+# Tests pin-related errors
+# ------------------------
+@pytest.mark.asyncio
+async def test_pinningErrors(bot):
+
+    # Tests pinning without a message
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$pin")
+    assert dpytest.verify().message().contains().content(
+        "To use the pin command, do: $pin TAGNAME DESCRIPTION \n ( For example: $pin HW8 https://"
+        "discordapp.com/channels/139565116151562240/139565116151562240/890813190433292298 HW8 reminder )")
+
+    # Tests unpinning without a message
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$unpin")
+    assert dpytest.verify().message().contains().content(
+        'To use the unpin command, do: $unpin TAGNAME \n ( For example: $unpin HW8 )')
+
+    # Tests updating a pin with invalid input
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$updatepin")
+    assert dpytest.verify().message().contains().content(
+        "To use the updatepin command, do: $pin TAGNAME DESCRIPTION \n ( $updatepin HW8 https://discordapp"
+        ".com/channels/139565116151562240/139565116151562240/890814489480531969 HW8 reminder )")
+
+    # Tests using pinnedmessages with invalid input
+    #with pytest.raises(commands.CommandError):
+        #await dpytest.message("$pinnedmessages \" please fail omg")
+    #assert dpytest.verify().message().contains().content(
+        #"To use the pinnedmessages command, do: $pinnedmessages:"
+        #" TAGNAME \n ( For example: $pinnedmessages HW8 )")
+
+    # The above test requires the else statement below to be included
+    # in pinning.py's retrieveMessages_error function.
+
+    #@retrieveMessages.error
+    #async def retrieveMessages_error(self, ctx, error):
+        #if isinstance(error, commands.MissingRequiredArgument):
+        # ...
+        #else:
+            #await ctx.send(
+                #"To use the pinnedmessages command, do: $pinnedmessages:"
+                #" TAGNAME \n ( For example: $pinnedmessages HW8 )")
+        #print(error)
 
 
 # --------------------
@@ -283,13 +511,10 @@ async def test_voting(bot):
     await dpytest.message(content="$vote 2")
     assert dpytest.verify().message().content(
         "You already voted for Project 2")
-    try:
+    with pytest.raises(commands.UserInputError):
         await dpytest.message(content="$vote")
-        #shouldnt reach here
-        assert False
-    except:
-        assert dpytest.verify().message().contains().content(
-            "To join a project, use the join command, do: $vote <Num> \n( For example: $vote 0 )")
+    assert dpytest.verify().message().contains().content(
+        "To join a project, use the join command, do: $vote <Num> \n( For example: $vote 0 )")
     await dpytest.message(content="$vote -1")
     assert dpytest.verify().message().content(
         "A valid project number is 1-99.")
@@ -865,3 +1090,102 @@ async def test_review_qs(bot):
     assert dpytest.verify().message().contains().content(
         'To use the addQuestion command, do: $addQuestion \"Question\" \"Answer\" \n'
         '(For example: $addQuestion \"What class is this?\" "CSC510")')
+
+# --------------------------------
+# Test polling: poll
+# --------------------------------
+@pytest.mark.asyncio
+async def test_poll(bot):
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    channel = await guild.create_text_channel('polls')
+
+    # Test poll: no input
+    await dpytest.message("$poll", channel=channel)
+    assert dpytest.verify().message().contains().content(
+        "Please enter a question for your poll.")
+
+    # Test poll: whitespace
+    await dpytest.message("$poll    ", channel=channel)
+    assert dpytest.verify().message().contains().content(
+        "Please enter a question for your poll.")
+
+    # Test poll: question too short
+    await dpytest.message("$poll ab", channel=channel)
+    assert dpytest.verify().message().contains().content(
+        "Poll question too short.")
+
+    # Test poll: student
+    await dpytest.message("$poll abc", channel=channel)
+    assert dpytest.verify().message().contains().content(
+        "**POLL by Student**\n\nabc\n** **")
+
+    await guild.create_role(name="Instructor")
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+
+    # Test poll: instructor
+    await dpytest.message("$poll abc", channel=channel)
+    assert dpytest.verify().message().contains().content(
+        "**POLL by Instructor**\n\nabc\n** **")
+
+    # Test poll: reactions
+    msgid = channel.last_message_id
+    msg = await channel.fetch_message(msgid)
+
+    # should have three reactions, but this is a known bug.
+    # From dpytest: This is d.py/discord's fault, the message object from send isn't
+    # the same as the one in the state
+    assert len(msg.reactions) == 1
+
+
+
+# --------------------------------
+# Test polling: quizpoll
+# --------------------------------
+@pytest.mark.asyncio
+async def test_quizpoll(bot):
+    #user = dpytest.get_config().members[0]
+    #guild = dpytest.get_config().guilds[0]
+    #channel = await guild.create_text_channel('polls')
+
+    # Test quizpoll: no input
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$quizpoll")
+    assert dpytest.verify().message().contains().content(
+        'To use the quizpoll command, do: $quizpoll "TITLE" [option1] [option2] ... [option6]\n '
+        'Be sure to enclose title with quotes and options with brackets!\n'
+        'EX: $quizpoll "I am a poll" [Vote for me!] [I am option 2]')
+
+    # Test quizpoll: title is whitespace
+    await dpytest.message("$quizpoll \"  \" [a] [b] [c] [d] [e] [f]")
+    assert dpytest.verify().message().contains().content(
+        "Please enter a valid title.")
+
+    # Test quizpoll: title is too short
+    await dpytest.message("$quizpoll \"a\" [a] [b] [c] [d] [e] [f]")
+    assert dpytest.verify().message().contains().content(
+        "Title too short.")
+
+    # Test quizpoll: too few options
+    await dpytest.message("$quizpoll \"TITLE\" [a]")
+    assert dpytest.verify().message().contains().content(
+        "Polls need at least two options.")
+
+    # Test quizpoll: too many options
+    await dpytest.message("$quizpoll \"TITLE\" [a] [b] [c] [d] [e] [f] [g]")
+    assert dpytest.verify().message().contains().content(
+        "Polls cannot have more than six options.")
+
+    # Test quizpoll: option is empty
+    await dpytest.message("$quizpoll \"TITLE\" [] [b] [c]")
+    assert dpytest.verify().message().contains().content(
+        "Options cannot be blank or whitespace only.")
+
+    e = discord.Embed(title="**TITLE**",
+                    description="\n\n🇦     a\n\n🇧     b\n\n🇨     c",
+                    colour=0x83bae3)
+
+    # Test quizpoll embed
+    await dpytest.message("$quizpoll \"TITLE\" [a] [b] [c]")
+    assert dpytest.verify().message().embed(e)
