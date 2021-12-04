@@ -224,19 +224,19 @@ For the pinning.py file
 
 For the groups.py file
 
-:open_file_folder: [$startupgroups command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/Groups/startupgroups.md) 
+:open_file_folder: [$startupgroups command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/startupgroups.md) 
 
-:open_file_folder: [$reset command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/Groups/reset.md) 
+:open_file_folder: [$reset command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/reset.md) 
 
-:open_file_folder: [$connect command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/Groups/connect.md)
+:open_file_folder: [$connect command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/connect.md)
 
-:open_file_folder: [$groups command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/Groups/groups.md)
+:open_file_folder: [$groups command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/groups.md)
 
-:open_file_folder: [$group command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/Groups/group.md)
+:open_file_folder: [$group command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/group.md)
 
-:open_file_folder: [$join command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/Groups/join.md)
+:open_file_folder: [$join command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/join.md)
 
-:open_file_folder: [$leave command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/Groups/leave.md)
+:open_file_folder: [$leave command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/leave.md)
 
 For the qanda.py file **(Updated in Project 3!)**
 
