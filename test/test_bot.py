@@ -55,6 +55,10 @@ async def test_groupJoin(bot):
     print(dpytest.get_message())
     assert dpytest.verify().message().content("Roles deleted!")
 
+    await dpytest.message('$startupgroups')
+    print(dpytest.get_message())
+
+    await dpytest.message('$connect')
 
 # ------------------------------------
 # Tests cogs/groups.py error handling
