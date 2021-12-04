@@ -6,7 +6,7 @@
 |.5|the files CONTRIBUTING.md lists coding standards and lots of tips on how to extend the system without screwing things up  | https://github.com/CSC510-Group-25/ClassMateBot/blob/main/CONTRIBUTING.md
 |.5|Docs: doco generated , format not ugly  | in GH |
 |.5|evidence that the whole team is using the same tools (e.g. config files in the repo, updated by lots of different people) | [.pylintrc](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/.pylintrc), [requirements.txt](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/requirements.txt), [Wiki Installation Guide](https://github.com/CSC510-Group-25/ClassMateBot/wiki/Setup-&-Installation-guide), [Tooks, Hooks, Services](https://github.com/CSC510-Group-25/ClassMateBot/wiki/Tools,-Hooks,-and-Services) |
-|.5|evidence that the members of the team are working across multiple places in the code base | https://github.com/CSC510-Group-25/ClassMateBot/branches/active|
+|.5|evidence that the members of the team are working across multiple places in the code base | https://github.com/CSC510-Group-25/ClassMateBot/branches/active, https://github.com/CSC510-Group-25/ClassMateBot/commits/main|
 |1|Docs: what: point descriptions of each class/function (in isolation)  | [Command documents](https://github.com/CSC510-Group-25/ClassMateBot/tree/group25-documentation/docs) |
 |.5|Number of commits: by different people  | in GH|
 |1|issues are being closed | evidence in GH|
@@ -19,7 +19,7 @@
 |.5|test cases exist  | https://github.com/CSC510-Group-25/ClassMateBot/blob/main/test/test_bot.py |
 |.5|Use of code coverage  | Codecov |
 |.5|other automated analysis tools  | Codacy, Snyk |
-|.5|test cases:a large proportion of the issues related to handling failing cases. | https://github.com/CSC510-Group-25/ClassMateBot/issues?q=label%3Atest+ |
+|.5|test cases:a large proportion of the issues related to handling failing cases. | https://github.com/CSC510-Group-25/ClassMateBot/issues?q=label%3Atest+ and https://github.com/CSC510-Group-25/ClassMateBot/issues?q=label%3Abug+is%3Aclosed |
 |.5|test cases are routinely executed | [Pytest workflow](https://github.com/CSC510-Group-25/ClassMateBot/actions/workflows/pytest.yml) |
 |1|Documentation describing how this version improves on the older version| [Proj3Changes](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/docs/Project3Changes.md) |
 |3|This version is a little(1), some(2), much(3) improved on the last version.|Tutor's assessment.| 
