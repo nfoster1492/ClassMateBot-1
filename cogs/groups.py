@@ -40,7 +40,6 @@ class Groups(commands.Cog):
             role = get(ctx.message.guild.roles, name=role_name)
             if role is None:
                 continue
-            
             await role.delete()
 
         await ctx.author.send("Roles deleted!")
