@@ -214,13 +214,13 @@ For the deadline.py file **(Updated in Project 3!)**
 
 For the pinning.py file
 
-:open_file_folder: [$pin command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/PinMessage/pin.md) 
+:open_file_folder: [$pin command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/PinMessage/pin.md) 
 
-:open_file_folder: [$unpin command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/PinMessage/unpin.md) 
+:open_file_folder: [$unpin command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/PinMessage/unpin.md) 
 
-:open_file_folder: [$pinnedmessages command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/PinMessage/pinnedmessages.md) 
+:open_file_folder: [$pinnedmessages command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/PinMessage/pinnedmessages.md) 
 
-:open_file_folder: [$updatepin command](https://github.com/SE21-Team2/ClassMateBot/blob/main/docs/PinMessage/updatepin.md) 
+:open_file_folder: [$updatepin command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/PinMessage/updatepin.md) 
 
 For the groups.py file
 
