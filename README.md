@@ -3,9 +3,11 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
 [![DOI](https://zenodo.org/badge/426029685.svg)](https://zenodo.org/badge/latestdoi/426029685)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/CSC510-Group-25/ClassMateBot)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg)](https://opensource.org/licenses/MIT)
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 ![Lines of code](https://img.shields.io/tokei/lines/github/CSC510-Group-25/ClassMateBot)
+![GitHub repo size](https://img.shields.io/github/repo-size/CSC510-Group-25/ClassMateBot)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c1c81dbe55ac4b9ca27533ec23a8493d)](https://www.codacy.com/gh/CSC510-Group-25/ClassMateBot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CSC510-Group-25/ClassMateBot&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/CSC510-Group-25/ClassMateBot/branch/main/graph/badge.svg?token=B1E9S0HRRC)](https://codecov.io/gh/CSC510-Group-25/ClassMateBot)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/CSC510-Group-25/ClassMateBot)](https://github.com/CSC510-Group-25/ClassMateBot/pulls)
