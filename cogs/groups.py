@@ -253,7 +253,7 @@ class Groups(commands.Cog):
 
     # -------------------------------------------------------------------------------------------------------
     #    Function: leave_error(self, ctx, error)
-    #    Description: prints error message for join command
+    #    Description: prints error message for leave command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -262,12 +262,9 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @leave.error
     async def leave_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send('To use the join command, do: $join <Num> \n ( For example: $join 0 )')
-        else:
-            await ctx.author.send(error)
-            #await ctx.message.delete()
-            print(error)
+        await ctx.author.send(error)
+        #await ctx.message.delete()
+        print(error)
 
 
     # -------------------------------------------------------------------------------------------------------
