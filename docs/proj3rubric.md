@@ -11,14 +11,14 @@
 |.5|Number of commits: by different people  | in GH|
 |1|issues are being closed | evidence in GH|
 |.5|issues are discussed before they are closed | Issues are closed with approved pull requests and discussed over Discord. Examples - https://github.com/CSC510-Group-25/ClassMateBot/issues/122 and https://github.com/CSC510-Group-25/ClassMateBot/issues/103 |
-|.5|Use of syntax checkers. | [Pylint](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/.github/workflows/pylint.yml), Codacy |
+|.5|Use of syntax checkers. | [Pylint](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/.github/workflows/pylint.yml), [Codacy](https://github.com/CSC510-Group-25/ClassMateBot/settings/hooks) |
 |1|Issues reports: there are many  | [Issues](https://github.com/CSC510-Group-25/ClassMateBot/issues) |
 |.5|Use of code formatters. | Black, [requirements.txt](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/requirements.txt) |
-|.5|Use of style checkers | [Pylint](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/.github/workflows/pylint.yml), Codacy |
-|.5|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code. |  |
+|.5|Use of style checkers | [Pylint](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/.github/workflows/pylint.yml), [Codacy](https://github.com/CSC510-Group-25/ClassMateBot/settings/hooks) |
+|.5|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code. | https://user-images.githubusercontent.com/89357283/144730581-46b85493-3f5c-4c65-9d3f-fbcfffc729a3.mp4 |
 |.5|test cases exist  | https://github.com/CSC510-Group-25/ClassMateBot/blob/main/test/test_bot.py |
-|.5|Use of code coverage  | [Codecov](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/.github/workflows/main.yml) |
-|.5|other automated analysis tools  | [Pylint](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/.github/workflows/pylint.yml), Codacy, Snyk |
+|.5|Use of code coverage  | [Codecov](https://github.com/CSC510-Group-25/ClassMateBot/actions/workflows/codeql-analysis.yml) |
+|.5|other automated analysis tools  | [Pylint](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/.github/workflows/pylint.yml), [Codacy](https://github.com/CSC510-Group-25/ClassMateBot/settings/hooks), [Snyk](https://github.com/CSC510-Group-25/ClassMateBot/pull/120) |
 |.5|test cases:a large proportion of the issues related to handling failing cases. | https://github.com/CSC510-Group-25/ClassMateBot/issues?q=label%3Atest+ and https://github.com/CSC510-Group-25/ClassMateBot/issues?q=label%3Abug+is%3Aclosed |
 |.5|test cases are routinely executed | [Pytest workflow](https://github.com/CSC510-Group-25/ClassMateBot/actions/workflows/pytest.yml) |
 |1|Documentation describing how this version improves on the older version| [Proj3Changes](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/docs/Project3Changes.md) |
