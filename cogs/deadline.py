@@ -595,8 +595,8 @@ class Deadline(commands.Cog):
 # -------------------------------------
 # add the file to the bot's cog system
 # -------------------------------------
-def setup(bot):
+async def setup(bot):
     n = Deadline(bot)
     n.send_reminders_day.start()    # pylint: disable=no-member
     n.send_reminders_hour.start()   # pylint: disable=no-member
-    bot.add_cog(n)
+    await bot.add_cog(n)

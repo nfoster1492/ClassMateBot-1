@@ -202,6 +202,6 @@ class Pinning(commands.Cog):
 # -------------------------------------
 # add the file to the bot's cog system
 # -------------------------------------
-def setup(bot):
+async def setup(bot):
     n = Pinning(bot)
-    bot.add_cog(n)
+    await bot.add_cog(n)
