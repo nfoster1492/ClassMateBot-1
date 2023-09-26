@@ -96,9 +96,9 @@ class NewComer(commands.Cog):
 # --------------------------------------
 # add the file to the bot's cog system
 # --------------------------------------
-def setup(bot):
+async def setup(bot):
     n = NewComer(bot)
-    bot.add_cog(n)
+    await bot.add_cog(n)
 
 
 # Copyright (c) 2021 War-Keeper

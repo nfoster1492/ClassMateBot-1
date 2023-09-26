@@ -232,6 +232,6 @@ class Poll(commands.Cog):
             await ctx.author.send(error)
         await ctx.message.delete()
 
-def setup(bot):
+async def setup(bot):
     n = Poll(bot)
-    bot.add_cog(n)
+    await bot.add_cog(n)

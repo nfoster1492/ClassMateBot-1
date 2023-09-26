@@ -150,6 +150,6 @@ class WordFilter(commands.Cog):
         print(error)
         await ctx.message.delete()
 
-def setup(bot):
+async def setup(bot):
     n = WordFilter(bot)
-    bot.add_cog(n)
+    await bot.add_cog(n)

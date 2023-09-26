@@ -435,5 +435,5 @@ class Groups(commands.Cog):
 # -----------------------------------------------------------
 # add the file to the bot's cog system
 # -----------------------------------------------------------
-def setup(bot):
-    bot.add_cog(Groups(bot))
+async def setup(bot):
+    await bot.add_cog(Groups(bot))

@@ -110,8 +110,8 @@ async def on_ready():
 
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
-            bot.load_extension(f"cogs.{filename[:-3]}")
-    bot.load_extension("jishaku")
+            await bot.load_extension(f"cogs.{filename[:-3]}")
+    await bot.load_extension("jishaku")
 
     await bot.change_presence(
         activity=discord.Activity(
