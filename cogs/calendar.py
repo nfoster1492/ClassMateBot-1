@@ -12,14 +12,14 @@ from googleapiclient.errors import HttpError
 
 
 class Calendar(commands.Cog):
-    
+
     def __init__(self, bot):
         self.bot = bot
+        
 
-    @commands.command(name="listCalendarEvents")
-    async def listCalendarEvents(self, ctx):
+    def credsSetUp(self):
         # If modifying these scopes, delete the file token.json.
-        SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+        SCOPES = ['https://www.googleapis.com/auth/calendar']
 
         creds = None
         # The file token.json stores the user's access and refresh tokens, and is
@@ -38,7 +38,11 @@ class Calendar(commands.Cog):
             # Save the credentials for the next run
             with open('token.json', 'w') as token:
                 token.write(creds.to_json())
+        return creds
 
+    @commands.command(name="listCalendarEvents")
+    async def listCalendarEvents(self, ctx):
+        creds = self.credsSetUp()
         try:
             service = build('calendar', 'v3', credentials=creds)
 
@@ -58,6 +62,30 @@ class Calendar(commands.Cog):
             for event in events:
                 start = event['start'].get('dateTime', event['start'].get('date'))
                 print(start, event['summary'])
+
+        except HttpError as error:
+            print('An error occurred: %s' % error)
+    
+    @commands.command(name="addCalendarEvent")
+    async def addCalendarEvent(self, ctx, name, location, description):
+        creds = self.credsSetUp()
+        try:
+            service = build('calendar', 'v3', credentials=creds)
+            event = {
+                "summary" : name,
+                "location": location,
+                "description": description,
+                "colorId": 4,
+                'start': {
+                    'dateTime': '2023-10-28T17:00:00-07:00',
+                    'timeZone': 'America/New_York',
+                },
+                'end': {
+                    'dateTime': '2023-10-28T17:00:00-07:00',
+                    'timeZone': 'America/New_York',
+                },
+            }
+            event = service.events().insert(calendarId="primary", body=event).execute()
 
         except HttpError as error:
             print('An error occurred: %s' % error)
