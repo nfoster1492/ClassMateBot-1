@@ -23,6 +23,28 @@ class Grades(commands.Cog):
 
         await ctx.send("Grade for {assignmentName}: {grade}%")
 
+    @commands.command(name="gradebycategory", help="get your grade for a specific category $grade CATEGORY")
+    async def grade(self, ctx, categoryName: str):
+
+        grades = db.query(
+            "SELECT g.grade FROM grades g INNER JOIN assignments a ON g.assignment_id = a.assignment_id INNER JOIN categories c ON a.assignment_id WHERE guild_id = %s AND c.category_name = %s", 
+            (ctx.guild.id, categoryName)
+        )
+
+        if not grades:
+            await ctx.send("Grade for {categoryName} does not exist")
+
+        total = 0
+        num = 0
+
+        for grade in grades:
+            total = total + grade
+            num = num + 1
+
+        average = total/num
+
+        await ctx.send("Grade for {categoryName}: {average}%")
+
     @commands.command(name="categories", help="display all grading categories and weights $categories")
     async def categories(self, ctx):
 
