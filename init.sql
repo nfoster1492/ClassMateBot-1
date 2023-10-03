@@ -15,7 +15,7 @@ CREATE TABLE grade_categories(
 
 );
 
-CREATE TABLE assigments (
+CREATE TABLE assignments (
     id              bigserial primary key,
     guild_id        BIGINT NOT NULL,
     category_id     BIGINT NOT NULL REFERENCES grade_categories(id) ON DELETE CASCADE,
@@ -27,7 +27,7 @@ CREATE TABLE assigments (
 CREATE TABLE grades (
     guild_id        BIGINT NOT NULL,
     member_name     VARCHAR NOT NULL,
-    assignment_id   INT NOT NULL REFERENCES assigments(id) ON DELETE CASCADE,
+    assignment_id   INT NOT NULL REFERENCES assignments(id) ON DELETE CASCADE,
     grade           INT NOT NULL
 );
 

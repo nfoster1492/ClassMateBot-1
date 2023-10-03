@@ -10,6 +10,18 @@ class Grades(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.command(name="grade", help="get your grade for a specific assignment $grade ASSIGNMENT")
+    async def grade(self, ctx, assignmentName: str):
+
+        grade = db.query(
+            "SELECT g.grade FROM grades g INNER JOIN assignments a ON g.assignment_id = a.assignment_id WHERE guild_id = %s AND a.assignment_name = %s", 
+            (ctx.guild.id, assignmentName)
+        )
+
+        if not grade:
+            await ctx.send("Grade for {assignmentName} does not exist")
+
+        await ctx.send("Grade for {assignmentName}: {grade}%")
 
     @commands.command(name="categories", help="display all grading categories and weights $categories")
     async def categories(self, ctx):
