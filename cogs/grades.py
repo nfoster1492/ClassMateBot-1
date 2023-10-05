@@ -1,3 +1,6 @@
+#This functionality provides various methods to manage grades
+#It allows for the inputing of grades, searching of grades, and several
+#different calculations based on existing grades in the system
 import os
 import sys
 import discord
@@ -48,37 +51,14 @@ class Grades(commands.Cog):
 
         await ctx.send("Grade for {categoryName}: {average}%")
 
-    @commands.command(name="gradetopasscategory", help="get your required grade on the next assignment to maintain a certain grade in a category $gradetopass CATEGORY DESIRED_GRADE")
-    async def grade(self, ctx, categoryName: str, desiredGrade: str):
-
-        try:
-            desiredGrade = int(desiredGrade)
-        except:
-            await ctx.send("Grade could not be parsed")
-            return
-
-        grades = db.query(
-            "SELECT g.grade FROM grades g INNER JOIN assignments a ON g.assignment_id = a.assignment_id INNER JOIN categories c ON a.assignment_id WHERE guild_id = %s AND c.category_name = %s", 
-            (ctx.guild.id, categoryName)
-        )
-
-        if not grades:
-            await ctx.send("Grade for {categoryName} does not exist")
-
-        total = 0
-        num = 0
-
-        for grade in grades:
-            total = total + grade
-            num = num + 1
-
-        totalNeeded = desiredGrade * (num + 1)
-        gradeNeeded = totalNeeded - total
-        if gradeNeeded > 0:
-            await ctx.send("Next assignment must be at least {gradeNeeded}% to maintain a {desiredGrade}% in {categoryName}")
-        else:
-            await ctx.send("You can get any grade on the next assignment and maintain a {desiredGrade}% in {categoryName}")
-
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: categories(self, ctx)
+    #    Description: This command lets the user list the categories of grades that are in the system
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    Outputs: A list of the grade categories in the system
+    # -----------------------------------------------------------------------------------------------------------------
     @commands.command(name="categories", help="display all grading categories and weights $categories")
     async def categories(self, ctx):
 
@@ -88,12 +68,21 @@ class Grades(commands.Cog):
         )
 
 
-        await ctx.send("Category | Weight")
-        await ctx.send("================")
+        await ctx.author.send("Category | Weight")
+        await ctx.author.send("================")
 
         for category_name, category_weight in categories:
-            await ctx.send(f"{category_name} | {category_weight}")
+            await ctx.author.send(f"{category_name} | {category_weight}")
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: input_grades(self, ctx, assignmentname)
+    #    Description: This command lets the user list the categories of grades that are in the system
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context, including the attached csv file
+    #    - assignmentname: the assignment that  grades are being input for
+    #    Outputs: A report on how the grades in the system were altered
+    # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role('Instructor')
     @commands.command(name="inputgrades", help="Insert grades using a csv file")
     async def input_grades(self, ctx, assignmentname: str):
@@ -147,6 +136,15 @@ class Grades(commands.Cog):
                 
         await ctx.send(f"Entered grades for {assignmentname}, {added} new grades entered, {edited} grades edited")
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: input_grades_error(self, ctx, error)
+    #    Description: prints error message for inputgrades command
+    #    Inputs:
+    #       - ctx: context of the command
+    #       - error: error message
+    #    Outputs:
+    #       - Error details
+    # -----------------------------------------------------------------------------------------------------------------
     @input_grades.error
     async def input_grades_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
@@ -155,7 +153,17 @@ class Grades(commands.Cog):
         else:
             await ctx.author.send(error)
             print(error)
-    
+
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: add_grade_category(self, ctx, categoryname, weight)
+    #    Description: This command lets the instructor add a grade category, and set the weight for it
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    - categoryname: the name of the grade category
+    #    - weight: the weight of the category, must be greater than 0
+    #    Outputs: Whether or not the add was a success
+    # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role('Instructor')
     @commands.command(name="addgradecategory", help="add a grading category and weight $addgradecategory NAME WEIGHT")
     async def add_grade_category(self, ctx, categoryname: str, weight: str):
@@ -178,6 +186,15 @@ class Grades(commands.Cog):
         else:
             await ctx.send("This category has already been added..!!")
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: add_grade_category_error(self, ctx, error)
+    #    Description: prints error message for addgradecategory command
+    #    Inputs:
+    #       - ctx: context of the command
+    #       - error: error message
+    #    Outputs:
+    #       - Error details
+    # -----------------------------------------------------------------------------------------------------------------
     @add_grade_category.error
     async def add_grade_category_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
@@ -187,6 +204,16 @@ class Grades(commands.Cog):
             await ctx.author.send(error)
             print(error)
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: edit_grade_category(self, ctx, categoryname, weight)
+    #    Description: This command lets the instructor edit a grade category, and set a new weight for it
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    - categoryname: the name of the grade category
+    #    - weight: the weight of the category, must be greater than 0
+    #    Outputs: Whether or not the edit was a success
+    # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role('Instructor')
     @commands.command(name="editgradecategory", help="edit a grading category and weight $editgradecategory NAME WEIGHT")
     async def edit_grade_category(self, ctx, categoryname: str, weight: str):
@@ -209,6 +236,15 @@ class Grades(commands.Cog):
         else:
             await ctx.send("This category does not exist")
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: edit_grade_category_error(self, ctx, error)
+    #    Description: prints error message for editgradecategory command
+    #    Inputs:
+    #       - ctx: context of the command
+    #       - error: error message
+    #    Outputs:
+    #       - Error details
+    # -----------------------------------------------------------------------------------------------------------------
     @edit_grade_category.error
     async def edit_grade_category_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
@@ -218,6 +254,15 @@ class Grades(commands.Cog):
             await ctx.author.send(error)
             print(error)
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: delete_grade_category(self, ctx, categoryname)
+    #    Description: This command lets the instructor delete a grade category
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    - categoryname: the name of the grade category
+    #    Outputs: Whether or not the delete was a success
+    # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role('Instructor')
     @commands.command(name="deletegradecategory", help="delete a grading category $deletegradecategory NAME")
     async def delete_grade_category(self, ctx, categoryname: str):
@@ -235,6 +280,15 @@ class Grades(commands.Cog):
         else:
             await ctx.send("This category does not exist")
     
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: delete_grade_category_error(self, ctx, error)
+    #    Description: prints error message for deletegradecategory command
+    #    Inputs:
+    #       - ctx: context of the command
+    #       - error: error message
+    #    Outputs:
+    #       - Error details
+    # -----------------------------------------------------------------------------------------------------------------
     @delete_grade_category.error
     async def delete_grade_category_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
@@ -244,5 +298,8 @@ class Grades(commands.Cog):
             await ctx.author.send(error)
             print(error)
 
+# -------------------------------------
+# add the file to the bot's cog system
+# -------------------------------------
 async def setup(bot):
     await bot.add_cog(Grades(bot))

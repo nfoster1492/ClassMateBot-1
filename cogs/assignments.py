@@ -1,3 +1,6 @@
+#This functionality provides various methods to manage assignments
+#The isntructor is able to add/edit/and delete assignments
+#and specify their grading category and point value.
 import os
 import sys
 import discord
@@ -10,6 +13,18 @@ class Assignments(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: add_assignment(self, ctx, assignmentname, categoryname, points)
+    #    Description: This command lets the instructor add a new gradeable assignment
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    - assignmentname: the name of the assignment
+    #    - categoryname: the name of the grade category if the assignment
+    #    - points: the points that the assignment is worth
+    #    Outputs: Whether or not the add was a success
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.has_role('Instructor')
     @commands.command(name="addassignment", help="add a grading assignment and points $addassignment NAME CATEGORY POINTS")
     async def add_assignment(self, ctx, assignmentname: str, categoryname: str, points: str):
         try:
@@ -46,7 +61,18 @@ class Assignments(commands.Cog):
         else:
             await ctx.send("This assignment has already been added..!!")
 
-
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: edit_assignment(self, ctx, assignmentname, categoryname, points)
+    #    Description: This command lets the instructor edit a gradeable assignment with a new categoryname and/or points
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    - assignmentname: the name of the assignment
+    #    - categoryname: the new name of the grade category if the assignment
+    #    - points: the new points that the assignment is worth
+    #    Outputs: Whether or not the edit was a success
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.has_role('Instructor')
     @commands.command(name="editassignment", help="edit a grading assignment and points $editassignment NAME CATEGORY POINTS")
     async def edit_assignment(self, ctx, assignmentname: str, categoryname: str, points: str):
         try:
@@ -82,6 +108,16 @@ class Assignments(commands.Cog):
         else:
             await ctx.send("This assignment does not exist")
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: delete_assignment(self, ctx, assignmentname)
+    #    Description: This command lets the instructor delete a gradeable assignment
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    - assignmentname: the name of the assignment
+    #    Outputs: Whether or not the delete was a success
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.has_role('Instructor')
     @commands.command(name="deleteassignment", help="delete a grading assignment $deleteassignment NAME")
     async def delete_assignment(self, ctx, assignmentname: str):
         existing = db.query(
@@ -98,6 +134,15 @@ class Assignments(commands.Cog):
         else:
             await ctx.send("This assignment does not exist")
     
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: add_assignment_error(self, ctx, error)
+    #    Description: prints error message for addassignment command
+    #    Inputs:
+    #       - ctx: context of the command
+    #       - error: error message
+    #    Outputs:
+    #       - Error details
+    # -----------------------------------------------------------------------------------------------------------------
     @add_assignment.error
     async def add_assignment_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
@@ -107,6 +152,15 @@ class Assignments(commands.Cog):
             await ctx.author.send(error)
             print(error)
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: edit_assignment_error(self, ctx, error)
+    #    Description: prints error message for editassignment command
+    #    Inputs:
+    #       - ctx: context of the command
+    #       - error: error message
+    #    Outputs:
+    #       - Error details
+    # -----------------------------------------------------------------------------------------------------------------
     @edit_assignment.error
     async def edit_assignment_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
@@ -115,7 +169,16 @@ class Assignments(commands.Cog):
         else:
             await ctx.author.send(error)
             print(error)
-    
+
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: delete_assignment_error(self, ctx, error)
+    #    Description: prints error message for deleteassignment command
+    #    Inputs:
+    #       - ctx: context of the command
+    #       - error: error message
+    #    Outputs:
+    #       - Error details
+    # -----------------------------------------------------------------------------------------------------------------
     @delete_assignment.error
     async def delete_assignment_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
@@ -125,5 +188,8 @@ class Assignments(commands.Cog):
             await ctx.author.send(error)
             print(error)
 
+# -------------------------------------
+# add the file to the bot's cog system
+# -------------------------------------
 async def setup(bot):
     await bot.add_cog(Assignments(bot))
