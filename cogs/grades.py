@@ -48,6 +48,37 @@ class Grades(commands.Cog):
 
         await ctx.send("Grade for {categoryName}: {average}%")
 
+    @commands.command(name="gradetopasscategory", help="get your required grade on the next assignment to maintain a certain grade in a category $gradetopass CATEGORY DESIRED_GRADE")
+    async def grade(self, ctx, categoryName: str, desiredGrade: str):
+
+        try:
+            desiredGrade = int(desiredGrade)
+        except:
+            await ctx.send("Grade could not be parsed")
+            return
+
+        grades = db.query(
+            "SELECT g.grade FROM grades g INNER JOIN assignments a ON g.assignment_id = a.assignment_id INNER JOIN categories c ON a.assignment_id WHERE guild_id = %s AND c.category_name = %s", 
+            (ctx.guild.id, categoryName)
+        )
+
+        if not grades:
+            await ctx.send("Grade for {categoryName} does not exist")
+
+        total = 0
+        num = 0
+
+        for grade in grades:
+            total = total + grade
+            num = num + 1
+
+        totalNeeded = desiredGrade * (num + 1)
+        gradeNeeded = totalNeeded - total
+        if gradeNeeded > 0:
+            await ctx.send("Next assignment must be at least {gradeNeeded}% to maintain a {desiredGrade}% in {categoryName}")
+        else:
+            await ctx.send("You can get any grade on the next assignment and maintain a {desiredGrade}% in {categoryName}")
+
     @commands.command(name="categories", help="display all grading categories and weights $categories")
     async def categories(self, ctx):
 
