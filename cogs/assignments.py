@@ -100,15 +100,30 @@ class Assignments(commands.Cog):
     
     @add_assignment.error
     async def add_assignment_error(self, ctx, error):
-        await ctx.author.send(error)
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('To use the addassignment command, do: $addassignment <assignmentname> <categoryname> <points> \n ( For example: $addassignment test1 tests 100 )')
+            await ctx.message.delete()
+        else:
+            await ctx.author.send(error)
+            print(error)
 
     @edit_assignment.error
     async def edit_assignment_error(self, ctx, error):
-        await ctx.author.send(error)
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('To use the editassignment command, do: $editassignment <assignmentname> <categoryname> <points> \n ( For example: $editassignment test1 tests 95 )')
+            await ctx.message.delete()
+        else:
+            await ctx.author.send(error)
+            print(error)
     
     @delete_assignment.error
     async def delete_assignment_error(self, ctx, error):
-        await ctx.author.send(error)
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('To use the deleteassignment command, do: $deleteassignment <assignmentname>\n ( For example: $deleteassignment test1)')
+            await ctx.message.delete()
+        else:
+            await ctx.author.send(error)
+            print(error)
 
 async def setup(bot):
     await bot.add_cog(Assignments(bot))

@@ -1,6 +1,9 @@
 import os
 import sys
 import discord
+import pandas as pd
+import requests
+from io import StringIO
 from discord.ext import commands
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import db
@@ -59,7 +62,70 @@ class Grades(commands.Cog):
 
         for category_name, category_weight in categories:
             await ctx.send(f"{category_name} | {category_weight}")
+
+    @commands.has_role('Instructor')
+    @commands.command(name="inputgrades", help="Insert grades using a csv file")
+    async def input_grades(self, ctx, assignmentname: str):
+        assignment = db.query(
+            'SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s',
+            (ctx.guild.id, assignmentname)
+        )
+
+        if not assignment:
+            await ctx.send(f"Assignment with name {assignmentname} does not exist")
+            return
         
+        if ctx.message.attachments.len() != 1:
+            await ctx.send(f"Must have exactly one attachment")
+            return
+        
+        if ctx.message.attachments[0].content_type != 'text/csv; charset=utf-8':
+            await ctx.send(f"Invalid filetype")
+        
+        attachmenturl = ctx.message.attachments[0].url
+
+        response = requests.get(attachmenturl)
+        data = StringIO(response.text)
+        df = pd.read_csv(data)
+        
+        edited = 0
+        added = 0
+        for i in range(len(df)):
+            name = df.loc[i, "name"]
+            grade = df.loc[i, "grade"].item()
+
+            if grade < 0 or grade > 100:
+                await ctx.send(f"Invalid grade value for student {name}, skipping entry")
+                continue
+            
+            student = db.query('SELECT username FROM name_mapping WHERE username = %s', (name,))
+
+            if not student:
+                await ctx.send(f"Invalid student name {name}, skipping entry")
+                continue
+
+            existing = db.query('SELECT member_name FROM grades WHERE assignment_id = %s AND member_name = %s', (assignment[0], name))
+
+            if existing:
+                edited += 1
+                db.query('UPDATE grades SET grade = %s WHERE assignment_id = %s AND member_name = %s', (grade, assignment[0], name))
+            else:
+                added += 1
+                db.query('INSERT INTO grades (guild_id, member_name, assignment_id, grade) VALUES (%s, %s, %s, %s)', 
+                        (ctx.guild.id, name, assignment[0], grade))
+                
+        await ctx.send(f"Entered grades for {assignmentname}, {added} new grades entered, {edited} grades edited")
+
+    @input_grades.error
+    async def input_grades_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('To use the inputgrades command, do: $inputgrades <assignmentname> and add your csv file attachment\n ( For example: $editgradecategory test1 )')
+            await ctx.message.delete()
+        else:
+            await ctx.author.send(error)
+            print(error)
+    
+    @commands.has_role('Instructor')
     @commands.command(name="addgradecategory", help="add a grading category and weight $addgradecategory NAME WEIGHT")
     async def add_grade_category(self, ctx, categoryname: str, weight: str):
         try:
@@ -81,7 +147,16 @@ class Grades(commands.Cog):
         else:
             await ctx.send("This category has already been added..!!")
 
+    @add_grade_category.error
+    async def add_grade_category_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('To use the gradecategory command, do: $gradecategory <categoryname> <weight> \n ( For example: $gradecategory tests .5 )')
+            await ctx.message.delete()
+        else:
+            await ctx.author.send(error)
+            print(error)
 
+    @commands.has_role('Instructor')
     @commands.command(name="editgradecategory", help="edit a grading category and weight $editgradecategory NAME WEIGHT")
     async def edit_grade_category(self, ctx, categoryname: str, weight: str):
         try:
@@ -103,6 +178,16 @@ class Grades(commands.Cog):
         else:
             await ctx.send("This category does not exist")
 
+    @edit_grade_category.error
+    async def edit_grade_category_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('To use the editgradecategory command, do: $editgradecategory <categoryname> <weight> \n ( For example: $editgradecategory tests .5 )')
+            await ctx.message.delete()
+        else:
+            await ctx.author.send(error)
+            print(error)
+
+    @commands.has_role('Instructor')
     @commands.command(name="deletegradecategory", help="delete a grading category $deletegradecategory NAME")
     async def delete_grade_category(self, ctx, categoryname: str):
         existing = db.query(
@@ -119,17 +204,14 @@ class Grades(commands.Cog):
         else:
             await ctx.send("This category does not exist")
     
-    @add_grade_category.error
-    async def add_grade_category_error(self, ctx, error):
-        await ctx.author.send(error)
-
-    @edit_grade_category.error
-    async def edit_grade_category_error(self, ctx, error):
-        await ctx.author.send(error)
-    
     @delete_grade_category.error
     async def delete_grade_category_error(self, ctx, error):
-        await ctx.author.send(error)
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('To use the deletegradecategory command, do: $deletegradecategory <categoryname> \n ( For example: $deletegradecategory tests)')
+            await ctx.message.delete()
+        else:
+            await ctx.author.send(error)
+            print(error)
 
 async def setup(bot):
     await bot.add_cog(Grades(bot))
