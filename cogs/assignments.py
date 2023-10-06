@@ -32,20 +32,17 @@ class Assignments(commands.Cog):
         except ValueError:
             await ctx.send("Points could not be parsed")
             return
-        
         category = db.query(
             'SELECT id FROM grade_categories WHERE guild_id = %s AND category_name = %s',
             (ctx.guild.id, categoryname)
         )
 
         if not category:
-            await ctx.send(f"Category with name {categoryname} does not exist");
+            await ctx.send(f"Category with name {categoryname} does not exist")
             return
-        
         if assignmentpoints < 0:
-            await ctx.send(f"Assignment points must be greater than zero");
+            await ctx.send("Assignment points must be greater than zero")
             return
-        
         existing = db.query(
             'SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s',
             (ctx.guild.id, assignmentname)
@@ -80,20 +77,16 @@ class Assignments(commands.Cog):
         except ValueError:
             await ctx.send("Points could not be parsed")
             return
-        
         category = db.query(
             'SELECT id FROM grade_categories WHERE guild_id = %s AND category_name = %s',
             (ctx.guild.id, categoryname)
         )
-
         if not category:
-            await ctx.send(f"Category with name {categoryname} does not exist");
+            await ctx.send(f"Category with name {categoryname} does not exist")
             return
-        
         if assignmentpoints < 0:
-            await ctx.send(f"Assignment points must be greater than zero");
+            await ctx.send("Assignment points must be greater than zero")
             return
-        
         existing = db.query(
             'SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s',
             (ctx.guild.id, assignmentname)
@@ -133,7 +126,6 @@ class Assignments(commands.Cog):
                 f"{assignmentname} assignment has been deleted ")
         else:
             await ctx.send("This assignment does not exist")
-    
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: add_assignment_error(self, ctx, error)
     #    Description: prints error message for addassignment command

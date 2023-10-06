@@ -30,7 +30,7 @@ class Grades(commands.Cog):
         await ctx.send("Grade for {assignmentName}: {grade}%")
 
     @commands.command(name="gradebycategory", help="get your grade for a specific category $grade CATEGORY")
-    async def grade(self, ctx, categoryName: str):
+    async def gradecategory(self, ctx, categoryName: str):
 
         grades = db.query(
             "SELECT g.grade FROM grades g INNER JOIN assignments a ON g.assignment_id = a.assignment_id INNER JOIN categories c ON a.assignment_id WHERE guild_id = %s AND c.category_name = %s", 
@@ -49,7 +49,7 @@ class Grades(commands.Cog):
 
         average = total/num
 
-        await ctx.send("Grade for {categoryName}: {average}%")
+        await ctx.send(f"Grade for {categoryName}: {average}%")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: categories(self, ctx)
@@ -94,20 +94,16 @@ class Grades(commands.Cog):
         if not assignment:
             await ctx.send(f"Assignment with name {assignmentname} does not exist")
             return
-        
         if ctx.message.attachments.len() != 1:
-            await ctx.send(f"Must have exactly one attachment")
+            await ctx.send("Must have exactly one attachment")
             return
-        
         if ctx.message.attachments[0].content_type != 'text/csv; charset=utf-8':
-            await ctx.send(f"Invalid filetype")
-        
+            await ctx.send("Invalid filetype")
         attachmenturl = ctx.message.attachments[0].url
 
-        response = requests.get(attachmenturl)
+        response = requests.get(attachmenturl, timeout=10)
         data = StringIO(response.text)
         df = pd.read_csv(data)
-        
         edited = 0
         added = 0
         for i in range(len(df)):
@@ -117,13 +113,11 @@ class Grades(commands.Cog):
             if grade < 0 or grade > 100:
                 await ctx.send(f"Invalid grade value for student {name}, skipping entry")
                 continue
-            
             student = db.query('SELECT username FROM name_mapping WHERE username = %s', (name,))
 
             if not student:
                 await ctx.send(f"Invalid student name {name}, skipping entry")
                 continue
-
             existing = db.query('SELECT member_name FROM grades WHERE assignment_id = %s AND member_name = %s', (assignment[0], name))
 
             if existing:
@@ -131,9 +125,8 @@ class Grades(commands.Cog):
                 db.query('UPDATE grades SET grade = %s WHERE assignment_id = %s AND member_name = %s', (grade, assignment[0], name))
             else:
                 added += 1
-                db.query('INSERT INTO grades (guild_id, member_name, assignment_id, grade) VALUES (%s, %s, %s, %s)', 
+                db.query('INSERT INTO grades (guild_id, member_name, assignment_id, grade) VALUES (%s, %s, %s, %s)',
                         (ctx.guild.id, name, assignment[0], grade))
-                
         await ctx.send(f"Entered grades for {assignmentname}, {added} new grades entered, {edited} grades edited")
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -171,6 +164,9 @@ class Grades(commands.Cog):
             categoryweight = float(weight)
         except ValueError:
             await ctx.send("Weight could not be parsed")
+            return
+        if categoryweight < 0:
+            await ctx.sent("Weight must be greater than 0")
             return
         existing = db.query(
             'SELECT id FROM grade_categories WHERE guild_id = %s AND category_name = %s',
@@ -221,6 +217,9 @@ class Grades(commands.Cog):
             categoryweight = float(weight)
         except ValueError:
             await ctx.send("Weight could not be parsed")
+            return
+        if categoryweight < 0:
+            await ctx.sent("Weight must be greater than 0")
             return
         existing = db.query(
             'SELECT id FROM grade_categories WHERE guild_id = %s AND category_name = %s',
@@ -279,7 +278,6 @@ class Grades(commands.Cog):
                 f"{categoryname} category has been deleted ")
         else:
             await ctx.send("This category does not exist")
-    
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: delete_grade_category_error(self, ctx, error)
     #    Description: prints error message for deletegradecategory command
