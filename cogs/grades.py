@@ -20,25 +20,27 @@ class Grades(commands.Cog):
     async def grade(self, ctx, assignmentName: str):
 
         grade = db.query(
-            "SELECT g.grade FROM grades g INNER JOIN assignments a ON g.assignment_id = a.assignment_id WHERE guild_id = %s AND a.assignment_name = %s", 
+            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id WHERE grades.guild_id = %s AND assignments.assignment_name = %s", 
             (ctx.guild.id, assignmentName)
         )
 
         if not grade:
-            await ctx.send("Grade for {assignmentName} does not exist")
+            await ctx.author.send(f"Grade for {assignmentName} does not exist")
+            return
 
-        await ctx.send("Grade for {assignmentName}: {grade}%")
+        await ctx.author.send(f"Grade for {assignmentName}: {grade}%")
 
     @commands.command(name="gradebycategory", help="get your grade for a specific category $grade CATEGORY")
     async def gradecategory(self, ctx, categoryName: str):
 
         grades = db.query(
-            "SELECT g.grade FROM grades g INNER JOIN assignments a ON g.assignment_id = a.assignment_id INNER JOIN categories c ON a.assignment_id WHERE guild_id = %s AND c.category_name = %s", 
+            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s", 
             (ctx.guild.id, categoryName)
         )
 
         if not grades:
-            await ctx.send("Grade for {categoryName} does not exist")
+            await ctx.author.send(f"Grade for {categoryName} does not exist")
+            return
 
         total = 0
         num = 0
@@ -49,7 +51,7 @@ class Grades(commands.Cog):
 
         average = total/num
 
-        await ctx.send(f"Grade for {categoryName}: {average}%")
+        await ctx.author.send(f"Grade for {categoryName}: {average}%")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: categories(self, ctx)
