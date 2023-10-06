@@ -2,8 +2,33 @@ CREATE TABLE reminders (
     guild_id        BIGINT NOT NULL,
     author_id       BIGINT NOT NULL,
     course          VARCHAR NOT NULL,
-    homework        VARCHAR NOT NULL,
+    reminder_name   VARCHAR NOT NULL,
     due_date        TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+
+CREATE TABLE grade_categories(
+    id              bigserial primary key,
+    guild_id        BIGINT NOT NULL,
+    category_name   VARCHAR NOT NULL,
+    category_weight DECIMAL(3, 3)
+
+);
+
+CREATE TABLE assignments (
+    id              bigserial primary key,
+    guild_id        BIGINT NOT NULL,
+    category_id     BIGINT NOT NULL REFERENCES grade_categories(id) ON DELETE CASCADE,
+    assignment_name VARCHAR NOT NULL,
+    points          INTEGER NOT NULL DEFAULT 100
+
+);
+
+CREATE TABLE grades (
+    guild_id        BIGINT NOT NULL,
+    member_name     VARCHAR NOT NULL,
+    assignment_id   INT NOT NULL REFERENCES assignments(id) ON DELETE CASCADE,
+    grade           INT NOT NULL
 );
 
 CREATE TABLE group_members (
