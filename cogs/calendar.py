@@ -2,14 +2,18 @@ from __future__ import print_function
 
 import datetime
 import os.path
-
+import requests
+import pandas
+import discord
 from discord.ext import commands, tasks
+
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
+from urllib.request import urlopen
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+from ics import Calendar as iCal
 
 class Calendar(commands.Cog):
 
@@ -89,6 +93,30 @@ class Calendar(commands.Cog):
 
         except HttpError as error:
             print('An error occurred: %s' % error)
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: getiCalDownload(self, ctx)
+    #    Description: sends an ics file of the class calendar to the channel the command was issued in
+    #    Inputs:
+    #       - ctx: context of the command
+    #    Outputs:
+    #       - The ics file of the calendar
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.command(name="getiCalDownload", help="Enter the command to receive an ics"
+                                                " file of the calendar$getiCalDownload")
+    async def getiCalDownload(self, ctx):
+        # Get the calendar in ics format
+        url = os.getenv("CALENDAR_ICS")
+        text = urlopen(url).read().decode("iso-8859-1")
+        #parse the received text to remove all \n characters
+        newText = ""
+        for character in text:
+            if (character != "\n"):
+                newText = newText + character
+        #write to the ics file
+        f = open(r"C:/Users/fruit/se510/ical.ics", "w")
+        f.write(newText)
+        f.close
+        await ctx.send(file=discord.File(r"C:/Users/fruit/se510/ical.ics"))
 
 async def setup(bot):
     n = Calendar(bot)
