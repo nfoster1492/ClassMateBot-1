@@ -1,13 +1,14 @@
 from __future__ import print_function
 
-import datetime
 import os.path
-import requests
+import datetime
 import pandas
 import discord
+import asyncio
 from discord.ext import commands, tasks
 
 from google.auth.transport.requests import Request
+from datetime import timedelta, datetime, date
 from google.oauth2.credentials import Credentials
 from urllib.request import urlopen
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -15,12 +16,12 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import pdfkit
 import pandas as pd
-from ics import Calendar as iCal
 
 class Calendar(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.checkForEvents.start()
         
 
     def credsSetUp(self):
@@ -46,14 +47,13 @@ class Calendar(commands.Cog):
                 token.write(creds.to_json())
         return creds
 
-    @commands.command(name="listCalendarEvents")
-    async def listCalendarEvents(self, ctx):
+    async def listCalendarEvents(self):
         creds = self.credsSetUp()
         try:
             service = build('calendar', 'v3', credentials=creds)
 
             # Call the Calendar API
-            now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+            now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
             print('Getting the upcoming 10 events')
             events_result = service.events().list(calendarId='primary', timeMin=now,
                                                 maxResults=10, singleEvents=True,
@@ -63,11 +63,7 @@ class Calendar(commands.Cog):
             if not events:
                 print('No upcoming events found.')
                 return
-
-            # Prints the start and name of the next 10 events
-            for event in events:
-                start = event['start'].get('dateTime', event['start'].get('date'))
-                print(start, event['summary'])
+            return events
 
         except HttpError as error:
             print('An error occurred: %s' % error)
@@ -135,7 +131,7 @@ class Calendar(commands.Cog):
         try:
             service = build('calendar', 'v3', credentials=creds)
             # Call the Calendar API
-            now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+            now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
             events_result = service.events().list(calendarId='primary', timeMin=now,
                                                 maxResults=150, singleEvents=True,
                                                 orderBy='startTime').execute()
@@ -161,6 +157,44 @@ class Calendar(commands.Cog):
 
         except HttpError as error:
             print('An error occurred: %s' % error)
+    
+    @tasks.loop(seconds=5)
+    async def checkForEvents(self):
+        creds = self.credsSetUp()
+        try:
+            service = build('calendar', 'v3', credentials=creds)
+            # Call the Calendar API
+            now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+            events_result = service.events().list(calendarId='primary', timeMin=now,
+                                                maxResults=150, singleEvents=True,
+                                                orderBy='startTime').execute()
+            events = events_result.get('items', [])
+            summary = ""
+            for event in events:
+                dt = datetime.strptime((event["start"]["dateTime"])[0:18], "%Y-%m-%dT%H:%M:%S")
+                if (dt.day == date.today().day and dt.year == date.today().year):
+                    summary = summary + event["summary"] + ","
+            if (len(summary) != 0):
+                for guild in self.bot.guilds:
+                    for channel in guild.text_channels:
+                        if (channel.name == "general"):
+                            await channel.send("@everyone " + summary + "due TODAY!")
+                            break
+        except HttpError as error:
+            print('An error occurred: %s' % error)
+
+    @checkForEvents.before_loop
+    async def checkForNewDay(self):
+        hour = 23
+        minute = 23
+        await self.bot.wait_until_ready()
+        now = datetime.now()
+        future = datetime(now.year, now.month, now.day, hour, minute)
+        if now.hour >= hour and now.minute > minute:
+            future += timedelta(days=1)
+        await asyncio.sleep((future-now).seconds)
+    
+
 
 async def setup(bot):
     n = Calendar(bot)
