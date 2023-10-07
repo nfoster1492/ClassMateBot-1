@@ -13,6 +13,8 @@ from urllib.request import urlopen
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+import pdfkit
+import pandas as pd
 from ics import Calendar as iCal
 
 class Calendar(commands.Cog):
@@ -113,10 +115,52 @@ class Calendar(commands.Cog):
             if (character != "\n"):
                 newText = newText + character
         #write to the ics file
-        f = open(os.getenv("ICS_PATH") + "ical.ics", "w")
+        f = open(os.getenv("CALENDAR_PATH") + "ical.ics", "w")
         f.write(newText)
         f.close
-        await ctx.send(file=discord.File(os.getenv("ICS_PATH") + "ical.ics"))
+        await ctx.send(file=discord.File(os.getenv("CALENDAR_PATH") + "ical.ics"))
+
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: getPdfDownload(self, ctx)
+    #    Description: sends an pdf file of the class calendar to the channel the command was issued in
+    #    Inputs:
+    #       - ctx: context of the command
+    #    Outputs:
+    #       - The pdf file of the calendar
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.command(name="getPdfDownload", help="Enter the command to receive an ics"
+                                                " file of the calendar$getiCalDownload")
+    async def getPdfDownload(self, ctx):
+        creds = self.credsSetUp()
+        try:
+            service = build('calendar', 'v3', credentials=creds)
+            # Call the Calendar API
+            now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+            events_result = service.events().list(calendarId='primary', timeMin=now,
+                                                maxResults=150, singleEvents=True,
+                                                orderBy='startTime').execute()
+            events = events_result.get('items', [])
+
+            if not events:
+                print('No upcoming events found.')
+                return
+            calEvents = []
+            for event in events:
+                start = event["start"].get("dateTime", event["start"].get("date"))
+                end = event["end"].get("dateTime", event["end"].get("date"))
+                calEvent = {
+                    "Summary":event["summary"],
+                    "Start": start,
+                    "End":end
+                }
+                calEvents.append(calEvent)
+            df = pd.DataFrame(calEvents)
+            htmlCal = df.to_html()
+            pdfkit.from_string(htmlCal, os.getenv("CALENDAR_PATH") + "calendar.pdf")
+            await ctx.send(file=discord.File(os.getenv("CALENDAR_PATH") + "calendar.pdf"))
+
+        except HttpError as error:
+            print('An error occurred: %s' % error)
 
 async def setup(bot):
     n = Calendar(bot)
