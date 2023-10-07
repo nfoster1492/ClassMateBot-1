@@ -113,10 +113,10 @@ class Calendar(commands.Cog):
             if (character != "\n"):
                 newText = newText + character
         #write to the ics file
-        f = open(r"C:/Users/fruit/se510/ical.ics", "w")
+        f = open(os.getenv("ICS_PATH") + "ical.ics", "w")
         f.write(newText)
         f.close
-        await ctx.send(file=discord.File(r"C:/Users/fruit/se510/ical.ics"))
+        await ctx.send(file=discord.File(os.getenv("ICS_PATH") + "ical.ics"))
 
 async def setup(bot):
     n = Calendar(bot)
