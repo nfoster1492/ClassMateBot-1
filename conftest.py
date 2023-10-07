@@ -2,7 +2,7 @@ import os
 import sys
 
 import discord.ext.test as dpytest
-import pytest
+import pytest_asyncio
 from discord import Intents
 from discord.ext.commands import Bot
 from setuptools import glob
@@ -19,16 +19,17 @@ sys.path.append(root_dir)
 
 # Default parameters for the simulated dpytest bot. Loads the bot with commands from the /cogs directory
 # Ran everytime pytest is called
-@pytest.fixture
-def bot(event_loop):
+@pytest_asyncio.fixture
+async def bot(event_loop):
     bot = Bot(intents=intents, command_prefix="$", loop=event_loop)
     dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(dir)
     os.chdir('cogs')
     for filename in os.listdir(os.getcwd()):
         if filename.endswith('.py'):
-            bot.load_extension(f"cogs.{filename[:-3]}")
-    bot.load_extension('jishaku')
+            await bot.load_extension(f"cogs.{filename[:-3]}")
+    await bot.load_extension('jishaku')
+    await bot._async_setup_hook()
     dpytest.configure(bot)
     return bot
 

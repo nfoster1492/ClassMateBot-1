@@ -1,6 +1,7 @@
 # Copyright (c) 2021 War-Keeper
 import discord
 import os
+import asyncio
 from datetime import datetime, timedelta
 import discord.ext.test as dpytest
 from dotenv import load_dotenv
