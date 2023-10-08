@@ -138,16 +138,16 @@ async def test_listreminders(bot):
     # Test listing multiple reminders
     await dpytest.message("$addhw CSC505 DANCE SEP 21 2050 10:00")
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC505 homework named: DANCE which is due on: 2050-09-21 10:00:00")
+        "A date has been added for: CSC505 reminder_name named: DANCE which is due on: 2050-09-21 10:00:00")
     # Test setting a 2nd reminder
     await dpytest.message("$addhw CSC510 HW1 DEC 21 2050 19:59")
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC510 homework named: HW1 which is due on: ")
+        "A date has been added for: CSC510 reminder_name named: HW1 which is due on: ")
     await dpytest.message("$listreminders")
     assert dpytest.verify().message().contains().content(
-        "CSC505 homework named: DANCE which is due on:")
+        "CSC505 reminder_name named: DANCE which is due on:")
     assert dpytest.verify().message().contains().content(
-        "CSC510 homework named: HW1 which is due on:")
+        "CSC510 reminder_name named: HW1 which is due on:")
     # Test $coursedue
     await dpytest.message("$coursedue CSC505")
     assert dpytest.verify().message().contains().content(
