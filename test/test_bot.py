@@ -176,7 +176,7 @@ async def test_duethisweek(bot):
     dt_string = now.strftime("%b %d %Y %H:%M")
     await dpytest.message(f'$addhw CSC600 HW0 {dt_string}')
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC600 homework named: HW0")
+        "A date has been added for: CSC600 reminder_name named: HW0")
     # Check to see that the reminder is due this week
     await dpytest.message("$duethisweek")
     assert dpytest.verify().message().contains().content("CSC600 HW0 is due ")
@@ -201,7 +201,7 @@ async def test_duetoday(bot):
     dt_string = now.strftime("%b %d %Y %H:%M")
     await dpytest.message(f'$addhw CSC600 HW0 {dt_string}')
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC600 homework named: HW0")
+        "A date has been added for: CSC600 reminder_name named: HW0")
     # Check to see that the reminder is due today
     await dpytest.message("$duetoday")
     assert dpytest.verify().message().contains().content("CSC600 HW0 is due ")
