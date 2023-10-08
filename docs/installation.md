@@ -32,10 +32,11 @@ To set up and run the ClassMate Bot:
       DATABASE_URL={your-database-url}
       ```
 7. TO COMPLETELY SET UP THE DATABASE, SEE THE SECTIONS BELOW. Under the **Heroku** section, follow the **Installation** and **Database Setup** guides. DO THIS BEFORE CONTINUING ON TO THE NEXT STEP.
-8. Start the bot. From the project root directory, run `python3 bot` (or `python bot.py` on Windows)
-9. Invite the bot to your server ([Follow instructions here](https://realpython.com/how-to-make-a-discord-bot-python/)) (**Please ensure the bot is running and that the database is set up in order for server initialization to happen properly**)
+8. Create a Google Cloud Project ([Follow instructions here](https://developers.google.com/calendar/api/quickstart/python))
+9. Start the bot. From the project root directory, run `python3 bot` (or `python bot.py` on Windows)
+10. Invite the bot to your server ([Follow instructions here](https://realpython.com/how-to-make-a-discord-bot-python/)) (**Please ensure the bot is running and that the database is set up in order for server initialization to happen properly**)
     * NOTE:  When using the OAuth2 URL Generator, make sure you check the box which gives your bot Administrative permissions
-10. You should now be able to input commands and get responses from the bot as appropriate.
+11. You should now be able to input commands and get responses from the bot as appropriate.
 
 ## Heroku
 
@@ -83,6 +84,27 @@ If you used the PostgreSQL installer, you should have a program called pgAdmin4.
 10. Right click on `Tables` and select `refresh`.
 
 Congratulations! You now have your tables set up.
+
+## Google Calendar setup:
+
+1. Create a Calendar category on your Google Calendar that will be used for the shared bot calendar
+2. Find the secret address of this calendar in the Google Calendar settings and add it to your .env file
+    ```
+      # .env
+      TOKEN={your-bot-token}
+      DATABASE_URL={your-database-url}
+      CALENDAR_ICS={your-secret-address}
+      ```
+3. In your directory of choice create two files, calendar.pdf and ical.ics
+4. Copy the path to this directory and add it to your .env file
+   ```
+      # .env
+      TOKEN={your-bot-token}
+      DATABASE_URL={your-database-url}
+      CALENDAR_ICS={your-secret-address}
+      CALENDAR_PATH={path-to-files}
+      ```
+ 5. Download wkhtmltopdf ([Download here](https://wkhtmltopdf.org/downloads.html)) Note: If you are on Windows add the path of the downloaded file to your PATH environment variable 
 
 ## Running the bot locally
 
