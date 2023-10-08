@@ -298,6 +298,54 @@ class Grades(commands.Cog):
             await ctx.author.send(error)
             print(error)
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: grade_report_category(self, ctx)
+    #    Description: This command lets the instructor generate a report on the average, low, and high score on each category
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    Outputs: A breakdown on the performance of each category
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.has_role('Instructor')
+    @commands.command(name="gradereportcategory", help="Report on the classes scores all grade categories")
+    async def grade_report_category(self, ctx):
+        result = db.query(
+            '''SELECT category_name, AVG(grade_percent), MAX(grade_percent), MIN(grade_percent) 
+                    FROM (SELECT category_name, CAST(grade AS float) / CAST(points AS float) AS grade_percent 
+                        FROM grade_categories AS categ JOIN 
+                            (SELECT category_id, grade, points 
+                                FROM grades AS grades JOIN assignments AS assign ON grades.assignment_id = assign.id) AS grades 
+                        ON grades.category_id = categ.id) AS grade_percents 
+                GROUP BY category_name'''
+        )
+
+        await ctx.author.send("Grade Breakdown by Category")
+        for category_name, avg, max, min in result:
+            await ctx.author.send(f"{category_name} | Average: {avg:.2f}, Max: {max:.2f}, Min: {min:.2f}")
+
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: grade_report_assignment(self, ctx)
+    #    Description: This command lets the instructor generate a report on the average, low, and high score on each assignment
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    Outputs: A breakdown on the performance of each assignment
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.has_role('Instructor')
+    @commands.command(name="gradereportassignment", help="Report on the classes scores all assignments")
+    async def grade_report_assignment(self, ctx):
+        result = db.query(
+            '''SELECT assignment_name, AVG(grade_percent), MAX(grade_percent), MIN(grade_percent) 
+                FROM (SELECT assignment_name, CAST(grade AS float) / CAST(points AS float) AS grade_percent 
+                    FROM grades AS grades JOIN assignments AS assign 
+                        ON grades.assignment_id = assign.id) AS assignment_grades 
+                GROUP BY assignment_name;'''
+        )
+
+        await ctx.author.send("Grade Breakdown by Assignment")
+        for assignment_name, avg, max, min in result:
+            await ctx.author.send(f"{assignment_name} | Average: {avg:.2f}, Max: {max:.2f}, Min: {min:.2f}")
+
 # -------------------------------------
 # add the file to the bot's cog system
 # -------------------------------------
