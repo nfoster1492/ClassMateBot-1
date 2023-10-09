@@ -130,9 +130,8 @@ class Poll(commands.Cog):
                 'EX: $quizpoll "I am a poll" [Vote for me!] [I am option 2]')
             await ctx.message.delete()
             return
-        # delete user message
-        else:
-            await ctx.message.delete()
+        # else delete user message
+        await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: quizpoll_error(self, ctx, error)

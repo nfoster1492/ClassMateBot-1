@@ -2,7 +2,6 @@ from __future__ import print_function
 
 import os.path
 import datetime
-import pandas
 import discord
 import asyncio
 from dotenv import load_dotenv
@@ -23,8 +22,6 @@ class Calendar(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.checkForEvents.start()
-        
-
     def credsSetUp(self):
         # If modifying these scopes, delete the file token.json.
         SCOPES = ['https://www.googleapis.com/auth/calendar']
@@ -67,8 +64,7 @@ class Calendar(commands.Cog):
             return events
 
         except HttpError as error:
-            print('An error occurred: %s' % error)
-    
+            print(f'An error occurred: {error}')
     @commands.command(name="addCalendarEvent")
     async def addCalendarEvent(self, ctx, name, location, description):
         creds = self.credsSetUp()
@@ -92,7 +88,7 @@ class Calendar(commands.Cog):
             event = service.events().insert(calendarId=calendar, body=event).execute()
 
         except HttpError as error:
-            print('An error occurred: %s' % error)
+            print(f'An error occurred: {error}')
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: getiCalDownload(self, ctx)
     #    Description: sends an ics file of the class calendar to the channel the command was issued in
@@ -110,12 +106,12 @@ class Calendar(commands.Cog):
         #parse the received text to remove all \n characters
         newText = ""
         for character in text:
-            if (character != "\n"):
+            if character != "\n":
                 newText = newText + character
         #write to the ics file
         f = open(os.getenv("CALENDAR_PATH") + "ical.ics", "w")
         f.write(newText)
-        f.close
+        f.close()
         await ctx.send(file=discord.File(os.getenv("CALENDAR_PATH") + "ical.ics"))
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -159,7 +155,7 @@ class Calendar(commands.Cog):
             await ctx.send(file=discord.File(os.getenv("CALENDAR_PATH") + "calendar.pdf"))
 
         except HttpError as error:
-            print('An error occurred: %s' % error)
+            print(f'An error occurred: {error}')
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: checkForEvents(self)
     #    Description: Checks the calendar once per day for any events that are due the same day
@@ -183,16 +179,16 @@ class Calendar(commands.Cog):
                 dt = datetime.strptime((event["start"]["dateTime"])[0:18], "%Y-%m-%dT%H:%M:%S")
                 if (dt.day == date.today().day and dt.year == date.today().year):
                     summary = summary + event["summary"] + ","
-            if (len(summary) != 0):
+            if len(summary) != 0:
                 #If the bot is used in more than one server
                 for guild in self.bot.guilds:
                     for channel in guild.text_channels:
                         #Find the general channel and ping
-                        if (channel.name == "general"):
+                        if channel.name == "general":
                             await channel.send("@everyone " + summary + "due TODAY!")
                             break
         except HttpError as error:
-            print('An error occurred: %s' % error)
+            print(f'An error occurred: {error}')
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: checkForNewDay(self)
     #    Description: Keeps track of time before the calendar is checked each day
@@ -261,19 +257,14 @@ class Calendar(commands.Cog):
                 if acl_rule['scope']['type'] == 'user' and acl_rule['scope']['value'] == userEmail:
                     acl_rule_id = acl_rule['id']
                     break
-            
             if acl_rule_id:
                 # Delete the ACL rule (permission) to remove the user from the calendar.
                 service.acl().delete(calendarId=calendar, ruleId=acl_rule_id).execute()
                 print(f"User '{userEmail}' has been removed from the calendar.")
             else:
                 print(f"User '{userEmail}' was not found in the calendar's permissions.")
-        
         except Exception as e:
             print(f"An error occurred: {str(e)}")
-
-
 async def setup(bot):
     n = Calendar(bot)
     await bot.add_cog(n)
-

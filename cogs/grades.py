@@ -320,8 +320,8 @@ class Grades(commands.Cog):
         )
 
         await ctx.author.send("Grade Breakdown by Category")
-        for category_name, avg, max, min in result:
-            await ctx.author.send(f"{category_name} | Average: {avg:.2f}, Max: {max:.2f}, Min: {min:.2f}")
+        for category_name, avg, maxgrade, mingrade in result:
+            await ctx.author.send(f"{category_name} | Average: {avg:.2f}, Max: {maxgrade:.2f}, Min: {mingrade:.2f}")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: grade_report_assignment(self, ctx)
@@ -343,8 +343,8 @@ class Grades(commands.Cog):
         )
 
         await ctx.author.send("Grade Breakdown by Assignment")
-        for assignment_name, avg, max, min in result:
-            await ctx.author.send(f"{assignment_name} | Average: {avg:.2f}, Max: {max:.2f}, Min: {min:.2f}")
+        for assignment_name, avg, maxgrade, mingrade in result:
+            await ctx.author.send(f"{assignment_name} | Average: {avg:.2f}, Max: {maxgrade:.2f}, Min: {mingrade:.2f}")
 
 # -------------------------------------
 # add the file to the bot's cog system
