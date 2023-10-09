@@ -9,7 +9,7 @@ discord.py==1.7.3
 dpytest==0.5.3
 jishaku==2.3.0
 packaging==21.0
-py==1.10.0
+py==1.11.0
 pytest==6.2.5
 pytest-asyncio==0.15.1
 pytest-cov==2.12.1
