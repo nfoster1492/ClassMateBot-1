@@ -88,23 +88,32 @@ Congratulations! You now have your tables set up.
 ## Google Calendar setup:
 
 1. Create a Calendar category on your Google Calendar that will be used for the shared bot calendar
-2. Find the secret address of this calendar in the Google Calendar settings and add it to your .env file
+2. Find the Calendar ID of this calendar in the Google Calendar settings under "Integrate calendar" and add it to your .env file
     ```
       # .env
       TOKEN={your-bot-token}
       DATABASE_URL={your-database-url}
+      CALENDAR_ID={your-calendar-id}
+      ```
+3. In the same settings menu, find the secret address of this calendar and add it to your .env file
+    ```
+      # .env
+      TOKEN={your-bot-token}
+      DATABASE_URL={your-database-url}
+      CALENDAR_ID={your-calendar-id}
       CALENDAR_ICS={your-secret-address}
       ```
-3. In your directory of choice create two files, calendar.pdf and ical.ics
-4. Copy the path to this directory and add it to your .env file
+4. In your directory of choice create two files, calendar.pdf and ical.ics
+5. Copy the path to this directory and add it to your .env file
    ```
       # .env
       TOKEN={your-bot-token}
       DATABASE_URL={your-database-url}
+      CALENDAR_ID={your-calendar-id}
       CALENDAR_ICS={your-secret-address}
       CALENDAR_PATH={path-to-files}
       ```
- 5. Download wkhtmltopdf ([Download here](https://wkhtmltopdf.org/downloads.html)) Note: If you are on Windows add the path of the downloaded file to your PATH environment variable 
+ 6. Download wkhtmltopdf ([Download here](https://wkhtmltopdf.org/downloads.html)) Note: If you are on Windows add the path of the downloaded file to your PATH environment variable 
 
 ## Running the bot locally
 

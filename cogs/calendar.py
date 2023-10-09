@@ -5,6 +5,7 @@ import datetime
 import pandas
 import discord
 import asyncio
+from dotenv import load_dotenv
 from discord.ext import commands, tasks
 
 from google.auth.transport.requests import Request
@@ -51,11 +52,11 @@ class Calendar(commands.Cog):
         creds = self.credsSetUp()
         try:
             service = build('calendar', 'v3', credentials=creds)
-
+            calendar = os.getenv("CALENDAR_ID")
             # Call the Calendar API
             now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
             print('Getting the upcoming 10 events')
-            events_result = service.events().list(calendarId='primary', timeMin=now,
+            events_result = service.events().list(calendarId=calendar, timeMin=now,
                                                 maxResults=10, singleEvents=True,
                                                 orderBy='startTime').execute()
             events = events_result.get('items', [])
@@ -72,6 +73,7 @@ class Calendar(commands.Cog):
     async def addCalendarEvent(self, ctx, name, location, description):
         creds = self.credsSetUp()
         try:
+            calendar = os.getenv("CALENDAR_ID")
             service = build('calendar', 'v3', credentials=creds)
             event = {
                 "summary" : name,
@@ -87,7 +89,7 @@ class Calendar(commands.Cog):
                     'timeZone': 'America/New_York',
                 },
             }
-            event = service.events().insert(calendarId="primary", body=event).execute()
+            event = service.events().insert(calendarId=calendar, body=event).execute()
 
         except HttpError as error:
             print('An error occurred: %s' % error)
@@ -132,7 +134,8 @@ class Calendar(commands.Cog):
             service = build('calendar', 'v3', credentials=creds)
             # Call the Calendar API
             now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-            events_result = service.events().list(calendarId='primary', timeMin=now,
+            calendar = os.getenv("CALENDAR_ID")
+            events_result = service.events().list(calendarId=calendar, timeMin=now,
                                                 maxResults=150, singleEvents=True,
                                                 orderBy='startTime').execute()
             events = events_result.get('items', [])
@@ -165,7 +168,8 @@ class Calendar(commands.Cog):
             service = build('calendar', 'v3', credentials=creds)
             # Call the Calendar API
             now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-            events_result = service.events().list(calendarId='primary', timeMin=now,
+            calendar = os.getenv("CALENDAR_ID")
+            events_result = service.events().list(calendarId=calendar, timeMin=now,
                                                 maxResults=150, singleEvents=True,
                                                 orderBy='startTime').execute()
             events = events_result.get('items', [])
@@ -193,7 +197,70 @@ class Calendar(commands.Cog):
         if now.hour >= hour and now.minute > minute:
             future += timedelta(days=1)
         await asyncio.sleep((future-now).seconds)
-    
+
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: subscribeCalendar(self, ctx, userEmail)
+    #    Description: adds specified user to shared Google Calendar
+    #    Inputs:
+    #       - ctx: context of the command
+    #       - target: calendar to modify
+    #       - userEmail: user to add to target Google Calendar
+    #    Outputs:
+    #       - Confirmation string for successful add, error string for failure.
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.command(name="subscribeCalendar", help="Adds user to shared Google Calendar. Ex: subscribecalendar john.doe@gmail.com")
+    async def subscribecalendar(self, ctx, userEmail):
+        creds = self.credsSetUp()
+        try:
+            service = build('calendar', 'v3', credentials=creds)
+            calendar = os.getenv("CALENDAR_ID")
+            acl_rule = {
+                'scope': {
+                    'type': 'user',
+                    'value': userEmail
+                },
+                'role': 'reader',  # Adjust the role as needed (e.g., reader, owner)
+            }
+            acl_rule = service.acl().insert(calendarId=calendar, body=acl_rule).execute()
+
+            print(f'Added {userEmail} to the calendar.')
+        except Exception as e:
+            print(f'Error adding user: {str(e)}')
+
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: removeCalendar(self, ctx, userEmail)
+    #    Description: removes specified user from shared Google Calendar
+    #    Inputs:
+    #       - ctx: context of the command
+    #       - target: calendar to modify
+    #       - userEmail: user to remove from target Google Calendar
+    #    Outputs:
+    #       - Confirmation string for successful removal, error string for failure.
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.has_role('Instructor')
+    @commands.command(name="removeCalendar", help="Removes user from shared Google Calendar. Ex: removeCalendar john.doe@gmail.com")
+    async def removeCalendar(self, ctx, userEmail):
+        creds = self.credsSetUp()
+        try:
+            service = build('calendar', 'v3', credentials=creds)
+            calendar = os.getenv("CALENDAR_ID")
+            acl_rule_id = None
+            # Get the list of ACL rules (permissions) for the calendar.
+            acl_list = service.acl().list(calendarId=calendar).execute()
+            for acl_rule in acl_list.get('items', []):
+                if acl_rule['scope']['type'] == 'user' and acl_rule['scope']['value'] == userEmail:
+                    acl_rule_id = acl_rule['id']
+                    break
+            
+            if acl_rule_id:
+                # Delete the ACL rule (permission) to remove the user from the calendar.
+                service.acl().delete(calendarId=calendar, ruleId=acl_rule_id).execute()
+                print(f"User '{userEmail}' has been removed from the calendar.")
+            else:
+                print(f"User '{userEmail}' was not found in the calendar's permissions.")
+        
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
 
 
 async def setup(bot):
