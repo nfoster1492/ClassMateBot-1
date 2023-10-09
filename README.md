@@ -16,6 +16,7 @@
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/CSC510-Group-25/ClassMateBot/Python%20application)](https://github.com/CSC510-Group-25/ClassMateBot/actions/workflows/main.yml)
 [![Pytest](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pytest.yml)
 [![Pylint](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pylint.yml/badge.svg)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pylint.yml)
+[![Black](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/black.yml/badge.svg)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/black.yml)
 
 
 
