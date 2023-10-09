@@ -95,28 +95,28 @@ async def test_deadline(bot):
     # assert dpytest.verify().message().contains().content("All reminders have been cleared..!!")
     # Test reminders while none have been set
     await dpytest.message("$coursedue CSC505")
-    assert dpytest.verify().message().content("Rejoice..!! You have no pending reminder_names for CSC505..!!")
+    assert dpytest.verify().message().content("Rejoice..!! You have no pending reminders for CSC505..!!")
     # Test setting 1 reminder
-    await dpytest.message("$addhw CSC505 DANCE SEP 21 2050 10:00")
+    await dpytest.message("$duedate CSC505 DANCE SEP 21 2050 10:00")
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC505 reminder_name named: DANCE which is due on: 2050-09-21 10:00:00")
+        "A date has been added for: CSC505 reminder named: DANCE which is due on: 2050-09-21 10:00:00")
     # Test setting a 2nd reminder
-    await dpytest.message("$addhw CSC510 HW1 DEC 21 2050 19:59")
+    await dpytest.message("$duedate CSC510 HW1 DEC 21 2050 19:59")
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC510 reminder_name named: HW1 which is due on: 2050-12-21 19:59:00")
+        "A date has been added for: CSC510 reminder named: HW1 which is due on: 2050-12-21 19:59:00")
     # Test deleting reminder
     await dpytest.message("$deletereminder CSC510 HW1")
     assert dpytest.verify().message().content(
-        "Following reminder has been deleted: Course: CSC510, reminder_name Name: HW1, Due Date: 2050-12-21 19:59:00")
+        "Following reminder has been deleted: Course: CSC510, reminder Name: HW1, Due Date: 2050-12-21 19:59:00")
     # Test re-adding a reminder
-    await dpytest.message("$addhw CSC510 HW1 DEC 21 2050 19:59")
+    await dpytest.message("$duedate CSC510 HW1 DEC 21 2050 19:59")
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC510 reminder_name named: HW1 which is due on: 2050-12-21 19:59:00")
+        "A date has been added for: CSC510 reminder named: HW1 which is due on: 2050-12-21 19:59:00")
 
     # Test adding an assignment twice
-    await dpytest.message("$addhw CSC510 HW1 DEC 21 2050 19:59")
+    await dpytest.message("$duedate CSC510 HW1 DEC 21 2050 19:59")
     assert dpytest.verify().message().contains().content(
-        "This reminder_name has already been added..!!")
+        "This reminder has already been added..!!")
 
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearreminders")
@@ -136,18 +136,18 @@ async def test_listreminders(bot):
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
     # Test listing multiple reminders
-    await dpytest.message("$addhw CSC505 DANCE SEP 21 2050 10:00")
+    await dpytest.message("$duedate CSC505 DANCE SEP 21 2050 10:00")
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC505 reminder_name named: DANCE which is due on: 2050-09-21 10:00:00")
+        "A date has been added for: CSC505 reminder named: DANCE which is due on: 2050-09-21 10:00:00")
     # Test setting a 2nd reminder
-    await dpytest.message("$addhw CSC510 HW1 DEC 21 2050 19:59")
+    await dpytest.message("$duedate CSC510 HW1 DEC 21 2050 19:59")
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC510 reminder_name named: HW1 which is due on: ")
+        "A date has been added for: CSC510 reminder named: HW1 which is due on: ")
     await dpytest.message("$listreminders")
     assert dpytest.verify().message().contains().content(
-        "CSC505 reminder_name named: DANCE which is due on:")
+        "CSC505 reminder named: DANCE which is due on:")
     assert dpytest.verify().message().contains().content(
-        "CSC510 reminder_name named: HW1 which is due on:")
+        "CSC510 reminder named: HW1 which is due on:")
     # Test $coursedue
     await dpytest.message("$coursedue CSC505")
     assert dpytest.verify().message().contains().content(
@@ -174,9 +174,9 @@ async def test_duethisweek(bot):
     # Try adding a reminder due in an hour
     now = datetime.now() + timedelta(hours=1)
     dt_string = now.strftime("%b %d %Y %H:%M")
-    await dpytest.message(f'$addhw CSC600 HW0 {dt_string}')
+    await dpytest.message(f'$duedate CSC600 HW0 {dt_string}')
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC600 reminder_name named: HW0")
+        "A date has been added for: CSC600 reminder named: HW0")
     # Check to see that the reminder is due this week
     await dpytest.message("$duethisweek")
     assert dpytest.verify().message().contains().content("CSC600 HW0 is due ")
@@ -199,9 +199,9 @@ async def test_duetoday(bot):
     # Try adding a reminder due in an hour
     now = datetime.now() + timedelta(hours=6)
     dt_string = now.strftime("%b %d %Y %H:%M")
-    await dpytest.message(f'$addhw CSC600 HW0 {dt_string}')
+    await dpytest.message(f'$duedate CSC600 HW0 {dt_string}')
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC600 reminder_name named: HW0")
+        "A date has been added for: CSC600 reminder named: HW0")
     # Check to see that the reminder is due today
     await dpytest.message("$duetoday")
     assert dpytest.verify().message().contains().content("CSC600 HW0 is due ")
@@ -222,12 +222,12 @@ async def test_overdue(bot):
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
     # Try adding a reminder due in the past
-    await dpytest.message('$addhw CSC600 HW0 SEP 21 2000 10:00')
+    await dpytest.message('$duedate CSC600 HW0 SEP 21 2000 10:00')
     assert dpytest.verify().message().contains().content(
-        "A date has been added for: CSC600 homework named: HW0")
+        "A date has been added for: CSC600 reminder named: HW0")
     # Check to see that the reminder is overdue
     await dpytest.message("$overdue")
-    assert dpytest.verify().message().contains().content("CSC600 homework named: HW0 which was due on: Sep 21 2000 10:00:00+0000")
+    assert dpytest.verify().message().contains().content("CSC600 reminder named: HW0 which was due on: Sep 21 2000 10:00:00+0000")
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearoverdue")
     assert dpytest.verify().message().contains().content("All overdue reminders have been cleared..!!")
@@ -261,18 +261,18 @@ async def test_deadline_errors(bot):
     assert dpytest.verify().message().content(
             "Due date could not be parsed")
 
-    # Test addhw with bad argument
+    # Test duedate with bad argument
     #with pytest.raises(commands.MissingRequiredArgument):
-    await dpytest.message("$addhw blab blab blab")
+    await dpytest.message("$duedate blab blab blab")
     assert dpytest.verify().message().content(
             "Due date could not be parsed")
 
-    # Tests addhw without an argument
+    # Tests duedate without an argument
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$addhw")
+        await dpytest.message("$duedate")
     assert dpytest.verify().message().content(
-            'To use the addhw command, do: $addhw CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n '
-            '( For example: $addhw CSC510 HW2 SEP 25 2024 17:02 EST )')
+            'To use the duedate command, do: $duedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n '
+            '( For example: $duedate CSC510 HW2 SEP 25 2024 17:02 EST )')
 
 
     # Tests deletereminder without an argument
