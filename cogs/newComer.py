@@ -61,7 +61,7 @@ class NewComer(commands.Cog):
                 await member.remove_roles(unverified)  # removed unverified role
                 await ctx.send(f"Thank you for verifying! You can start using {ctx.guild.name}!")
                 embed = discord.Embed(
-                    description="Click [Here](https://github.com/txt/se21) for the home page of the class Github page"
+                    description="Click [Here](https://github.com/txt/se23) for the home page of the class Github page"
                 )
                 await member.send(embed=embed)
         else:  # user has verified role
@@ -69,7 +69,7 @@ class NewComer(commands.Cog):
                      (ctx.guild.id, member.name))
             await ctx.send("You are already verified!")
             embed = discord.Embed(
-                description="Click [Here](https://github.com/txt/se21) for the home page of the class Github page"
+                description="Click [Here](https://github.com/txt/se23) for the home page of the class Github page"
             )
             await member.send(embed=embed)
 
