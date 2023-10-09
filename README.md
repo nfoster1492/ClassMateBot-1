@@ -12,10 +12,10 @@
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/nfoster1492/ClassMateBot-1)](https://github.com/nfoster1492/ClassMateBot-1/issues?q=is%3Aissue+is%3Aclosed)
 [![GitHub issues by-label](https://img.shields.io/github/issues-raw/nfoster1492/ClassMateBot-1/bug?color=red&label=Active%20bugs)](https://github.com/nfoster1492/ClassMateBot-1/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 [![GitHub closed issues by-label](https://img.shields.io/github/issues-closed-raw/nfoster1492/ClassMateBot-1/bug?color=green&label=Squished%20bugs)](https://github.com/nfoster1492/ClassMateBot-1/issues?q=is%3Aissue+label%3Abug+is%3Aclosed)
-[![Python application]([![Python application](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/main.yml/badge.svg)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/main.yml))
+[![Python application](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/main.yml/badge.svg)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/main.yml)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/CSC510-Group-25/ClassMateBot/Python%20application)](https://github.com/CSC510-Group-25/ClassMateBot/actions/workflows/main.yml)
-[![Pytest]([![Pytest](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pytest.yml))
-[![Pylint]([![Pylint](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pylint.yml/badge.svg)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pylint.yml))
+[![Pytest](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pytest.yml)
+[![Pylint](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pylint.yml/badge.svg)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pylint.yml)
 
 
 
