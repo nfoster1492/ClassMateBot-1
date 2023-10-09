@@ -160,7 +160,12 @@ class Calendar(commands.Cog):
 
         except HttpError as error:
             print('An error occurred: %s' % error)
-    
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: checkForEvents(self)
+    #    Description: Checks the calendar once per day for any events that are due the same day
+    #    Outputs:
+    #       - Message to the general chat where everyone is pinged of what events are due today
+    # -----------------------------------------------------------------------------------------------------------------
     @tasks.loop(seconds=5)
     async def checkForEvents(self):
         creds = self.credsSetUp()
@@ -179,14 +184,19 @@ class Calendar(commands.Cog):
                 if (dt.day == date.today().day and dt.year == date.today().year):
                     summary = summary + event["summary"] + ","
             if (len(summary) != 0):
+                #If the bot is used in more than one server
                 for guild in self.bot.guilds:
                     for channel in guild.text_channels:
+                        #Find the general channel and ping
                         if (channel.name == "general"):
                             await channel.send("@everyone " + summary + "due TODAY!")
                             break
         except HttpError as error:
             print('An error occurred: %s' % error)
-
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: checkForNewDay(self)
+    #    Description: Keeps track of time before the calendar is checked each day
+    # -----------------------------------------------------------------------------------------------------------------
     @checkForEvents.before_loop
     async def checkForNewDay(self):
         hour = 23
