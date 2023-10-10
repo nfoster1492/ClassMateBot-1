@@ -41,7 +41,7 @@ class Calendar(commands.Cog):
                     'credentials.json', SCOPES)
                 creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
-            with open('token.json', 'w') as token:
+            with open('token.json', 'w', encoding="utf-8") as token:
                 token.write(creds.to_json())
         return creds
 
@@ -109,7 +109,7 @@ class Calendar(commands.Cog):
             if character != "\n":
                 newText = newText + character
         #write to the ics file
-        f = open(os.getenv("CALENDAR_PATH") + "ical.ics", "w")
+        f = open(os.getenv("CALENDAR_PATH") + "ical.ics", "w", encoding="utf-8")
         f.write(newText)
         f.close()
         await ctx.send(file=discord.File(os.getenv("CALENDAR_PATH") + "ical.ics"))
@@ -230,7 +230,7 @@ class Calendar(commands.Cog):
             acl_rule = service.acl().insert(calendarId=calendar, body=acl_rule).execute()
 
             print(f'Added {userEmail} to the calendar.')
-        except Exception as e:
+        except HttpError as e:
             print(f'Error adding user: {str(e)}')
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -263,7 +263,7 @@ class Calendar(commands.Cog):
                 print(f"User '{userEmail}' has been removed from the calendar.")
             else:
                 print(f"User '{userEmail}' was not found in the calendar's permissions.")
-        except Exception as e:
+        except HttpError as e:
             print(f"An error occurred: {str(e)}")
 async def setup(bot):
     n = Calendar(bot)

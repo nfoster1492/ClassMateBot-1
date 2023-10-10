@@ -97,6 +97,7 @@ disable=raw-checker-failed,
         R0915, # Too many statements (85/50) (too-many-statements)
         R0903, # Too few public methods (0/2) (too-few-public-methods)
         R0904, # Too many public methods (24/20) (too-many-public-methods)
+        R1732,
         E0401,
         C0413,
         R0801,
@@ -576,5 +577,5 @@ min-public-methods=2
 
 # Exceptions that will emit a warning when being caught. Defaults to
 # "BaseException, Exception".
-overgeneral-exceptions=BaseException,
-                       Exception
+overgeneral-exceptions=builtins.BaseException,
+                       builtins.Exception
