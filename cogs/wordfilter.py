@@ -5,13 +5,13 @@ import os
 from discord import NotFound
 from discord.ext import commands
 import db
-#import profanity_helper
+
+# import profanity_helper
+
 
 class WordFilter(commands.Cog):
-
     def __init__(self, bot):
         self.bot = bot
-
 
     # TODO
     # whitelistWord
@@ -25,9 +25,8 @@ class WordFilter(commands.Cog):
     # reset filter (doesn't clear any saved lists. It just prevents better-profanity from using any saved lists.)
     # prevent commands from being blacklisted
 
-    #custom_badwords = ['happy', 'jolly', 'merry']
-    #profanity.add_censor_words(custom_badwords)
-
+    # custom_badwords = ['happy', 'jolly', 'merry']
+    # profanity.add_censor_words(custom_badwords)
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: whitelistWord
@@ -38,23 +37,18 @@ class WordFilter(commands.Cog):
     #    Outputs:
     #       - success message
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.has_role('Instructor')
+    @commands.has_role("Instructor")
     @commands.command(
-        name='whitelisttest',
-        help='Add a word to the censor whitelist. Enclose in quotation marks. EX: $whitelist \"WORD\"')
-    async def whitelistWordTest(self, ctx, word: str =''):
-
-        #if not ctx.channel.name == 'instructor-commands':
+        name="whitelisttest",
+        help='Add a word to the censor whitelist. Enclose in quotation marks. EX: $whitelist "WORD"',
+    )
+    async def whitelistWordTest(self, ctx, word: str = ""):
+        # if not ctx.channel.name == 'instructor-commands':
         #    await ctx.author.send('Please use this command inside #instructor-commands')
         #    await ctx.message.delete()
         #    return
 
-
-
-
-
-        await ctx.send(
-            f"_{word}_ has been added to the whitelist. TODO")
+        await ctx.send(f"_{word}_ has been added to the whitelist. TODO")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: whitelistWord_error(self, ctx, error)
@@ -68,13 +62,11 @@ class WordFilter(commands.Cog):
     @whitelistWordTest.error
     async def whitelistWord_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(
-                'Todo')
+            await ctx.send("Todo")
         else:
             await ctx.send(error)
         print(error)
         await ctx.message.delete()
-
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: clearwhitelist
@@ -84,19 +76,18 @@ class WordFilter(commands.Cog):
     #    Outputs:
     #       - success message
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.has_role('Instructor')
+    @commands.has_role("Instructor")
     @commands.command(
-        name='clearWhitelist',
-        help='Clears all words from the saved whitelist. EX: $clearwhitelist')
+        name="clearWhitelist",
+        help="Clears all words from the saved whitelist. EX: $clearwhitelist",
+    )
     async def clearWhitelist(self, ctx):
-
-        if not ctx.channel.name == 'instructor-commands':
-            await ctx.author.send('Please use this command inside #instructor-commands')
+        if not ctx.channel.name == "instructor-commands":
+            await ctx.author.send("Please use this command inside #instructor-commands")
             await ctx.message.delete()
             return
 
         # clear whitelist and reconstruct.
-
 
         await ctx.send("Whitelist has been cleared. TODO")
 
@@ -122,17 +113,16 @@ class WordFilter(commands.Cog):
     #    Outputs:
     #       - success message
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.has_role('Instructor')
+    @commands.has_role("Instructor")
     @commands.command(
-        name='loadWhitelist',
-        help='Adds all words in the saved whitelist to the censor whitelist. EX: $loadWhitelist')
+        name="loadWhitelist",
+        help="Adds all words in the saved whitelist to the censor whitelist. EX: $loadWhitelist",
+    )
     async def loadWhitelist(self, ctx):
-
-        if not ctx.channel.name == 'instructor-commands':
-            await ctx.author.send('Please use this command inside #instructor-commands')
+        if not ctx.channel.name == "instructor-commands":
+            await ctx.author.send("Please use this command inside #instructor-commands")
             await ctx.message.delete()
             return
-
 
         await ctx.send("Whitelist has been loaded. TODO")
 
@@ -149,6 +139,7 @@ class WordFilter(commands.Cog):
     async def loadWhitelist_error(self, ctx, error):
         print(error)
         await ctx.message.delete()
+
 
 async def setup(bot):
     n = WordFilter(bot)

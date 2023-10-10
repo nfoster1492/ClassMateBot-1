@@ -16,11 +16,18 @@ import discord
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import db
 
-class Deadline(commands.Cog):
 
+class Deadline(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.units = {"second": 1, "minute": 60, "hour": 3600, "day": 86400, "week": 604800, "month": 2592000}
+        self.units = {
+            "second": 1,
+            "minute": 60,
+            "hour": 3600,
+            "day": 86400,
+            "week": 604800,
+            "month": 2592000,
+        }
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: timenow(self, ctx, *, date: str)
@@ -31,9 +38,11 @@ class Deadline(commands.Cog):
     #    - date: current date and 24-hour time
     #    Outputs: offset from the user's current time with UTC.
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="timenow",
-                      help="put in current time to get offset needed for proper "
-                           "datetime notifications $timenow MMM DD YYYY HH:MM ex. $timenow SEP 25 2024 17:02")
+    @commands.command(
+        name="timenow",
+        help="put in current time to get offset needed for proper "
+        "datetime notifications $timenow MMM DD YYYY HH:MM ex. $timenow SEP 25 2024 17:02",
+    )
     async def timenow(self, ctx, *, date: str):
         try:
             input_time = parser.parse(date)
@@ -46,8 +55,9 @@ class Deadline(commands.Cog):
         diff_in_hours = int(difference.total_seconds() / 3600)
         input_time += timedelta(hours=diff_in_hours)
 
-        await ctx.send(f"Current time is {-diff_in_hours} hours from system time (UTC).")
-
+        await ctx.send(
+            f"Current time is {-diff_in_hours} hours from system time (UTC)."
+        )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: timenow_error(self, ctx, error)
@@ -63,10 +73,11 @@ class Deadline(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the timenow command (with current time), do: "
-                "$timenow MMM DD YYYY HH:MM ex. $timenow SEP 25 2024 17:02")
+                "$timenow MMM DD YYYY HH:MM ex. $timenow SEP 25 2024 17:02"
+            )
         else:
             await ctx.author.send(error)
-            #await ctx.message.delete()
+            # await ctx.message.delete()
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -81,10 +92,12 @@ class Deadline(commands.Cog):
     #    Outputs: returns either an error stating a reason for failure or returns a success message
     #          indicating that the reminder has been added
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.has_role('Instructor')
-    @commands.command(name="duedate",
-                      help="add reminder and due-date $duedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
-                      "ex. $duedate CSC510 HW2 SEP 25 2024 17:02 EST")
+    @commands.has_role("Instructor")
+    @commands.command(
+        name="duedate",
+        help="add reminder and due-date $duedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
+        "ex. $duedate CSC510 HW2 SEP 25 2024 17:02 EST",
+    )
     async def duedate(self, ctx, coursename: str, hwcount: str, *, date: str):
         author = ctx.message.author
 
@@ -95,17 +108,18 @@ class Deadline(commands.Cog):
             return
 
         existing = db.query(
-            'SELECT author_id FROM reminders WHERE guild_id = %s AND course = %s AND reminder_name = %s',
-            (ctx.guild.id, coursename, hwcount)
+            "SELECT author_id FROM reminders WHERE guild_id = %s AND course = %s AND reminder_name = %s",
+            (ctx.guild.id, coursename, hwcount),
         )
         if not existing:
             db.query(
-                'INSERT INTO reminders (guild_id, author_id, course, reminder_name, due_date) VALUES (%s, %s, %s, %s, %s)',
-                (ctx.guild.id, author.id, coursename, hwcount, duedate)
+                "INSERT INTO reminders (guild_id, author_id, course, reminder_name, due_date) VALUES (%s, %s, %s, %s, %s)",
+                (ctx.guild.id, author.id, coursename, hwcount, duedate),
             )
             await ctx.send(
                 f"A date has been added for: {coursename} reminder named: {hwcount} "
-                f"which is due on: {duedate} by {author}.")
+                f"which is due on: {duedate} by {author}."
+            )
         else:
             await ctx.send("This reminder has already been added..!!")
 
@@ -122,11 +136,12 @@ class Deadline(commands.Cog):
     async def duedate_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                'To use the duedate command, do: $duedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n '
-                '( For example: $duedate CSC510 HW2 SEP 25 2024 17:02 EST )')
+                "To use the duedate command, do: $duedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n "
+                "( For example: $duedate CSC510 HW2 SEP 25 2024 17:02 EST )"
+            )
         else:
             await ctx.author.send(error)
-            #await ctx.message.delete()
+            # await ctx.message.delete()
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -140,24 +155,29 @@ class Deadline(commands.Cog):
     #    Outputs: returns either an error stating a reason for failure or
     #          returns a success message indicating that the reminder has been deleted
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.has_role('Instructor')
-    @commands.command(name="deletereminder", pass_context=True,
-                      help="delete a specific reminder using course name and reminder name using "
-                      "$deletereminder CLASSNAME HW_NAME ex. $deletereminder CSC510 HW2 ")
+    @commands.has_role("Instructor")
+    @commands.command(
+        name="deletereminder",
+        pass_context=True,
+        help="delete a specific reminder using course name and reminder name using "
+        "$deletereminder CLASSNAME HW_NAME ex. $deletereminder CSC510 HW2 ",
+    )
     async def deleteReminder(self, ctx, courseName: str, hwName: str):
         reminders_deleted = db.query(
-            'SELECT course, reminder_name, due_date FROM reminders WHERE guild_id = %s AND reminder_name = %s AND course = %s',
-            (ctx.guild.id, hwName, courseName)
+            "SELECT course, reminder_name, due_date FROM reminders WHERE guild_id = %s AND reminder_name = %s AND course = %s",
+            (ctx.guild.id, hwName, courseName),
         )
         db.query(
-            'DELETE FROM reminders WHERE guild_id = %s AND reminder_name = %s AND course = %s',
-            (ctx.guild.id, hwName, courseName)
+            "DELETE FROM reminders WHERE guild_id = %s AND reminder_name = %s AND course = %s",
+            (ctx.guild.id, hwName, courseName),
         )
 
         for course, reminder_name, due_date in reminders_deleted:
             due = due_date.strftime("%Y-%m-%d %H:%M:%S")
-            await ctx.send(f"Following reminder has been deleted: Course: {course}, "
-                f"reminder Name: {reminder_name}, Due Date: {due}")
+            await ctx.send(
+                f"Following reminder has been deleted: Course: {course}, "
+                f"reminder Name: {reminder_name}, Due Date: {due}"
+            )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: deleteReminder_error(self, ctx, error)
@@ -172,11 +192,12 @@ class Deadline(commands.Cog):
     async def deleteReminder_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                'To use the deletereminder command, do: $deletereminder CLASSNAME HW_NAME \n '
-                '( For example: $deletereminder CSC510 HW2 )')
+                "To use the deletereminder command, do: $deletereminder CLASSNAME HW_NAME \n "
+                "( For example: $deletereminder CSC510 HW2 )"
+            )
         else:
             await ctx.author.send(error)
-            #await ctx.message.delete()
+            # await ctx.message.delete()
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -191,10 +212,13 @@ class Deadline(commands.Cog):
     #    Outputs: returns either an error stating a reason for failure or
     #          returns a success message indicating that the reminder has been updated
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.has_role('Instructor')
-    @commands.command(name="changeduedate", pass_context=True,
-                      help="update the assignment date. $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
-                      "ex. $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST")
+    @commands.has_role("Instructor")
+    @commands.command(
+        name="changeduedate",
+        pass_context=True,
+        help="update the assignment date. $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
+        "ex. $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST",
+    )
     async def changeduedate(self, ctx, classid: str, hwid: str, *, date: str):
         author = ctx.message.author
         try:
@@ -206,10 +230,12 @@ class Deadline(commands.Cog):
 
         # future = (time.time() + (duedate - datetime.today()).total_seconds())
         db.query(
-            'UPDATE reminders SET author_id = %s, due_date = %s WHERE guild_id = %s AND reminder_name = %s AND course = %s',
-            (author.id, duedate, ctx.guild.id, hwid, classid)
+            "UPDATE reminders SET author_id = %s, due_date = %s WHERE guild_id = %s AND reminder_name = %s AND course = %s",
+            (author.id, duedate, ctx.guild.id, hwid, classid),
         )
-        await ctx.send(f"{classid} {hwid} has been updated with following date: {duedate}")
+        await ctx.send(
+            f"{classid} {hwid} has been updated with following date: {duedate}"
+        )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: changeduedate_error(self, ctx, error)
@@ -224,11 +250,12 @@ class Deadline(commands.Cog):
     async def changeduedate_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                'To use the changeduedate command, do: $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n'
-                ' ( For example: $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST)')
+                "To use the changeduedate command, do: $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n"
+                " ( For example: $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST)"
+            )
         else:
             await ctx.author.send(error)
-            #await ctx.message.delete()
+            # await ctx.message.delete()
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -240,14 +267,17 @@ class Deadline(commands.Cog):
     #    Outputs: returns either an error stating a reason for failure
     #             or returns a list of all the assignments that are due this week
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="duethisweek", pass_context=True,
-                      help="check all the homeworks that are due this week $duethisweek")
+    @commands.command(
+        name="duethisweek",
+        pass_context=True,
+        help="check all the homeworks that are due this week $duethisweek",
+    )
     async def duethisweek(self, ctx):
         reminders = db.query(
             "SELECT course, reminder_name, due_date "
             "FROM reminders "
             "WHERE guild_id = %s AND date_part('day', due_date - now()) <= 7 AND date_part('minute', due_date - now()) >= 0",
-            (ctx.guild.id,)
+            (ctx.guild.id,),
         )
 
         curr_date = datetime.now(timezone.utc)
@@ -255,10 +285,11 @@ class Deadline(commands.Cog):
         for course, reminder_name, due_date in reminders:
             delta = due_date - curr_date
             formatted_due_date = due_date.strftime("%b %d %Y %H:%M:%S%z")
-            await ctx.author.send(f"{course} {reminder_name} is due in {delta.days} days, {delta.seconds//3600}"
-                            f" hours and {(delta.seconds//60)%60} minutes ({formatted_due_date})")
+            await ctx.author.send(
+                f"{course} {reminder_name} is due in {delta.days} days, {delta.seconds//3600}"
+                f" hours and {(delta.seconds//60)%60} minutes ({formatted_due_date})"
+            )
         await ctx.message.delete()
-
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: duethisweek_error(self, ctx, error)
@@ -284,18 +315,24 @@ class Deadline(commands.Cog):
     # Outputs: returns either an error stating a reason for failure or
     #          returns a list of all the assignments that are due on the day the command is run
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="duetoday", pass_context=True, help="check all the reminders that are due today $duetoday")
+    @commands.command(
+        name="duetoday",
+        pass_context=True,
+        help="check all the reminders that are due today $duetoday",
+    )
     async def duetoday(self, ctx):
         due_today = db.query(
             "SELECT course, reminder_name, due_date "
             "FROM reminders "
             "WHERE guild_id = %s AND date_part('day', due_date - now()) <= 1 AND date_part('minute', due_date - now()) >= 0",
-            (ctx.guild.id,)
+            (ctx.guild.id,),
         )
         for course, reminder_name, due_date in due_today:
             delta = due_date - datetime.now(timezone.utc)
-            await ctx.author.send(f"{course} {reminder_name} is due in {delta.days} days, {delta.seconds//3600}"
-                            f" hours and {(delta.seconds//60)%60} minutes")
+            await ctx.author.send(
+                f"{course} {reminder_name} is due in {delta.days} days, {delta.seconds//3600}"
+                f" hours and {(delta.seconds//60)%60} minutes"
+            )
         if len(due_today) == 0:
             await ctx.author.send("You have no dues today..!!")
         await ctx.message.delete()
@@ -325,19 +362,24 @@ class Deadline(commands.Cog):
     #    Outputs: returns either an error stating a reason for failure or
     #          a list of assignments that are due for the provided courseid
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="coursedue", pass_context=True,
-                      help="check all the reminders that are due for a specific course $coursedue coursename "
-                      "ex. $coursedue CSC505")
+    @commands.command(
+        name="coursedue",
+        pass_context=True,
+        help="check all the reminders that are due for a specific course $coursedue coursename "
+        "ex. $coursedue CSC505",
+    )
     async def coursedue(self, ctx, courseid: str):
         reminders = db.query(
-            'SELECT reminder_name, due_date FROM reminders WHERE guild_id = %s AND course = %s',
-            (ctx.guild.id, courseid)
+            "SELECT reminder_name, due_date FROM reminders WHERE guild_id = %s AND course = %s",
+            (ctx.guild.id, courseid),
         )
         for reminder_name, due_date in reminders:
             formatted_due_date = due_date.strftime("%b %d %Y %H:%M:%S")
             await ctx.author.send(f"{reminder_name} is due at {formatted_due_date}")
         if len(reminders) == 0:
-            await ctx.author.send(f"Rejoice..!! You have no pending reminders for {courseid}..!!")
+            await ctx.author.send(
+                f"Rejoice..!! You have no pending reminders for {courseid}..!!"
+            )
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -353,7 +395,8 @@ class Deadline(commands.Cog):
     async def coursedue_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
-                'To use the coursedue command, do: $coursedue CLASSNAME \n ( For example: $coursedue CSC510 )')
+                "To use the coursedue command, do: $coursedue CLASSNAME \n ( For example: $coursedue CSC510 )"
+            )
         else:
             await ctx.author.send(error)
             print(error)
@@ -368,19 +411,25 @@ class Deadline(commands.Cog):
     #    Outputs: returns either an error stating a reason for failure or
     #             returns a list of all the assignments
     # ---------------------------------------------------------------------------------
-    @commands.command(name="listreminders", pass_context=True, help="lists all reminders")
+    @commands.command(
+        name="listreminders", pass_context=True, help="lists all reminders"
+    )
     async def listreminders(self, ctx):
         author = ctx.message.author
         reminders = db.query(
-            'SELECT course, reminder_name, due_date FROM reminders WHERE guild_id = %s and author_id = %s and now() < due_date',
-            (ctx.guild.id, author.id)
+            "SELECT course, reminder_name, due_date FROM reminders WHERE guild_id = %s and author_id = %s and now() < due_date",
+            (ctx.guild.id, author.id),
         )
 
         for course, reminder_name, due_date in reminders:
             formatted_due_date = due_date.strftime("%b %d %Y %H:%M:%S%z")
-            await ctx.author.send(f"{course} reminder named: {reminder_name} which is due on: {formatted_due_date} by {author.name}")
+            await ctx.author.send(
+                f"{course} reminder named: {reminder_name} which is due on: {formatted_due_date} by {author.name}"
+            )
         if not reminders:
-            await ctx.author.send("Mission Accomplished..!! You don't have any more dues..!!")
+            await ctx.author.send(
+                "Mission Accomplished..!! You don't have any more dues..!!"
+            )
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -411,14 +460,16 @@ class Deadline(commands.Cog):
     async def overdue(self, ctx):
         author = ctx.message.author
         reminders = db.query(
-            'SELECT course, reminder_name, due_date FROM reminders WHERE guild_id = %s and author_id = %s'
-            ' and now() > due_date',
-            (ctx.guild.id, author.id)
+            "SELECT course, reminder_name, due_date FROM reminders WHERE guild_id = %s and author_id = %s"
+            " and now() > due_date",
+            (ctx.guild.id, author.id),
         )
 
         for course, reminder_name, due_date in reminders:
             formatted_due_date = due_date.strftime("%b %d %Y %H:%M:%S%z")
-            await ctx.author.send(f"{course} reminder named: {reminder_name} which was due on: {formatted_due_date} by {author.name}")
+            await ctx.author.send(
+                f"{course} reminder named: {reminder_name} which was due on: {formatted_due_date} by {author.name}"
+            )
         if not reminders:
             await ctx.author.send("There are no overdue reminders")
         await ctx.message.delete()
@@ -448,9 +499,11 @@ class Deadline(commands.Cog):
     #             returns a success message stating that reminders have been deleted
     # ---------------------------------------------------------------------------------
 
-    @commands.command(name="clearreminders", pass_context=True, help="deletes all reminders")
+    @commands.command(
+        name="clearreminders", pass_context=True, help="deletes all reminders"
+    )
     async def clearallreminders(self, ctx):
-        db.query('DELETE FROM reminders WHERE guild_id = %s', (ctx.guild.id,))
+        db.query("DELETE FROM reminders WHERE guild_id = %s", (ctx.guild.id,))
         await ctx.send("All reminders have been cleared..!!")
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -466,7 +519,6 @@ class Deadline(commands.Cog):
     async def clearallreminders_error(self, ctx, error):
         await ctx.author.send(error)
         print(error)
-
 
     # ---------------------------------------------------------------------------------
     #    Function: remindme(self, ctx, quantity: int, time_unit : str,*, text :str)
@@ -520,9 +572,11 @@ class Deadline(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: context of the command
     # -----------------------------------------------------------------------------------------------------
-    @commands.command(name="clearoverdue", pass_context=True, help="deletes overdue reminders")
+    @commands.command(
+        name="clearoverdue", pass_context=True, help="deletes overdue reminders"
+    )
     async def clearoverdue(self, ctx):
-        db.query('DELETE FROM reminders WHERE now() > due_date')
+        db.query("DELETE FROM reminders WHERE now() > due_date")
         await ctx.send("All overdue reminders have been cleared..!!")
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -549,12 +603,16 @@ class Deadline(commands.Cog):
     async def send_reminders_day(self):
         channel = discord.utils.get(self.bot.get_all_channels(), name="reminders")
         if channel:
-            reminders = db.query("SELECT course, reminder_name, due_date "
+            reminders = db.query(
+                "SELECT course, reminder_name, due_date "
                 "FROM reminders "
-                "WHERE due_date::date = now()::date")
-            for course,reminder_name,due_date in reminders:
+                "WHERE due_date::date = now()::date"
+            )
+            for course, reminder_name, due_date in reminders:
                 difference = due_date - datetime.now(timezone.utc)
-                await channel.send(f"{reminder_name} for {course} is due in {(difference.seconds//3600)} hours")
+                await channel.send(
+                    f"{reminder_name} for {course} is due in {(difference.seconds//3600)} hours"
+                )
 
     # -----------------------------------------------------------------------------------------------------
     #    Function: bofore(self)
@@ -565,12 +623,12 @@ class Deadline(commands.Cog):
     # -----------------------------------------------------------------------------------------------------
     @send_reminders_day.before_loop
     async def before(self):
-        WHEN = time(13, 0, 0) # 8:00 AM eastern
+        WHEN = time(13, 0, 0)  # 8:00 AM eastern
         now = datetime.utcnow()
         target_time = datetime.combine(now.date(), WHEN)
         seconds_until_target = (target_time - now).total_seconds()
         if seconds_until_target < 0:
-            target_time = datetime.combine(now.date()+timedelta(days=1), WHEN)
+            target_time = datetime.combine(now.date() + timedelta(days=1), WHEN)
             seconds_until_target = (target_time - now).total_seconds()
         await asyncio.sleep(seconds_until_target)
 
@@ -584,19 +642,24 @@ class Deadline(commands.Cog):
     async def send_reminders_hour(self):
         channel = discord.utils.get(self.bot.get_all_channels(), name="reminders")
         if channel:
-            reminders = db.query("SELECT course, reminder_name, due_date "
+            reminders = db.query(
+                "SELECT course, reminder_name, due_date "
                 "FROM reminders "
-                "WHERE due_date::date = now()::date")
-            for course,reminder_name,due_date in reminders:
+                "WHERE due_date::date = now()::date"
+            )
+            for course, reminder_name, due_date in reminders:
                 difference = due_date - datetime.now(timezone.utc)
-                if difference.seconds//3600 == 0:
-                    await channel.send(f"{reminder_name} for {course} is due within the hour")
+                if difference.seconds // 3600 == 0:
+                    await channel.send(
+                        f"{reminder_name} for {course} is due within the hour"
+                    )
+
 
 # -------------------------------------
 # add the file to the bot's cog system
 # -------------------------------------
 async def setup(bot):
     n = Deadline(bot)
-    n.send_reminders_day.start()    # pylint: disable=no-member
-    n.send_reminders_hour.start()   # pylint: disable=no-member
+    n.send_reminders_day.start()  # pylint: disable=no-member
+    n.send_reminders_hour.start()  # pylint: disable=no-member
     await bot.add_cog(n)

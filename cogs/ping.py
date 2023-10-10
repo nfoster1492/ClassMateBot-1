@@ -6,7 +6,6 @@ from discord.ext import commands
 # Returns the ping of the bot, useful for testing bot lag and as a simple functionality command
 # ----------------------------------------------------------------------------------------------
 class Helpful(commands.Cog):
-
     def __init__(self, bot):
         self.bot = bot
 
@@ -21,8 +20,9 @@ class Helpful(commands.Cog):
     @commands.command()
     async def ping(self, ctx):
         # We set an upper bound on the ping of the bot to prevent float_infinity situations which crash testing
-        await ctx.send(f"Pong! My ping currently is {round(min(999999999, self.bot.latency * 1000))}ms")
-
+        await ctx.send(
+            f"Pong! My ping currently is {round(min(999999999, self.bot.latency * 1000))}ms"
+        )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: ping_error(self, ctx, error)
@@ -33,8 +33,8 @@ class Helpful(commands.Cog):
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    #@ping.error
-    #async def ping_error(self, ctx, error):
+    # @ping.error
+    # async def ping_error(self, ctx, error):
     #    await ctx.author.send(error)
     #    print(error)
 
