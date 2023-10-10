@@ -17,6 +17,7 @@ intents = Intents.all()
 root_dir = d(d(abspath("test/test_bot.py")))
 sys.path.append(root_dir)
 
+
 # Default parameters for the simulated dpytest bot. Loads the bot with commands from the /cogs directory
 # Ran everytime pytest is called
 @pytest_asyncio.fixture
@@ -24,11 +25,11 @@ async def bot(event_loop):
     bot = Bot(intents=intents, command_prefix="$", loop=event_loop)
     dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(dir)
-    os.chdir('cogs')
+    os.chdir("cogs")
     for filename in os.listdir(os.getcwd()):
-        if filename.endswith('.py'):
+        if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
-    await bot.load_extension('jishaku')
+    await bot.load_extension("jishaku")
     await bot._async_setup_hook()
     dpytest.configure(bot)
     return bot
@@ -37,7 +38,7 @@ async def bot(event_loop):
 # Cleans up leftover files generated through dpytest
 def pytest_sessionfinish():
     # Clean up attachment files
-    files = glob.glob('./dpytest_*.dat')
+    files = glob.glob("./dpytest_*.dat")
     for path in files:
         try:
             os.remove(path)
@@ -46,5 +47,6 @@ def pytest_sessionfinish():
     print("\npySession closed successfully")
     # rollback all db modifications made
     db.CONN.rollback()
+
 
 # Copyright (c) 2021 War-Keeper

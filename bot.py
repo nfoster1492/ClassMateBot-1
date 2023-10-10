@@ -8,7 +8,8 @@ from discord.utils import get
 from discord import Intents
 from dotenv import load_dotenv
 from discord.ext.commands import Bot, has_permissions, CheckFailure
-#from better_profanity import profanity
+
+# from better_profanity import profanity
 
 
 import profanity_helper
@@ -29,6 +30,7 @@ intents = Intents.all()
 # Set all bot commands to begin with $
 bot = Bot(intents=intents, command_prefix="$")
 
+
 # ------------------------------------------------------------------------------------------------------------------
 #    Function: on_guild_join()
 #    Description: Activates when the bot joins a new guild, prints the name of the server it joins and the names of all members
@@ -42,33 +44,44 @@ bot = Bot(intents=intents, command_prefix="$")
 @bot.event
 async def on_guild_join(guild):
     for channel in guild.text_channels:
-        if channel.permissions_for(guild.me).send_messages and channel.name == "general":
-
-            if 'instructor-commands' not in guild.text_channels:
-                await guild.create_text_channel('instructor-commands')
+        if (
+            channel.permissions_for(guild.me).send_messages
+            and channel.name == "general"
+        ):
+            if "instructor-commands" not in guild.text_channels:
+                await guild.create_text_channel("instructor-commands")
                 await channel.send("instructor-commands channel has been added!")
-            if 'q-and-a' not in guild.text_channels:
-                await guild.create_text_channel('q-and-a')
+            if "q-and-a" not in guild.text_channels:
+                await guild.create_text_channel("q-and-a")
                 await channel.send("q-and-a channel has been added!")
-            if 'reminders' not in guild.text_channels:
-                await guild.create_text_channel('reminders')
+            if "reminders" not in guild.text_channels:
+                await guild.create_text_channel("reminders")
                 await channel.send("reminders channel has been added!")
 
             if discord.utils.get(guild.roles, name="verified") is None:
-                await guild.create_role(name="verified", colour=discord.Colour(0x2ecc71),
-                                        permissions=discord.Permissions.general())
+                await guild.create_role(
+                    name="verified",
+                    colour=discord.Colour(0x2ECC71),
+                    permissions=discord.Permissions.general(),
+                )
             if discord.utils.get(guild.roles, name="unverified") is None:
-                await guild.create_role(name="unverified", colour=discord.Colour(0xe74c3c),
-                                        permissions=discord.Permissions.none())
+                await guild.create_role(
+                    name="unverified",
+                    colour=discord.Colour(0xE74C3C),
+                    permissions=discord.Permissions.none(),
+                )
                 unverified = discord.utils.get(guild.roles, name="unverified")
                 # unverified members can only see/send messages in general channel until they verify
                 overwrite = discord.PermissionOverwrite()
-                overwrite.update(send_messages = True)
-                overwrite.update(read_messages = True)
+                overwrite.update(send_messages=True)
+                overwrite.update(read_messages=True)
                 await channel.set_permissions(unverified, overwrite=overwrite)
             if discord.utils.get(guild.roles, name="Instructor") is None:
-                await guild.create_role(name="Instructor", colour=discord.Colour(0x3498db),
-                                        permissions=discord.Permissions.all())
+                await guild.create_role(
+                    name="Instructor",
+                    colour=discord.Colour(0x3498DB),
+                    permissions=discord.Permissions.all(),
+                )
             # Assign Verified role to Guild owner
             leader = guild.owner
             leadrole = get(guild.roles, name="verified")
@@ -84,7 +97,7 @@ async def on_guild_join(guild):
             for member in guild.members:
                 if member != guild.owner:
                     await member.add_roles(unverified, reason=None, atomic=True)
-            await channel.send("To verify yourself, use \"$verify <FirstName LastName>\"")
+            await channel.send('To verify yourself, use "$verify <FirstName LastName>"')
 
 
 # ------------------------------------------------------------------------------------------------------------------
@@ -126,9 +139,10 @@ async def on_ready():
         profanity_helper.command_list.append(n.name)
 
     profanity_helper.loadwhitelist()
-    #profanity_helper.loadDefaultWhitelist()
+    # profanity_helper.loadDefaultWhitelist()
 
     print("READY!")
+
 
 ###########################
 # Function: on_message
@@ -138,7 +152,7 @@ async def on_ready():
 ###########################
 @bot.event
 async def on_message(message):
-    ''' run on message sent to a channel '''
+    """run on message sent to a channel"""
     # allow messages from test bot
     # NOTE from Group25: Not sure if this is actually being used anywhere.
     if message.author.bot and message.author.id == 889697640411955251:
@@ -152,20 +166,21 @@ async def on_message(message):
     # CHECK CHANNELS.
     # don't want to accidentally censor a word before it can be whitelisted
     if profanity_helper.filtering:
-        if cname != 'instructor-commands':
-            nustr = message.content.replace('"','')
-            if profanity_helper.helpChecker(nustr) or profanity_helper.helpChecker(message.content):
-            #if profanity_helper.helpChecker(message.content):
+        if cname != "instructor-commands":
+            nustr = message.content.replace('"', "")
+            if profanity_helper.helpChecker(nustr) or profanity_helper.helpChecker(
+                message.content
+            ):
+                # if profanity_helper.helpChecker(message.content):
                 badmsg = "Please do not use inappropriate language in this server. Your message:\n"
                 badmsg += profanity_helper.helpCensor(nustr)
-                #badmsg += profanity_helper.helpCensor(message.content)
-                #if message.author.bot: # if the author is the bot
-                    #return
+                # badmsg += profanity_helper.helpCensor(message.content)
+                # if message.author.bot: # if the author is the bot
+                # return
                 await message.author.send(badmsg)
                 await message.delete()
                 return
     await bot.process_commands(message)
-
 
 
 ###########################
@@ -177,17 +192,21 @@ async def on_message(message):
 ###########################
 @bot.event
 async def on_message_edit(before, after):
-    ''' run on message edited '''
+    """run on message edited"""
 
     if profanity_helper.filtering:
         if profanity_helper.helpChecker(after.content):
             if not after.author.bot:
-                await after.channel.send(after.author.name + ' says: ' +
-                    profanity_helper.helpCensor(after.content))
+                await after.channel.send(
+                    after.author.name
+                    + " says: "
+                    + profanity_helper.helpCensor(after.content)
+                )
                 await after.delete()
             else:
                 numsg = profanity_helper.helpCensor(after.content)
                 await after.edit(content=numsg)
+
 
 # -----------------------------------------------------------------------
 #    Function: toggleFilter
@@ -200,12 +219,12 @@ async def on_message_edit(before, after):
 @bot.command(name="toggleFilter", help="Turns the profanity filter on or off")
 @has_permissions(administrator=True)
 async def toggleFilter(ctx):
-
     if profanity_helper.filtering:
         profanity_helper.filtering = False
     else:
         profanity_helper.filtering = True
     await ctx.send(f"Profanity filter set to: {profanity_helper.filtering}")
+
 
 # -----------------------------------------------------------------------
 #    Function: whitelistWord
@@ -216,21 +235,24 @@ async def toggleFilter(ctx):
 #    Outputs:
 #    -
 # ------------------------------------------------------------------------
-@bot.command(name="whitelist", help="adds a word to the whitelist. EX: $whitelist word or sentence")
+@bot.command(
+    name="whitelist",
+    help="adds a word to the whitelist. EX: $whitelist word or sentence",
+)
 @has_permissions(administrator=True)
-async def whitelistWord(ctx, *, word =''):
-
-    if not ctx.channel.name == 'instructor-commands':
-        await ctx.author.send('Please use this command inside #instructor-commands')
+async def whitelistWord(ctx, *, word=""):
+    if not ctx.channel.name == "instructor-commands":
+        await ctx.author.send("Please use this command inside #instructor-commands")
         await ctx.message.delete()
         return
 
-    if word == '':
+    if word == "":
         return
 
     profanity_helper.wlword(word)
 
     await ctx.send(f"**{word}** has been added to the whitelist.")
+
 
 # -----------------------------------------------------------------------
 #    Function: dewhitelistWord
@@ -241,16 +263,18 @@ async def whitelistWord(ctx, *, word =''):
 #    Outputs:
 #    -
 # ------------------------------------------------------------------------
-@bot.command(name="dewhitelist", help="Removes a word from the whitelist. EX: $dewhitelist word or sentence")
+@bot.command(
+    name="dewhitelist",
+    help="Removes a word from the whitelist. EX: $dewhitelist word or sentence",
+)
 @has_permissions(administrator=True)
-async def dewhitelistWord(ctx, *, word=''):
-
-    if not ctx.channel.name == 'instructor-commands':
-        await ctx.author.send('Please use this command inside #instructor-commands')
+async def dewhitelistWord(ctx, *, word=""):
+    if not ctx.channel.name == "instructor-commands":
+        await ctx.author.send("Please use this command inside #instructor-commands")
         await ctx.message.delete()
         return
 
-    if word == '':
+    if word == "":
         return
 
     if word in profanity_helper.command_list:
@@ -265,8 +289,6 @@ async def dewhitelistWord(ctx, *, word=''):
     await ctx.send(f"**{word}** not found in whitelist.")
 
 
-
-
 # ------------------------------------------------------------------------------------------
 #    Function: on_member_join(member)
 #    Description: Handles on_member_join events, DMs the user and asks for verification through newComer.py
@@ -277,15 +299,15 @@ async def dewhitelistWord(ctx, *, word=''):
 # ------------------------------------------------------------------------------------------
 @bot.event
 async def on_member_join(member):
-
     unverified = discord.utils.get(
         member.guild.roles, name="unverified"
     )  # finds the unverified role in the guild
-    await member.add_roles(unverified) # assigns the unverified role to the new member
+    await member.add_roles(unverified)  # assigns the unverified role to the new member
     await member.send("Hello " + member.name + "!")
     await member.send(
         "Verify yourself before getting started! \n To use the verify command, do: $verify <your_full_name> \n \
-        ( For example: $verify Jane Doe )")
+        ( For example: $verify Jane Doe )"
+    )
 
 
 # ------------------------------------------------
@@ -318,7 +340,7 @@ async def on_error(event, *args, **kwargs):
 @bot.command(name="shutdown", help="Shuts down the bot, only usable by the owner")
 @has_permissions(administrator=True)
 async def shutdown(ctx):
-    await ctx.send('Shutting Down bot')
+    await ctx.send("Shutting Down bot")
     print("Bot closed successfully")
     ctx.bot.logout()
     exit()

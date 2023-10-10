@@ -7,18 +7,18 @@ load_dotenv()
 CONN = None
 TESTING_MODE = False
 # def connect():
-    # global CONN
+# global CONN
 
-DATABASE_URL = os.getenv('DATABASE_URL')
+DATABASE_URL = os.getenv("DATABASE_URL")
 try:
-    CONN = psycopg2.connect(DATABASE_URL, sslmode='require')
-    print('PostgreSQL connection successful')
+    CONN = psycopg2.connect(DATABASE_URL, sslmode="require")
+    print("PostgreSQL connection successful")
 except (Exception, psycopg2.DatabaseError) as error:
     print(error)
 
 
 def query(sql, args=()):
-    ''' query the database and get back rows selected/modified '''
+    """query the database and get back rows selected/modified"""
     cur = CONN.cursor()
     try:
         cur.execute(sql, args)
