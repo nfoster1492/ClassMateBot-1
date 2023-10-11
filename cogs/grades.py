@@ -17,6 +17,16 @@ class Grades(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: grade(self, ctx, assignmentName)
+    #    Description: This command lets a student get their grade for a certain assignment
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    - assignmentName: the name of the desired assignment
+    #    Outputs: Grade of the provided assignment
+    # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="grade", help="get your grade for a specific assignment $grade ASSIGNMENT"
     )
@@ -32,6 +42,16 @@ class Grades(commands.Cog):
 
         await ctx.author.send(f"Grade for {assignmentName}: {grade}%")
 
+
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: gradebycategory(self, ctx, categoryName)
+    #    Description: This command lets a student get their average grade for a certain category
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    - categoryName: the name of the desired category
+    #    Outputs: Average grade of all the assignments in the provided category
+    # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="gradebycategory",
         help="get your grade for a specific category $grade CATEGORY",
