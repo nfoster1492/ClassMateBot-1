@@ -17,7 +17,6 @@ class Grades(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: grade(self, ctx, assignmentName)
     #    Description: This command lets a student get their grade for a certain assignment
@@ -36,12 +35,22 @@ class Grades(commands.Cog):
             (ctx.guild.id, assignmentName),
         )
 
+        points = db.query(
+            "SELECT assignments.points FROM assignments WHERE assignments.guild_id = %s AND assignments.assignment_name = %s",
+            (ctx.guild.id, assignmentName),
+        )
+
         if not grade:
             await ctx.author.send(f"Grade for {assignmentName} does not exist")
             return
 
-        await ctx.author.send(f"Grade for {assignmentName}: {grade}%")
+        if not points:
+            await ctx.author.send(f"{assignmentName} does not exist")
+            return
 
+        await ctx.author.send(
+            f"Grade for {assignmentName}: {grade}%, worth {points} points"
+        )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: gradebycategory(self, ctx, categoryName)
@@ -50,7 +59,7 @@ class Grades(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    - categoryName: the name of the desired category
-    #    Outputs: Average grade of all the assignments in the provided category
+    #    Outputs: Average grade of all the assignments in the provided category, accounting for assignment point values
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="gradebycategory",
@@ -58,7 +67,12 @@ class Grades(commands.Cog):
     )
     async def gradebycategory(self, ctx, categoryName: str):
         grades = db.query(
-            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s",
+            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+            (ctx.guild.id, categoryName),
+        )
+
+        points = db.query(
+            "SELECT assignments.points FROM assignments INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE assignments.guild_id = %s AND grade_categories.category_name = %s ORDER BY assignments.id",
             (ctx.guild.id, categoryName),
         )
 
@@ -66,34 +80,98 @@ class Grades(commands.Cog):
             await ctx.author.send(f"Grade for {categoryName} does not exist")
             return
 
+        if not points:
+            await ctx.author.send(f"Assignments for {categoryName} do not exist")
+            return
+
         total = 0
-        num = 0
+        pointsTotal = 0
 
-        for grade in grades:
-            total = total + grade
-            num = num + 1
+        for i in range(len(grades)):
+            total = total + (grades[i] / 100) * points[i]
+            pointsTotal = pointsTotal + points[i]
 
-        average = total / num
+        average = total / pointsTotal
 
         await ctx.author.send(f"Grade for {categoryName}: {average}%")
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: graderequired(self, ctx, categoryName, desiredGrade)
+    #    Function: gradeforclass(self, ctx)
+    #    Description: This command lets a student get their average grade for the whole class
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    Outputs: Average grade of all the assignments in the class, weighted by category, accounting for assignment point values
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.command(
+        name="gradeforclass",
+        help="get your grade for the whole class $gradeforclass",
+    )
+    async def gradeforclass(self, ctx):
+        categories = db.query(
+            "SELECT category_name, category_weight FROM grade_categories WHERE guild_id = %s ORDER BY category_weight DESC",
+            (ctx.guild.id,),
+        )
+
+        classTotal = 0
+
+        for category_name, category_weight in categories:
+            grades = db.query(
+                "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+                (ctx.guild.id, category_name),
+            )
+
+            points = db.query(
+                "SELECT assignments.points FROM assignments INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE assignments.guild_id = %s AND grade_categories.category_name = %s ORDER BY assignments.id",
+                (ctx.guild.id, category_name),
+            )
+
+            if not grades:
+                await ctx.author.send(f"Grade for {category_name} does not exist")
+                return
+
+            if not points:
+                await ctx.author.send(f"Assignments for {category_name} do not exist")
+                return
+
+            total = 0
+            pointsTotal = 0
+
+            for i in range(len(grades)):
+                total = total + (grades[i] / 100) * points[i]
+                pointsTotal = pointsTotal + points[i]
+
+            average = total / pointsTotal
+
+            classTotal = classTotal + average * category_weight
+
+        await ctx.author.send(f"Grade for class: {classTotal}%")
+
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: graderequired(self, ctx, categoryName, pointValue, desiredGrade)
     #    Description: This command lets a student get the grade they need on the next assignment to keep a desired grade
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    - categoryName: the name of the desired category
-    #    - desiredGrade: the grade desired for the class
-    #    Outputs: Average grade of all the assignments in the provided category
+    #    - pointValue: the amount of points the next assignment will be worth
+    #    - desiredGrade: the grade desired for the category
+    #    Outputs: The necessary grade on the next assignment to maintain a certain grade in a category
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="graderequired",
-        help="get your grade required on the next assignment for a category and a desired grade $graderequired CATEGORY GRADE",
+        help="get your grade required on the next assignment for a category and a desired grade $graderequired CATEGORY POINTS GRADE",
     )
-    async def graderequired(self, ctx, categoryName: str, desiredGrade: str):
+    async def graderequired(
+        self, ctx, categoryName: str, pointValue: str, desiredGrade: str
+    ):
         grades = db.query(
-            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s",
+            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+            (ctx.guild.id, categoryName),
+        )
+
+        points = db.query(
+            "SELECT assignments.points FROM assignments INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE assignments.guild_id = %s AND grade_categories.category_name = %s ORDER BY assignments.id",
             (ctx.guild.id, categoryName),
         )
 
@@ -101,20 +179,139 @@ class Grades(commands.Cog):
             await ctx.author.send(f"Grade for {categoryName} does not exist")
             return
 
-        total = 0
-        num = 0
-
-        for grade in grades:
-            total = total + grade
-            num = num + 1
-
-        gradeNeeded = total - ( int(desiredGrade) * (num + 1) )
-
-        if gradeNeeded < 0 :
-            await ctx.author.send(f"Grade on next assignment needed to keep {desiredGrade}%: 0%")
+        if not points:
+            await ctx.author.send(f"Assignments for {categoryName} do not exist")
             return
-        
-        await ctx.author.send(f"Grade on next assignment needed to keep {desiredGrade}%: {gradeNeeded}%")
+
+        total = 0
+        pointsTotal = 0
+
+        for i in range(len(grades)):
+            total = total + (grades[i] / 100) * points[i]
+            pointsTotal = pointsTotal + points[i]
+
+        pointsNeeded = (int(desiredGrade) * (pointsTotal + int(pointValue))) - total
+
+        gradeNeeded = pointsNeeded / int(pointValue)
+
+        if gradeNeeded < 0:
+            await ctx.author.send(
+                f"Grade on next assignment needed to keep {desiredGrade}% in {categoryName}: 0%"
+            )
+            return
+
+        await ctx.author.send(
+            f"Grade on next assignment needed to keep {desiredGrade}% in {categoryName}: {gradeNeeded}%"
+        )
+
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: graderequiredforclass(self, ctx, categoryName, pointValue, desiredGrade)
+    #    Description: This command lets a student get the grade they need on the next assignment to keep a desired grade
+    #    in the class
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    - categoryName: the name of the category the next assignment will fall in
+    #    - pointValue: the amount of points the next assignment will be worth
+    #    - desiredGrade: the grade desired for the class
+    #    Outputs: The necessary grade on the next assignment to maintain a desired grade in the class
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.command(
+        name="graderequiredforclass",
+        help="get your grade required on the next assignment to keep a desired grade $graderequiredforclass CATEGORY POINTS GRADE",
+    )
+    async def graderequiredforclass(
+        self, ctx, categoryName: str, pointValue: str, desiredGrade: str
+    ):
+        categories = db.query(
+            "SELECT category_name, category_weight FROM grade_categories WHERE guild_id = %s ORDER BY category_weight DESC",
+            (ctx.guild.id,),
+        )
+
+        classTotal = 0
+
+        for category_name, category_weight in categories:
+            if categoryName == category_name:
+                categoryWeight = category_weight
+                break
+
+            grades = db.query(
+                "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+                (ctx.guild.id, category_name),
+            )
+
+            points = db.query(
+                "SELECT assignments.points FROM assignments INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE assignments.guild_id = %s AND grade_categories.category_name = %s ORDER BY assignments.id",
+                (ctx.guild.id, category_name),
+            )
+
+            if not grades:
+                await ctx.author.send(f"Grade for {category_name} does not exist")
+                return
+
+            if not points:
+                await ctx.author.send(f"Assignments for {categoryName} do not exist")
+                return
+
+            total = 0
+            pointsTotal = 0
+
+            for i in range(len(grades)):
+                total = total + (grades[i] / 100) * points[i]
+                pointsTotal = pointsTotal + points[i]
+
+            average = total / pointsTotal
+
+            classTotal = classTotal + average * category_weight
+
+        categoryGradeNeeded = ((desiredGrade - classTotal) / categoryWeight) * 100
+
+        if categoryGradeNeeded < 0:
+            await ctx.author.send(
+                f"Grade on next assignment needed to keep {desiredGrade}%: 0%"
+            )
+            return
+
+        grades = db.query(
+            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+            (ctx.guild.id, categoryName),
+        )
+
+        points = db.query(
+            "SELECT assignments.points FROM assignments INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE assignments.guild_id = %s AND grade_categories.category_name = %s ORDER BY assignments.id",
+            (ctx.guild.id, categoryName),
+        )
+
+        if not grades:
+            await ctx.author.send(f"Grade for {categoryName} does not exist")
+            return
+
+        if not points:
+            await ctx.author.send(f"Assignments for {categoryName} do not exist")
+            return
+
+        total = 0
+        pointsTotal = 0
+
+        for i in range(len(grades)):
+            total = total + (grades[i] / 100) * points[i]
+            pointsTotal = pointsTotal + points[i]
+
+        pointsNeeded = (
+            int(categoryGradeNeeded) * (pointsTotal + int(pointValue))
+        ) - total
+
+        gradeNeeded = pointsNeeded / int(pointValue)
+
+        if gradeNeeded < 0:
+            await ctx.author.send(
+                f"Grade on next assignment needed to keep {desiredGrade}%: 0%"
+            )
+            return
+
+        await ctx.author.send(
+            f"Grade on next assignment needed to keep {desiredGrade}%: {gradeNeeded}%"
+        )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: categories(self, ctx)
