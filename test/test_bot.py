@@ -91,6 +91,176 @@ async def test_groupError(bot):
     )
 
 
+# ---------------------
+# Tests cogs/assignments.py
+# ---------------------
+@pytest.mark.asyncio
+async def test_assignments(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+    #Set up grade categories
+    await dpytest.message("$addgradecategory Homework 0.3")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Homework  with weight: 0.3 ")
+    )
+    await dpytest.message("$addgradecategory Project 0.7")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Project  with weight: 0.7 ")
+    )
+    ##Adding Assignments
+    #Test adding a valid assignment with new category
+    await dpytest.message("$addassignment HW1 Homework 30")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading assignment has been added for: HW1  with points: 30 and category: Homework")
+    )
+    #Test adding into an existing category
+    await dpytest.message("$addassignment HW2 Homework 30")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading assignment has been added for: HW2  with points: 30 and category: Homework")
+    )
+    ##Editing Assignments
+    #Test editing an assignment points
+    await dpytest.message("$editassignment HW2 Homework 20")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("HW2 assignment has been updated with points:20 and category: Homework")
+    )
+    #Test editing an assignment category
+    await dpytest.message("$editassignment HW1 Project 70")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("HW1 assignment has been updated with points:70 and category: Project")
+    )
+    ##Deleting Assignments
+    #Test deleting an assignment
+    await dpytest.message("$deleteassignment HW1")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("HW1 assignment has been deleted ")
+    )
+
+# ---------------------
+# Tests cogs/assignments.py
+# ---------------------
+@pytest.mark.asyncio
+async def test_assignments_error(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+    #Set up grade categories
+    await dpytest.message("$addgradecategory Homework 0.3")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Homework  with weight: 0.3 ")
+    )
+    await dpytest.message("$addgradecategory Project 0.7")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Project  with weight: 0.7 ")
+    )
+    ##Adding Assignments
+    #Test invalid points
+    await dpytest.message("$addassignment HW2 Homework points")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Points could not be parsed")
+    )
+    # await dpytest.message("$addassignment HW3 Homework -1")
+    # assert (
+    #     dpytest.verify()
+    #     .message()
+    #     .content("Assignment points must be greater than zero")
+    # )
+    #Test invalid parameters
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$addassignment HW1 Homework")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("To use the addassignment command, do: $addassignment <assignmentname> <categoryname> <points> \n ( For example: $addassignment test1 tests 100 )")
+    )
+    #Test duplicate assignment
+    await dpytest.message("$addassignment HW2 Homework 20")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading assignment has been added for: HW2  with points: 20 and category: Homework")
+    )
+    await dpytest.message("$addassignment HW2 Homework 20")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("This assignment has already been added..!!")
+    )
+    ##Editing Assignments
+    #Test invalid points
+    await dpytest.message("$editassignment HW2 Homework points")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Points could not be parsed")
+    )
+    # await dpytest.message("$editassignment HW2 Homework 0")
+    # assert (
+    #     dpytest.verify()
+    #     .message()
+    #     .content("Assignment points must be greater than zero")
+    # )
+    #Test assignment that does not exist
+    await dpytest.message("$editassignment HW1 Homework 30")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("This assignment does not exist")
+    )
+    #Test invalid parameters
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$editassignment HW2 Homework")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("To use the editassignment command, do: $editassignment <assignmentname> <categoryname> <points> \n ( For example: $editassignment test1 tests 95 )")
+    )
+    ##Deleting Assignments
+    #Test non existing assignment
+    await dpytest.message("$deleteassignment HW1")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("This assignment does not exist")
+    )
+    #Test invalid parameters
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$deleteassignment")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("To use the deleteassignment command, do: $deleteassignment <assignmentname>\n ( For example: $deleteassignment test1)")
+    )
+
 # -----------------------
 # Tests cogs/deadline.py
 # -----------------------
