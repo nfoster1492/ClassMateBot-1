@@ -282,13 +282,14 @@ For the polling.py file **(All new in Project 3!)**
 
 <table>
   <tr>
-    <td><a href="https://github.com/nfoster1492/ClassMateBot-1">Project 3</a></td>
+    <td><a href="https://github.com/nfoster1492/ClassMateBot-1">Project 2</a></td>
     <td align="center"><a href="https://github.com/brwali/"><img src="https://avatars.githubusercontent.com/u/144480335?v=4" width="75px;" alt=""/><br /><sub><b>Brandon Walia</b></sub></a></td>
     <td align="center"><a href="https://github.com/nathankohen/"><img src="https://avatars.githubusercontent.com/u/99231385?v=4" width="75px;" alt=""/><br /><sub><b>Nathan Kohen</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/nfoster1492/"><img src="https://avatars.githubusercontent.com/u/144182217?v=4" width="75px;" alt=""/><br /><sub><b>Nicholas Foster</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/rpkenney/"><img src="https://avatars.githubusercontent.com/u/70106196?v=4" width="75px;" alt=""/><br /><sub><b>Robert Kenney</b></sub></a><br /></td>
   </tr>
 </table>
+
 ### :pencil2: (Fall 2021)
 
 <table>
