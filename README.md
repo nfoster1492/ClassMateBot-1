@@ -167,7 +167,7 @@ We can also create Quiz Poll\
 
 
 ## :arrow_down: Installation
-To install and run the ClassMate Bot, follow instructions in the [Installation Guide](https://github.com/CSC510-Group-25/ClassMateBot-1/blob/main/docs/installation.md).
+To install and run the ClassMate Bot, follow instructions in the [Installation Guide](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/installation.md).
 
 ---
 
