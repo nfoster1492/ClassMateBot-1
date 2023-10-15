@@ -3,7 +3,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/CSC510-Group-25/ClassMateBot)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/nfoster1492/ClassMateBot-1)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg)](https://opensource.org/licenses/MIT)
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 ![Lines of code](https://img.shields.io/tokei/lines/github/nfoster1492/ClassMateBot-1)
@@ -13,7 +13,7 @@
 [![GitHub issues by-label](https://img.shields.io/github/issues-raw/nfoster1492/ClassMateBot-1/bug?color=red&label=Active%20bugs)](https://github.com/nfoster1492/ClassMateBot-1/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 [![GitHub closed issues by-label](https://img.shields.io/github/issues-closed-raw/nfoster1492/ClassMateBot-1/bug?color=green&label=Squished%20bugs)](https://github.com/nfoster1492/ClassMateBot-1/issues?q=is%3Aissue+label%3Abug+is%3Aclosed)
 [![Python application](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/main.yml/badge.svg)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/main.yml)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/CSC510-Group-25/ClassMateBot/Python%20application)](https://github.com/CSC510-Group-25/ClassMateBot/actions/workflows/main.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/nfoster1492/ClassMateBot-1/Python%20application)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/main.yml)
 [![Pytest](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pytest.yml)
 [![Pylint](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pylint.yml/badge.svg)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/pylint.yml)
 [![Black](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/black.yml/badge.svg)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/black.yml)
@@ -34,28 +34,11 @@
   ::
   <a href="#pencil2-contributors">Contributors</a>
   ::
-  <a href="https://github.com/CSC510-Group-25/ClassMateBot/wiki">Wiki</a>
+  <a href="https://github.com/nfoster1492/ClassMateBot-1/wiki">Wiki</a>
   
 </p>
 
----
-
-Project 3 demo video:  
-
-Watch it on youtube! https://www.youtube.com/watch?v=KBBqUkOTuSo  
-
-Watch it here:  
-
-https://user-images.githubusercontent.com/89357283/144730581-46b85493-3f5c-4c65-9d3f-fbcfffc729a3.mp4
-
-
-
----
-
-
-https://user-images.githubusercontent.com/89809302/140442405-e043564d-c946-4116-bb79-e9f8a341da21.mp4
-
-<a href="https://youtu.be/U59HyX21S7k">Watch on YouTube</a>
+Add video here
 
 
 ---
@@ -64,8 +47,7 @@ https://user-images.githubusercontent.com/89809302/140442405-e043564d-c946-4116-
 
 This project helps to improve the life of students, TAs and teachers by automating many mundane tasks which are sometimes done manually. ClassMateBot is a discord bot made in Python and could be used for any discord channel.  
 
-This is Project 3 for the ClassMateBot. Changes are marked below and listed in [Project 3 Changes](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/docs/Project3Changes.md).
-
+This is Project 2 for team 1 in Fall 2023. Changes are marked below and listed in (add link here)
 ---
 
 ## :orange_book: Description
@@ -97,7 +79,7 @@ Voting for projects is a common occurence that many students must endure. With t
 
 ### 3 - Deadline Reminder **(Updated in Project 3!)**
 
-***Deadlines now send automatic messgages for assignments that are due that day and assignments that are due within the hour!*** Check out more [here](https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/docs/Project3Changes.md)
+***Deadlines now send automatic messgages for assignments that are due that day and assignments that are due within the hour!*** Check out more [here](https://github.com/nfoster1492/ClassMateBot-1/blob/group25-documentation/docs/Project3Changes.md)
 
 The next important thing our project covers is the Deadline reminder feature of our bot. Students may add homeworks, links, and due dates using the system, and then view their daily or weekly dues with ease. No longer will a student be vulnerable to those odd submission times like 3:00 PM. See homework specific to one class, due today, or due this week!
 
@@ -154,14 +136,14 @@ An essential part of studying is going over questions related to the exam topics
 ### 8 - Polling **(NEW in Project 3!)**
 
 Users can now create polls! Instructor can ask for student opinions.
-<img src = "https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/data/proj3media/polling/poll1.png?raw=true"  width = "600">
+<img src = "https://github.com/nfoster1492/ClassMateBot-1/blob/group25-documentation/data/proj3media/polling/poll1.png?raw=true"  width = "600">
 
-<img src = "https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/data/proj3media/polling/poll2.png?raw=true"  width = "600">
+<img src = "https://github.com/nfoster1492/ClassMateBot-1/blob/group25-documentation/data/proj3media/polling/poll2.png?raw=true"  width = "600">
 
 We can also create Quiz Poll\
-<img src = "https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/data/proj3media/polling/quizpoll1.png?raw=true"  width = "600">
+<img src = "https://github.com/nfoster1492/ClassMateBot-1/blob/group25-documentation/data/proj3media/polling/quizpoll1.png?raw=true"  width = "600">
 
-<img src = "https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-documentation/data/proj3media/polling/quizpoll2.png?raw=true"  width = "600">
+<img src = "https://github.com/nfoster1492/ClassMateBot-1/blob/group25-documentation/data/proj3media/polling/quizpoll2.png?raw=true"  width = "600">
 
 
 ---
@@ -176,118 +158,118 @@ To install and run the ClassMate Bot, follow instructions in the [Installation G
 
 General commands in bot.py
 
-:open_file_folder: [$whitelist command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/ProfanityFilter/whitelist.md) **(New Command in Project 3)**
+:open_file_folder: [$whitelist command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ProfanityFilter/whitelist.md) **(New Command in Project 3)**
 
-:open_file_folder: [$dewhitelist command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/ProfanityFilter/dewhitelist.md) **(New Command in Project 3)**
+:open_file_folder: [$dewhitelist command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ProfanityFilter/dewhitelist.md) **(New Command in Project 3)**
 
-:open_file_folder: [$toggleFilter command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/ProfanityFilter/togglefilter.md) **(New Command in Project 3)**
+:open_file_folder: [$toggleFilter command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ProfanityFilter/togglefilter.md) **(New Command in Project 3)**
 
 For the newComer.py file
 
-:open_file_folder: [$verify command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Verification/verify.md)
+:open_file_folder: [$verify command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Verification/verify.md)
 
 For the voting.py file 
 
-:open_file_folder: [$projects command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Voting/projects.md) 
+:open_file_folder: [$projects command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Voting/projects.md) 
 
-:open_file_folder: [$vote command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Voting/vote.md) 
+:open_file_folder: [$vote command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Voting/vote.md) 
 
 For the deadline.py file **(Updated in Project 3!)**
 
-:open_file_folder: [$add homework command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/add_homework.md) **(Updated in Project 3!)**
+:open_file_folder: [$add homework command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/add_homework.md) **(Updated in Project 3!)**
 
-:open_file_folder: [$change reminder due date command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/change_reminder_due_date.md) **(Updated in Project 3!)**
+:open_file_folder: [$change reminder due date command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/change_reminder_due_date.md) **(Updated in Project 3!)**
 
-:open_file_folder: [$clear all reminders command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/clear_all_reminders.md)
+:open_file_folder: [$clear all reminders command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/clear_all_reminders.md)
 
-:open_file_folder: [$course due command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/course_due.md)
+:open_file_folder: [$course due command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/course_due.md)
 
-:open_file_folder: [$delete reminder command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/delete_reminder.md)
+:open_file_folder: [$delete reminder command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/delete_reminder.md)
 
-:open_file_folder: [$due this week command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/due_this_week.md) **(Updated in Project 3!)**
+:open_file_folder: [$due this week command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/due_this_week.md) **(Updated in Project 3!)**
 
-:open_file_folder: [$duetoday command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/due_today.md) **(Updated in Project 3!)**
+:open_file_folder: [$duetoday command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/due_today.md) **(Updated in Project 3!)**
 
-:open_file_folder: [$listreminders command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/list_reminders.md)
+:open_file_folder: [$listreminders command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/list_reminders.md)
 
-:open_file_folder: [$timenow command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/timenow.md)
+:open_file_folder: [$timenow command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/timenow.md)
 
-:open_file_folder: [$overdue command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/overdue.md) **(New Command in Project 3)**
+:open_file_folder: [$overdue command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/overdue.md) **(New Command in Project 3)**
 
-:open_file_folder: [$clearoverdue command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Reminders/clearoverdue.md) **(New Command in Project 3)**
+:open_file_folder: [$clearoverdue command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/clearoverdue.md) **(New Command in Project 3)**
 
 
 For the pinning.py file
 
-:open_file_folder: [$pin command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/PinMessage/pin.md) 
+:open_file_folder: [$pin command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/PinMessage/pin.md) 
 
-:open_file_folder: [$unpin command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/PinMessage/unpin.md) 
+:open_file_folder: [$unpin command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/PinMessage/unpin.md) 
 
-:open_file_folder: [$pinnedmessages command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/PinMessage/pinnedmessages.md) 
+:open_file_folder: [$pinnedmessages command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/PinMessage/pinnedmessages.md) 
 
-:open_file_folder: [$updatepin command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/PinMessage/updatepin.md) 
+:open_file_folder: [$updatepin command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/PinMessage/updatepin.md) 
 
 For the groups.py file
 
-:open_file_folder: [$startupgroups command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/startupgroups.md) 
+:open_file_folder: [$startupgroups command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Groups/startupgroups.md) 
 
-:open_file_folder: [$reset command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/reset.md) 
+:open_file_folder: [$reset command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Groups/reset.md) 
 
-:open_file_folder: [$connect command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/connect.md)
+:open_file_folder: [$connect command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Groups/connect.md)
 
-:open_file_folder: [$groups command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/groups.md)
+:open_file_folder: [$groups command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Groups/groups.md)
 
-:open_file_folder: [$group command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/group.md)
+:open_file_folder: [$group command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Groups/group.md)
 
-:open_file_folder: [$join command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/join.md)
+:open_file_folder: [$join command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Groups/join.md)
 
-:open_file_folder: [$leave command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Groups/leave.md)
+:open_file_folder: [$leave command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Groups/leave.md)
 
 For the qanda.py file **(Updated in Project 3!)**
 
-:open_file_folder: [$ask command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/ask.md) **(Updated in Project 3)**
+:open_file_folder: [$ask command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/ask.md) **(Updated in Project 3)**
 
-:open_file_folder: [$answer command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/answer.md) **(Updated in Project 3)**
+:open_file_folder: [$answer command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/answer.md) **(Updated in Project 3)**
 
-:open_file_folder: [$DALLAF command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/DALLAF.md) **(New Command in Project 3)**
+:open_file_folder: [$DALLAF command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/DALLAF.md) **(New Command in Project 3)**
 
-:open_file_folder: [$getAnswersFor command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/getAnswersFor.md) **(New Command in Project 3)**
+:open_file_folder: [$getAnswersFor command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/getAnswersFor.md) **(New Command in Project 3)**
 
-:open_file_folder: [$deleteAllQA command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/deleteAllQA.md) **(New Command in Project 3)**
+:open_file_folder: [$deleteAllQA command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/deleteAllQA.md) **(New Command in Project 3)**
 
-:open_file_folder: [$deleteQuestion command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/deleteQuestion.md) **(New Command in Project 3)**
+:open_file_folder: [$deleteQuestion command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/deleteQuestion.md) **(New Command in Project 3)**
 
-:open_file_folder: [$archiveQA command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/archiveQA.md) **(New Command in Project 3)**
+:open_file_folder: [$archiveQA command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/archiveQA.md) **(New Command in Project 3)**
 
-:open_file_folder: [$spooky command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/spooky.md) **(New Command in Project 3)**
+:open_file_folder: [$spooky command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/spooky.md) **(New Command in Project 3)**
 
-:open_file_folder: [$allChannelGhosts command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/allChannelGhosts.md) **(New Command in Project 3)**
+:open_file_folder: [$allChannelGhosts command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/allChannelGhosts.md) **(New Command in Project 3)**
 
-:open_file_folder: [$channelGhost command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/channelGhost.md) **(New Command in Project 3)**
+:open_file_folder: [$channelGhost command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/channelGhost.md) **(New Command in Project 3)**
 
-:open_file_folder: [$unearthZombies command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/unearthZombies.md) **(New Command in Project 3)**
+:open_file_folder: [$unearthZombies command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/unearthZombies.md) **(New Command in Project 3)**
 
-:open_file_folder: [$reviveGhost command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/QandA/reviveGhost.md) **(New Command in Project 3)**
+:open_file_folder: [$reviveGhost command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/reviveGhost.md) **(New Command in Project 3)**
 
 For the reviewqs.py file
 
-:open_file_folder: [$addQuestion command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/ReviewQs/addQuestion.md) 
+:open_file_folder: [$addQuestion command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ReviewQs/addQuestion.md) 
 
-:open_file_folder: [$getQuestion command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/ReviewQs/getQuestion.md) 
+:open_file_folder: [$getQuestion command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ReviewQs/getQuestion.md) 
 
 
 For the polling.py file **(All new in Project 3!)**
 
-:open_file_folder: [$poll command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Polling/poll.md)
+:open_file_folder: [$poll command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Polling/poll.md)
 
-:open_file_folder: [$quizpoll command](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/docs/Polling/quizpoll.md)
+:open_file_folder: [$quizpoll command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Polling/quizpoll.md)
 
 
 
 ---
 
 ## :earth_americas: Future Scope
-[Future scope](https://github.com/CSC510-Group-25/ClassMateBot/projects/3) suggested tasks are located in the Projects tab. 
+[Future scope](https://github.com/nfoster1492/ClassMateBot-1/projects/3) suggested tasks are located in the Projects tab. 
 
 
 ---
