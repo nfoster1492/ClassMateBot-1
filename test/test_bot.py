@@ -187,12 +187,12 @@ async def test_assignments_error(bot):
     # Test invalid points
     await dpytest.message("$addassignment HW2 Homework points")
     assert dpytest.verify().message().content("Points could not be parsed")
-    # await dpytest.message("$addassignment HW3 Homework -1")
-    # assert (
-    #     dpytest.verify()
-    #     .message()
-    #     .content("Assignment points must be greater than zero")
-    # )
+    await dpytest.message("$addassignment HW3 Homework -1")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Assignment points must be greater than or equal to zero")
+    )
     # Test invalid parameters
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$addassignment HW1 Homework")
@@ -220,12 +220,12 @@ async def test_assignments_error(bot):
     # Test invalid points
     await dpytest.message("$editassignment HW2 Homework points")
     assert dpytest.verify().message().content("Points could not be parsed")
-    # await dpytest.message("$editassignment HW2 Homework 0")
-    # assert (
-    #     dpytest.verify()
-    #     .message()
-    #     .content("Assignment points must be greater than zero")
-    # )
+    await dpytest.message("$editassignment HW2 Homework -1")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Assignment points must be greater than or equal to zero")
+    )
     # Test assignment that does not exist
     await dpytest.message("$editassignment HW1 Homework 30")
     assert dpytest.verify().message().content("This assignment does not exist")

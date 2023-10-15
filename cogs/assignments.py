@@ -47,7 +47,7 @@ class Assignments(commands.Cog):
             await ctx.send(f"Category with name {categoryname} does not exist")
             return
         if assignmentpoints < 0:
-            await ctx.send("Assignment points must be greater than zero")
+            await ctx.send("Assignment points must be greater than or equal to zero")
             return
         existing = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",
@@ -97,7 +97,7 @@ class Assignments(commands.Cog):
             await ctx.send(f"Category with name {categoryname} does not exist")
             return
         if assignmentpoints < 0:
-            await ctx.send("Assignment points must be greater than zero")
+            await ctx.send("Assignment points must be greater than or equal to zero")
             return
         existing = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",
