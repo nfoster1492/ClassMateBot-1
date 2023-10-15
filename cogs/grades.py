@@ -87,7 +87,7 @@ class Grades(commands.Cog):
         total = 0
         pointsTotal = 0
 
-        for i in range(len(grades)):
+        for i in enumerate(grades):
             total = total + (grades[i] / 100) * points[i]
             pointsTotal = pointsTotal + points[i]
 
@@ -137,7 +137,7 @@ class Grades(commands.Cog):
             total = 0
             pointsTotal = 0
 
-            for i in range(len(grades)):
+            for i in enumerate(grades):
                 total = total + (grades[i] / 100) * points[i]
                 pointsTotal = pointsTotal + points[i]
 
@@ -186,7 +186,7 @@ class Grades(commands.Cog):
         total = 0
         pointsTotal = 0
 
-        for i in range(len(grades)):
+        for i in enumerate(grades):
             total = total + (grades[i] / 100) * points[i]
             pointsTotal = pointsTotal + points[i]
 
@@ -256,7 +256,7 @@ class Grades(commands.Cog):
             total = 0
             pointsTotal = 0
 
-            for i in range(len(grades)):
+            for i in enumerate(grades):
                 total = total + (grades[i] / 100) * points[i]
                 pointsTotal = pointsTotal + points[i]
 
@@ -293,7 +293,7 @@ class Grades(commands.Cog):
         total = 0
         pointsTotal = 0
 
-        for i in range(len(grades)):
+        for i in enumerate(grades):
             total = total + (grades[i] / 100) * points[i]
             pointsTotal = pointsTotal + points[i]
 
@@ -368,7 +368,7 @@ class Grades(commands.Cog):
         df = pd.read_csv(data)
         edited = 0
         added = 0
-        for i in range(len(df)):
+        for i in enumerate(df):
             name = df.loc[i, "name"]
             grade = df.loc[i, "grade"].item()
 
