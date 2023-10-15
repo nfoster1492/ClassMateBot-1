@@ -12,7 +12,6 @@ from dateutil import parser
 import sys
 from discord.ext import commands, tasks
 import discord
-from .calendar import Calendar
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import db
@@ -121,8 +120,10 @@ class Deadline(commands.Cog):
                 f"A date has been added for: {coursename} reminder named: {hwcount} "
                 f"which is due on: {duedate} by {author}."
             )
-            isodate=duedate.isoformat()
-            await ctx.author.send(f"Use this command to add the reminder to the calendar! **`$addCalendarEvent {hwcount} {coursename} {isodate}Z`**")
+            isodate = duedate.isoformat()
+            ctx.author.send(
+                f"Use this command to add the reminder to the calendar! **`$addCalendarEvent {hwcount} {coursename} {isodate}Z`**"
+            )
         else:
             await ctx.send("This reminder has already been added..!!")
 

@@ -9,7 +9,6 @@ from discord.ext import commands, tasks
 
 from google.auth.transport.requests import Request
 from datetime import timedelta, datetime, date
-from dateutil import parser
 from google.oauth2.credentials import Credentials
 from urllib.request import urlopen
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -77,8 +76,7 @@ class Calendar(commands.Cog):
         except HttpError as error:
             print(f"An error occurred: {error}")
 
-
-# -----------------------------------------------------------------------------------------------------------------
+    # -----------------------------------------------------------------------------------------------------------------
     #    Function: addCalendarEvent(self, ctx, name, description, eventTime)
     #    Description: adds an event to the Google Calendar specified in .env configuration
     #    Inputs:
@@ -100,20 +98,13 @@ class Calendar(commands.Cog):
                 "summary": name,
                 "description": description,
                 "colorId": 4,
-                "start": {
-                    "dateTime": str(eventTime),
-                    "timeZone": "UTC"
-                },
-                "end": {
-                    "dateTime": str(eventTime),
-                    "timeZone": "UTC"
-                },
+                "start": {"dateTime": str(eventTime), "timeZone": "UTC"},
+                "end": {"dateTime": str(eventTime), "timeZone": "UTC"},
             }
             event = service.events().insert(calendarId=calendar, body=event).execute()
 
         except HttpError as error:
             print(f"An error occurred: {error}")
-
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: getiCalDownload(self, ctx)
@@ -330,5 +321,3 @@ class Calendar(commands.Cog):
 async def setup(bot):
     n = Calendar(bot)
     await bot.add_cog(n)
-
-
