@@ -19,6 +19,8 @@
 [![Black](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/black.yml/badge.svg)](https://github.com/nfoster1492/ClassMateBot-1/actions/workflows/black.yml)
 [![codecov](https://codecov.io/gh/nfoster1492/ClassMateBot-1/graph/badge.svg?token=GOZIMU10AY)](https://codecov.io/gh/nfoster1492/ClassMateBot-1)
 [![Maintainability](https://api.codeclimate.com/v1/badges/260d558f17ae5e1027e5/maintainability)](https://codeclimate.com/github/nfoster1492/ClassMateBot-1/maintainability)
+![Discord](https://img.shields.io/discord/1143966088695124110)
+
 
 
 
