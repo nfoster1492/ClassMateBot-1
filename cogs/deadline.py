@@ -36,7 +36,7 @@ class Deadline(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    - date: current date and 24-hour time
-    #    Outputs: offset from the user's current time with UTC.
+    #    Outputs: offset from the user's current time with UTC
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="timenow",

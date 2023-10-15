@@ -135,7 +135,7 @@ async def test_assignments(bot):
             "A grading assignment has been added for: HW2  with points: 30 and category: Homework"
         )
     )
-    ##Editing Assignments
+    ## Editing Assignments
     # Test editing an assignment points
     await dpytest.message("$editassignment HW2 Homework 20")
     assert (
