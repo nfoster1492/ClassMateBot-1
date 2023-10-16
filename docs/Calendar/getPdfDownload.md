@@ -17,4 +17,4 @@ $getPdfDownload
 ```
 Successful execution of this command will result in a pdf being sent in the same channel
 
-![image]([https://user-images.githubusercontent.com/32313919/140243037-8e4c192c-5842-4fd9-85b0-6cccaf3f74ab.png])
+![image]((https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/getPdfDownload.JPG)https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/getPdfDownload.JPG)
