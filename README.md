@@ -177,6 +177,12 @@ For the voting.py file
 
 :open_file_folder: [$vote command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Voting/vote.md) 
 
+For the calendar.py file
+
+:open_file_folder: [$getiCalDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/getiCalDownload.md) 
+
+:open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/getPdfDownload.md) 
+
 For the deadline.py file **(Updated in Project 3!)**
 
 :open_file_folder: [$add homework command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/add_homework.md) **(Updated in Project 3!)**
