@@ -23,6 +23,12 @@ class Calendar(commands.Cog):
         self.bot = bot
         self.checkForEvents.start()
 
+    # -----------------------------------------------------------------------------------------------------------------
+    #    Function: credsSetUp(self)
+    #    Description: Sets up the credentials for all calendar actions
+    #    Outputs:
+    #       - The credentials needed to access the google calendar api calls
+    # -----------------------------------------------------------------------------------------------------------------
     def credsSetUp(self):
         # If modifying these scopes, delete the file token.json.
         SCOPES = ["https://www.googleapis.com/auth/calendar"]
@@ -46,35 +52,6 @@ class Calendar(commands.Cog):
             with open("token.json", "w", encoding="utf-8") as token:
                 token.write(creds.to_json())
         return creds
-
-    async def listCalendarEvents(self):
-        creds = self.credsSetUp()
-        try:
-            service = build("calendar", "v3", credentials=creds)
-            calendar = os.getenv("CALENDAR_ID")
-            # Call the Calendar API
-            now = datetime.utcnow().isoformat() + "Z"  # 'Z' indicates UTC time
-            print("Getting the upcoming 10 events")
-            events_result = (
-                service.events()
-                .list(
-                    calendarId=calendar,
-                    timeMin=now,
-                    maxResults=10,
-                    singleEvents=True,
-                    orderBy="startTime",
-                )
-                .execute()
-            )
-            events = events_result.get("items", [])
-
-            if not events:
-                print("No upcoming events found.")
-                return
-            return events
-
-        except HttpError as error:
-            print(f"An error occurred: {error}")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: addCalendarEvent(self, ctx, name, description, eventTime)
