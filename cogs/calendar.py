@@ -216,11 +216,11 @@ class Calendar(commands.Cog):
         hour = 23
         minute = 23
         await self.bot.wait_until_ready()
-        now = datetime.now()
-        future = datetime(now.year, now.month, now.day, hour, minute)
-        if now.hour >= hour and now.minute > minute:
-            future += timedelta(days=1)
-        await asyncio.sleep((future - now).seconds)
+        present = datetime.now()
+        wakeuptime = datetime(present.year, present.month, present.day, hour, minute)
+        if present.hour >= hour and present.minute > minute:
+            wakeuptime += timedelta(days=1)
+        await asyncio.sleep((wakeuptime - present).seconds)
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: subscribeCalendar(self, ctx, userEmail)
