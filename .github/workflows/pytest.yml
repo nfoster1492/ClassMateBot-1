@@ -22,6 +22,7 @@ jobs:
       run: |
         cat << EOF > .env
         DATABASE_URL=${{ secrets.DATABASE_URL }}
+        CALENDAR_ID=${{ secrets.CALENDAR_ID }}
         EOF
     - name: Test with pytest
       run: pytest --tb=line
