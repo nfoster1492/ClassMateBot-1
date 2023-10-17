@@ -74,7 +74,6 @@ class Calendar(commands.Cog):
         try:
             calendar = os.getenv("CALENDAR_ID")
             service = build("calendar", "v3", credentials=creds)
-            # time=parser.parse(date)
             event = {
                 "summary": name,
                 "description": description,
@@ -238,9 +237,9 @@ class Calendar(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="subscribeCalendar",
-        help="Adds user to shared Google Calendar. Ex: subscribecalendar john.doe@gmail.com",
+        help="Adds user to shared Google Calendar. Ex: subscribeCalendar john.doe@gmail.com",
     )
-    async def subscribecalendar(self, ctx, userEmail):
+    async def subscribeCalendar(self, ctx, userEmail):
         creds = self.credsSetUp()
         try:
             service = build("calendar", "v3", credentials=creds)
