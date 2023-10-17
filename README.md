@@ -293,11 +293,11 @@ For the grades.py file
 
 For the assignments.py file
 
-:open_file_folder: [$add_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/add_assignment.md) **(New Command in Project 2)**
+:open_file_folder: [$add_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Assignments/add_assignment.md) **(New Command in Project 2)**
 
-:open_file_folder: [$edit_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/edit_assignment.md) **(New Command in Project 2)**
+:open_file_folder: [$edit_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Assignments/edit_assignment.md) **(New Command in Project 2)**
 
-:open_file_folder: [$delete_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/delete_assignment.md) **(New Command in Project 2)**
+:open_file_folder: [$delete_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Assignments/delete_assignment.md) **(New Command in Project 2)**
 
 
 
