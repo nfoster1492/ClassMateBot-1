@@ -80,7 +80,7 @@ Voting for projects is a common occurence that many students must endure. With t
 <img src="https://user-images.githubusercontent.com/32313919/140250910-3aa8d6cd-000d-4b51-949a-0c60f3464c3b.png" width="350">
 <!-- ![image](https://user-images.githubusercontent.com/32313919/140250910-3aa8d6cd-000d-4b51-949a-0c60f3464c3b.png) -->
 
-### 3 - Deadline Reminder **(Updated in Project 3!)**
+### 3 - Deadline Reminder
 
 ***Deadlines now send automatic messgages for assignments that are due that day and assignments that are due within the hour!*** Check out more [here](https://github.com/nfoster1492/ClassMateBot-1/blob/group25-documentation/docs/Project3Changes.md)
 
@@ -122,7 +122,7 @@ Moreover, the group creation feature allows members of the group to join a priva
 
 
 
-### 6 - Question and Answer **(Updated in Project 3!)**
+### 6 - Question and Answer
 A common usage for our current class Discord is for students to ask questions about the course. It is helpful for the questions to be numbered and for the answers to be attached to the question so it be easily found. Some students may feel more comfortable asking and answering questions anonymously. It is also helpful for users to know if the question is answered by a student or instructor. This feature keeps the questions and answers all in one channel so it does not clutter other channels and can be more easily viewed.  
 
 ![image](https://user-images.githubusercontent.com/32313919/140245147-80aca7ff-525a-4cfb-89d0-df5d10afd691.png)  
@@ -136,7 +136,7 @@ An essential part of studying is going over questions related to the exam topics
 <img src="https://user-images.githubusercontent.com/32313919/140245925-22769537-ef22-420f-9ed2-b9153a71938e.png" width="600">
 <!-- ![image](https://user-images.githubusercontent.com/32313919/140245925-22769537-ef22-420f-9ed2-b9153a71938e.png) -->
 
-### 8 - Polling **(NEW in Project 3!)**
+### 8 - Polling
 
 Users can now create polls! Instructor can ask for student opinions.
 <img src = "https://github.com/nfoster1492/ClassMateBot-1/blob/group25-documentation/data/proj3media/polling/poll1.png?raw=true"  width = "600">
@@ -147,6 +147,9 @@ We can also create Quiz Poll\
 <img src = "https://github.com/nfoster1492/ClassMateBot-1/blob/group25-documentation/data/proj3media/polling/quizpoll1.png?raw=true"  width = "600">
 
 <img src = "https://github.com/nfoster1492/ClassMateBot-1/blob/group25-documentation/data/proj3media/polling/quizpoll2.png?raw=true"  width = "600">
+
+### 9 - Assignments/Grading **(New in Project 2)**
+An essential part of any course is the delivery of assignments and the grading of these. This feature allows instructors to add assignments into the server, and assign grades to them based on grading categories. Both the students and the instructor are able to have an easy interface to view their grades, and do calculations based on them. For example, the instrcutor can view a grading breakdown for a given grading category or asssignment, and the students can do calculations to determine how well they need to do on a given assignment to maintain a desired grade. 
 
 
 ---
@@ -161,11 +164,11 @@ To install and run the ClassMate Bot, follow instructions in the [Installation G
 
 General commands in bot.py
 
-:open_file_folder: [$whitelist command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ProfanityFilter/whitelist.md) **(New Command in Project 3)**
+:open_file_folder: [$whitelist command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ProfanityFilter/whitelist.md)
 
-:open_file_folder: [$dewhitelist command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ProfanityFilter/dewhitelist.md) **(New Command in Project 3)**
+:open_file_folder: [$dewhitelist command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ProfanityFilter/dewhitelist.md)
 
-:open_file_folder: [$toggleFilter command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ProfanityFilter/togglefilter.md) **(New Command in Project 3)**
+:open_file_folder: [$toggleFilter command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ProfanityFilter/togglefilter.md)
 
 For the newComer.py file
 
@@ -183,11 +186,11 @@ For the calendar.py file
 
 :open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/getPdfDownload.md) 
 
-For the deadline.py file **(Updated in Project 3!)**
+For the deadline.py file
 
-:open_file_folder: [$add homework command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/add_homework.md) **(Updated in Project 3!)**
+:open_file_folder: [$add homework command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/add_homework.md)
 
-:open_file_folder: [$change reminder due date command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/change_reminder_due_date.md) **(Updated in Project 3!)**
+:open_file_folder: [$change reminder due date command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/change_reminder_due_date.md)
 
 :open_file_folder: [$clear all reminders command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/clear_all_reminders.md)
 
@@ -195,17 +198,17 @@ For the deadline.py file **(Updated in Project 3!)**
 
 :open_file_folder: [$delete reminder command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/delete_reminder.md)
 
-:open_file_folder: [$due this week command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/due_this_week.md) **(Updated in Project 3!)**
+:open_file_folder: [$due this week command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/due_this_week.md)
 
-:open_file_folder: [$duetoday command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/due_today.md) **(Updated in Project 3!)**
+:open_file_folder: [$duetoday command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/due_today.md)
 
 :open_file_folder: [$listreminders command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/list_reminders.md)
 
 :open_file_folder: [$timenow command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/timenow.md)
 
-:open_file_folder: [$overdue command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/overdue.md) **(New Command in Project 3)**
+:open_file_folder: [$overdue command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/overdue.md)
 
-:open_file_folder: [$clearoverdue command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/clearoverdue.md) **(New Command in Project 3)**
+:open_file_folder: [$clearoverdue command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/clearoverdue.md)
 
 
 For the pinning.py file
@@ -234,31 +237,30 @@ For the groups.py file
 
 :open_file_folder: [$leave command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Groups/leave.md)
 
-For the qanda.py file **(Updated in Project 3!)**
+For the qanda.py file
 
-:open_file_folder: [$ask command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/ask.md) **(Updated in Project 3)**
+:open_file_folder: [$ask command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/ask.md)
 
-:open_file_folder: [$answer command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/answer.md) **(Updated in Project 3)**
+:open_file_folder: [$answer command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/answer.md)
 
-:open_file_folder: [$DALLAF command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/DALLAF.md) **(New Command in Project 3)**
+:open_file_folder: [$DALLAF command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/DALLAF.md)
 
-:open_file_folder: [$getAnswersFor command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/getAnswersFor.md) **(New Command in Project 3)**
+:open_file_folder: [$getAnswersFor command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/getAnswersFor.md)
 
-:open_file_folder: [$deleteAllQA command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/deleteAllQA.md) **(New Command in Project 3)**
+:open_file_folder: [$deleteAllQA command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/deleteAllQA.md)
 
-:open_file_folder: [$deleteQuestion command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/deleteQuestion.md) **(New Command in Project 3)**
+:open_file_folder: [$deleteQuestion command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/deleteQuestion.md)
 
-:open_file_folder: [$archiveQA command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/archiveQA.md) **(New Command in Project 3)**
+:open_file_folder: [$archiveQA command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/archiveQA.md)
 
-:open_file_folder: [$spooky command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/spooky.md) **(New Command in Project 3)**
+:open_file_folder: [$spooky command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/spooky.md)
 
-:open_file_folder: [$allChannelGhosts command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/allChannelGhosts.md) **(New Command in Project 3)**
+:open_file_folder: [$allChannelGhosts command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/allChannelGhosts.md)
+:open_file_folder: [$channelGhost command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/channelGhost.md)
 
-:open_file_folder: [$channelGhost command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/channelGhost.md) **(New Command in Project 3)**
+:open_file_folder: [$unearthZombies command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/unearthZombies.md)
 
-:open_file_folder: [$unearthZombies command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/unearthZombies.md) **(New Command in Project 3)**
-
-:open_file_folder: [$reviveGhost command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/reviveGhost.md) **(New Command in Project 3)**
+:open_file_folder: [$reviveGhost command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/reviveGhost.md)
 
 For the reviewqs.py file
 
@@ -267,11 +269,35 @@ For the reviewqs.py file
 :open_file_folder: [$getQuestion command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/ReviewQs/getQuestion.md) 
 
 
-For the polling.py file **(All new in Project 3!)**
+For the polling.py file
 
 :open_file_folder: [$poll command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Polling/poll.md)
 
 :open_file_folder: [$quizpoll command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Polling/quizpoll.md)
+
+For the grades.py file
+
+:open_file_folder: [$add_grade_category command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/add_grade_category.md) **(New Command in Project 2)**
+
+:open_file_folder: [$edit_grade_category command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/edit_grade_category.md) **(New Command in Project 2)**
+
+:open_file_folder: [$delete_grade_category command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/delete_grade_category.md) **(New Command in Project 2)**
+
+:open_file_folder: [$categories command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/categories.md) **(New Command in Project 2)**
+
+:open_file_folder: [$grade_report_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/grade_report_assignment.md) **(New Command in Project 2)**
+
+:open_file_folder: [$grade_report_category command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/grade_report_category.md) **(New Command in Project 2)**
+
+:open_file_folder: [$input_grades command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/input_grades.md) **(New Command in Project 2)**
+
+For the assignments.py file
+
+:open_file_folder: [$add_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/add_assignment.md) **(New Command in Project 2)**
+
+:open_file_folder: [$edit_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/edit_assignment.md) **(New Command in Project 2)**
+
+:open_file_folder: [$delete_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/delete_assignment.md) **(New Command in Project 2)**
 
 
 
