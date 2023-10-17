@@ -21,8 +21,11 @@ jobs:
     - name: Create env file
       run: |
         cat << EOF > .env
+        TOKEN=${{ secrets.TOKEN }}
         DATABASE_URL=${{ secrets.DATABASE_URL }}
         CALENDAR_ID=${{ secrets.CALENDAR_ID }}
+        CALENDAR_PATH=${{ secrets.CALENDAR_PATH }}
+        CALENDAR_ICS=${{ secrets.CALENDAR_ICS }}
         EOF
     - name: Test with pytest
       run: pytest --tb=line
