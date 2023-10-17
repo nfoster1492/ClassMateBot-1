@@ -8,7 +8,7 @@ The following is a set of guidelines for contributing to   ClassMate Bot. These 
 
 [Code of Conduct](#code-of-conduct)
 
-[I don't want to read this whole thing, I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
+[Quick Support](#quick-support)
 
 [How Can I Contribute?](#how-can-i-contribute)
   * [Pull Requests](#pull-requests)
@@ -19,22 +19,24 @@ The following is a set of guidelines for contributing to   ClassMate Bot. These 
   * [Git Commit Messages](#git-commit-messages)
   * [Python Style Guide](#python-style-guide)
 
+[Governal Policies](#governal-policies)
+
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the [ClassMate Bot Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to any of the original team members listed at the bottom of [README.md](README.md).
 
-## I don't want to read this whole thing I just have a question!!!
+## Quick Support
 
-Reach out to one of the main contributors on Discord using their IDs:
-* Emily Tracey: etracey@ncsu.edu
-* Jonathan Nguyen: jhnguye4@ncsu.edu
-* Leila Moran: lmmoran@ncsu.edu
-* Peeysh Taneja: ptaneja@ncsu.edu
-* Shraddha Mishra: smishra9@ncsu.edu
+Support Email:
+* *classmatebot5@gmail.com*
 
-*Note: Due to the dynamic nature of Discord IDs, these may change without prior notice on this page.*
+Reach out to one of the main contributors:
+* Robert Kenney: *rpkenney@ncsu.edu*
+* Brandon Walia: *bswalia@ncsu.edu*
+* Nathan Kohen: *nrkohen@ncsu.edu*
+* Nicholas Foster: *nsfoster@ncsu.edu*
 
-We do not have an official message board at this time, however, we plan to have one if it will help future contributors!
+We would love to help with whatever issues you have or questions about contributing to ClassMateBot!
 
 ## How Can I Contribute?
 
@@ -42,21 +44,21 @@ We do not have an official message board at this time, however, we plan to have 
 
 The process described here has several goals:
 
-- Maintain the projects quality
+- Maintain the project's quality
 
 - Fix problems that are important to users
 
-- Enable a sustainable system for the projects maintainers to review contributions
+- Enable a sustainable system for the projects maintainers' to review contributions
 
 Please follow these steps to have your contribution reviewed by the maintainers:
 
 1. Include a clear and descriptive title.
-2. Include a description of the change.
+2. Include a detailed description of the change.
 
 While the prerequisites above must be satisfied prior to having your pull request reviewed, the reviewer(s) may ask you to complete additional design work, tests, or other changes before your pull request can be ultimately accepted.
 
 ### Adding Commands
- Commands can be added in the form of Cogs. View hello.py as a simple example of how a Cog can be added.
+Commands can be added in the form of Cogs. View hello.py as a simple example of how a Cog can be added.
 
 The basic structure is as follows:
 
@@ -75,7 +77,7 @@ For more information on how to use cogs, refer to the [Cogs Page](https://discor
 
 For more information on the API of discord.py you can use the [API Reference Page](https://discordpy.readthedocs.io/en/stable/api.html)
 
-For general Knowledge of discord.py use the [Documentation Page](https://discordpy.readthedocs.io/en/latest/index.html)
+For general knowledge of discord.py use the [Documentation Page](https://discordpy.readthedocs.io/en/latest/index.html)
 ## Reporting Bugs
 
 This section guides you through submitting a bug report for ClassMateBot. 
@@ -117,5 +119,11 @@ Changes to ClassMateBot Python code should conform to [Google Python Style Guide
 
 All Python code is linted with Pylint. Ensure that before you commit any changes, your code passes all default pylint checks. Pylint can be installed with
 `pip install pylint`.
+
+All Python code is formatted using Black. Ensure that before you commit any changes, you run Black on all updated files and ensure that the code passes the Black checks.
+
+### Governal Policies
+
+All contributions will be carefully reviewed by our entire development team. We will discuss the advantages and disadvantages of adding the change, and a final decision will be decided based on a vote, with all members' votes having equal weight.
 
 *This document is adapted from the [Atom Code of Conduct](https://github.com/atom/atom/blob/master/CONTRIBUTING.md#code-of-conduct)*
