@@ -1924,9 +1924,12 @@ async def test_quizpoll(bot):
 # --------------------------------
 @pytest.mark.asyncio
 async def test_calendar(bot):
-    # user = dpytest.get_config().members[0]
-    # guild = dpytest.get_config().guilds[0]
-    # channel = await guild.create_text_channel('polls')
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole  = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
 
     # Test subscribeCalendar success
     await dpytest.message("$subscribeCalendar johndoe@gmail.com")
