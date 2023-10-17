@@ -117,11 +117,13 @@ Following these guidelines helps maintainers and the community understand your r
 
 Changes to ClassMateBot Python code should conform to [Google Python Style Guide](https://github.com/google/styleguide/blob/gh-pages/pyguide.md).
 
+All Python code is linted with Pylint. Ensure that before you commit any changes, your code passes all default pylint checks. Pylint can be installed with
+`pip install pylint`.
+
+All Python code is formatted using Black. Ensure that before you commit any changes, you run Black on all updated files and ensure that the code passes the Black checks.
+
 ### Governal Policies
 
 All contributions will be carefully reviewed by our entire development team. We will discuss the advantages and disadvantages of adding the change, and a final decision will be decided based on a vote, with all members' votes having equal weight.
-
-All Python code is linted with Pylint. Ensure that before you commit any changes, your code passes all default pylint checks. Pylint can be installed with
-`pip install pylint`.
 
 *This document is adapted from the [Atom Code of Conduct](https://github.com/atom/atom/blob/master/CONTRIBUTING.md#code-of-conduct)*
