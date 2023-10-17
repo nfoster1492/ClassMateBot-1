@@ -252,9 +252,9 @@ class Calendar(commands.Cog):
                 service.acl().insert(calendarId=calendar, body=acl_rule).execute()
             )
 
-            print(f"Added {userEmail} to the calendar.")
+            await ctx.author.send(f"Added {userEmail} to the calendar.")
         except HttpError as e:
-            print(f"Error adding user: {str(e)}")
+            await ctx.author.send(f"Error adding user: {str(e)}")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: removeCalendar(self, ctx, userEmail)
@@ -289,13 +289,13 @@ class Calendar(commands.Cog):
             if acl_rule_id:
                 # Delete the ACL rule (permission) to remove the user from the calendar.
                 service.acl().delete(calendarId=calendar, ruleId=acl_rule_id).execute()
-                print(f"User '{userEmail}' has been removed from the calendar.")
+                await ctx.author.send(f"User '{userEmail}' has been removed from the calendar.")
             else:
-                print(
+                await ctx.author.send(
                     f"User '{userEmail}' was not found in the calendar's permissions."
                 )
         except HttpError as e:
-            print(f"An error occurred: {str(e)}")
+            await ctx.author.send(f"An error occurred: {str(e)}")
 
 
 async def setup(bot):
