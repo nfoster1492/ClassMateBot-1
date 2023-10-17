@@ -64,7 +64,11 @@ class Calendar(commands.Cog):
     #    Outputs:
     #       - Event added to calendar
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="addCalendarEvent")
+    @commands.command(
+            name="addCalendarEvent",
+            help="Add an event to the course calendar using the format"
+            ": $addCalendarEvent NAME DESCRIPTION DATE/TIME",
+    )
     async def addCalendarEvent(self, ctx, name, description, eventTime):
         creds = self.credsSetUp()
         try:
