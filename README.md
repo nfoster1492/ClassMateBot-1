@@ -180,12 +180,6 @@ For the voting.py file
 
 :open_file_folder: [$vote command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Voting/vote.md) 
 
-For the calendar.py file
-
-:open_file_folder: [$getiCalDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/getiCalDownload.md) 
-
-:open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/getPdfDownload.md) 
-
 For the deadline.py file
 
 :open_file_folder: [$add homework command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/add_homework.md)
@@ -274,6 +268,12 @@ For the polling.py file
 :open_file_folder: [$poll command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Polling/poll.md)
 
 :open_file_folder: [$quizpoll command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Polling/quizpoll.md)
+
+For the calendar.py file
+
+:open_file_folder: [$getiCalDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/getiCalDownload.md) **(New Command in Project 2)**
+
+:open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/getPdfDownload.md) **(New Command in Project 2)**
 
 For the grades.py file
 
