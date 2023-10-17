@@ -49,7 +49,7 @@ class Grades(commands.Cog):
             return
 
         await ctx.author.send(
-            f"Grade for {assignmentName}: {grade}%, worth {points} points"
+            f"Grade for {assignmentName}: {grade[0][0]}%, worth {points[0][0]} points"
         )
 
     # -----------------------------------------------------------------------------------------------------------------
