@@ -254,7 +254,7 @@ class Calendar(commands.Cog):
 
             await ctx.author.send(f"Added {userEmail} to the calendar.")
         except HttpError as e:
-            await ctx.author.send(f"Error adding user: {str(e)}")
+            await ctx.author.send(f"Error adding user: {userEmail} is not a valid email.")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: removeCalendar(self, ctx, userEmail)
@@ -289,13 +289,13 @@ class Calendar(commands.Cog):
             if acl_rule_id:
                 # Delete the ACL rule (permission) to remove the user from the calendar.
                 service.acl().delete(calendarId=calendar, ruleId=acl_rule_id).execute()
-                await ctx.author.send(f"User '{userEmail}' has been removed from the calendar.")
+                await ctx.author.send(f"User {userEmail} has been removed from the calendar.")
             else:
                 await ctx.author.send(
-                    f"User '{userEmail}' was not found in the calendar's permissions."
+                    f"User {userEmail} was not found in the calendar's permissions."
                 )
         except HttpError as e:
-            await ctx.author.send(f"An error occurred: {str(e)}")
+            await ctx.author.send(f"Error removing user: {userEmail} is not a valid email.")
 
 
 async def setup(bot):

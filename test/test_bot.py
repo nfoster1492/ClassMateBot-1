@@ -1915,3 +1915,56 @@ async def test_quizpoll(bot):
     # Test quizpoll embed
     await dpytest.message('$quizpoll "TITLE" [a] [b] [c]')
     assert dpytest.verify().message().embed(e)
+
+# --------------------------------
+# Test calendar: subscribe and remove
+# --------------------------------
+@pytest.mark.asyncio
+async def test_calendar(bot):
+    # user = dpytest.get_config().members[0]
+    # guild = dpytest.get_config().guilds[0]
+    # channel = await guild.create_text_channel('polls')
+
+    # Test subscribeCalendar success
+    await dpytest.message("$subscribeCalendar johndoe@gmail.com")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content(
+            'Added johndoe@gmail.com to the calendar.'
+        )
+    )
+
+    # Test subscribeCalendar failure
+    await dpytest.message("$subscribeCalendar johndoe")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content(
+            'Error adding user: johndoe is not a valid email.'
+        )
+    )
+
+    # Test removeCalendar failure
+    await dpytest.message("$removeCalendar johndoe")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content(
+            "User johndoe was not found in the calendar's permissions."
+        )
+    )
+
+    # Test removeCalendar failure
+    await dpytest.message("$removeCalendar johndoe@gmail.com")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content(
+            'User johndoe@gmail.com has been removed from the calendar.'
+        )
+    )
