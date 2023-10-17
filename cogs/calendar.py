@@ -97,10 +97,7 @@ class Calendar(commands.Cog):
     #    Outputs:
     #       - Whether the command was a success or a failure
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(
-        name="clearCalendar",
-        help="Clear all events from calendar"
-    )
+    @commands.command(name="clearCalendar", help="Clear all events from calendar")
     async def clearCalendar(self, ctx):
         creds = self.credsSetUp()
         try:
@@ -109,13 +106,17 @@ class Calendar(commands.Cog):
             service = build("calendar", "v3", credentials=creds)
             calendar_events = []
             while True:
-                events = service.events().list(calendarId=calendar, pageToken=page_token).execute()
-                for event in events['items']:
-                    calendar_events.append(event['id'])
-                page_token = events.get('nextPageToken')
+                events = (
+                    service.events()
+                    .list(calendarId=calendar, pageToken=page_token)
+                    .execute()
+                )
+                for event in events["items"]:
+                    calendar_events.append(event["id"])
+                page_token = events.get("nextPageToken")
                 if not page_token:
                     break
-            
+
             for id in calendar_events:
                 service.events().delete(calendarId=calendar, eventId=id).execute()
             await ctx.send("Calendar has been cleared")
@@ -209,7 +210,7 @@ class Calendar(commands.Cog):
     #    Outputs:
     #       - Message to the general chat where everyone is pinged of what events are due today
     # -----------------------------------------------------------------------------------------------------------------
-    @tasks.loop(seconds=5)
+    @tasks.loop(hours=24)
     async def checkForEvents(self):
         creds = self.credsSetUp()
         try:
@@ -246,21 +247,6 @@ class Calendar(commands.Cog):
                             break
         except HttpError as error:
             print(f"An error occurred: {error}")
-
-    # -----------------------------------------------------------------------------------------------------------------
-    #    Function: checkForNewDay(self)
-    #    Description: Keeps track of time before the calendar is checked each day
-    # -----------------------------------------------------------------------------------------------------------------
-    @checkForEvents.before_loop
-    async def checkForNewDay(self):
-        hour = 23
-        minute = 23
-        await self.bot.wait_until_ready()
-        present = datetime.now()
-        wakeuptime = datetime(present.year, present.month, present.day, hour, minute)
-        if present.hour >= hour and present.minute > minute:
-            wakeuptime += timedelta(days=1)
-        await asyncio.sleep((wakeuptime - present).seconds)
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: subscribeCalendar(self, ctx, userEmail)
