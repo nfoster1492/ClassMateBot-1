@@ -1916,6 +1916,7 @@ async def test_quizpoll(bot):
     await dpytest.message('$quizpoll "TITLE" [a] [b] [c]')
     assert dpytest.verify().message().embed(e)
 
+
 # --------------------------------
 # Test calendar: subscribe and remove
 # --------------------------------
@@ -1931,9 +1932,7 @@ async def test_calendar(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content(
-            'Added johndoe@gmail.com to the calendar.'
-        )
+        .content("Added johndoe@gmail.com to the calendar.")
     )
 
     # Test subscribeCalendar failure
@@ -1942,9 +1941,7 @@ async def test_calendar(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content(
-            'Error adding user: johndoe is not a valid email.'
-        )
+        .content("Error adding user: johndoe is not a valid email.")
     )
 
     # Test removeCalendar failure
@@ -1953,9 +1950,7 @@ async def test_calendar(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content(
-            "User johndoe was not found in the calendar's permissions."
-        )
+        .content("User johndoe was not found in the calendar's permissions.")
     )
 
     # Test removeCalendar failure
@@ -1964,7 +1959,5 @@ async def test_calendar(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content(
-            'User johndoe@gmail.com has been removed from the calendar.'
-        )
+        .content("User johndoe@gmail.com has been removed from the calendar.")
     )
