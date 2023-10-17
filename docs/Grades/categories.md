@@ -23,6 +23,6 @@ Successful execution of this command will list the categories and corresponding 
 
 <img src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/categoriesHelp.PNG?raw=true" width="500">
 
-<img src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/categoriesDM.PNG?raw=true" width="500">
-
 <img src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/categories.PNG?raw=true" width="500">
+
+<img src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/categoriesDM.PNG?raw=true" width="500">
