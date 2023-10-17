@@ -362,7 +362,7 @@ For the assignments.py file
 </table>
 
 ## :grinning: Support
-[Support Email](classmatebot5@gmail.com) <br>
+Support Email: *classmatebot5@gmail.com* <br>
 Please reach out with any questions about ClassMateBot! <br>
 Our team is always monitoring the support email address to provide the quickest and easiest support possible. <br>
 
