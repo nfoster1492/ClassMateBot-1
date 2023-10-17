@@ -19,6 +19,8 @@ The following is a set of guidelines for contributing to   ClassMate Bot. These 
   * [Git Commit Messages](#git-commit-messages)
   * [Python Style Guide](#python-style-guide)
 
+[Governal Policies](#governal-policies)
+
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the [ClassMate Bot Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to any of the original team members listed at the bottom of [README.md](README.md).
@@ -114,6 +116,10 @@ Following these guidelines helps maintainers and the community understand your r
 ### Python Styleguide
 
 Changes to ClassMateBot Python code should conform to [Google Python Style Guide](https://github.com/google/styleguide/blob/gh-pages/pyguide.md).
+
+### Governal Policies
+
+All contributions will be carefully reviewed by our entire development team. We will discuss the advantages and disadvantages of adding the change, and a final decision will be decided based on a vote, with all members' votes having equal weight.
 
 All Python code is linted with Pylint. Ensure that before you commit any changes, your code passes all default pylint checks. Pylint can be installed with
 `pip install pylint`.
