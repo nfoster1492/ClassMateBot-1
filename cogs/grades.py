@@ -338,7 +338,7 @@ class Grades(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: input_grades(self, ctx, assignmentname)
-    #    Description: This command lets the user list the categories of grades that are in the system
+    #    Description: This command allows the instructor to input grades into the system for a given assignment
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context, including the attached csv file
