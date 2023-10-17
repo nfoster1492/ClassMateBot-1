@@ -24,4 +24,4 @@ jobs:
         DATABASE_URL=${{ secrets.DATABASE_URL }}
         EOF
     - name: Test with pytest
-      run: pytest
+      run: pytest --tb=line
