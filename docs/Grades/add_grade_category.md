@@ -17,7 +17,7 @@ You are in the server that has the Classmate Bot active and online. You are an I
 
 ```
 $add_grade_category CATEGORY_NAME, WEIGHT
-$add_grade_category Tests, .5
+$add_grade_category Tests .5
 ```
 Successful execution of this command will add a grade category into the database with the desired weight. The bot will report on the success or failure of the command.
 
