@@ -1,4 +1,4 @@
-# About $duetoday _(Project 3 Update)_
+# About $duetoday
 This command lets the user display all the homeworks that are due today for all the courses. 
 
 # Location of Code

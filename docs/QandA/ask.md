@@ -1,4 +1,4 @@
-# About $ask _(Modified in project 3)_
+# About $ask
 This command lets users ask a question in the #q-and-a channel. The questions are automatically numbered and can be asked anonymously or display the author.
 
 ## Changes

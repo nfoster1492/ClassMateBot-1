@@ -1,4 +1,4 @@
-# About $poll _(New Project 3 Command)_
+# About $poll
 
 This command allows the user to create a simple reaction poll with thumbs up, thumbs down, and unsure reactions.
 

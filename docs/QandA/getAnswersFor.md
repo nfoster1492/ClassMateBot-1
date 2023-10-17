@@ -1,4 +1,4 @@
-# About $getAnswersFor _(New Project 3 Command)_
+# About $getAnswersFor
 
 This command gets a question and all its answers and DMs them to the user.
 

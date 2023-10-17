@@ -1,4 +1,4 @@
-# About $startupgroups _(New Project 2 Command)_
+# About $startupgroups
 This command lets the user set up the roles required for the grouping. This is required as a part of the group making/joining/leaving functionality.
 
 # Location of Code

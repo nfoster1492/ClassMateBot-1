@@ -1,4 +1,4 @@
-# About $deleteQuestion _(New Project 3 Command)_
+# About $deleteQuestion
 
 Would be more accurate to call it hideQuestion.
 Delete one question but leave answers untouched. Instructor only.

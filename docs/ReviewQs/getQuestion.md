@@ -1,4 +1,4 @@
-# About $getQuestion _(New Project 2 Command)_
+# About $getQuestion
 This command lets users get a random review question added by instructors. The answer to the question will be hidden as a spoiler.
 
 # Location of Code

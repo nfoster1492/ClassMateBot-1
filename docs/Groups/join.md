@@ -1,4 +1,4 @@
-# About $join _(Modified Command in Project 2)_
+# About $join
 This command lets the student add their name to the group member list. This is used to ensure that all students can get into a group and making sure no duplicates occur in the process
 
 # Location of Code

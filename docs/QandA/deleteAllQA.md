@@ -1,4 +1,4 @@
-# About $deleteAllQA _(New Project 3 Command)_
+# About $deleteAllQA
 
 Deletes all questions and answers from the database and channel (for that server only), including ghost (hidden) and zombie (deleted) questions. Instructor only. Note: may take some time to complete.
 

@@ -1,4 +1,4 @@
-# About $addQuestion _(New Project 2 Command)_
+# About $addQuestion
 This command lets instructors add review questions to the system. 
 
 # Location of Code

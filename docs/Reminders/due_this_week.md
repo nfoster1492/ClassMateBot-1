@@ -1,4 +1,4 @@
-# About $duethisweek _(Project 3 Update)_
+# About $duethisweek
 This command lets the user display all the homeworks that are due this week for all the courses. 
 
 # Location of Code

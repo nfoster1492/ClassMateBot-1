@@ -1,4 +1,4 @@
-# About $spooky _(New Project 3 Command)_
+# About $spooky
 
 Counts the number of ghost (hidden) and zombie (deleted) questions in the channel. Just for fun, but may be useful.
 

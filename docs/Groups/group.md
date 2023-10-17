@@ -1,4 +1,4 @@
-# About $group _(New Project 2 Command)_
+# About $group
 This command lets the student view the names of members in their group or the names of members in a specified group. This is useful for students to contact each other and for instructors to find out the names of people in a specific group.
 
 # Location of Code

@@ -1,4 +1,4 @@
-# About $archiveQA _(New Project 3 Command)_
+# About $archiveQA
 
 DMs the user all the questions and answers on the channel, excluding deleted (zombie) and hidden (ghost) questions.
 

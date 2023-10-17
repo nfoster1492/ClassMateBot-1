@@ -133,3 +133,5 @@ bot.env
 #Google calendar stuff
 credentials.json
 token.json
+ical.ics
+calendar.pdf

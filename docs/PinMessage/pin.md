@@ -1,4 +1,4 @@
-# About $pin _(Modified Command in Project 2)_
+# About $pin
 This command lets the student to pin a message from the discord channel to their private pinning board.
 
 # Location of Code

@@ -1,4 +1,4 @@
-# About $quizpoll _(New Project 3 Command)_
+# About $quizpoll
 
 This command allows the user to start a quiz-style reaction poll with a given title and six options or less.
 

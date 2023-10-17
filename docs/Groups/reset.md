@@ -1,4 +1,4 @@
-# About $reset _(New Project 2 Command)_
+# About $reset
 This command lets the user delete all group roles in the server.
 Note: This must be used in the TEST environment only!
 

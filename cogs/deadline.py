@@ -95,7 +95,7 @@ class Deadline(commands.Cog):
     @commands.has_role("Instructor")
     @commands.command(
         name="duedate",
-        help="add reminder and due-date $duedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
+        help="add reminder and due-date $duedate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
         "ex. $duedate CSC510 HW2 SEP 25 2024 17:02 EST",
     )
     async def duedate(self, ctx, coursename: str, hwcount: str, *, date: str):
@@ -140,7 +140,7 @@ class Deadline(commands.Cog):
     async def duedate_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the duedate command, do: $duedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n "
+                "To use the duedate command, do: $duedate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n "
                 "( For example: $duedate CSC510 HW2 SEP 25 2024 17:02 EST )"
             )
         else:

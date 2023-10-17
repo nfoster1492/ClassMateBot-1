@@ -1,4 +1,4 @@
-# About $leave _(Modified Command in Project 2)_
+# About $leave
 This command lets the student leave their current group. This is used to ensure that if a member switches groups or drops the class, then they can be removed from a group.
 
 # Location of Code

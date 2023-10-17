@@ -1,4 +1,4 @@
-# About $allChannelGhosts _(New Project 3 Command)_
+# About $allChannelGhosts
 
 Get the hidden (deleted with $deleteQuestion) questions that are in the database but not in the channel. Instructor only.
 

@@ -1,4 +1,4 @@
-# About $answer _(Modified in project 3)_
+# About $answer
 This command lets users answer a question in the #q-and-a channel. The answers are automatically appended to the question and the role (Instructor/Student) of the sender will be shown. The user can choose to display their name or answer the question anonymously. 
 
 ## Changes

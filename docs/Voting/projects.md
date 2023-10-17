@@ -1,4 +1,4 @@
-# About $projects _(Modified Command in Project 2)_
+# About $projects
 This command lets the student view the projects and the groups that have voted for each of them.
 # Location of Code
 The code that implements the above-mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/voting.py)

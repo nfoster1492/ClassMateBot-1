@@ -1,4 +1,4 @@
-# About $reviveGhost _(New Project 3 Command)_
+# About $reviveGhost
 
 Unhides a ghost (question hidden with the deleteQuestion command) or restores a manually deleted question (zombie) to the channel. Instructor only.
 

@@ -1,4 +1,4 @@
-# About $overdue _(New Project 3 Command)_
+# About $overdue
 
 This command lists all overdue reminders/assignments. 
 

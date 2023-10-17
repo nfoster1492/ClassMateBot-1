@@ -1,4 +1,4 @@
-# About $unpin _(Modified Command in Project 2)_
+# About $unpin
 This command lets the student to delete a pinned message from their private pinning board.
 
 # Location of Code

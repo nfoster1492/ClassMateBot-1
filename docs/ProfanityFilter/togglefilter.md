@@ -1,4 +1,4 @@
-# About $toggleFilter _(New Project 3 Command)_
+# About $toggleFilter
 
 Enable or disable the profanity filter. Instructor only.
 

@@ -1,4 +1,4 @@
-# About $unearthZombies _(New Project 3 Command)_
+# About $unearthZombies
 
 Assigns ghost status to all manually deleted questions in case there is a need to restore them. Instructor only.
 

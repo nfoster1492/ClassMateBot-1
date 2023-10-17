@@ -1,5 +1,4 @@
-# About $clearoverdue _(New Project 3 Command)_
-
+# About $clearoverdue
 Clears overdue reminders from the database. 
 
 ## Changes

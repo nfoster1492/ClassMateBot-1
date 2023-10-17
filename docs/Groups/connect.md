@@ -1,4 +1,4 @@
-# About $connect _(New Project 2 Command)_
+# About $connect
 This command lets the user create private text channels for all groups with members. 
 Note: Running this command will delete all current private group channels!
 

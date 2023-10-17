@@ -1,4 +1,4 @@
-# About $groups _(Modified Command in Project 2)_
+# About $groups
 This command lets the student view the amount of people there are in each group from the private discord DM with the bot. This is useful for viewing which group numbers are taken, which groups are still empty and which groups are already full.
 
 # Location of Code

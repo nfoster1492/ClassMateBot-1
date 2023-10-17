@@ -1,4 +1,4 @@
-# About $dewhitelist _(New Project 3 Command)_
+# About $dewhitelist
 
 Command that adds removes a word or sentence from the censor whitelist. Instructor only.
 

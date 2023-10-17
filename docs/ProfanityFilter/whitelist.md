@@ -1,4 +1,4 @@
-# About $whitelist _(New Project 3 Command)_
+# About $whitelist
 
 Command that adds a word or sentence to the censor whitelist. Instructor only.
 

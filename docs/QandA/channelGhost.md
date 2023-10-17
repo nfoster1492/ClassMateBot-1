@@ -1,4 +1,4 @@
-# About $channelGhost _(New Project 3 Command)_
+# About $channelGhost
 
 Gets a specific ghost or hidden (deleted with $deleteQuestion) question and all its answers. Instructor only.
 

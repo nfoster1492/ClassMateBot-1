@@ -1,4 +1,4 @@
-# About $updatepin _(Modified Command in Project 2)_
+# About $updatepin
 This command lets the student to update a pinned message with a new link from the discord channel to their private pinning board.
 
 # Location of Code

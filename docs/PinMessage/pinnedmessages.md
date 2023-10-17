@@ -1,4 +1,4 @@
-# About $pinnedmessages _(Modified Command in Project 2)_
+# About $pinnedmessages
 This command lets the student to retrieve all the pinned messages from their private pinning board with an optional given tagname.
 
 # Location of Code

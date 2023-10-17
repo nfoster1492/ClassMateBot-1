@@ -1,4 +1,4 @@
-# About $vote _(Modified Command in Project 2)_
+# About $vote
 This command lets the groups vote on projects that they want to be working on next.
 
 # Location of Code
