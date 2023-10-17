@@ -6,7 +6,9 @@ from datetime import datetime, timedelta
 import discord.ext.test as dpytest
 from dotenv import load_dotenv
 import pytest
+from PyPDF2 import PdfReader
 from discord.ext import commands
+import vobject
 
 
 # ------------------------------------------------------------------------------------------------------
@@ -1961,3 +1963,85 @@ async def test_calendar(bot):
         .contains()
         .content("User johndoe@gmail.com has been removed from the calendar.")
     )
+
+@pytest.mark.asyncio
+async def  test_get_ical_download(bot):
+    await dpytest.message("$clearCalendar")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Calendar has been cleared")
+    )
+
+    date = datetime.now() + timedelta(days = 1)
+    isodate = date.isoformat()
+    await dpytest.message(f"$addCalendarEvent HW3 CSC510 {isodate}Z")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Event HW3 added to calendar!")
+    )
+
+    await dpytest.message("$getiCalDownload")
+
+    #referenced https://stackoverflow.com/questions/3408097/parsing-files-ics-icalendar-using-python
+    
+    caldata = open("ical.ics").read()
+
+    for cal in vobject.readComponents(caldata):
+        for component in cal.components():
+            if component.name == "VEVENT":
+                assert component.description.valueRepr() == "CSC510"
+                assert component.summary.valueRepr() == "HW3"
+                assert component.dtstart.valueRepr().month == date.month
+                assert component.dtstart.valueRepr().year == date.year
+                assert component.dtstart.valueRepr().day == date.day
+
+
+
+
+@pytest.mark.asyncio
+async def test_get_pdf_download(bot):
+    await dpytest.message("$clearCalendar")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Calendar has been cleared")
+    )
+    await dpytest.message("$getPdfDownload")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("No upcoming events found.")
+    )
+
+    date = datetime.now() + timedelta(days = 1)
+    date = date.isoformat()
+    await dpytest.message(f"$addCalendarEvent HW3 CSC510 {date}Z")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Event HW3 added to calendar!")
+    )
+
+    await dpytest.message("$getPdfDownload")
+
+    reader = PdfReader('calendar.pdf')
+
+    page = reader.pages[0]
+
+    text = page.extract_text()
+    text = text.split("\n")
+
+    assert len(text) == 7
+    assert text[0] == 'Summary'
+    assert text[1] == 'Start'
+    assert text[2] == 'End'
+    assert text[3] == '0'
+    assert text[4] == 'HW3'
+    assert text[5][:10] == date[:10]

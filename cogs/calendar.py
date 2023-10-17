@@ -88,6 +88,40 @@ class Calendar(commands.Cog):
             print(f"An error occurred: {error}")
 
     # -----------------------------------------------------------------------------------------------------------------
+    #    Function: clearCalendar(self, ctx)
+    #    Description: clears all events from the google calendar
+    #    Inputs:
+    #       - ctx: context of the command
+    #    Outputs:
+    #       - Whether the command was a success or a failure
+    # -----------------------------------------------------------------------------------------------------------------
+    @commands.command(
+        name="clearCalendar",
+        help="Clear all events from calendar"
+    )
+    async def clearCalendar(self, ctx):
+        creds = self.credsSetUp()
+        try:
+            page_token = None
+            calendar = os.getenv("CALENDAR_ID")
+            service = build("calendar", "v3", credentials=creds)
+            calendar_events = []
+            while True:
+                events = service.events().list(calendarId=calendar, pageToken=page_token).execute()
+                for event in events['items']:
+                    calendar_events.append(event['id'])
+                page_token = events.get('nextPageToken')
+                if not page_token:
+                    break
+            
+            for id in calendar_events:
+                service.events().delete(calendarId=calendar, eventId=id).execute()
+            await ctx.send("Calendar has been cleared")
+
+        except HttpError as error:
+            print(f"An error occurred: {error}")
+
+    # -----------------------------------------------------------------------------------------------------------------
     #    Function: getiCalDownload(self, ctx)
     #    Description: sends an ics file of the class calendar to the channel the command was issued in
     #    Inputs:
@@ -149,7 +183,7 @@ class Calendar(commands.Cog):
             events = events_result.get("items", [])
 
             if not events:
-                print("No upcoming events found.")
+                await ctx.send("No upcoming events found.")
                 return
             calEvents = []
             for event in events:
