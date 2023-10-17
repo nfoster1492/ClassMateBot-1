@@ -14,7 +14,7 @@ categories(self, ctx): <br>
 This function takes as arguments the values provided by the constructor through self and context in which the command was called
 
 # How to run it? (Small Example)
-You are in the server that has the Classmate Bot active and online. From any channel, enter the command `$categories` and INSTRUCTIONS GO HERE.
+You are in the server that has the Classmate Bot active and online. From any channel, enter the command `$categories`.
 
 ```
 $categories
