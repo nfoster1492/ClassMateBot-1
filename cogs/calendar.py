@@ -82,6 +82,7 @@ class Calendar(commands.Cog):
                 "end": {"dateTime": str(eventTime), "timeZone": "UTC"},
             }
             event = service.events().insert(calendarId=calendar, body=event).execute()
+            await ctx.send(f"Event {name} added to calendar!")
 
         except HttpError as error:
             print(f"An error occurred: {error}")
