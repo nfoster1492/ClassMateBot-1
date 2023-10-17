@@ -294,6 +294,16 @@ For the grades.py file
 
 :open_file_folder: [$input_grades command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/input_grades.md) **(New Command in Project 2)**
 
+:open_file_folder: [$grade command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/grade.md) **(New Command in Project 2)**
+
+:open_file_folder: [$gradebycategory command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/gradebycategory.md) **(New Command in Project 2)**
+
+:open_file_folder: [$gradeforclass command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/gradeforclass.md) **(New Command in Project 2)**
+
+:open_file_folder: [$graderequired command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/graderequired.md) **(New Command in Project 2)**
+
+:open_file_folder: [$graderequiredforclass command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/graderequiredforclass.md) **(New Command in Project 2)**
+
 For the assignments.py file
 
 :open_file_folder: [$add_assignment command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Assignments/add_assignment.md) **(New Command in Project 2)**
