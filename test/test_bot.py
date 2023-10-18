@@ -258,6 +258,46 @@ async def test_assignments_error(bot):
 
 
 # -----------------------
+# Tests cogs/grades.py
+# -----------------------
+@pytest.mark.asyncio
+async def test_gradesStudent(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+    await dpytest.message("$addgradecategory Homework 0.3")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Homework  with weight: 0.3 ")
+    )
+    await dpytest.message("$addassignment HW1 Homework 30")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "A grading assignment has been added for: HW1  with points: 30 and category: Homework"
+        )
+    )
+    await guild.create_role(name="unverified")
+    await guild.create_role(name="verified")
+    role = discord.utils.get(guild.roles, name="unverified")
+    await dpytest.add_role(user, role)
+    channel = await guild.create_text_channel("general")
+    await dpytest.message("$verify sapientor", channel=channel)
+    await dpytest.message(content="$inputgrades HW1", attachments=["data/grades.csv"])
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Entered grades for HW1, 1 new grades entered, 0 grades edited")
+    )
+    
+
+# -----------------------
 # Tests cogs/deadline.py
 # -----------------------
 @pytest.mark.asyncio
