@@ -289,13 +289,21 @@ async def test_assignments_error(bot):
 #     await dpytest.add_role(user, role)
 #     channel = await guild.create_text_channel("general")
 #     await dpytest.message("$verify sapientor", channel=channel)
-#     await dpytest.message(content="$inputgrades HW1", attachments=["data/grades.csv"])
 #     assert (
 #         dpytest.verify()
 #         .message()
-#         .content("Entered grades for HW1, 1 new grades entered, 0 grades edited")
+#         .contains()
+#         .content("Thank you for verifying! You can start using")
 #     )
-    
+#     await dpytest.message("$inputgrades HW1 TestingTrue " + r"C:\Users\fruit\se510\CMateBot\ClassMateBot-1\test\data\grades.csv")
+#     await dpytest.message("$gradeforclass")
+#     assert (
+#         dpytest.verify()
+#         .message()
+#         .contains()
+#         .content("Grade for class")
+#     )
+
 
 # -----------------------
 # Tests cogs/deadline.py
@@ -2004,6 +2012,7 @@ async def test_calendar(bot):
         .contains()
         .content("User johndoe@gmail.com has been removed from the calendar.")
     )
+
 
 @pytest.mark.asyncio
 async def test_get_calendar_downloads(bot):

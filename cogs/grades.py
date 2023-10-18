@@ -407,7 +407,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(name="inputgrades", help="Insert grades using a csv file")
-    async def input_grades(self, ctx, assignmentname: str):
+    async def input_grades(self, ctx, assignmentname: str, test="False", path=""):
         """Lets the instructor input grades into the system for a given assignment"""
         assignment = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",
@@ -417,15 +417,21 @@ class Grades(commands.Cog):
         if not assignment:
             await ctx.send(f"Assignment with name {assignmentname} does not exist")
             return
-        if len(ctx.message.attachments) != 1:
+        if len(ctx.message.attachments) != 1 and test == "False":
             await ctx.send("Must have exactly one attachment")
             return
-        if ctx.message.attachments[0].content_type != "text/csv; charset=utf-8":
+        if (
+            test == "False"
+            and ctx.message.attachments[0].content_type != "text/csv; charset=utf-8"
+        ):
             await ctx.send("Invalid filetype")
-        attachmenturl = ctx.message.attachments[0].url
-
-        response = requests.get(attachmenturl, timeout=10)
-        data = StringIO(response.text)
+        data = None
+        if test == "False":
+            attachmenturl = ctx.message.attachments[0].url
+            response = requests.get(attachmenturl, timeout=10)
+            data = StringIO(response.text)
+        if test == "TestingTrue":
+            data = path
         df = pd.read_csv(data)
         edited = 0
         added = 0
@@ -441,7 +447,6 @@ class Grades(commands.Cog):
             student = db.query(
                 "SELECT username FROM name_mapping WHERE username = %s", (name,)
             )
-
             if not student:
                 await ctx.send(f"Invalid student name {name}, skipping entry")
                 continue
