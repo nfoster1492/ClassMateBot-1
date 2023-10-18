@@ -35,6 +35,7 @@ class Groups(commands.Cog):
         name="reset", help="Resets group channels and roles. DO NOT USE IN PRODUCTION!"
     )
     async def reset(self, ctx):
+        """Deletes all group roles in the server"""
         await ctx.send("Deleting all roles...")
 
         for i in range(100):
@@ -58,6 +59,7 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @reset.error
     async def reset_error(self, ctx, error):
+        """Error handling for reset command"""
         await ctx.author.send(error)
 
     # -------------------------------------------------------------------------------------------------------
@@ -70,6 +72,7 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @commands.command(name="startupgroups", help="Creates group roles for members")
     async def startupgroups(self, ctx):
+        """Creates roles for the groups"""
         await ctx.send("Creating roles....")
 
         for i in range(100):
@@ -92,6 +95,7 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @startupgroups.error
     async def startupgroups_error(self, ctx, error):
+        """Error handling for startupgroups command"""
         await ctx.author.send(error)
 
     # -------------------------------------------------------------------------------------------------------
@@ -104,6 +108,7 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @commands.command(name="connect", help="Creates group roles for members")
     async def connect(self, ctx):
+        """Connects all users with their groups"""
         for i in range(100):
             group_name = "group-" + str(i)
             existing_channel = get(ctx.guild.text_channels, name=group_name)
@@ -143,6 +148,7 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @connect.error
     async def connect_error(self, ctx, error):
+        """Error handling for connect command"""
         await ctx.author.send(error)
 
     # -------------------------------------------------------------------------------------------------------
@@ -162,6 +168,7 @@ class Groups(commands.Cog):
         pass_context=True,
     )
     async def join(self, ctx, group_num: int):
+        """Joins the user to given group"""
         # get the name of the caller
         member_name = ctx.message.author.display_name.upper()
         member = ctx.message.author
@@ -220,6 +227,7 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @join.error
     async def join_error(self, ctx, error):
+        """Error handling for join command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the join command, do: $join <Num> \n ( For example: $join 0 )"
@@ -245,6 +253,7 @@ class Groups(commands.Cog):
         pass_context=True,
     )
     async def leave(self, ctx):
+        """Removes the user from the given group"""
         # get the name of the caller
         member_name = ctx.message.author.display_name.upper()
         member = ctx.message.author
@@ -281,6 +290,7 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @leave.error
     async def leave_error(self, ctx, error):
+        """Error handling for leave command"""
         await ctx.author.send(error)
         # await ctx.message.delete()
         print(error)
@@ -297,6 +307,7 @@ class Groups(commands.Cog):
     # @commands.dm_only()
     # TODO maybe include channel where all groups displayed
     async def groups(self, ctx):
+        """Prints the list of groups"""
         # load groups csv
         groups = db.query(
             "SELECT group_num, array_agg(member_name) "
@@ -330,6 +341,7 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @groups.error
     async def groups_error(self, ctx, error):
+        """Error handling for groups command"""
         await ctx.author.send(error)
         # await ctx.message.delete()
         print(error)
@@ -353,6 +365,7 @@ class Groups(commands.Cog):
     # @commands.dm_only()
     # TODO maybe include channel where all groups displayed
     async def group(self, ctx, group_num: int = -1):
+        """Prints the members of the group, or the current member's group if they have joined one"""
         if group_num == -1:
             member_name = ctx.message.author.display_name.upper()
 
@@ -403,6 +416,7 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @group.error
     async def group_error(self, ctx, error):
+        """Error handling for group command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the group command, do: $group <Num> \n ( For example: $group 0 )"
@@ -462,4 +476,5 @@ class Groups(commands.Cog):
 # add the file to the bot's cog system
 # -----------------------------------------------------------
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     await bot.add_cog(Groups(bot))

@@ -477,6 +477,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @input_grades.error
     async def input_grades_error(self, ctx, error):
+        """Error handling for inputgrades command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the inputgrades command, do: $inputgrades <assignmentname> and add your csv file attachment\n ( For example: $editgradecategory test1 )"
@@ -502,6 +503,7 @@ class Grades(commands.Cog):
         help="add a grading category and weight $addgradecategory NAME WEIGHT",
     )
     async def add_grade_category(self, ctx, categoryname: str, weight: str):
+        """Lets the instructor add a grade category with a specified weight"""
         try:
             categoryweight = float(weight)
         except ValueError:
@@ -536,6 +538,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @add_grade_category.error
     async def add_grade_category_error(self, ctx, error):
+        """Error handling for add_grade_category command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the gradecategory command, do: $gradecategory <categoryname> <weight> \n ( For example: $gradecategory tests .5 )"
@@ -561,6 +564,7 @@ class Grades(commands.Cog):
         help="edit a grading category and weight $editgradecategory NAME WEIGHT",
     )
     async def edit_grade_category(self, ctx, categoryname: str, weight: str):
+        """Lets the instructor edit a grade category and weight"""
         try:
             categoryweight = float(weight)
         except ValueError:
@@ -595,6 +599,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @edit_grade_category.error
     async def edit_grade_category_error(self, ctx, error):
+        """Error handling for edit_grade_category command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the editgradecategory command, do: $editgradecategory <categoryname> <weight> \n ( For example: $editgradecategory tests .5 )"
@@ -619,6 +624,7 @@ class Grades(commands.Cog):
         help="delete a grading category $deletegradecategory NAME",
     )
     async def delete_grade_category(self, ctx, categoryname: str):
+        """Lets the user delete a grade category from the database"""
         existing = db.query(
             "SELECT id FROM grade_categories WHERE guild_id = %s AND category_name = %s",
             (ctx.guild.id, categoryname),
@@ -640,6 +646,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @delete_grade_category.error
     async def delete_grade_category_error(self, ctx, error):
+        """Error handling for delete_grade_category command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the deletegradecategory command, do: $deletegradecategory <categoryname> \n ( For example: $deletegradecategory tests)"
@@ -663,6 +670,7 @@ class Grades(commands.Cog):
         help="Report on the classes scores all grade categories",
     )
     async def grade_report_category(self, ctx):
+        """Lets the instructor generate a report on the average, low, and high score for each category"""
         result = db.query(
             """SELECT category_name, AVG(grade_percent), MAX(grade_percent), MIN(grade_percent) 
                     FROM (SELECT category_name, CAST(grade AS float) / CAST(points AS float) AS grade_percent 
@@ -693,6 +701,7 @@ class Grades(commands.Cog):
         help="Report on the classes scores all assignments",
     )
     async def grade_report_assignment(self, ctx):
+        """Lets the instructor generate a report on the average, low, and high score for each assignment"""
         result = db.query(
             """SELECT assignment_name, AVG(grade_percent), MAX(grade_percent), MIN(grade_percent) 
                 FROM (SELECT assignment_name, CAST(grade AS float) / CAST(points AS float) AS grade_percent 
@@ -712,4 +721,5 @@ class Grades(commands.Cog):
 # add the file to the bot's cog system
 # -------------------------------------
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     await bot.add_cog(Grades(bot))
