@@ -1978,7 +1978,6 @@ async def test_get_calendar_downloads(bot):
     assert dpytest.verify().message().contains().content("Event HW3 added to calendar!")
 
     await dpytest.message("$getPdfDownload")
-
     calendar_path = os.getenv("CALENDAR_PATH")
 
     reader = PdfReader(f"{calendar_path}calendar.pdf")
