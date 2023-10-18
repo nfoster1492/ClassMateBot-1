@@ -19,6 +19,7 @@ class Helpful(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @commands.command()
     async def ping(self, ctx):
+        """Prints the current ping of the bot, used as a test function"""
         # We set an upper bound on the ping of the bot to prevent float_infinity situations which crash testing
         await ctx.send(
             f"Pong! My ping currently is {round(min(999999999, self.bot.latency * 1000))}ms"
@@ -43,4 +44,5 @@ class Helpful(commands.Cog):
 # add the file to the bot's cog system
 # -------------------------------------
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     await bot.add_cog(Helpful(bot))

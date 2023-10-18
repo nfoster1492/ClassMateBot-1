@@ -36,6 +36,7 @@ class NewComer(commands.Cog):
         "$verify <FirstName LastName>",
     )
     async def verify(self, ctx, *, name: str = None):
+        """Gives the user the `verified` role in the server"""
         member = ctx.message.author
 
         # check if verified and unverified roles exist
@@ -94,6 +95,7 @@ class NewComer(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @verify.error
     async def verify_error(self, ctx, error):
+        """Error handling for verify command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the verify command, do: $verify <FirstName LastName> \n ( For example: $verify Jane Doe )"
@@ -108,6 +110,7 @@ class NewComer(commands.Cog):
 # add the file to the bot's cog system
 # --------------------------------------
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     n = NewComer(bot)
     await bot.add_cog(n)
 
