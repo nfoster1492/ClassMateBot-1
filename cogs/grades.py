@@ -422,7 +422,7 @@ class Grades(commands.Cog):
         df = pd.read_csv(data)
         edited = 0
         added = 0
-        for i in enumerate(df):
+        for i in range(len(df)):
             name = df.loc[i, "name"]
             grade = df.loc[i, "grade"].item()
 
