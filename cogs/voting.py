@@ -37,6 +37,7 @@ class Voting(commands.Cog):
         pass_context=True,
     )
     async def vote(self, ctx, project_num: int):
+        """Used for voting for projects. "Votes" for the given project by adding the user's group to it"""
         # get the name of the caller
         member_name = ctx.message.author.display_name.upper()
 
@@ -105,6 +106,7 @@ class Voting(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @vote.error
     async def vote_error(self, ctx, error):
+        """Error handling for vote command"""
         if isinstance(error, commands.UserInputError):
             await ctx.send(
                 "To join a project, use the join command, do: $vote <Num> \n"
@@ -129,6 +131,7 @@ class Voting(commands.Cog):
     )
     # @commands.dm_only()
     async def projects(self, ctx):
+        """Prints the list of current projects"""
         projects = db.query(
             "SELECT project_num, string_agg(group_num::text, ', ') AS group_members "
             "FROM project_groups WHERE guild_id = %s GROUP BY project_num",
@@ -156,6 +159,7 @@ class Voting(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @projects.error
     async def project_error(self, ctx, error):
+        """Error handling for projects command"""
         await ctx.author.send(error)
 
 
@@ -163,4 +167,5 @@ class Voting(commands.Cog):
 # add the file to the bot's cog system
 # -----------------------------------------------------------
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     await bot.add_cog(Voting(bot))

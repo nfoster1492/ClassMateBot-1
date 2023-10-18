@@ -43,6 +43,7 @@ class WordFilter(commands.Cog):
         help='Add a word to the censor whitelist. Enclose in quotation marks. EX: $whitelist "WORD"',
     )
     async def whitelistWordTest(self, ctx, word: str = ""):
+        """Allows instructors to add words to censor whitelist"""
         # if not ctx.channel.name == 'instructor-commands':
         #    await ctx.author.send('Please use this command inside #instructor-commands')
         #    await ctx.message.delete()
@@ -61,6 +62,7 @@ class WordFilter(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @whitelistWordTest.error
     async def whitelistWord_error(self, ctx, error):
+        """Error handling for whitelist command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Todo")
         else:
@@ -82,6 +84,7 @@ class WordFilter(commands.Cog):
         help="Clears all words from the saved whitelist. EX: $clearwhitelist",
     )
     async def clearWhitelist(self, ctx):
+        """Allows instructors to clea their saved whitelist"""
         if not ctx.channel.name == "instructor-commands":
             await ctx.author.send("Please use this command inside #instructor-commands")
             await ctx.message.delete()
@@ -102,6 +105,7 @@ class WordFilter(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @clearWhitelist.error
     async def clearWhitelist_error(self, ctx, error):
+        """Error handling for whitelist command"""
         print(error)
         await ctx.message.delete()
 
@@ -119,6 +123,7 @@ class WordFilter(commands.Cog):
         help="Adds all words in the saved whitelist to the censor whitelist. EX: $loadWhitelist",
     )
     async def loadWhitelist(self, ctx):
+        """Allows instructors to load their saved whitelist"""
         if not ctx.channel.name == "instructor-commands":
             await ctx.author.send("Please use this command inside #instructor-commands")
             await ctx.message.delete()
@@ -137,10 +142,12 @@ class WordFilter(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @loadWhitelist.error
     async def loadWhitelist_error(self, ctx, error):
+        """Error handling for loadWhitelist command"""
         print(error)
         await ctx.message.delete()
 
 
 async def setup(bot):
+    """Adds the file the bot's cog system"""
     n = WordFilter(bot)
     await bot.add_cog(n)

@@ -19,6 +19,7 @@ class ReviewQs(commands.Cog):
         name="getQuestion", help="Get a review question. EX: $getQuestion"
     )
     async def getQuestion(self, ctx):
+        """Prints a random question from the database"""
         # get random question from db
         rand = db.query(
             "SELECT question, answer FROM review_questions WHERE guild_id = %s ORDER BY RANDOM() LIMIT 1",
@@ -40,6 +41,7 @@ class ReviewQs(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @getQuestion.error
     async def get_question_error(self, ctx, error):
+        """Error handling for getQuestion command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("To use the getQuestion command, do: $getQuestion \n")
         else:
@@ -64,6 +66,7 @@ class ReviewQs(commands.Cog):
         'EX: $addQuestion "What class is this?" "Software Engineering"',
     )
     async def addQuestion(self, ctx, qs: str, ans: str):
+        """Allows instructors to add review questions"""
         # add question to database
         db.query(
             "INSERT INTO review_questions (guild_id, question, answer) VALUES (%s, %s, %s)",
@@ -85,6 +88,7 @@ class ReviewQs(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @addQuestion.error
     async def add_question_error(self, ctx, error):
+        """Error handling for addQuestion command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 'To use the addQuestion command, do: $addQuestion "Question" "Answer" \n'
@@ -97,5 +101,6 @@ class ReviewQs(commands.Cog):
 
 
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     n = ReviewQs(bot)
     await bot.add_cog(n)
