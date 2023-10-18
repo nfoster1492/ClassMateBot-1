@@ -30,9 +30,11 @@ class Grades(commands.Cog):
         name="grade", help="get your grade for a specific assignment $grade ASSIGNMENT"
     )
     async def grade(self, ctx, assignmentName: str):
+        memberName = ctx.author.name
+
         grade = db.query(
-            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id WHERE grades.guild_id = %s AND assignments.assignment_name = %s",
-            (ctx.guild.id, assignmentName),
+            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id WHERE grades.guild_id = %s AND grades.member_name = %s AND assignments.assignment_name = %s",
+            (ctx.guild.id, memberName, assignmentName),
         )
 
         points = db.query(
@@ -66,9 +68,11 @@ class Grades(commands.Cog):
         help="get your grade for a specific category $gradebycategory CATEGORY",
     )
     async def gradebycategory(self, ctx, categoryName: str):
+        memberName = ctx.author.name
+
         grades = db.query(
-            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
-            (ctx.guild.id, categoryName),
+            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grades.member_name = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+            (ctx.guild.id, memberName, categoryName),
         )
 
         points = db.query(
@@ -77,21 +81,29 @@ class Grades(commands.Cog):
         )
 
         if not grades:
-            await ctx.author.send(f"Grade for {categoryName} does not exist")
+            await ctx.author.send(f"Grades for {categoryName} do not exist")
             return
 
         if not points:
             await ctx.author.send(f"Assignments for {categoryName} do not exist")
             return
 
+        actualGrades = []
+        for grade in grades:
+            actualGrades.append(grade[0])
+
+        actualPoints = []
+        for point in points:
+            actualPoints.append(point[0])
+
         total = 0
         pointsTotal = 0
 
-        for i in enumerate(grades):
-            total = total + (grades[i] / 100) * points[i]
-            pointsTotal = pointsTotal + points[i]
+        for i in range(len(actualGrades)):
+            total = total + (actualGrades[i] / 100) * actualPoints[i]
+            pointsTotal = pointsTotal + actualPoints[i]
 
-        average = total / pointsTotal
+        average = (total / pointsTotal) * 100
 
         await ctx.author.send(f"Grade for {categoryName}: {average}%")
 
@@ -108,6 +120,8 @@ class Grades(commands.Cog):
         help="get your grade for the whole class $gradeforclass",
     )
     async def gradeforclass(self, ctx):
+        memberName = ctx.author.name
+
         categories = db.query(
             "SELECT category_name, category_weight FROM grade_categories WHERE guild_id = %s ORDER BY category_weight DESC",
             (ctx.guild.id,),
@@ -117,8 +131,8 @@ class Grades(commands.Cog):
 
         for category_name, category_weight in categories:
             grades = db.query(
-                "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
-                (ctx.guild.id, category_name),
+                "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grades.member_name = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+                (ctx.guild.id, memberName, category_name),
             )
 
             points = db.query(
@@ -127,23 +141,31 @@ class Grades(commands.Cog):
             )
 
             if not grades:
-                await ctx.author.send(f"Grade for {category_name} does not exist")
+                await ctx.author.send(f"Grades for {category_name} do not exist")
                 return
 
             if not points:
                 await ctx.author.send(f"Assignments for {category_name} do not exist")
                 return
 
+            actualGrades = []
+            for grade in grades:
+                actualGrades.append(grade[0])
+
+            actualPoints = []
+            for point in points:
+                actualPoints.append(point[0])
+
             total = 0
             pointsTotal = 0
 
-            for i in enumerate(grades):
-                total = total + (grades[i] / 100) * points[i]
-                pointsTotal = pointsTotal + points[i]
+            for i in range(len(actualGrades)):
+                total = total + (actualGrades[i] / 100) * actualPoints[i]
+                pointsTotal = pointsTotal + actualPoints[i]
 
-            average = total / pointsTotal
+            average = (total / pointsTotal) * 100
 
-            classTotal = classTotal + average * category_weight
+            classTotal = classTotal + (average * float(category_weight))
 
         await ctx.author.send(f"Grade for class: {classTotal}%")
 
@@ -165,9 +187,11 @@ class Grades(commands.Cog):
     async def graderequired(
         self, ctx, categoryName: str, pointValue: str, desiredGrade: str
     ):
+        memberName = ctx.author.name
+
         grades = db.query(
-            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
-            (ctx.guild.id, categoryName),
+            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grades.member_name = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+            (ctx.guild.id, memberName, categoryName),
         )
 
         points = db.query(
@@ -176,23 +200,33 @@ class Grades(commands.Cog):
         )
 
         if not grades:
-            await ctx.author.send(f"Grade for {categoryName} does not exist")
+            await ctx.author.send(f"Grades for {categoryName} do not exist")
             return
 
         if not points:
             await ctx.author.send(f"Assignments for {categoryName} do not exist")
             return
 
+        actualGrades = []
+        for grade in grades:
+            actualGrades.append(grade[0])
+
+        actualPoints = []
+        for point in points:
+            actualPoints.append(point[0])
+
         total = 0
         pointsTotal = 0
 
-        for i in enumerate(grades):
-            total = total + (grades[i] / 100) * points[i]
-            pointsTotal = pointsTotal + points[i]
+        for i in range(len(actualGrades)):
+            total = total + (actualGrades[i] / 100) * actualPoints[i]
+            pointsTotal = pointsTotal + actualPoints[i]
 
-        pointsNeeded = (int(desiredGrade) * (pointsTotal + int(pointValue))) - total
+        pointsNeeded = (
+            (int(desiredGrade) / 100) * (pointsTotal + int(pointValue))
+        ) - total
 
-        gradeNeeded = pointsNeeded / int(pointValue)
+        gradeNeeded = (pointsNeeded / int(pointValue)) * 100
 
         if gradeNeeded < 0:
             await ctx.author.send(
@@ -223,6 +257,8 @@ class Grades(commands.Cog):
     async def graderequiredforclass(
         self, ctx, categoryName: str, pointValue: str, desiredGrade: str
     ):
+        memberName = ctx.author.name
+
         categories = db.query(
             "SELECT category_name, category_weight FROM grade_categories WHERE guild_id = %s ORDER BY category_weight DESC",
             (ctx.guild.id,),
@@ -236,8 +272,8 @@ class Grades(commands.Cog):
                 break
 
             grades = db.query(
-                "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
-                (ctx.guild.id, category_name),
+                "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grades.member_name = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+                (ctx.guild.id, memberName, category_name),
             )
 
             points = db.query(
@@ -246,35 +282,43 @@ class Grades(commands.Cog):
             )
 
             if not grades:
-                await ctx.author.send(f"Grade for {category_name} does not exist")
+                await ctx.author.send(f"Grades for {category_name} do not exist")
                 return
 
             if not points:
                 await ctx.author.send(f"Assignments for {categoryName} do not exist")
                 return
 
+            actualGrades = []
+            for grade in grades:
+                actualGrades.append(grade[0])
+
+            actualPoints = []
+            for point in points:
+                actualPoints.append(point[0])
+
             total = 0
             pointsTotal = 0
 
-            for i in enumerate(grades):
-                total = total + (grades[i] / 100) * points[i]
-                pointsTotal = pointsTotal + points[i]
+            for i in range(len(actualGrades)):
+                total = total + (actualGrades[i] / 100) * actualPoints[i]
+                pointsTotal = pointsTotal + actualPoints[i]
 
-            average = total / pointsTotal
+            average = (total / pointsTotal) * 100
 
-            classTotal = classTotal + average * category_weight
+            classTotal = classTotal + average * float(category_weight)
 
-        categoryGradeNeeded = ((desiredGrade - classTotal) / categoryWeight) * 100
+        categoryGradeNeeded = (int(desiredGrade) - classTotal) / float(categoryWeight)
 
         if categoryGradeNeeded < 0:
             await ctx.author.send(
-                f"Grade on next assignment needed to keep {desiredGrade}%: 0%"
+                f"Grade on next assignment needed to keep {int(desiredGrade)}%: 0%"
             )
             return
 
         grades = db.query(
-            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
-            (ctx.guild.id, categoryName),
+            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grades.member_name = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+            (ctx.guild.id, memberName, categoryName),
         )
 
         points = db.query(
@@ -283,34 +327,44 @@ class Grades(commands.Cog):
         )
 
         if not grades:
-            await ctx.author.send(f"Grade for {categoryName} does not exist")
+            await ctx.author.send(f"Grades for {categoryName} do not exist")
             return
 
         if not points:
             await ctx.author.send(f"Assignments for {categoryName} do not exist")
             return
 
+        actualGrades = []
+        for grade in grades:
+            actualGrades.append(grade[0])
+
+        actualPoints = []
+        for point in points:
+            actualPoints.append(point[0])
+
         total = 0
         pointsTotal = 0
 
-        for i in enumerate(grades):
-            total = total + (grades[i] / 100) * points[i]
-            pointsTotal = pointsTotal + points[i]
+        for i in range(len(actualGrades)):
+            total = total + (actualGrades[i] / 100) * actualPoints[i]
+            pointsTotal = pointsTotal + actualPoints[i]
+
+        # pointsNeeded = ((int(desiredGrade) / 100) * (pointsTotal + int(pointValue))) - total
 
         pointsNeeded = (
-            int(categoryGradeNeeded) * (pointsTotal + int(pointValue))
+            (categoryGradeNeeded / 100) * (pointsTotal + int(pointValue))
         ) - total
 
-        gradeNeeded = pointsNeeded / int(pointValue)
+        gradeNeeded = (pointsNeeded / int(pointValue)) * 100
 
         if gradeNeeded < 0:
             await ctx.author.send(
-                f"Grade on next assignment needed to keep {desiredGrade}%: 0%"
+                f"Grade on next assignment needed to keep {int(desiredGrade)}%: 0%"
             )
             return
 
         await ctx.author.send(
-            f"Grade on next assignment needed to keep {desiredGrade}%: {gradeNeeded}%"
+            f"Grade on next assignment needed to keep {int(desiredGrade)}%: {gradeNeeded}%"
         )
 
     # -----------------------------------------------------------------------------------------------------------------
