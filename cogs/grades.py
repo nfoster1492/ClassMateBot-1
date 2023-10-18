@@ -356,7 +356,7 @@ class Grades(commands.Cog):
         if not assignment:
             await ctx.send(f"Assignment with name {assignmentname} does not exist")
             return
-        if ctx.message.attachments.len() != 1:
+        if len(ctx.message.attachments) != 1:
             await ctx.send("Must have exactly one attachment")
             return
         if ctx.message.attachments[0].content_type != "text/csv; charset=utf-8":
