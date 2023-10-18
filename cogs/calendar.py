@@ -30,6 +30,7 @@ class Calendar(commands.Cog):
     #       - The credentials needed to access the google calendar api calls
     # -----------------------------------------------------------------------------------------------------------------
     def credsSetUp(self):
+        """Set up Google Calendar with authentication"""
         # If modifying these scopes, delete the file token.json.
         SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
@@ -72,6 +73,7 @@ class Calendar(commands.Cog):
         ": $addCalendarEvent NAME DESCRIPTION DATE/TIME",
     )
     async def addCalendarEvent(self, ctx, name, description, eventTime):
+        """Adds specified event to shared Google Calendar"""
         creds = self.credsSetUp()
         try:
             calendar = os.getenv("CALENDAR_ID")
@@ -99,6 +101,7 @@ class Calendar(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(name="clearCalendar", help="Clear all events from calendar")
     async def clearCalendar(self, ctx):
+        """Clears all events from shared Google Calendar"""
         creds = self.credsSetUp()
         try:
             page_token = None
@@ -138,6 +141,7 @@ class Calendar(commands.Cog):
         " file of the calendar$getiCalDownload",
     )
     async def getiCalDownload(self, ctx):
+        """Generates an ICAL file of the Google Calendar"""
         # Get the calendar in ics format
         url = os.getenv("CALENDAR_ICS")
         text = urlopen(url).read().decode("iso-8859-1")
@@ -166,6 +170,7 @@ class Calendar(commands.Cog):
         " file of the calendar$getiCalDownload",
     )
     async def getPdfDownload(self, ctx):
+        """Sends a pdf file of the class calendar to the Discord Channel"""
         creds = self.credsSetUp()
         try:
             service = build("calendar", "v3", credentials=creds)
@@ -212,6 +217,7 @@ class Calendar(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @tasks.loop(hours=24)
     async def checkForEvents(self):
+        """Checks calendar daily for the events due that day"""
         creds = self.credsSetUp()
         try:
             service = build("calendar", "v3", credentials=creds)
@@ -263,6 +269,7 @@ class Calendar(commands.Cog):
         help="Adds user to shared Google Calendar. Ex: subscribeCalendar john.doe@gmail.com",
     )
     async def subscribeCalendar(self, ctx, userEmail):
+        """Adds user to shared Google Calendar"""
         creds = self.credsSetUp()
         try:
             service = build("calendar", "v3", credentials=creds)
@@ -297,6 +304,7 @@ class Calendar(commands.Cog):
         help="Removes user from shared Google Calendar. Ex: removeCalendar john.doe@gmail.com",
     )
     async def removeCalendar(self, ctx, userEmail):
+        """Removes user from shared Google Calendar"""
         creds = self.credsSetUp()
         try:
             service = build("calendar", "v3", credentials=creds)
@@ -328,5 +336,6 @@ class Calendar(commands.Cog):
 
 
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     n = Calendar(bot)
     await bot.add_cog(n)

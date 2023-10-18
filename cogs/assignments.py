@@ -33,6 +33,7 @@ class Assignments(commands.Cog):
     async def add_assignment(
         self, ctx, assignmentname: str, categoryname: str, points: str
     ):
+        """Add a grading assignment and points"""
         try:
             assignmentpoints = int(points)
         except ValueError:
@@ -84,6 +85,7 @@ class Assignments(commands.Cog):
     async def edit_assignment(
         self, ctx, assignmentname: str, categoryname: str, points: str
     ):
+        """edit a grading assignment and points $editassignment NAME CATEGORY POINTS"""
         try:
             assignmentpoints = int(points)
         except ValueError:
@@ -129,6 +131,7 @@ class Assignments(commands.Cog):
         help="delete a grading assignment $deleteassignment NAME",
     )
     async def delete_assignment(self, ctx, assignmentname: str):
+        """delete a grading assignment $deleteassignment NAME"""
         existing = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",
             (ctx.guild.id, assignmentname),
@@ -150,6 +153,7 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @add_assignment.error
     async def add_assignment_error(self, ctx, error):
+        """Error handling of addassignment function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the addassignment command, do: $addassignment <assignmentname> <categoryname> <points> \n ( For example: $addassignment test1 tests 100 )"
@@ -170,6 +174,7 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @edit_assignment.error
     async def edit_assignment_error(self, ctx, error):
+        """Error handling of editassignment function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the editassignment command, do: $editassignment <assignmentname> <categoryname> <points> \n ( For example: $editassignment test1 tests 95 )"
@@ -190,6 +195,7 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @delete_assignment.error
     async def delete_assignment_error(self, ctx, error):
+        """Error handling of deleteassignment function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the deleteassignment command, do: $deleteassignment <assignmentname>\n ( For example: $deleteassignment test1)"
@@ -204,4 +210,6 @@ class Assignments(commands.Cog):
 # add the file to the bot's cog system
 # -------------------------------------
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     await bot.add_cog(Assignments(bot))
+
