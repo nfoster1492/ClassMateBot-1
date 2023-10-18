@@ -107,7 +107,7 @@ class Grades(commands.Cog):
 
         average = (total / pointsTotal) * 100
 
-        await ctx.author.send(f"Grade for {categoryName}: {average}%")
+        await ctx.author.send(f"Grade for {categoryName}: {average:.2f}%")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: gradeforclass(self, ctx)
@@ -170,7 +170,7 @@ class Grades(commands.Cog):
 
             classTotal = classTotal + (average * float(category_weight))
 
-        await ctx.author.send(f"Grade for class: {classTotal}%")
+        await ctx.author.send(f"Grade for class: {classTotal:.2f}%")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: graderequired(self, ctx, categoryName, pointValue, desiredGrade)
@@ -239,7 +239,7 @@ class Grades(commands.Cog):
             return
 
         await ctx.author.send(
-            f"Grade on next assignment needed to keep {desiredGrade}% in {categoryName}: {gradeNeeded}%"
+            f"Grade on next assignment needed to keep {desiredGrade}% in {categoryName}: {gradeNeeded:.2f}%"
         )
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -369,7 +369,7 @@ class Grades(commands.Cog):
             return
 
         await ctx.author.send(
-            f"Grade on next assignment needed to keep {int(desiredGrade)}%: {gradeNeeded}%"
+            f"Grade on next assignment needed to keep {int(desiredGrade)}%: {gradeNeeded:.2f}%"
         )
 
     # -----------------------------------------------------------------------------------------------------------------
