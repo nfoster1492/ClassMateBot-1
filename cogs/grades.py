@@ -30,6 +30,7 @@ class Grades(commands.Cog):
         name="grade", help="get your grade for a specific assignment $grade ASSIGNMENT"
     )
     async def grade(self, ctx, assignmentName: str):
+        """Lets a student get their grade for a certain assignment"""
         memberName = ctx.author.name
 
         grade = db.query(
@@ -68,6 +69,7 @@ class Grades(commands.Cog):
         help="get your grade for a specific category $gradebycategory CATEGORY",
     )
     async def gradebycategory(self, ctx, categoryName: str):
+        """Lets a student get their grade for a specific grade category"""
         memberName = ctx.author.name
 
         grades = db.query(
@@ -120,6 +122,7 @@ class Grades(commands.Cog):
         help="get your grade for the whole class $gradeforclass",
     )
     async def gradeforclass(self, ctx):
+        """Lets a student get their overall average grade for the class"""
         memberName = ctx.author.name
 
         categories = db.query(
@@ -187,6 +190,7 @@ class Grades(commands.Cog):
     async def graderequired(
         self, ctx, categoryName: str, pointValue: str, desiredGrade: str
     ):
+        """Lets a student calculate the grade they need for a desired grade in a category"""
         memberName = ctx.author.name
 
         grades = db.query(
@@ -257,6 +261,7 @@ class Grades(commands.Cog):
     async def graderequiredforclass(
         self, ctx, categoryName: str, pointValue: str, desiredGrade: str
     ):
+        """Lets a student calculate the grade required on the next assignment to keep an overall desired class grade"""
         memberName = ctx.author.name
 
         categories = db.query(
@@ -379,6 +384,7 @@ class Grades(commands.Cog):
         name="categories", help="display all grading categories and weights $categories"
     )
     async def categories(self, ctx):
+        """Lets the user list the categories of grades that are in the database"""
         categories = db.query(
             "SELECT category_name, category_weight FROM grade_categories WHERE guild_id = %s ORDER BY category_weight DESC",
             (ctx.guild.id,),
@@ -402,6 +408,7 @@ class Grades(commands.Cog):
     @commands.has_role("Instructor")
     @commands.command(name="inputgrades", help="Insert grades using a csv file")
     async def input_grades(self, ctx, assignmentname: str):
+        """Lets the instructor input grades into the system for a given assignment"""
         assignment = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",
             (ctx.guild.id, assignmentname),
