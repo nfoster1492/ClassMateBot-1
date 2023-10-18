@@ -66,6 +66,7 @@ class Poll(commands.Cog):
         'EX: $quizpoll "I am a poll" [Vote for me!] [I am option 2]',
     )
     async def quizpoll(self, ctx, title: str, *, ops):
+        """Allows the user to begin quiz polls; that is, multi-reaction polls with listed questions"""
         # message = ctx.message
         # messageContent = message.clean_content
 
@@ -147,6 +148,7 @@ class Poll(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @quizpoll.error
     async def quizpoll_error(self, ctx, error):
+        """Error handling for quizpoll command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
                 'To use the quizpoll command, do: $quizpoll "TITLE" [option1] [option2] ... [option6]\n '
@@ -172,6 +174,7 @@ class Poll(commands.Cog):
         "EX: $poll What do you think about cats?",
     )
     async def poll(self, ctx, *, qs=""):
+        """Allows the user to create a simple reaction poll with thumbs up, thumbs down, and unsure"""
         if qs == "":
             await ctx.author.send("Please enter a question for your poll.")
             # await ctx.send(
@@ -229,6 +232,7 @@ class Poll(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @poll.error
     async def poll_error(self, ctx, error):
+        """Error handling for poll command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
                 "To use the poll command, do: $poll QUESTION\n"
@@ -240,5 +244,6 @@ class Poll(commands.Cog):
 
 
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     n = Poll(bot)
     await bot.add_cog(n)

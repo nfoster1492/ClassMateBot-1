@@ -19,6 +19,7 @@ class Pinning(commands.Cog):
     # Test command to check if the bot is working
     @commands.command()
     async def helpful3(self, ctx):
+        """Test command to chheck if the bot it working"""
         await ctx.send(f"Pong! My ping currently is {round(self.bot.latency * 1000)}ms")
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -36,6 +37,7 @@ class Pinning(commands.Cog):
         "and a description(can be multi word). EX: $pin Homework Resources for HW2",
     )
     async def addMessage(self, ctx, tagname: str, *, description: str):
+        """Used to pin a message by the user"""
         author = ctx.message.author
 
         db.query(
@@ -58,6 +60,7 @@ class Pinning(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @addMessage.error
     async def addMessage_error(self, ctx, error):
+        """Error handling for pin(addMessage) command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the pin command, do: $pin TAGNAME DESCRIPTION \n ( For example: $pin HW8 https://"
@@ -78,6 +81,7 @@ class Pinning(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(name="unpin", help="Unpin a message by passing the tagname.")
     async def deleteMessage(self, ctx, tagname: str):
+        """Unpins the pinned messages with provided tagname"""
         author = ctx.message.author
 
         rows_deleted = db.query(
@@ -109,6 +113,7 @@ class Pinning(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @deleteMessage.error
     async def deleteMessage_error(self, ctx, error):
+        """Error handling for unpin(deleteMessage) command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the unpin command, do: $unpin TAGNAME \n ( For example: $unpin HW8 )"
@@ -132,6 +137,7 @@ class Pinning(commands.Cog):
         help="Retrieve the pinned messages by a particular tag or all messages.",
     )
     async def retrieveMessages(self, ctx, tagname: str = ""):
+        """Retrieves all pinned messages under a given tagname by either everyone or a particular user"""
         author = ctx.message.author
 
         if tagname == "":
@@ -163,6 +169,7 @@ class Pinning(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @retrieveMessages.error
     async def retrieveMessages_error(self, ctx, error):
+        """Error handling for retrievemessages function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the pinnedmessages command, do: $pinnedmessages:"
@@ -188,6 +195,7 @@ class Pinning(commands.Cog):
         "tagname and old description in the same order",
     )
     async def updatePinnedMessage(self, ctx, tagname: str, *, description: str):
+        """Updates a pinned message with a given tagname, deletes old messages for the tag"""
         await ctx.invoke(self.bot.get_command("unpin"), tagname)
         await ctx.invoke(
             self.bot.get_command("pin"), tagname=tagname, description=description
@@ -204,6 +212,7 @@ class Pinning(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @updatePinnedMessage.error
     async def updatePinnedMessage_error(self, ctx, error):
+        """Error handling for updatepinnedmessage function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
                 "To use the updatepin command, do: $pin TAGNAME DESCRIPTION \n ( $updatepin HW8 https://discordapp"
@@ -219,5 +228,6 @@ class Pinning(commands.Cog):
 # add the file to the bot's cog system
 # -------------------------------------
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     n = Pinning(bot)
     await bot.add_cog(n)

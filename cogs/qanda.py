@@ -26,6 +26,7 @@ class Qanda(commands.Cog):
         'EX: $ask /"When is the exam?/" anonymous',
     )
     async def askQuestion(self, ctx, qs: str, anonymous=""):
+        """Takes question from the user the reposts it anonymously and numbered"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send("Please send questions to the #q-and-a channel.")
@@ -92,6 +93,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @askQuestion.error
     async def ask_error(self, ctx, error):
+        """Error handling for ask command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
                 'To use the ask command, do: $ask "QUESTION" anonymous*<optional>* \n '
@@ -118,7 +120,7 @@ class Qanda(commands.Cog):
         'EX: $answer 1 /"Oct 12/" anonymous',
     )
     async def answer(self, ctx, num, ans: str, anonymous=""):
-        """answer the specific question"""
+        """Adds user to specific question and post anonymously"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send("Please send answers to the #q-and-a channel.")
@@ -236,6 +238,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @answer.error
     async def answer_error(self, ctx, error):
+        """Error handling for answer command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
                 'To use the answer command, do: $answer QUESTION_NUMBER "ANSWER" anonymous*<optional>*\n '
@@ -264,6 +267,7 @@ class Qanda(commands.Cog):
         "$getAnswersFor QUESTION_NUMBER",
     )
     async def deleteAllAnsFor(self, ctx, num):
+        """Lets instructor delete all answers for a question"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send(
@@ -348,6 +352,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @deleteAllAnsFor.error
     async def deleteAllAnsFor_error(self, ctx, error):
+        """Error handling for deleteAllAnswersFor command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
                 "To use the deleteAllAnswersFor command, do: $DALLAF QUESTION_NUMBER\n "
@@ -371,6 +376,7 @@ class Qanda(commands.Cog):
         help="Get a question and all its answers\n" "EX: $getAnswersFor 1",
     )
     async def getAllAnsFor(self, ctx, num):
+        """Gets all answers for a question and DMs them to the user"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send(
@@ -458,6 +464,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @getAllAnsFor.error
     async def getAllAnsFor_error(self, ctx, error):
+        """Error handling for getAllAnswersFor command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
                 "To use the getAnswersFor command, do: $getAnswersFor QUESTION_NUMBER\n "
@@ -480,6 +487,7 @@ class Qanda(commands.Cog):
         help="(PLACEHOLDER NAME) DM all questions and their answers\n" "EX: $archiveQA",
     )
     async def archiveQA(self, ctx):
+        """DM all questions and their answers to the user"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send(
@@ -558,6 +566,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @archiveQA.error
     async def archiveqa_error(self, ctx, error):
+        """Error handling for archiveQA command"""
         await ctx.author.send(error)
         await ctx.message.delete()
 
@@ -580,6 +589,7 @@ class Qanda(commands.Cog):
         " and then use $archiveQA.",
     )
     async def deleteAllQAs(self, ctx):
+        """Deletes all quetsions and answers from the database and channel"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send(
@@ -650,6 +660,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @deleteAllQAs.error
     async def deleteAllQAs_error(self, ctx, error):
+        """Error handling for deleteAllQA command"""
         await ctx.author.send(error)
         await ctx.message.delete()
 
@@ -670,6 +681,7 @@ class Qanda(commands.Cog):
         "EX: $deleteQuestion QUESTION_NUMBER\n",
     )
     async def deleteOneQuestion(self, ctx, num):
+        """Lets the instructor delete one question, but leave the answers untouched"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send(
@@ -735,6 +747,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @deleteOneQuestion.error
     async def deleteOneQuestion_error(self, ctx, error):
+        """Error handling for deleteQuestion command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
                 "To use the deleteQuestion command, do: $deleteQuestion QUESTION_NUMBER\n "
@@ -760,6 +773,7 @@ class Qanda(commands.Cog):
         "EX: $channelGhost 1",
     )
     async def channelOneGhost(self, ctx, num):
+        """Lets the instructor get a specific ghost question"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send(
@@ -834,6 +848,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @channelOneGhost.error
     async def channelOneGhost_error(self, ctx, error):
+        """Error handling for channelGhost command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
                 "To use the channelGhost command, do: $channelGhost QUESTION_NUMBER\n "
@@ -860,6 +875,7 @@ class Qanda(commands.Cog):
         "To detect zombies and convert them to ghosts, use $unearthZombies",
     )
     async def channelGhostQs(self, ctx):
+        """Lets the instructor get the questions that are in the database but not inthe channel"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send(
@@ -921,6 +937,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @channelGhostQs.error
     async def channelGhostQs_error(self, ctx, error):
+        """Error handling for allChannelGhosts command"""
         await ctx.author.send(error)
         await ctx.message.delete()
 
@@ -941,6 +958,7 @@ class Qanda(commands.Cog):
         "EX: $unearthZombies\n",
     )
     async def unearthZombieQs(self, ctx):
+        """Assigns ghost status to all manually deleted questions in case there is a need to restore them"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send(
@@ -993,6 +1011,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @unearthZombieQs.error
     async def unearthZombieQs_error(self, ctx, error):
+        """Error handling for unearthZombies command"""
         await ctx.author.send(error)
         await ctx.message.delete()
 
@@ -1012,6 +1031,7 @@ class Qanda(commands.Cog):
         "EX: $reviveGhost 1",
     )
     async def restoreGhost(self, ctx, num):
+        """Restores a ghost of deleted question to the channel"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send(
@@ -1096,6 +1116,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @restoreGhost.error
     async def restoreGhost_error(self, ctx, error):
+        """Error handling for reviveGhost command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
                 "To use the reviveGhost command, do: $reviveGhost QUESTION_NUMBER\n "
@@ -1115,6 +1136,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(name="spooky", help="Is this channel haunted?\n" "EX: $spooky")
     async def countGhosts(self, ctx):
+        """Counts the number of ghost and zombie questions in the channel. Mainly for fun but could be useful"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
             await ctx.author.send(
@@ -1166,10 +1188,12 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @countGhosts.error
     async def countGhosts_error(self, ctx, error):
+        """Error handling for spooky command"""
         await ctx.author.send(error)
         await ctx.message.delete()
 
 
 async def setup(bot):
+    """Adds the file to the bot's cog system"""
     n = Qanda(bot)
     await bot.add_cog(n)
