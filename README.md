@@ -40,9 +40,11 @@
   <a href="https://github.com/nfoster1492/ClassMateBot-1/wiki">Wiki</a>
   
 </p>
+New Features 2 minute demo
+[![demo video](https://img.youtube.com/vi/8CfEfXnoKMs/0.jpg)](https://www.youtube.com/watch?v=8CfEfXnoKMs)
 
-Add video here
-
+Why contribute?
+[![why contribute video](https://img.youtube.com/vi/zSehBZcbPKU/0.jpg)](https://www.youtube.com/watch?v=zSehBZcbPKU)
 
 ---
 
