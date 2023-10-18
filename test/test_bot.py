@@ -1979,7 +1979,9 @@ async def test_get_calendar_downloads(bot):
 
     await dpytest.message("$getPdfDownload")
 
-    reader = PdfReader("calendar.pdf")
+    calendar_path = os.getenv("CALENDAR_PATH")
+
+    reader = PdfReader(f"{calendar_path}calendar.pdf")
 
     page = reader.pages[0]
 
@@ -1998,7 +2000,7 @@ async def test_get_calendar_downloads(bot):
 
     # referenced https://stackoverflow.com/questions/3408097/parsing-files-ics-icalendar-using-python
 
-    caldata = open("ical.ics").read()
+    caldata = open(f"{calendar_path}ical.ics").read()
 
     for cal in vobject.readComponents(caldata):
         for component in cal.components():

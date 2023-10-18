@@ -136,3 +136,5 @@ token.json
 ical.ics
 calendar.pdf
 dpytest_0.dat
+!/test/data/calendar.pdf
+!/test/data/ical.ics
