@@ -29,4 +29,4 @@ jobs:
         CALENDAR_ICS=${{ secrets.CALENDAR_ICS }}
         EOF
     - name: Test with pytest
-      run: pytest --tb=line
+      run: pytest -v -p no:warnings --tb=line
