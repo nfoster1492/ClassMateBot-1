@@ -1,3 +1,4 @@
+# Copyright (c) 2023 nfoster1492
 # This functionality provides various methods to manage assignments
 # The isntructor is able to add/edit/and delete assignments
 # and specify their grading category and point value.

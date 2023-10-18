@@ -295,13 +295,21 @@ async def test_assignments_error(bot):
 #         .contains()
 #         .content("Thank you for verifying! You can start using")
 #     )
-#     await dpytest.message("$inputgrades HW1 TestingTrue " + r"C:\Users\fruit\se510\CMateBot\ClassMateBot-1\test\data\grades.csv")
-#     await dpytest.message("$gradeforclass")
+#     await dpytest.message("$inputgrades HW1 TestingTrue ../test/data/grades.csv")
+    
 #     assert (
 #         dpytest.verify()
 #         .message()
 #         .contains()
-#         .content("Grade for class")
+#         .content("")
+#     )
+#     await dpytest.message("$gradeforclass")
+#     mes = dpytest.get_message().content
+#     assert (
+#         dpytest.verify()
+#         .message()
+#         .contains()
+#         .content("Invalid student")
 #     )
 
 

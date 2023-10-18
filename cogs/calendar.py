@@ -1,3 +1,4 @@
+# Copyright (c) 2023 nfoster1492
 from __future__ import print_function
 
 import os.path

@@ -1,3 +1,4 @@
+# Copyright (c) 2023 nfoster1492
 # This functionality provides various methods to manage grades
 # It allows for the inputing of grades, searching of grades, and several
 # different calculations based on existing grades in the system
@@ -512,6 +513,7 @@ class Grades(commands.Cog):
     @commands.command(name="inputgrades", help="Insert grades using a csv file")
     async def input_grades(self, ctx, assignmentname: str, test="False", path=""):
         """Lets the instructor input grades into the system for a given assignment"""
+        print(assignmentname)
         assignment = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",
             (ctx.guild.id, assignmentname),
@@ -541,7 +543,6 @@ class Grades(commands.Cog):
         for i in range(len(df)):
             name = df.loc[i, "name"]
             grade = df.loc[i, "grade"].item()
-
             if grade < 0 or grade > 100:
                 await ctx.send(
                     f"Invalid grade value for student {name}, skipping entry"
@@ -566,10 +567,12 @@ class Grades(commands.Cog):
                 )
             else:
                 added += 1
-                db.query(
+                haha = db.query(
                     "INSERT INTO grades (guild_id, member_name, assignment_id, grade) VALUES (%s, %s, %s, %s)",
                     (ctx.guild.id, name, assignment[0], grade),
                 )
+                if not haha:
+                    await ctx.send(f"Invalid student name {name}, skipping entry")
         await ctx.send(
             f"Entered grades for {assignmentname}, {added} new grades entered, {edited} grades edited"
         )
