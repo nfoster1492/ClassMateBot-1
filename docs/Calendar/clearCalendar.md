@@ -17,4 +17,4 @@ $clearCalendar
 ```
 Successful execution of this command will result in the google calendar being cleared
 
-![image](https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/clearCalendar.JPG)
+![image](https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/clearCalendar.PNG)
