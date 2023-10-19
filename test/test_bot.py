@@ -2127,6 +2127,7 @@ async def test_get_calendar_downloads(bot):
             if component.name == "VEVENT":
                 assert component.description.valueRepr() == "CSC510"
                 assert component.summary.valueRepr() == "HW3"
-                assert component.dtstamp.valueRepr().month == date.month
-                assert component.dtstamp.valueRepr().year == date.year
-                assert component.dtstamp.valueRepr().day == date.day
+                assert component.dtstart.valueRepr().month == caldate.month
+                assert component.dtstart.valueRepr().year == caldate.year
+                assert component.dtstart.valueRepr().day == caldate.day
+                assert component.dtstart.valueRepr().hour == caldate.hour
