@@ -258,52 +258,57 @@ async def test_assignments_error(bot):
     )
 
 
-# # -----------------------
-# # Tests cogs/grades.py
-# # -----------------------
-# @pytest.mark.asyncio
-# async def test_gradesStudent(bot):
-#     # create instuctor user
-#     user = dpytest.get_config().members[0]
-#     guild = dpytest.get_config().guilds[0]
-#     irole = await guild.create_role(name="Instructor")
-#     await irole.edit(permissions=discord.Permissions(8))
-#     role = discord.utils.get(guild.roles, name="Instructor")
-#     await dpytest.add_role(user, role)
-#     await dpytest.message("$addgradecategory Homework 0.3")
-#     assert (
-#         dpytest.verify()
-#         .message()
-#         .content("A grading category has been added for: Homework  with weight: 0.3 ")
-#     )
-#     await dpytest.message("$addassignment HWTest Homework 30")
-#     assert (
-#         dpytest.verify()
-#         .message()
-#         .content(
-#             "A grading assignment has been added for: HWTest  with points: 30 and category: Homework"
-#         )
-#     )
-#     await guild.create_role(name="unverified")
-#     await guild.create_role(name="verified")
-#     role = discord.utils.get(guild.roles, name="unverified")
-#     await dpytest.add_role(user, role)
-#     channel = await guild.create_text_channel("general")
-#     await dpytest.message("$verify sapientor", channel=channel)
-#     assert (
-#         dpytest.verify()
-#         .message()
-#         .contains()
-#         .content("Thank you for verifying! You can start using")
-#     )
-#     id = db.query("SELECT assignments.id FROM assignments")
-#     db.query(
-#         "INSERT INTO grades (guild_id, member_name, assignment_id, grade) VALUES (%s, %s, %s, %s)",
-#         (guild.id, "sapientor", id[1], "95"),
-#     )
-
-#     await dpytest.message("$gradeforclass")
-#     assert dpytest.verify().message().content("")
+@pytest.mark.asyncio
+async def test_gradesStudent(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+    await dpytest.message("$addgradecategory Homework 0.3")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Homework  with weight: 0.3 ")
+    )
+    await dpytest.message("$addassignment HW1 Homework 30")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "A grading assignment has been added for: HW1  with points: 30 and category: Homework"
+        )
+    )
+    await guild.create_role(name="unverified")
+    await guild.create_role(name="verified")
+    role = discord.utils.get(guild.roles, name="unverified")
+    await dpytest.add_role(user, role)
+    channel = await guild.create_text_channel("general")
+    await dpytest.message("$verify TestUser0", channel=channel)
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Thank you for verifying!")
+    )
+    #this is to clear the empty spot on the queue
+    dpytest.get_message()
+    await dpytest.message("$inputgrades HW1 TestingTrue ../test/data/grades.csv")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Entered grades for")
+    )
+    await dpytest.message("$gradeforclass")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Grade for class")
+    )
 
 
 # -----------------------
