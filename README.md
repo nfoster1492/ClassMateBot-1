@@ -166,10 +166,10 @@ Students can check their grades
 Although being able to set deadlines on discord is useful, a good number of students would like to have those deadlines on their calendar. This feature allows deadlines to be automically added to a Google calendar that the students can see as well as functionality to move those calendar events to other formats that the student may prefer. After the instructor has added events to the calendar students will be able to download these events either as a .ics file they can upload to outlook or other calendar software, or they can download the events as a pdf. Lastly, the bot will check the calendar daily for events due that day and ping everyone in general of the items that are due that day. 
 
 Instructor can add events to the calendar!
-<img src="https://github.com/SE21-Team2/ClassMateBot/blob/main/data/proj2media/calendar.gif" width="800">
+<img src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/calendar.gif" width="800">
 
 And students can download the calendar as iCal so they can use in their preffered app!
-<img src="https://github.com/SE21-Team2/ClassMateBot/blob/main/data/proj2media/ical.gif" width="800">
+<img src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/ical.gif" width="800">
 
 
 ---
