@@ -187,7 +187,7 @@ For the voting.py file
 
 For the deadline.py file
 
-:open_file_folder: [$add homework command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/add_homework.md)
+:open_file_folder: [$due date command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/due_date.md) **(Modified Command in Project 2)**
 
 :open_file_folder: [$change reminder due date command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Reminders/change_reminder_due_date.md)
 
@@ -255,6 +255,7 @@ For the qanda.py file
 :open_file_folder: [$spooky command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/spooky.md)
 
 :open_file_folder: [$allChannelGhosts command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/allChannelGhosts.md)
+
 :open_file_folder: [$channelGhost command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/channelGhost.md)
 
 :open_file_folder: [$unearthZombies command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/QandA/unearthZombies.md)
@@ -279,6 +280,12 @@ For the calendar.py file
 :open_file_folder: [$getiCalDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/getiCalDownload.md) **(New Command in Project 2)**
 
 :open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/getPdfDownload.md) **(New Command in Project 2)**
+
+:open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/subscribeCalendar.md) **(New Command in Project 2)**
+
+:open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/removeCalendar.md) **(New Command in Project 2)**
+
+:open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/clearCalendar.md) **(New Command in Project 2)**
 
 For the grades.py file
 

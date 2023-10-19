@@ -1,5 +1,7 @@
 # About $due_date 
-This command lets the user (either the TAs or professor) to add a reminder to the discord channel 
+This command lets the user (either the TAs or professor) to add a reminder to the discord channel.
+
+New in project two, this command now provides the runner with a command that will allow them to add the due date to the google calendar programmatically.
 
 # Location of Code
 The code that implements the above mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/deadline.py).
