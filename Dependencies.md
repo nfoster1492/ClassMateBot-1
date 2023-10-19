@@ -1,4 +1,4 @@
-All libraries used with their licenses and links to repo
+All libraries used with their licenses and links to repo. all are mandatory
 | Library | License | Link to Source|
 -----------|--------|---------------|
 aiohttp| Apache| https://github.com/aio-libs/aiohttp
