@@ -16,9 +16,3 @@ $removeCalendar *email-to-remove*
 ```
 Successful execution of this command will result in a Discord DM confirmation and the user being removed from the calendar.
 
-INSERT SUCCESS IMAGE HERE
-
-Unsuccessful execution of this command wil result in a Discord DM failure notification and the intended user NOT being removed from the calendar.
-
-INSERT FAILURE IMAGE HERE
-
