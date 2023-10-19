@@ -16,5 +16,7 @@ $subscribeCalendar *email-to-add*
 ```
 Successful execution of this command will result in a Discord DM confirmation and the user being added the calendar.
 
-INSERT SUCCESS IMAGE HERE
+![image](https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/subscribeCalendar1.png)
+
+![image](https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/subscribeCalendar2.png)
 
