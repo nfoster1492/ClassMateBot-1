@@ -1,5 +1,21 @@
 Cite as
 
+Brandon Walia, Nicholas Foster, Robert Kenney, Nathan Kohen. (2023, October 19). nfoster1492/ClassMateBot-1 (Version v4).
+Zenodo. https://doi.org/10.5281/zenodo.5673334
+
+```
+@software{nfoster1492/ClassMateBot-1,
+  title     = {nfoster1492/ClassMateBot-1 (Version v4)},
+  DOI       = {10.5281/zenodo.10023404}, 
+  author    = {Brandon Walia, Nicholas Foster, Robert Kenney, Nathan Kohen}, 
+  publisher = {Zenodo}, 
+  year      = {2023}, 
+  month     = {October}
+}
+```
+
+For Version 3 Cite as
+
 Emily Tracey, Leila Moran, Shraddha Mishra, Jonathan Nguyen, & Peeyush Taneja. (2021, November 10). CSC510-Group-25/ClassMateBot (Version v3).
 Zenodo. https://doi.org/10.5281/zenodo.5673334
 
