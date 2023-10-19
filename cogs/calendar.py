@@ -121,8 +121,8 @@ class Calendar(commands.Cog):
                 if not page_token:
                     break
 
-            for id in calendar_events:
-                service.events().delete(calendarId=calendar, eventId=id).execute()
+            for cid in calendar_events:
+                service.events().delete(calendarId=calendar, eventId=cid).execute()
             await ctx.send("Calendar has been cleared")
 
         except HttpError as error:
@@ -285,6 +285,7 @@ class Calendar(commands.Cog):
 
             await ctx.author.send(f"Added {userEmail} to the calendar.")
         except HttpError as e:
+            print(f"An error occurred: {e}")
             await ctx.author.send(
                 f"Error adding user: {userEmail} is not a valid email."
             )
@@ -331,6 +332,7 @@ class Calendar(commands.Cog):
                     f"User {userEmail} was not found in the calendar's permissions."
                 )
         except HttpError as e:
+            print(f"An error occurred: {e}")
             await ctx.author.send(
                 f"Error removing user: {userEmail} is not a valid email."
             )

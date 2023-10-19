@@ -567,12 +567,10 @@ class Grades(commands.Cog):
                 )
             else:
                 added += 1
-                haha = db.query(
+                db.query(
                     "INSERT INTO grades (guild_id, member_name, assignment_id, grade) VALUES (%s, %s, %s, %s)",
                     (ctx.guild.id, name, assignment[0], grade),
                 )
-                if not haha:
-                    await ctx.send(f"Invalid student name {name}, skipping entry")
         await ctx.send(
             f"Entered grades for {assignmentname}, {added} new grades entered, {edited} grades edited"
         )
