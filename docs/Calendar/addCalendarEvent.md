@@ -13,7 +13,7 @@ This function takes as arguments the values provided by the constructor through 
 An example of this command's usage would be when a user would like to place an item on the Google Calendar. For example, Homework 1a for CSC510 is due on 10/11/2023 at 12:00pm
 enter the command '$addCalendarEvent HW1a CSC510 2023-10-11T12:00:00Z' and the bot will provide confirmation if the calendar add was successful.
 ```
-$clearCalendar
+$addCalendarEvent HW1a CSC510 2023-10-11T12:00:00Z
 ```
 Successful execution of this command will result in an event being placed on the shared calendar for all subscribers to see and confirmation output.
 
