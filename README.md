@@ -37,6 +37,8 @@
   <a href="#pencil2-contributors">Contributors</a>
   ::
   <a href="https://github.com/nfoster1492/ClassMateBot-1/wiki">Wiki</a>
+  ::
+  <a href="https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/troubleshoot.md">Troubleshooting</a>
   
 </p>
 
