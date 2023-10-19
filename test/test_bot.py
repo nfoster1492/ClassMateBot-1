@@ -296,6 +296,10 @@ async def test_gradesStudent(bot):
     dpytest.get_message()
     await dpytest.message("$inputgrades HW1 TestingTrue ../test/data/grades.csv")
     assert dpytest.verify().message().contains().content("Entered grades for")
+    await dpytest.message("$grade HW1")
+    assert dpytest.verify().message().content("Grade for HW1: 25%, worth 30 points")
+    await dpytest.message("$gradebycategory Homework")
+    assert dpytest.verify().message().content("Grade for Homework: 25.00%")
     await dpytest.message("$gradeforclass")
     assert dpytest.verify().message().content("Grade for class: 7.50%")
     await dpytest.message("$graderequired Homework 50 30")
@@ -353,6 +357,28 @@ async def test_gradesStudentError(bot):
     dpytest.get_message()
     await dpytest.message("$inputgrades HW1 TestingTrue ../test/data/grades.csv")
     assert dpytest.verify().message().contains().content("Entered grades for")
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$grade")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "To use the grade command, do: $grade <assignmentname>\n ( For example: $grade test1 )"
+        )
+    )
+    await dpytest.message("$grade FakeHW")
+    assert dpytest.verify().message().content("Grade for FakeHW does not exist")
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$gradebycategory")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "To use the gradebycategory command, do: $gradebycategory <categoryname>\n ( For example: $gradebycategory tests )"
+        )
+    )
+    await dpytest.message("$gradebycategory FakeCat")
+    assert dpytest.verify().message().content("Grades for FakeCat do not exist")
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$graderequired")
     assert (
