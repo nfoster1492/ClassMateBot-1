@@ -2027,8 +2027,8 @@ async def test_get_calendar_downloads(bot):
     await dpytest.message("$getPdfDownload")
     assert dpytest.verify().message().contains().content("No upcoming events found.")
     date = datetime.now() + timedelta(days=1)
-    dateiso = date.isoformat()
     caldate = date + timedelta(hours=4)
+    dateiso = date.isoformat()
     caldateiso = caldate.isoformat()
     await dpytest.message(f"$addCalendarEvent HW3 CSC510 {caldateiso}Z")
     assert dpytest.verify().message().contains().content("Event HW3 added to calendar!")
@@ -2050,6 +2050,7 @@ async def test_get_calendar_downloads(bot):
     assert text[3] == "0"
     assert text[4] == "HW3"
     assert text[5][:10] == dateiso[:10]
+    assert text[5][10:16] == dateiso[10:16]
 
     await dpytest.message("$getiCalDownload")
 
@@ -2062,6 +2063,6 @@ async def test_get_calendar_downloads(bot):
             if component.name == "VEVENT":
                 assert component.description.valueRepr() == "CSC510"
                 assert component.summary.valueRepr() == "HW3"
-                assert component.dtstart.valueRepr().month == date.month
-                assert component.dtstart.valueRepr().year == date.year
-                assert component.dtstart.valueRepr().day == date.day
+                assert component.dtstamp.valueRepr().month == date.month
+                assert component.dtstamp.valueRepr().year == date.year
+                assert component.dtstamp.valueRepr().day == date.day
