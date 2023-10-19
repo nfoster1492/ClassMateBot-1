@@ -302,6 +302,8 @@ For the calendar.py file
 
 :open_file_folder: [$clearCalendar command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/clearCalendar.md) **(New Command in Project 2)**
 
+:open_file_folder: [$addCalendarEvent command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/addCalendarEvent.md) **(New Command in Project 2)**
+
 For the grades.py file
 
 :open_file_folder: [$add_grade_category command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Grades/add_grade_category.md) **(New Command in Project 2)**
