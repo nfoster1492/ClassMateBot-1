@@ -258,6 +258,9 @@ async def test_assignments_error(bot):
     )
 
 
+# -----------------------
+# Tests cogs/grades.py
+# -----------------------
 @pytest.mark.asyncio
 async def test_gradesStudent(bot):
     # create instuctor user
@@ -287,28 +290,88 @@ async def test_gradesStudent(bot):
     await dpytest.add_role(user, role)
     channel = await guild.create_text_channel("general")
     await dpytest.message("$verify TestUser0", channel=channel)
-    assert (
-        dpytest.verify()
-        .message()
-        .contains()
-        .content("Thank you for verifying!")
-    )
-    #this is to clear the empty spot on the queue
+    assert dpytest.verify().message().contains().content("Thank you for verifying!")
+    # this is to clear the empty spot on the queue
     dpytest.get_message()
     await dpytest.message("$inputgrades HW1 TestingTrue ../test/data/grades.csv")
-    assert (
-        dpytest.verify()
-        .message()
-        .contains()
-        .content("Entered grades for")
-    )
+    assert dpytest.verify().message().contains().content("Entered grades for")
     await dpytest.message("$gradeforclass")
+    assert dpytest.verify().message().content("Grade for class: 7.50%")
+    await dpytest.message("$graderequired Homework 50 30")
     assert (
         dpytest.verify()
         .message()
-        .contains()
-        .content("Grade for class")
+        .content("Grade on next assignment needed to keep 30% in Homework: 33.00%")
     )
+    await dpytest.message("$graderequiredforclass Homework 50  60")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Grade on next assignment needed to keep 60%: 305.00%")
+    )
+    await dpytest.message("$categories")
+    assert dpytest.verify().message().content("Category | Weight")
+    assert dpytest.verify().message().content("================")
+    assert dpytest.verify().message().content("Homework | 0.300")
+
+
+# -----------------------
+# Tests cogs/grades.py
+# -----------------------
+@pytest.mark.asyncio
+async def test_gradesStudentError(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+    await dpytest.message("$addgradecategory Homework 0.3")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Homework  with weight: 0.3 ")
+    )
+    await dpytest.message("$addassignment HW1 Homework 30")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "A grading assignment has been added for: HW1  with points: 30 and category: Homework"
+        )
+    )
+    await guild.create_role(name="unverified")
+    await guild.create_role(name="verified")
+    role = discord.utils.get(guild.roles, name="unverified")
+    await dpytest.add_role(user, role)
+    channel = await guild.create_text_channel("general")
+    await dpytest.message("$verify TestUser0", channel=channel)
+    assert dpytest.verify().message().contains().content("Thank you for verifying!")
+    # this is to clear the empty spot on the queue
+    dpytest.get_message()
+    await dpytest.message("$inputgrades HW1 TestingTrue ../test/data/grades.csv")
+    assert dpytest.verify().message().contains().content("Entered grades for")
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$graderequired")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "To use the graderequired command, do: $graderequired <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $graderequired tests 200 90 )"
+        )
+    )
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$graderequiredforclass")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "To use the graderequiredforclass command, do: $graderequiredforclass <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $graderequiredforclass tests 200 90 )"
+        )
+    )
+    await dpytest.message("$graderequiredforclass Testing33 50  60")
+    assert dpytest.verify().message().content("Grades for Testing33 do not exist")
 
 
 # -----------------------
