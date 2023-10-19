@@ -615,7 +615,7 @@ class Grades(commands.Cog):
             await ctx.send("Weight could not be parsed")
             return
         if categoryweight < 0:
-            await ctx.sent("Weight must be greater than 0")
+            await ctx.send("Weight must be greater than 0")
             return
         existing = db.query(
             "SELECT id FROM grade_categories WHERE guild_id = %s AND category_name = %s",
@@ -676,7 +676,7 @@ class Grades(commands.Cog):
             await ctx.send("Weight could not be parsed")
             return
         if categoryweight < 0:
-            await ctx.sent("Weight must be greater than 0")
+            await ctx.send("Weight must be greater than 0")
             return
         existing = db.query(
             "SELECT id FROM grade_categories WHERE guild_id = %s AND category_name = %s",

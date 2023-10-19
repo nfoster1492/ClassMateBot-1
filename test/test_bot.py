@@ -10,6 +10,7 @@ import pytest
 from PyPDF2 import PdfReader
 from discord.ext import commands
 import vobject
+
 import db
 
 
@@ -516,6 +517,72 @@ async def test_gradesInstructor(bot):
     # )
     # assert dpytest.verify().message().contains().content("HW1 | Average:")
     # assert dpytest.verify().message().contains().content("Midterm1 | Average:")
+
+
+# -----------------------
+# Tests cogs/grades.py
+# -----------------------
+@pytest.mark.asyncio
+async def test_gradesInstructorError(bot):
+    # pytest.set_trace()
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+    await dpytest.message("$addgradecategory Homework 0.2")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Homework  with weight: 0.2 ")
+    )
+    await dpytest.message("$addgradecategory Homework asdf")
+    assert dpytest.verify().message().content("Weight could not be parsed")
+    await dpytest.message("$addgradecategory Homework -1")
+    assert dpytest.verify().message().content("Weight must be greater than 0")
+    await dpytest.message("$addgradecategory Homework 0.5")
+    assert (
+        dpytest.verify().message().content("This category has already been added..!!")
+    )
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$addgradecategory")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("To use the gradecategory command")
+    )
+    await dpytest.message("$editgradecategory Homework asdf")
+    assert dpytest.verify().message().content("Weight could not be parsed")
+    await dpytest.message("$editgradecategory Homework -1")
+    assert dpytest.verify().message().content("Weight must be greater than 0")
+    await dpytest.message("$editgradecategory Invalid 0.5")
+    assert dpytest.verify().message().content("This category does not exist")
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$editgradecategory")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("To use the editgradecategory command")
+    )
+    await dpytest.message("$deletegradecategory Invalid")
+    assert dpytest.verify().message().content("This category does not exist")
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$deletegradecategory")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("To use the deletegradecategory command")
+    )
+    with pytest.raises(commands.MissingRequiredArgument):
+        await dpytest.message("$inputgrades")
+    assert (
+        dpytest.verify().message().contains().content("To use the inputgrades command")
+    )
 
 
 # -----------------------
