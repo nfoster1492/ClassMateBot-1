@@ -2,7 +2,8 @@
 import discord
 import os
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 import discord.ext.test as dpytest
 from dotenv import load_dotenv
 import pytest
@@ -2089,8 +2090,8 @@ async def test_get_calendar_downloads(bot):
     assert dpytest.verify().message().contains().content("Calendar has been cleared")
     await dpytest.message("$getPdfDownload")
     assert dpytest.verify().message().contains().content("No upcoming events found.")
-    date = datetime.now() + timedelta(days=1)
-    caldate = date.astimezone(timezone.utc)
+    date = datetime.now(ZoneInfo("America/New_York")) + timedelta(days=1)
+    caldate = date.astimezone(ZoneInfo("UTC"))
     dateiso = date.isoformat(timespec="seconds")
     caldateiso = caldate.isoformat(timespec="seconds")[:-6]
     await dpytest.message(f"$addCalendarEvent HW3 CSC510 {caldateiso}Z")
