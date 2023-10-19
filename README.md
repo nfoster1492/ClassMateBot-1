@@ -320,7 +320,7 @@ For the assignments.py file
 ---
 
 ## :earth_americas: Future Scope
-[Future scope](https://github.com/nfoster1492/ClassMateBot-1/projects/3) suggested tasks are located in the Projects tab. 
+[Future scope](https://github.com/nfoster1492/ClassMateBot-1/projects/1) suggested tasks are located in the Projects tab. 
 
 
 ---
