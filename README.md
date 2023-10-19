@@ -1,4 +1,4 @@
-<p align="center"><img width=20.5% src="https://github.com/SE21-Team2/ClassMateBot/blob/main/data/neworange.png"></p>
+<p align="center"><img width=20.5% src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/neworange.png"></p>
 <h1 align="center" >ClassMate Bot</h1>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
