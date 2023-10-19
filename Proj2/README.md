@@ -1,4 +1,4 @@
-# Project 1 Rubric
+# Project 2 Rubric
 
 Prepare a  markdown  with **three** columns:
 
@@ -12,13 +12,12 @@ Prepare a  markdown  with **three** columns:
 | Notes| Score| Evidence|
 |------|------|---------|
 | Video | 3 | On README.md
-|workload is spread over the whole team (one team member is often Xtimes more productive than the others... | 3 |
-but nevertheless, here is a track record that everyone is contributing a lot)|3|evidence  in GH|
+|workload is spread over the whole team (one team member is often Xtimes more productive than the others but nevertheless, here is a track record that everyone is contributing a lot) | 3 | in GH
 | Number of commits|3|in GH|
-| Number of commits: by different people|3|
-| Issues reports: there are **many**|3|
-| Issues are being  closed|3||
-| DOI badge: exists |3|
+| Number of commits: by different people|3| in GH
+| Issues reports: there are **many**|3| https://github.com/nfoster1492/ClassMateBot-1/issues
+| Issues are being  closed|3| https://github.com/nfoster1492/ClassMateBot-1/issues?q=is%3Aissue+is%3Aclosed
+| DOI badge: exists |3| on README
 |Docs: doco generated , format not ugly |3| In Docs folder|
 |Docs: what: point descriptions of each class/function (in isolation) |3| In Docs folder|
 |Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z|3|In Docs Folder|
