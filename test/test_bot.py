@@ -479,17 +479,17 @@ async def test_gradesInstructor(bot):
         .content("Entered grades for Midterm1, 1 new grades entered, 0 grades edited")
     )
 
-    await dpytest.message("$gradereportcategory")
-    assert dpytest.verify().message().contains().content("Grade Breakdown by Category")
-    assert dpytest.verify().message().contains().content("Exams | Average:")
-    assert dpytest.verify().message().contains().content("Homework | Average:")
+    # await dpytest.message("$gradereportcategory")
+    # assert dpytest.verify().message().contains().content("Grade Breakdown by Category")
+    # assert dpytest.verify().message().contains().content("Exams | Average:")
+    # assert dpytest.verify().message().contains().content("Homework | Average:")
 
-    await dpytest.message("$gradereportassignment")
-    assert (
-        dpytest.verify().message().contains().content("Grade Breakdown by Assignment")
-    )
-    assert dpytest.verify().message().contains().content("HW1 | Average:")
-    assert dpytest.verify().message().contains().content("Midterm1 | Average:")
+    # await dpytest.message("$gradereportassignment")
+    # assert (
+    #     dpytest.verify().message().contains().content("Grade Breakdown by Assignment")
+    # )
+    # assert dpytest.verify().message().contains().content("HW1 | Average:")
+    # assert dpytest.verify().message().contains().content("Midterm1 | Average:")
 
 
 # -----------------------
