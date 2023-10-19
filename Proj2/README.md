@@ -79,7 +79,7 @@ Prepare a  markdown  with **three** columns:
 |Do you provide publicly-available instructions for deploying your software?|3|In Readme and installation guide|
 |Does your documentation list all third-party dependencies?|3|In requirements|
 |Does your documentation list the version number for all third-party dependencies?|3|In requirements|
-|Does your software list the web address, and licences for all third-party dependencies and say whether the dependencies are mandatory or optional?|3|
+|Does your software list the web address, and licences for all third-party dependencies and say whether the dependencies are mandatory or optional?|3|see dependencies.md
 |Can you download dependencies using a dependency management tool or package manager?|3|Using pip install requirements|
 |Do you have tests that can be run after your software has been built or deployed to show whether the build or deployment has been successful?|3|Testing through github actions|
 |Do you have an automated test suite for your software? |3|Testing through github actions|
