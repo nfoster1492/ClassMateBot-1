@@ -153,14 +153,22 @@ We can also create Quiz Poll\
 ### 9 - Assignments/Grading **(New in Project 2)**
 An essential part of any course is the delivery of assignments and the grading of these. This feature allows instructors to add assignments into the server, and assign grades to them based on grading categories. Both the students and the instructor are able to have an easy interface to view their grades, and do calculations based on them. For example, the instrcutor can view a grading breakdown for a given grading category or asssignment, and the students can do calculations to determine how well they need to do on a given assignment to maintain a desired grade.
 
+Instructors can input their syllabus!
 <img src="https://github.com/SE21-Team2/ClassMateBot/blob/main/data/proj2media/sylabus.gif" width="800">
+
+Instructors can add assignments and grades to the system
 <img src="https://github.com/SE21-Team2/ClassMateBot/blob/main/data/proj2media/assignments.gif" width="800">
+
+Students can check their grades
 <img src="https://github.com/SE21-Team2/ClassMateBot/blob/main/data/proj2media/quizzes.gif" width="800">
 
 ### 10 - Calendar **(New in Project 2)**
 Although being able to set deadlines on discord is useful, a good number of students would like to have those deadlines on their calendar. This feature allows deadlines to be automically added to a Google calendar that the students can see as well as functionality to move those calendar events to other formats that the student may prefer. After the instructor has added events to the calendar students will be able to download these events either as a .ics file they can upload to outlook or other calendar software, or they can download the events as a pdf. Lastly, the bot will check the calendar daily for events due that day and ping everyone in general of the items that are due that day. 
 
+Instructor can add events to the calendar!
 <img src="https://github.com/SE21-Team2/ClassMateBot/blob/main/data/proj2media/calendar.gif" width="800">
+
+And students can download the calendar as iCal so they can use in their preffered app!
 <img src="https://github.com/SE21-Team2/ClassMateBot/blob/main/data/proj2media/ical.gif" width="800">
 
 
