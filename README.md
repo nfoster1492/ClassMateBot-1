@@ -3,6 +3,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
 
+[![DOI](https://zenodo.org/badge/690393967.svg)](https://zenodo.org/doi/10.5281/zenodo.10023403)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/nfoster1492/ClassMateBot-1)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg)](https://opensource.org/licenses/MIT)
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
