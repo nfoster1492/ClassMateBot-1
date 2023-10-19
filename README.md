@@ -55,7 +55,7 @@
 
 This project helps to improve the life of students, TAs and teachers by automating many mundane tasks which are sometimes done manually. ClassMateBot is a discord bot made in Python and could be used for any discord channel.  
 
-This is Project 2 for team 1 in Fall 2023. Changes are marked below and listed in (add link here)
+This is Project 2 for team 1 in Fall 2023. Changes are marked below and listed [here](https://github.com/nfoster1492/ClassMateBot-1/blob/main/Proj2/Project2Changes.md)
 ---
 
 ## :orange_book: Description
