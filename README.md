@@ -6,7 +6,6 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/nfoster1492/ClassMateBot-1)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg)](https://opensource.org/licenses/MIT)
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
-[![Lines of Code](https://tokei.rs/b1/github/nfoster1492/ClassMateBot-1)](https://github.com/nfoster1492/ClassMateBot-1)
 ![GitHub repo size](https://img.shields.io/github/repo-size/nfoster1492/ClassMateBot-1)
 [![GitHub issues](https://img.shields.io/github/issues/nfoster1492/ClassMateBot-1)](https://github.com/nfoster1492/ClassMateBot-1)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/nfoster1492/ClassMateBot-1)](https://github.com/nfoster1492/ClassMateBot-1/issues?q=is%3Aissue+is%3Aclosed)
