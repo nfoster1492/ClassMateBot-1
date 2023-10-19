@@ -376,6 +376,123 @@ async def test_gradesStudentError(bot):
 
 
 # -----------------------
+# Tests cogs/grades.py
+# -----------------------
+@pytest.mark.asyncio
+async def test_gradesInstructor(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+    await dpytest.message("$addgradecategory Homework 0.2")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Homework  with weight: 0.2 ")
+    )
+    await dpytest.message("$editgradecategory Homework 0.3")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Homework category has been updated with weight:0.3 ")
+    )
+    await dpytest.message("$addgradecategory Exams 0.7")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Exams  with weight: 0.7 ")
+    )
+    await dpytest.message("$addgradecategory Projects 0.5")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("A grading category has been added for: Projects  with weight: 0.5 ")
+    )
+    await dpytest.message("$deletegradecategory Projects")
+    assert dpytest.verify().message().content("Projects category has been deleted ")
+    await dpytest.message("$addassignment Midterm1 Exams 100")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "A grading assignment has been added for: Midterm1  with points: 100 and category: Exams"
+        )
+    )
+    await dpytest.message("$addassignment HW1 Homework 10")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "A grading assignment has been added for: HW1  with points: 10 and category: Homework"
+        )
+    )
+
+    await dpytest.message("$categories")
+    assert dpytest.verify().message().contains().content("Category | Weight")
+    assert dpytest.verify().message().contains().content("================")
+    assert dpytest.verify().message().contains().content("Exams | 0.700")
+    assert dpytest.verify().message().contains().content("Homework | 0.300")
+
+    # Create TestUser0
+    await guild.create_role(name="unverified")
+    await guild.create_role(name="verified")
+    role = discord.utils.get(guild.roles, name="unverified")
+    await dpytest.add_role(user, role)
+    channel = await guild.create_text_channel("general")
+    await dpytest.message("$verify TestUser0", channel=channel)
+    assert dpytest.verify().message().contains().content("Thank you for verifying!")
+
+    # this is to clear the empty spot on the queue
+    dpytest.get_message()
+
+    # Enters new grade and editing existing grade
+    await dpytest.message("$inputgrades HW1 TestingTrue ../test/data/hwGrades.csv")
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Entered grades for HW1, 1 new grades entered, 1 grades edited")
+    )
+
+    await dpytest.message(
+        "$inputgrades Midterm1 TestingTrue ../test/data/examGrades.csv"
+    )
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Invalid grade value for student TestUser0, skipping entry")
+    )
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Invalid student name InvalidUser0, skipping entry")
+    )
+    assert (
+        dpytest.verify()
+        .message()
+        .contains()
+        .content("Entered grades for Midterm1, 1 new grades entered, 0 grades edited")
+    )
+
+    await dpytest.message("$gradereportcategory")
+    assert dpytest.verify().message().contains().content("Grade Breakdown by Category")
+    assert dpytest.verify().message().contains().content("Exams | Average:")
+    assert dpytest.verify().message().contains().content("Homework | Average:")
+
+    await dpytest.message("$gradereportassignment")
+    assert (
+        dpytest.verify().message().contains().content("Grade Breakdown by Assignment")
+    )
+    assert dpytest.verify().message().contains().content("HW1 | Average:")
+    assert dpytest.verify().message().contains().content("Midterm1 | Average:")
+
+
+# -----------------------
 # Tests cogs/deadline.py
 # -----------------------
 @pytest.mark.asyncio
