@@ -296,11 +296,11 @@ For the calendar.py file
 
 :open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/getPdfDownload.md) **(New Command in Project 2)**
 
-:open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/subscribeCalendar.md) **(New Command in Project 2)**
+:open_file_folder: [$subscribeCalendar command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/subscribeCalendar.md) **(New Command in Project 2)**
 
-:open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/removeCalendar.md) **(New Command in Project 2)**
+:open_file_folder: [$removeCalendar command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/removeCalendar.md) **(New Command in Project 2)**
 
-:open_file_folder: [$getPdfDownload command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/clearCalendar.md) **(New Command in Project 2)**
+:open_file_folder: [$clearCalendar command](https://github.com/nfoster1492/ClassMateBot-1/blob/main/docs/Calendar/clearCalendar.md) **(New Command in Project 2)**
 
 For the grades.py file
 
