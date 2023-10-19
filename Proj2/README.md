@@ -56,7 +56,7 @@ Prepare a  markdown  with **three** columns:
 |Do you provide troubleshooting information that describes the symptoms and step-by-step solutions for problems and error messages?|2|see docs/troubleshoot.md
 |If your software can be used as a library, package or service by other software, do you provide comprehensive API documentation?|0|
 |Do you store your documentation under revision control with your source code?|3|Yes, in docs folder and Readme|
-|Do you publish your release history e.g. release data, version numbers, key features of each release etc. on your web site or in your documentation?|2|see badge on github readme|
+|Do you publish your release history e.g. release data, version numbers, key features of each release etc. on your web site or in your documentation?|2|see badge on github readme and the changes in project 2 docs file|
 |Does your software describe how a user can get help with using your software?|3|Info in Contributing, and on the bottom of readme with a help email|
 |Does your website and documentation describe what support, if any, you provide to users and developers?|3|Info in Contributing, nd on the bottom of readme with a help email|
 |Does your project have an e-mail address or forum that is solely for supporting users?|3|At the bottom of readme|
