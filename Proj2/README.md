@@ -105,7 +105,7 @@ Prepare a  markdown  with **three** columns:
 |Is your software released under an open source licence?|3|MIT Liscense|
 |Is your software released under an OSI-approved open-source licence?|3|MIT Liscense|
 |Does each of your source code files include a licence header?|0|
-|Do you have a recommended citation for your software?|2|the DOI is listed on the readme badge|
+|Do you have a recommended citation for your software?|3|Citation.md|
 |Does your website or documentation include a project roadmap (a list of project and development milestones for the next 3, 6 and 12 months)?|3|In projects tab|
 |Does your website or documentation describe how your project is funded, and the period over which funding is guaranteed?|0|
 |Do you make timely announcements of the deprecation of components, APIs, etc.?|0|
