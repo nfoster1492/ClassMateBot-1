@@ -119,8 +119,8 @@ class Deadline(commands.Cog):
                 "INSERT INTO reminders (guild_id, author_id, course, reminder_name, due_date) VALUES (%s, %s, %s, %s, %s)",
                 (ctx.guild.id, author.id, coursename, hwcount, duedate),
             )
-            calduedate = duedate + timedelta(hours=4)
-            isodate = calduedate.isoformat()
+            calduedate = duedate.astimezone(timezone.utc)
+            isodate = calduedate.isoformat(timespec="seconds")[:-6]
             await ctx.send(
                 f"A date has been added for: {coursename} reminder named: {hwcount} "
                 f"which is due on: {duedate} by {author}."

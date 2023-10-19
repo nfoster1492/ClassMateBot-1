@@ -2,7 +2,7 @@
 import discord
 import os
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import discord.ext.test as dpytest
 from dotenv import load_dotenv
 import pytest
@@ -2090,9 +2090,9 @@ async def test_get_calendar_downloads(bot):
     await dpytest.message("$getPdfDownload")
     assert dpytest.verify().message().contains().content("No upcoming events found.")
     date = datetime.now() + timedelta(days=1)
-    caldate = date + timedelta(hours=4)
-    dateiso = date.isoformat()
-    caldateiso = caldate.isoformat()
+    caldate = date.astimezone(timezone.utc)
+    dateiso = date.isoformat(timespec="seconds")
+    caldateiso = caldate.isoformat(timespec="seconds")[:-6]
     await dpytest.message(f"$addCalendarEvent HW3 CSC510 {caldateiso}Z")
     assert dpytest.verify().message().contains().content("Event HW3 added to calendar!")
 
