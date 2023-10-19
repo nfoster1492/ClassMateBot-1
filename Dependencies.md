@@ -27,5 +27,5 @@ google-auth Apache https://github.com/googleapis/google-auth-library-python
 google-auth-httplib2 Apache https://github.com/googleapis/google-auth-library-python-httplib2
 google-auth-oauthlib Apache https://github.com/googleapis/google-auth-library-python-oauthlib
 googleapis-common-protos Apache https://github.com/googleapis/api-common-protos
-PyPDF2 unique license https://github.com/py-pdf/pypdf
+PyPDF2 BSD Clause https://github.com/py-pdf/pypdf
 vobject Apache https://github.com/eventable/vobject
