@@ -123,6 +123,7 @@ class Deadline(commands.Cog):
                 f"A date has been added for: {coursename} reminder named: {hwcount} "
                 f"which is due on: {duedate} by {author}."
             )
+            duedate = duedate + timedelta(hours=4)
             isodate = duedate.isoformat()
             ctx.author.send(
                 f"Use this command to add the reminder to the calendar! **`$addCalendarEvent {hwcount} {coursename} {isodate}Z`**"

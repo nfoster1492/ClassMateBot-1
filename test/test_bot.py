@@ -2021,10 +2021,11 @@ async def test_get_calendar_downloads(bot):
     assert dpytest.verify().message().contains().content("Calendar has been cleared")
     await dpytest.message("$getPdfDownload")
     assert dpytest.verify().message().contains().content("No upcoming events found.")
-
     date = datetime.now() + timedelta(days=1)
     dateiso = date.isoformat()
-    await dpytest.message(f"$addCalendarEvent HW3 CSC510 {dateiso}Z")
+    caldate = date + timedelta(hours=4)
+    caldateiso = caldate.isoformat()
+    await dpytest.message(f"$addCalendarEvent HW3 CSC510 {caldateiso}Z")
     assert dpytest.verify().message().contains().content("Event HW3 added to calendar!")
 
     await dpytest.message("$getPdfDownload")
