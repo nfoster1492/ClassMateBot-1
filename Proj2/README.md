@@ -11,7 +11,7 @@ Prepare a  markdown  with **three** columns:
 
 | Notes| Score| Evidence|
 |------|------|---------|
-| Video | 3 | On README.md
+| Video | 3 | On README.md (https://www.youtube.com/watch?v=8CfEfXnoKMs)
 |workload is spread over the whole team (one team member is often Xtimes more productive than the others but nevertheless, here is a track record that everyone is contributing a lot) | 3 | in GH
 | Number of commits|3|in GH|
 | Number of commits: by different people|3| in GH
