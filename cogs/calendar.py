@@ -75,7 +75,13 @@ class Calendar(commands.Cog):
     )
     async def addCalendarEvent(self, ctx, name, description, eventTime):
         """Adds specified event to shared Google Calendar"""
-        creds = self.credsSetUp()
+        try:
+            creds = self.credsSetUp()
+        except FileNotFoundError as error:
+            await ctx.author.send(f"An error occurred: {error}")
+            await ctx.send("An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve")
+            return
+
         try:
             calendar = os.getenv("CALENDAR_ID")
             service = build("calendar", "v3", credentials=creds)
@@ -103,7 +109,13 @@ class Calendar(commands.Cog):
     @commands.command(name="clearCalendar", help="Clear all events from calendar")
     async def clearCalendar(self, ctx):
         """Clears all events from shared Google Calendar"""
-        creds = self.credsSetUp()
+        try:
+            creds = self.credsSetUp()
+        except FileNotFoundError as error:
+            await ctx.author.send(f"An error occurred: {error}")
+            await ctx.send("An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve")
+            return
+
         try:
             page_token = None
             calendar = os.getenv("CALENDAR_ID")
@@ -143,19 +155,22 @@ class Calendar(commands.Cog):
     )
     async def getiCalDownload(self, ctx):
         """Generates an ICAL file of the Google Calendar"""
-        # Get the calendar in ics format
-        url = os.getenv("CALENDAR_ICS")
-        text = urlopen(url).read().decode("iso-8859-1")
-        # parse the received text to remove all \n characters
-        newText = ""
-        for character in text:
-            if character != "\n":
-                newText = newText + character
-        # write to the ics file
-        f = open(os.getenv("CALENDAR_PATH") + "ical.ics", "w", encoding="utf-8")
-        f.write(newText)
-        f.close()
-        await ctx.send(file=discord.File(os.getenv("CALENDAR_PATH") + "ical.ics"))
+        try:
+            # Get the calendar in ics format
+            url = os.getenv("CALENDAR_ICS")
+            text = urlopen(url).read().decode("iso-8859-1")
+            # parse the received text to remove all \n characters
+            newText = ""
+            for character in text:
+                if character != "\n":
+                    newText = newText + character
+            # write to the ics file
+            f = open(os.getenv("CALENDAR_PATH") + "ical.ics", "w", encoding="utf-8")
+            f.write(newText)
+            f.close()
+            await ctx.send(file=discord.File(os.getenv("CALENDAR_PATH") + "ical.ics"))
+        except HttpError as error:
+            await ctx.send(f"An error occured: {error}")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: getPdfDownload(self, ctx)
@@ -172,7 +187,13 @@ class Calendar(commands.Cog):
     )
     async def getPdfDownload(self, ctx):
         """Sends a pdf file of the class calendar to the Discord Channel"""
-        creds = self.credsSetUp()
+        try:
+            creds = self.credsSetUp()
+        except FileNotFoundError as error:
+            await ctx.author.send(f"An error occurred: {error}")
+            await ctx.send("An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve")
+            return
+
         try:
             service = build("calendar", "v3", credentials=creds)
             # Call the Calendar API
@@ -219,7 +240,18 @@ class Calendar(commands.Cog):
     @tasks.loop(hours=24)
     async def checkForEvents(self):
         """Checks calendar daily for the events due that day"""
-        creds = self.credsSetUp()
+        try:
+            creds = self.credsSetUp()
+        except FileNotFoundError as error:
+            print(f"An error occurred: {error}")
+            for guild in self.bot.guilds:
+                    for channel in guild.text_channels:
+                        # Find the general channel and ping
+                        if channel.name == "general":
+                            await channel.send("An error occurred during the daily assignments due check. Contact an administrator to resolve")
+                            break
+            return
+
         try:
             service = build("calendar", "v3", credentials=creds)
             # Call the Calendar API
@@ -271,7 +303,13 @@ class Calendar(commands.Cog):
     )
     async def subscribeCalendar(self, ctx, userEmail):
         """Adds user to shared Google Calendar"""
-        creds = self.credsSetUp()
+        try:
+            creds = self.credsSetUp()
+        except FileNotFoundError as error:
+            await ctx.author.send(f"An error occurred: {error}")
+            await ctx.send("An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve")
+            return
+
         try:
             service = build("calendar", "v3", credentials=creds)
             calendar = os.getenv("CALENDAR_ID")
@@ -285,10 +323,7 @@ class Calendar(commands.Cog):
 
             await ctx.author.send(f"Added {userEmail} to the calendar.")
         except HttpError as e:
-            print(f"An error occurred: {e}")
-            await ctx.author.send(
-                f"Error adding user: {userEmail} is not a valid email."
-            )
+            await ctx.send(f"An error occurred: {e}")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: removeCalendar(self, ctx, userEmail)
@@ -307,7 +342,13 @@ class Calendar(commands.Cog):
     )
     async def removeCalendar(self, ctx, userEmail):
         """Removes user from shared Google Calendar"""
-        creds = self.credsSetUp()
+        try:
+            creds = self.credsSetUp()
+        except FileNotFoundError as error:
+            await ctx.author.send(f"An error occurred: {error}")
+            await ctx.send("An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve")
+            return
+
         try:
             service = build("calendar", "v3", credentials=creds)
             calendar = os.getenv("CALENDAR_ID")
@@ -332,10 +373,7 @@ class Calendar(commands.Cog):
                     f"User {userEmail} was not found in the calendar's permissions."
                 )
         except HttpError as e:
-            print(f"An error occurred: {e}")
-            await ctx.author.send(
-                f"Error removing user: {userEmail} is not a valid email."
-            )
+            await ctx.send(f"An error occurred: {e}")
 
 
 async def setup(bot):
