@@ -167,7 +167,9 @@ class Groups(commands.Cog):
     ( For example: $join 0 )",
         pass_context=True,
     )
-    async def join(self, ctx, group_num: int):
+    async def join(self, ctx, 
+                   group_num: int = commands.parameter(description="Number of the group")
+                ):
         """Joins the user to given group"""
         # get the name of the caller
         member_name = ctx.message.author.display_name.upper()
@@ -364,7 +366,9 @@ class Groups(commands.Cog):
     )
     # @commands.dm_only()
     # TODO maybe include channel where all groups displayed
-    async def group(self, ctx, group_num: int = -1):
+    async def group(self, ctx, 
+                    group_num: int = commands.parameter(description="Group number to list names for", default=-1)
+                ):
         """Prints the members of the group, or the current member's group if they have joined one"""
         if group_num == -1:
             member_name = ctx.message.author.display_name.upper()

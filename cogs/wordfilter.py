@@ -42,7 +42,9 @@ class WordFilter(commands.Cog):
         name="whitelisttest",
         help='Add a word to the censor whitelist. Enclose in quotation marks. EX: $whitelist "WORD"',
     )
-    async def whitelistWordTest(self, ctx, word: str = ""):
+    async def whitelistWordTest(self, ctx, 
+                                word: str = commands.parameter(description="The word you want to whitelist", default="")
+                            ):
         """Allows instructors to add words to censor whitelist"""
         # if not ctx.channel.name == 'instructor-commands':
         #    await ctx.author.send('Please use this command inside #instructor-commands')

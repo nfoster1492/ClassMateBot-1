@@ -65,7 +65,11 @@ class Poll(commands.Cog):
         "Be sure to enclose title with quotes and options with brackets!\n"
         'EX: $quizpoll "I am a poll" [Vote for me!] [I am option 2]',
     )
-    async def quizpoll(self, ctx, title: str, *, ops):
+    async def quizpoll(self, ctx, 
+                       title: str = commands.parameter(description="The quiz title"),
+                       *,
+                        ops = commands.parameter(description="The quiz options")
+                    ):
         """Allows the user to begin quiz polls; that is, multi-reaction polls with listed questions"""
         # message = ctx.message
         # messageContent = message.clean_content
@@ -173,7 +177,9 @@ class Poll(commands.Cog):
         help="Create a reaction poll by typing $poll QUESTION\n"
         "EX: $poll What do you think about cats?",
     )
-    async def poll(self, ctx, *, qs=""):
+    async def poll(self, ctx, *, 
+                   qs: str = commands.parameter(description="Question for the poll")
+                ):
         """Allows the user to create a simple reaction poll with thumbs up, thumbs down, and unsure"""
         if qs == "":
             await ctx.author.send("Please enter a question for your poll.")

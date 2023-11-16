@@ -43,7 +43,9 @@ class Deadline(commands.Cog):
         help="put in current time to get offset needed for proper "
         "datetime notifications $timenow MMM DD YYYY HH:MM ex. $timenow SEP 25 2024 17:02",
     )
-    async def timenow(self, ctx, *, date: str):
+    async def timenow(self, ctx, *, 
+                      date: str = commands.parameter(description="Current date and 24-hour time")
+                    ):
         """Gets offset for proper datetime notifications compared to UTC"""
         try:
             input_time = parser.parse(date)
@@ -100,7 +102,11 @@ class Deadline(commands.Cog):
         help="add reminder and due-date $duedate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
         "ex. $duedate CSC510 HW2 SEP 25 2024 17:02 EST",
     )
-    async def duedate(self, ctx, coursename: str, hwcount: str, *, date: str):
+    async def duedate(self, ctx, 
+                      coursename: str = commands.parameter(description="Name of the course for which the reminder is to be added"), 
+                      hwcount: str = commands.parameter(description="Name of the reminder"), *, 
+                      date: str = commands.parameter(description="Due date of the assignment")
+                    ):
         """Add reminder for specified course, assignment, and date"""
         author = ctx.message.author
 
@@ -169,7 +175,10 @@ class Deadline(commands.Cog):
         help="delete a specific reminder using course name and reminder name using "
         "$deletereminder CLASSNAME HW_NAME ex. $deletereminder CSC510 HW2 ",
     )
-    async def deleteReminder(self, ctx, courseName: str, hwName: str):
+    async def deleteReminder(self, ctx, 
+                             courseName: str = commands.parameter(description="Name of the course for which homework is to be added"), 
+                             hwName: str = commands.parameter(description="Name of the homework")
+                            ):
         """Deletes a specified reminder"""
         reminders_deleted = db.query(
             "SELECT course, reminder_name, due_date FROM reminders WHERE guild_id = %s AND reminder_name = %s AND course = %s",
@@ -228,7 +237,12 @@ class Deadline(commands.Cog):
         help="update the assignment date. $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
         "ex. $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST",
     )
-    async def changeduedate(self, ctx, classid: str, hwid: str, *, date: str):
+    async def changeduedate(self, ctx, 
+                            classid: str = commands.parameter(description="Name of the course for which homework is to be added"), 
+                            hwid: str = commands.parameter(description="Name of the homework"),
+                            *, 
+                            date: str = commands.parameter(description="New due date of the assignment")
+                        ):
         """Updates an assignment's due date in the database"""
         author = ctx.message.author
         try:
@@ -383,7 +397,9 @@ class Deadline(commands.Cog):
         help="check all the reminders that are due for a specific course $coursedue coursename "
         "ex. $coursedue CSC505",
     )
-    async def coursedue(self, ctx, courseid: str):
+    async def coursedue(self, ctx, 
+                        courseid: str = commands.parameter(description="Name of the course for which all reminders are checked")
+                    ):
         """Displays a list of all reminders due for a specific course"""
         reminders = db.query(
             "SELECT reminder_name, due_date FROM reminders WHERE guild_id = %s AND course = %s",

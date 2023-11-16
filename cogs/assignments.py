@@ -4,6 +4,7 @@
 # and specify their grading category and point value.
 import os
 import sys
+from click import command
 import discord
 from discord.ext import commands
 
@@ -31,9 +32,11 @@ class Assignments(commands.Cog):
         name="addassignment",
         help="add a grading assignment and points $addassignment NAME CATEGORY POINTS",
     )
-    async def add_assignment(
-        self, ctx, assignmentname: str, categoryname: str, points: str
-    ):
+    async def add_assignment(self, ctx, 
+                             assignmentname: str = commands.parameter(description="The name of the assignment"),
+                             categoryname: str = commands.parameter(description="The name of category for the assignment"),
+                             points: str = commands.parameter(description="How many points the assignment is worth")
+                            ):
         """Add a grading assignment and points"""
         try:
             assignmentpoints = int(points)
@@ -83,9 +86,11 @@ class Assignments(commands.Cog):
         name="editassignment",
         help="edit a grading assignment and points $editassignment NAME CATEGORY POINTS",
     )
-    async def edit_assignment(
-        self, ctx, assignmentname: str, categoryname: str, points: str
-    ):
+    async def edit_assignment(self, ctx, 
+                              assignmentname: str = commands.parameter(description="Name of assignment you want to edit"),
+                              categoryname: str = commands.parameter(description="The new name of the grade category for the assignment"), 
+                              points: str = commands.parameter(description="The new amount of points the assignment is worth")
+                            ):
         """edit a grading assignment and points $editassignment NAME CATEGORY POINTS"""
         try:
             assignmentpoints = int(points)
@@ -131,7 +136,8 @@ class Assignments(commands.Cog):
         name="deleteassignment",
         help="delete a grading assignment $deleteassignment NAME",
     )
-    async def delete_assignment(self, ctx, assignmentname: str):
+    async def delete_assignment(self, ctx, 
+                                assignmentname: str = commands.parameter(description="Name of the assignment you want to delete")):
         """delete a grading assignment $deleteassignment NAME"""
         existing = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",

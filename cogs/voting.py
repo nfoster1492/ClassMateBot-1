@@ -36,7 +36,8 @@ class Voting(commands.Cog):
     (For example: $vote 0)",
         pass_context=True,
     )
-    async def vote(self, ctx, project_num: int):
+    async def vote(self, ctx, 
+                   project_num: int = commands.parameter(description="The number of the project to vote for with group")):
         """Used for voting for projects. "Votes" for the given project by adding the user's group to it"""
         # get the name of the caller
         member_name = ctx.message.author.display_name.upper()
