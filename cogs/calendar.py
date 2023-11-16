@@ -245,11 +245,11 @@ class Calendar(commands.Cog):
         except FileNotFoundError as error:
             print(f"An error occurred: {error}")
             for guild in self.bot.guilds:
-                    for channel in guild.text_channels:
-                        # Find the general channel and ping
-                        if channel.name == "general":
-                            await channel.send("An error occurred during the daily assignments due check. Contact an administrator to resolve")
-                            break
+                for channel in guild.text_channels:
+                    # Find the general channel and ping
+                    if channel.name == "general":
+                        await channel.send("An error occurred during the daily assignments due check. Contact an administrator to resolve")
+                        break
             return
 
         try:

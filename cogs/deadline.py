@@ -311,7 +311,7 @@ class Deadline(commands.Cog):
                 )
         else:
             await ctx.author.send("No assignments due this week")
-        
+
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
