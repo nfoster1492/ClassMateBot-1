@@ -34,12 +34,12 @@ class Qanda(commands.Cog):
             return
 
         if not qs or qs.isspace():
-            await ctx.author.send("Please enter a valid question.")
+            await ctx.author.send("Please enter a valid question. Questions must be at least 3 characters and contain more than spaces")
             await ctx.message.delete()
             return
 
         if len(qs) <= 2:
-            await ctx.author.send("Question too short.")
+            await ctx.author.send("Question too short. Questions must be at least 3 characters and contain more than spaces")
             await ctx.message.delete()
             return
 
@@ -128,7 +128,7 @@ class Qanda(commands.Cog):
             return
 
         if not ans or ans.isspace():
-            await ctx.author.send("Please enter a valid answer.")
+            await ctx.author.send("Please enter a valid answer. Answers must contain more than just space characters")
             await ctx.message.delete()
             return
 
@@ -165,7 +165,7 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num))
+            await ctx.author.send("No such question with the number: " + str(num) + ". Please ensure you are using the correct number")
             # delete user msg
             await ctx.message.delete()
             return
@@ -259,9 +259,9 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="DALLAF",
+        name="deleteAllAnsFor",
         help="(PLACEHOLDER NAME) Delete all answers for a question.\n"
-        "EX: $DALLAF 1\n"
+        "EX: $deleteAllAnsFor 1\n"
         "THIS ACTION IS IRREVERSIBLE.\n"
         "Before deletion, archive the question and its answers with\n"
         "$getAnswersFor QUESTION_NUMBER",
@@ -279,7 +279,7 @@ class Qanda(commands.Cog):
         # to stop SQL from freezing. Only allows valid numbers.
         if not re.match(r"^([1-9]\d*|0)$", num):
             await ctx.author.send(
-                "Please include a valid question number. EX: $DALLAF 1"
+                "Please include a valid question number. EX: $deleteAllAnsFor 1"
             )
             await ctx.message.delete()
             return
@@ -290,7 +290,7 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num))
+            await ctx.author.send("No such question with the number: " + str(num) + ". Please ensure you are using the correct number")
             # delete user msg
             await ctx.message.delete()
             return
@@ -316,7 +316,7 @@ class Qanda(commands.Cog):
         )
 
         if rd == 0:
-            await ctx.author.send(f"No answers exist for Q{num}")
+            await ctx.author.send(f"No answers exist for Q{num}. There is nothing to be deleted")
         else:
             await ctx.author.send(f"deleted {rd} answers for Q{num}")
 
@@ -327,7 +327,7 @@ class Qanda(commands.Cog):
             await ctx.message.delete()
             return
 
-        # check if message exists on the channel. If it does, restore the question!
+        # check if message exists on the channel. If it does, restore the question
         try:
             message = await ctx.fetch_message(q[3])
         except NotFound:
@@ -484,7 +484,7 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="archiveQA",
-        help="(PLACEHOLDER NAME) DM all questions and their answers\n" "EX: $archiveQA",
+        help="DM all questions and their answers\n" "EX: $archiveQA",
     )
     async def archiveQA(self, ctx):
         """DM all questions and their answers to the user"""
@@ -606,7 +606,7 @@ class Qanda(commands.Cog):
 
         numqs = len(q)
         if numqs == 0:
-            await ctx.author.send("No questions found in database.")
+            await ctx.author.send("No questions found in database. Nothing to delete")
             return
 
         # Zombies are questions that were manually deleted from the channel. They need to be
@@ -704,7 +704,7 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("Question number not in database: " + str(num))
+            await ctx.author.send("Question number not in database: " + str(num) + ". Please ensure you are using the correct number")
             # delete user msg
             await ctx.message.delete()
             return
@@ -796,7 +796,7 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num))
+            await ctx.author.send("No such question with the number: " + str(num) + ". Please ensure you are using the correct number")
             # delete user msg
             await ctx.message.delete()
             return
@@ -1054,7 +1054,7 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num))
+            await ctx.author.send("No such question with the number: " + str(num) + ". Please ensure you are using the correct number")
             # delete user msg
             await ctx.message.delete()
             return
