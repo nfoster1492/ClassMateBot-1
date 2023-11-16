@@ -133,7 +133,7 @@ class Pinning(commands.Cog):
     #    - tagname: the tag used to identify which pinned messages are to be retrieved.
     # ----------------------------------------------------------------------------------
     @commands.command(
-        name="pinnedmessages",
+        name="pinnedMessages",
         help="Retrieve the pinned messages by a particular tag or all messages.",
     )
     async def retrieveMessages(self, ctx, tagname: str = ""):
@@ -153,7 +153,7 @@ class Pinning(commands.Cog):
 
         if len(messages) == 0:
             await ctx.send(
-                "No messages found with the given tagname and author combination"
+                "No messages found with the given tagname and author combination. Please check your spelling"
             )
         for tag, description in messages:
             await ctx.send(f"Tag: {tag}, Description: {description}")
@@ -190,7 +190,7 @@ class Pinning(commands.Cog):
     #    - description: new description
     # ----------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="updatepin",
+        name="updatePin",
         help="Update a previously pinned message by passing the "
         "tagname and old description in the same order",
     )

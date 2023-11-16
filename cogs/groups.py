@@ -70,7 +70,7 @@ class Groups(commands.Cog):
     #    - ctx: used to access the values passed through the current context
     #    Outputs: creates roles for groups
     # -------------------------------------------------------------------------------------------------------
-    @commands.command(name="startupgroups", help="Creates group roles for members")
+    @commands.command(name="startupGroups", help="Creates group roles for members")
     async def startupgroups(self, ctx):
         """Creates roles for the groups"""
         await ctx.send("Creating roles....")
@@ -163,7 +163,7 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
         name="join",
-        help="To use the join command, do: $join <Num> \n \
+        help="Joins the current user to the specified group. To use the join command, do: $join <Num> \n \
     ( For example: $join 0 )",
         pass_context=True,
     )
@@ -196,7 +196,7 @@ class Groups(commands.Cog):
         )
 
         if current_group_num:
-            await ctx.send(f"You are already in Group {current_group_num[0][0]}")
+            await ctx.send(f"You are already in Group {current_group_num[0][0]}. Please leave your current group first with $leave")
             return
 
         db.query(
@@ -248,12 +248,12 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
         name="leave",
-        help="To use the leave command, do: $leave \n \
+        help="Removes the user from their current group. To use the leave command, do: $leave \n \
     ( For example: $leave )",
         pass_context=True,
     )
     async def leave(self, ctx):
-        """Removes the user from the given group"""
+        """Removes the user from their current group"""
         # get the name of the caller
         member_name = ctx.message.author.display_name.upper()
         member = ctx.message.author

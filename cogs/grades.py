@@ -87,7 +87,7 @@ class Grades(commands.Cog):
     #    Outputs: Average grade of all the assignments in the provided category, accounting for assignment point values
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="gradebycategory",
+        name="gradeByCategory",
         help="get your grade for a specific category $gradebycategory CATEGORY",
     )
     async def gradebycategory(self, ctx, categoryName: str):
@@ -161,7 +161,7 @@ class Grades(commands.Cog):
     #    Outputs: Average grade of all the assignments in the class, weighted by category, accounting for assignment point values
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="gradeforclass",
+        name="gradeForClass",
         help="get your grade for the whole class $gradeforclass",
     )
     async def gradeforclass(self, ctx):
@@ -242,7 +242,7 @@ class Grades(commands.Cog):
     #    Outputs: The necessary grade on the next assignment to maintain a certain grade in a category
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="graderequired",
+        name="gradeRequired",
         help="get your grade required on the next assignment for a category and a desired grade $graderequired CATEGORY POINTS GRADE",
     )
     async def graderequired(
@@ -334,7 +334,7 @@ class Grades(commands.Cog):
     #    Outputs: The necessary grade on the next assignment to maintain a desired grade in the class
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="graderequiredforclass",
+        name="gradeRequiredForClass",
         help="get your grade required on the next assignment to keep a desired grade $graderequiredforclass CATEGORY POINTS GRADE",
     )
     async def graderequiredforclass(
@@ -506,7 +506,7 @@ class Grades(commands.Cog):
     #    Outputs: A report on how the grades in the system were altered
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
-    @commands.command(name="inputgrades", help="Insert grades using a csv file")
+    @commands.command(name="inputGrades", help="Insert grades using a csv file")
     async def input_grades(self, ctx, assignmentname: str, test="False", path=""):
         """Lets the instructor input grades into the system for a given assignment"""
         print(assignmentname)
@@ -526,6 +526,7 @@ class Grades(commands.Cog):
             and ctx.message.attachments[0].content_type != "text/csv; charset=utf-8"
         ):
             await ctx.send("Invalid filetype")
+            return
         data = None
         if test == "False":
             attachmenturl = ctx.message.attachments[0].url
@@ -604,7 +605,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="addgradecategory",
+        name="addGradeCategory",
         help="add a grading category and weight $addgradecategory NAME WEIGHT",
     )
     async def add_grade_category(self, ctx, categoryname: str, weight: str):
@@ -612,7 +613,7 @@ class Grades(commands.Cog):
         try:
             categoryweight = float(weight)
         except ValueError:
-            await ctx.send("Weight could not be parsed")
+            await ctx.send("Weight could not be parsed. Please use a float between 0.0 and 1.0")
             return
         if categoryweight < 0:
             await ctx.send("Weight must be greater than 0")
@@ -630,7 +631,7 @@ class Grades(commands.Cog):
                 f"A grading category has been added for: {categoryname}  with weight: {weight} "
             )
         else:
-            await ctx.send("This category has already been added..!!")
+            await ctx.send("A category with this name has already been added. All categories must have unique names")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: add_grade_category_error(self, ctx, error)
@@ -665,7 +666,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="editgradecategory",
+        name="editGradeCategory",
         help="edit a grading category and weight $editgradecategory NAME WEIGHT",
     )
     async def edit_grade_category(self, ctx, categoryname: str, weight: str):
@@ -673,7 +674,7 @@ class Grades(commands.Cog):
         try:
             categoryweight = float(weight)
         except ValueError:
-            await ctx.send("Weight could not be parsed")
+            await ctx.send("Weight could not be parsed. Please use a float between 0.0 and 1.0")
             return
         if categoryweight < 0:
             await ctx.send("Weight must be greater than 0")
@@ -691,7 +692,7 @@ class Grades(commands.Cog):
                 f"{categoryname} category has been updated with weight:{weight} "
             )
         else:
-            await ctx.send("This category does not exist")
+            await ctx.send("This category does not exist. Check the spelling of the category name or use $addGradeCategory to add a new one")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: edit_grade_category_error(self, ctx, error)
@@ -725,7 +726,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="deletegradecategory",
+        name="deleteGradeCategory",
         help="delete a grading category $deletegradecategory NAME",
     )
     async def delete_grade_category(self, ctx, categoryname: str):
@@ -738,7 +739,7 @@ class Grades(commands.Cog):
             db.query("DELETE FROM grade_categories WHERE id = %s", (existing[0]))
             await ctx.send(f"{categoryname} category has been deleted ")
         else:
-            await ctx.send("This category does not exist")
+            await ctx.send("This category does not exist. Please check the spelling of the category name")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: delete_grade_category_error(self, ctx, error)
@@ -771,7 +772,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="gradereportcategory",
+        name="gradeReportCategory",
         help="Report on the classes scores all grade categories",
     )
     async def grade_report_category(self, ctx):
@@ -802,7 +803,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="gradereportassignment",
+        name="gradeReportAssignment",
         help="Report on the classes scores all assignments",
     )
     async def grade_report_assignment(self, ctx):
