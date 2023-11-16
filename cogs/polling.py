@@ -128,9 +128,9 @@ class Poll(commands.Cog):
                 i += 1
         except KeyError:
             await ctx.author.send(
-                'To use the quizpoll command, do: $quizpoll "TITLE" [option1] [option2] ... [option6]\n '
+                'To use the quizPoll command, do: $quizPoll "TITLE" [option1] [option2] ... [option6]\n '
                 "Be sure to enclose title with quotes and options with brackets!\n"
-                'EX: $quizpoll "I am a poll" [Vote for me!] [I am option 2]'
+                'EX: $quizPoll "I am a poll" [Vote for me!] [I am option 2]'
             )
             await ctx.message.delete()
             return
@@ -151,9 +151,9 @@ class Poll(commands.Cog):
         """Error handling for quizpoll command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
-                'To use the quizpoll command, do: $quizpoll "TITLE" [option1] [option2] ... [option6]\n '
+                'To use the quizPoll command, do: $quizPoll "TITLE" [option1] [option2] ... [option6]\n '
                 "Be sure to enclose title with quotes and options with brackets!\n"
-                'EX: $quizpoll "I am a poll" [Vote for me!] [I am option 2]'
+                'EX: $quizPoll "I am a poll" [Vote for me!] [I am option 2]'
             )
         else:
             await ctx.author.send(error)

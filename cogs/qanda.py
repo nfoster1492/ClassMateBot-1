@@ -249,7 +249,7 @@ class Qanda(commands.Cog):
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: deleteAllAnswersFor
+    #    Function: deleteAllAnsFor
     #    Description: Deletes all answers for a question. Instructor only.
     #    Inputs:
     #       - ctx: context of the command
@@ -342,8 +342,8 @@ class Qanda(commands.Cog):
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: deleteAllAnswersFor_error(self, ctx, error)
-    #    Description: prints error message for deleteAllAnswersFor command
+    #    Function: deleteAllAnsFor_error(self, ctx, error)
+    #    Description: prints error message for deleteAllAnsFor command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -352,11 +352,11 @@ class Qanda(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @deleteAllAnsFor.error
     async def deleteAllAnsFor_error(self, ctx, error):
-        """Error handling for deleteAllAnswersFor command"""
+        """Error handling for deleteAllAnsFor command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
-                "To use the deleteAllAnswersFor command, do: $DALLAF QUESTION_NUMBER\n "
-                "(Example: $DALLAF 1)"
+                "To use the deleteAllAnsFor command, do: $deleteAllAnsFor QUESTION_NUMBER\n "
+                "(Example: $deleteAllAnsFor 1)"
             )
         else:
             await ctx.author.send(error)

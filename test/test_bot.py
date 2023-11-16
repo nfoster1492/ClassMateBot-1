@@ -65,7 +65,7 @@ async def test_groupJoin(bot):
     print(dpytest.get_message())
     assert dpytest.verify().message().content("Roles deleted!")
 
-    await dpytest.message("$startupgroups")
+    await dpytest.message("$startupGroups")
     print(dpytest.get_message())
 
     await dpytest.message("$connect")
@@ -109,13 +109,13 @@ async def test_assignments(bot):
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
     # Set up grade categories
-    await dpytest.message("$addgradecategory Homework 0.3")
+    await dpytest.message("$addGradeCategory Homework 0.3")
     assert (
         dpytest.verify()
         .message()
         .content("A grading category has been added for: Homework  with weight: 0.3 ")
     )
-    await dpytest.message("$addgradecategory Project 0.7")
+    await dpytest.message("$addGradeCategory Project 0.7")
     assert (
         dpytest.verify()
         .message()
@@ -123,7 +123,7 @@ async def test_assignments(bot):
     )
     ##Adding Assignments
     # Test adding a valid assignment with new category
-    await dpytest.message("$addassignment HW1 Homework 30")
+    await dpytest.message("$addAssignment HW1 Homework 30")
     assert (
         dpytest.verify()
         .message()
@@ -132,7 +132,7 @@ async def test_assignments(bot):
         )
     )
     # Test adding into an existing category
-    await dpytest.message("$addassignment HW2 Homework 30")
+    await dpytest.message("$addAssignment HW2 Homework 30")
     assert (
         dpytest.verify()
         .message()
@@ -142,7 +142,7 @@ async def test_assignments(bot):
     )
     ##Editing Assignments
     # Test editing an assignment points
-    await dpytest.message("$editassignment HW2 Homework 20")
+    await dpytest.message("$editAssignment HW2 Homework 20")
     assert (
         dpytest.verify()
         .message()
@@ -151,7 +151,7 @@ async def test_assignments(bot):
         )
     )
     # Test editing an assignment category
-    await dpytest.message("$editassignment HW1 Project 70")
+    await dpytest.message("$editAssignment HW1 Project 70")
     assert (
         dpytest.verify()
         .message()
@@ -159,7 +159,7 @@ async def test_assignments(bot):
     )
     ##Deleting Assignments
     # Test deleting an assignment
-    await dpytest.message("$deleteassignment HW1")
+    await dpytest.message("$deleteAssignment HW1")
     assert dpytest.verify().message().content("HW1 assignment has been deleted ")
 
 
@@ -176,13 +176,13 @@ async def test_assignments_error(bot):
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
     # Set up grade categories
-    await dpytest.message("$addgradecategory Homework 0.3")
+    await dpytest.message("$addGradeCategory Homework 0.3")
     assert (
         dpytest.verify()
         .message()
         .content("A grading category has been added for: Homework  with weight: 0.3 ")
     )
-    await dpytest.message("$addgradecategory Project 0.7")
+    await dpytest.message("$addGradeCategory Project 0.7")
     assert (
         dpytest.verify()
         .message()
@@ -190,9 +190,9 @@ async def test_assignments_error(bot):
     )
     ##Adding Assignments
     # Test invalid points
-    await dpytest.message("$addassignment HW2 Homework points")
+    await dpytest.message("$addAssignment HW2 Homework points")
     assert dpytest.verify().message().content("Points could not be parsed")
-    await dpytest.message("$addassignment HW3 Homework -1")
+    await dpytest.message("$addAssignment HW3 Homework -1")
     assert (
         dpytest.verify()
         .message()
@@ -200,16 +200,16 @@ async def test_assignments_error(bot):
     )
     # Test invalid parameters
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$addassignment HW1 Homework")
+        await dpytest.message("$addAssignment HW1 Homework")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the addassignment command, do: $addassignment <assignmentname> <categoryname> <points> \n ( For example: $addassignment test1 tests 100 )"
+            "To use the addAssignment command, do: $addAssignment <assignmentname> <categoryname> <points> \n ( For example: $addAssignment test1 tests 100 )"
         )
     )
     # Test duplicate assignment
-    await dpytest.message("$addassignment HW2 Homework 20")
+    await dpytest.message("$addAssignment HW2 Homework 20")
     assert (
         dpytest.verify()
         .message()
@@ -217,45 +217,45 @@ async def test_assignments_error(bot):
             "A grading assignment has been added for: HW2  with points: 20 and category: Homework"
         )
     )
-    await dpytest.message("$addassignment HW2 Homework 20")
+    await dpytest.message("$addAssignment HW2 Homework 20")
     assert (
         dpytest.verify().message().content("This assignment has already been added..!!")
     )
     ##Editing Assignments
     # Test invalid points
-    await dpytest.message("$editassignment HW2 Homework points")
+    await dpytest.message("$editAssignment HW2 Homework points")
     assert dpytest.verify().message().content("Points could not be parsed")
-    await dpytest.message("$editassignment HW2 Homework -1")
+    await dpytest.message("$editAssignment HW2 Homework -1")
     assert (
         dpytest.verify()
         .message()
         .content("Assignment points must be greater than or equal to zero")
     )
     # Test assignment that does not exist
-    await dpytest.message("$editassignment HW1 Homework 30")
+    await dpytest.message("$editAssignment HW1 Homework 30")
     assert dpytest.verify().message().content("This assignment does not exist")
     # Test invalid parameters
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$editassignment HW2 Homework")
+        await dpytest.message("$editAssignment HW2 Homework")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the editassignment command, do: $editassignment <assignmentname> <categoryname> <points> \n ( For example: $editassignment test1 tests 95 )"
+            "To use the editAssignment command, do: $editAssignment <assignmentname> <categoryname> <points> \n ( For example: $editAssignment test1 tests 95 )"
         )
     )
     ##Deleting Assignments
     # Test non existing assignment
-    await dpytest.message("$deleteassignment HW1")
+    await dpytest.message("$deleteAssignment HW1")
     assert dpytest.verify().message().content("This assignment does not exist")
     # Test invalid parameters
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$deleteassignment")
+        await dpytest.message("$deleteAssignment")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the deleteassignment command, do: $deleteassignment <assignmentname>\n ( For example: $deleteassignment test1)"
+            "To use the deleteAssignment command, do: $deleteAssignment <assignmentname>\n ( For example: $deleteAssignment test1)"
         )
     )
 
@@ -272,13 +272,13 @@ async def test_gradesStudent(bot):
     await irole.edit(permissions=discord.Permissions(8))
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
-    await dpytest.message("$addgradecategory Homework 0.3")
+    await dpytest.message("$addGradeCategory Homework 0.3")
     assert (
         dpytest.verify()
         .message()
         .content("A grading category has been added for: Homework  with weight: 0.3 ")
     )
-    await dpytest.message("$addassignment HW1 Homework 30")
+    await dpytest.message("$addAssignment HW1 Homework 30")
     assert (
         dpytest.verify()
         .message()
@@ -295,21 +295,21 @@ async def test_gradesStudent(bot):
     assert dpytest.verify().message().contains().content("Thank you for verifying!")
     # this is to clear the empty spot on the queue
     dpytest.get_message()
-    await dpytest.message("$inputgrades HW1 TestingTrue ../test/data/grades.csv")
+    await dpytest.message("$inputGrades HW1 TestingTrue ../test/data/grades.csv")
     assert dpytest.verify().message().contains().content("Entered grades for")
     await dpytest.message("$grade HW1")
     assert dpytest.verify().message().content("Grade for HW1: 25%, worth 30 points")
-    await dpytest.message("$gradebycategory Homework")
+    await dpytest.message("$gradeByCategory Homework")
     assert dpytest.verify().message().content("Grade for Homework: 25.00%")
-    await dpytest.message("$gradeforclass")
+    await dpytest.message("$gradeForClass")
     assert dpytest.verify().message().content("Grade for class: 7.50%")
-    await dpytest.message("$graderequired Homework 50 30")
+    await dpytest.message("$gradeRequired Homework 50 30")
     assert (
         dpytest.verify()
         .message()
         .content("Grade on next assignment needed to keep 30% in Homework: 33.00%")
     )
-    await dpytest.message("$graderequiredforclass Homework 50  60")
+    await dpytest.message("$gradeRequiredForClass Homework 50  60")
     assert (
         dpytest.verify()
         .message()
@@ -333,13 +333,13 @@ async def test_gradesStudentError(bot):
     await irole.edit(permissions=discord.Permissions(8))
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
-    await dpytest.message("$addgradecategory Homework 0.3")
+    await dpytest.message("$addGradeCategory Homework 0.3")
     assert (
         dpytest.verify()
         .message()
         .content("A grading category has been added for: Homework  with weight: 0.3 ")
     )
-    await dpytest.message("$addassignment HW1 Homework 30")
+    await dpytest.message("$addAssignment HW1 Homework 30")
     assert (
         dpytest.verify()
         .message()
@@ -356,7 +356,7 @@ async def test_gradesStudentError(bot):
     assert dpytest.verify().message().contains().content("Thank you for verifying!")
     # this is to clear the empty spot on the queue
     dpytest.get_message()
-    await dpytest.message("$inputgrades HW1 TestingTrue ../test/data/grades.csv")
+    await dpytest.message("$inputGrades HW1 TestingTrue ../test/data/grades.csv")
     assert dpytest.verify().message().contains().content("Entered grades for")
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$grade")
@@ -370,35 +370,35 @@ async def test_gradesStudentError(bot):
     await dpytest.message("$grade FakeHW")
     assert dpytest.verify().message().content("Grade for FakeHW does not exist")
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$gradebycategory")
+        await dpytest.message("$gradeByCategory")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the gradebycategory command, do: $gradebycategory <categoryname>\n ( For example: $gradebycategory tests )"
+            "To use the gradebycategory command, do: $gradeByCategory <categoryname>\n ( For example: $gradeByCategory tests )"
         )
     )
-    await dpytest.message("$gradebycategory FakeCat")
+    await dpytest.message("$gradeByCategory FakeCat")
     assert dpytest.verify().message().content("Grades for FakeCat do not exist")
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$graderequired")
+        await dpytest.message("$gradeRequired")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the graderequired command, do: $graderequired <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $graderequired tests 200 90 )"
+            "To use the gradeRequired command, do: $gradeRequired <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $gradeRequired tests 200 90 )"
         )
     )
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$graderequiredforclass")
+        await dpytest.message("$gradeRequiredForClass")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the graderequiredforclass command, do: $graderequiredforclass <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $graderequiredforclass tests 200 90 )"
+            "To use the gradeRequiredForClass command, do: $gradeRequiredForClass <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $gradeRequiredForClass tests 200 90 )"
         )
     )
-    await dpytest.message("$graderequiredforclass Testing33 50  60")
+    await dpytest.message("$gradeRequiredForClass Testing33 50  60")
     assert dpytest.verify().message().content("Grades for Testing33 do not exist")
 
 
@@ -414,33 +414,33 @@ async def test_gradesInstructor(bot):
     await irole.edit(permissions=discord.Permissions(8))
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
-    await dpytest.message("$addgradecategory Homework 0.2")
+    await dpytest.message("$addGradeCategory Homework 0.2")
     assert (
         dpytest.verify()
         .message()
         .content("A grading category has been added for: Homework  with weight: 0.2 ")
     )
-    await dpytest.message("$editgradecategory Homework 0.3")
+    await dpytest.message("$editGradeCategory Homework 0.3")
     assert (
         dpytest.verify()
         .message()
         .content("Homework category has been updated with weight:0.3 ")
     )
-    await dpytest.message("$addgradecategory Exams 0.7")
+    await dpytest.message("$addGradeCategory Exams 0.7")
     assert (
         dpytest.verify()
         .message()
         .content("A grading category has been added for: Exams  with weight: 0.7 ")
     )
-    await dpytest.message("$addgradecategory Projects 0.5")
+    await dpytest.message("$addGradeCategory Projects 0.5")
     assert (
         dpytest.verify()
         .message()
         .content("A grading category has been added for: Projects  with weight: 0.5 ")
     )
-    await dpytest.message("$deletegradecategory Projects")
+    await dpytest.message("$deleteGradeCategory Projects")
     assert dpytest.verify().message().content("Projects category has been deleted ")
-    await dpytest.message("$addassignment Midterm1 Exams 100")
+    await dpytest.message("$addAssignment Midterm1 Exams 100")
     assert (
         dpytest.verify()
         .message()
@@ -448,7 +448,7 @@ async def test_gradesInstructor(bot):
             "A grading assignment has been added for: Midterm1  with points: 100 and category: Exams"
         )
     )
-    await dpytest.message("$addassignment HW1 Homework 10")
+    await dpytest.message("$addAssignment HW1 Homework 10")
     assert (
         dpytest.verify()
         .message()
@@ -476,7 +476,7 @@ async def test_gradesInstructor(bot):
     dpytest.get_message()
 
     # Enters new grade and editing existing grade
-    await dpytest.message("$inputgrades HW1 TestingTrue ../test/data/hwGrades.csv")
+    await dpytest.message("$inputGrades HW1 TestingTrue ../test/data/hwGrades.csv")
     assert (
         dpytest.verify()
         .message()
@@ -485,7 +485,7 @@ async def test_gradesInstructor(bot):
     )
 
     await dpytest.message(
-        "$inputgrades Midterm1 TestingTrue ../test/data/examGrades.csv"
+        "$inputGrades Midterm1 TestingTrue ../test/data/examGrades.csv"
     )
     assert (
         dpytest.verify()
@@ -532,46 +532,46 @@ async def test_gradesInstructorError(bot):
     await irole.edit(permissions=discord.Permissions(8))
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
-    await dpytest.message("$addgradecategory Homework 0.2")
+    await dpytest.message("$addGradeCategory Homework 0.2")
     assert (
         dpytest.verify()
         .message()
         .content("A grading category has been added for: Homework  with weight: 0.2 ")
     )
-    await dpytest.message("$addgradecategory Homework asdf")
+    await dpytest.message("$addGradeCategory Homework asdf")
     assert dpytest.verify().message().content("Weight could not be parsed")
-    await dpytest.message("$addgradecategory Homework -1")
+    await dpytest.message("$addGradeCategory Homework -1")
     assert dpytest.verify().message().content("Weight must be greater than 0")
-    await dpytest.message("$addgradecategory Homework 0.5")
+    await dpytest.message("$addGradeCategory Homework 0.5")
     assert (
         dpytest.verify().message().content("This category has already been added..!!")
     )
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$addgradecategory")
+        await dpytest.message("$addGradeCategory")
     assert (
         dpytest.verify()
         .message()
         .contains()
         .content("To use the gradecategory command")
     )
-    await dpytest.message("$editgradecategory Homework asdf")
+    await dpytest.message("$editGradeCategory Homework asdf")
     assert dpytest.verify().message().content("Weight could not be parsed")
-    await dpytest.message("$editgradecategory Homework -1")
+    await dpytest.message("$editGradeCategory Homework -1")
     assert dpytest.verify().message().content("Weight must be greater than 0")
-    await dpytest.message("$editgradecategory Invalid 0.5")
+    await dpytest.message("$editGradeCategory Invalid 0.5")
     assert dpytest.verify().message().content("This category does not exist")
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$editgradecategory")
+        await dpytest.message("$editGradeCategory")
     assert (
         dpytest.verify()
         .message()
         .contains()
         .content("To use the editgradecategory command")
     )
-    await dpytest.message("$deletegradecategory Invalid")
+    await dpytest.message("$deleteGradeCategory Invalid")
     assert dpytest.verify().message().content("This category does not exist")
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$deletegradecategory")
+        await dpytest.message("$deleteGradeCategory")
     assert (
         dpytest.verify()
         .message()
@@ -579,7 +579,7 @@ async def test_gradesInstructorError(bot):
         .content("To use the deletegradecategory command")
     )
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$inputgrades")
+        await dpytest.message("$inputGrades")
     assert (
         dpytest.verify().message().contains().content("To use the inputgrades command")
     )
@@ -598,17 +598,17 @@ async def test_deadline(bot):
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
     # Clear our reminders: Only if testing fails and leaves a reminders.JSON file with values behind
-    # await dpytest.message("$clearreminders")
+    # await dpytest.message("$clearReminders")
     # assert dpytest.verify().message().contains().content("All reminders have been cleared..!!")
     # Test reminders while none have been set
-    await dpytest.message("$coursedue CSC505")
+    await dpytest.message("$courseDue CSC505")
     assert (
         dpytest.verify()
         .message()
         .content("Rejoice..!! You have no pending reminders for CSC505..!!")
     )
     # Test setting 1 reminder
-    await dpytest.message("$duedate CSC505 DANCE SEP 21 2050 10:00")
+    await dpytest.message("$dueDate CSC505 DANCE SEP 21 2050 10:00")
     assert (
         dpytest.verify()
         .message()
@@ -618,7 +618,7 @@ async def test_deadline(bot):
         )
     )
     # Test setting a 2nd reminder
-    await dpytest.message("$duedate CSC510 HW1 DEC 21 2050 19:59")
+    await dpytest.message("$dueDate CSC510 HW1 DEC 21 2050 19:59")
     assert (
         dpytest.verify()
         .message()
@@ -628,7 +628,7 @@ async def test_deadline(bot):
         )
     )
     # Test deleting reminder
-    await dpytest.message("$deletereminder CSC510 HW1")
+    await dpytest.message("$deleteReminder CSC510 HW1")
     assert (
         dpytest.verify()
         .message()
@@ -637,7 +637,7 @@ async def test_deadline(bot):
         )
     )
     # Test re-adding a reminder
-    await dpytest.message("$duedate CSC510 HW1 DEC 21 2050 19:59")
+    await dpytest.message("$dueDate CSC510 HW1 DEC 21 2050 19:59")
     assert (
         dpytest.verify()
         .message()
@@ -648,7 +648,7 @@ async def test_deadline(bot):
     )
 
     # Test adding an assignment twice
-    await dpytest.message("$duedate CSC510 HW1 DEC 21 2050 19:59")
+    await dpytest.message("$dueDate CSC510 HW1 DEC 21 2050 19:59")
     assert (
         dpytest.verify()
         .message()
@@ -657,7 +657,7 @@ async def test_deadline(bot):
     )
 
     # Clear reminders at the end of testing since we're using a local JSON file to store them
-    await dpytest.message("$clearreminders")
+    await dpytest.message("$clearReminders")
     assert dpytest.verify().message().content("All reminders have been cleared..!!")
 
 
@@ -674,7 +674,7 @@ async def test_listreminders(bot):
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
     # Test listing multiple reminders
-    await dpytest.message("$duedate CSC505 DANCE SEP 21 2050 10:00")
+    await dpytest.message("$dueDate CSC505 DANCE SEP 21 2050 10:00")
     assert (
         dpytest.verify()
         .message()
@@ -684,7 +684,7 @@ async def test_listreminders(bot):
         )
     )
     # Test setting a 2nd reminder
-    await dpytest.message("$duedate CSC510 HW1 DEC 21 2050 19:59")
+    await dpytest.message("$dueDate CSC510 HW1 DEC 21 2050 19:59")
     assert (
         dpytest.verify()
         .message()
@@ -693,7 +693,7 @@ async def test_listreminders(bot):
             "A date has been added for: CSC510 reminder named: HW1 which is due on: "
         )
     )
-    await dpytest.message("$listreminders")
+    await dpytest.message("$listReminders")
     assert (
         dpytest.verify()
         .message()
@@ -706,11 +706,11 @@ async def test_listreminders(bot):
         .contains()
         .content("CSC510 reminder named: HW1 which is due on:")
     )
-    # Test $coursedue
-    await dpytest.message("$coursedue CSC505")
+    # Test $courseDue
+    await dpytest.message("$courseDue CSC505")
     assert dpytest.verify().message().contains().content("DANCE is due at ")
     # Clear reminders at the end of testing since we're using a local JSON file to store them
-    await dpytest.message("$clearreminders")
+    await dpytest.message("$clearReminders")
     assert (
         dpytest.verify()
         .message()
@@ -736,7 +736,7 @@ async def test_duethisweek(bot):
     # Try adding a reminder due in an hour
     now = datetime.now() + timedelta(hours=1)
     dt_string = now.strftime("%b %d %Y %H:%M")
-    await dpytest.message(f"$duedate CSC600 HW0 {dt_string}")
+    await dpytest.message(f"$dueDate CSC600 HW0 {dt_string}")
     assert (
         dpytest.verify()
         .message()
@@ -744,10 +744,10 @@ async def test_duethisweek(bot):
         .content("A date has been added for: CSC600 reminder named: HW0")
     )
     # Check to see that the reminder is due this week
-    await dpytest.message("$duethisweek")
+    await dpytest.message("$dueThisWeek")
     assert dpytest.verify().message().contains().content("CSC600 HW0 is due ")
     # Clear reminders at the end of testing since we're using a local JSON file to store them
-    await dpytest.message("$clearreminders")
+    await dpytest.message("$clearReminders")
     assert (
         dpytest.verify()
         .message()
@@ -771,7 +771,7 @@ async def test_duetoday(bot):
     # Try adding a reminder due in an hour
     now = datetime.now() + timedelta(hours=6)
     dt_string = now.strftime("%b %d %Y %H:%M")
-    await dpytest.message(f"$duedate CSC600 HW0 {dt_string}")
+    await dpytest.message(f"$dueDate CSC600 HW0 {dt_string}")
     assert (
         dpytest.verify()
         .message()
@@ -779,10 +779,10 @@ async def test_duetoday(bot):
         .content("A date has been added for: CSC600 reminder named: HW0")
     )
     # Check to see that the reminder is due today
-    await dpytest.message("$duetoday")
+    await dpytest.message("$dueToday")
     assert dpytest.verify().message().contains().content("CSC600 HW0 is due ")
     # Clear reminders at the end of testing since we're using a local JSON file to store them
-    await dpytest.message("$clearreminders")
+    await dpytest.message("$clearReminders")
     assert (
         dpytest.verify()
         .message()
@@ -804,7 +804,7 @@ async def test_overdue(bot):
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
     # Try adding a reminder due in the past
-    await dpytest.message("$duedate CSC600 HW0 SEP 21 2000 10:00")
+    await dpytest.message("$dueDate CSC600 HW0 SEP 21 2000 10:00")
     assert (
         dpytest.verify()
         .message()
@@ -822,7 +822,7 @@ async def test_overdue(bot):
         )
     )
     # Clear reminders at the end of testing since we're using a local JSON file to store them
-    await dpytest.message("$clearoverdue")
+    await dpytest.message("$clearOverdue")
     assert (
         dpytest.verify()
         .message()
@@ -851,73 +851,73 @@ async def test_deadline_errors(bot):
 
     # Tests timenow without an argument
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$timenow")
+        await dpytest.message("$timeNow")
     assert (
         dpytest.verify()
         .message()
         .content(
             "To use the timenow command (with current time), do: "
-            "$timenow MMM DD YYYY HH:MM ex. $timenow SEP 25 2024 17:02"
+            "$timeNow MMM DD YYYY HH:MM ex. $timeNow SEP 25 2024 17:02"
         )
     )
 
     # Test timenow with bad argument
     # with pytest.raises(commands.MissingRequiredArgument):
-    await dpytest.message("$timenow blab")
+    await dpytest.message("$timeNow blab")
     assert dpytest.verify().message().content("Due date could not be parsed")
 
     # Test duedate with bad argument
     # with pytest.raises(commands.MissingRequiredArgument):
-    await dpytest.message("$duedate blab blab blab")
+    await dpytest.message("$dueDate blab blab blab")
     assert dpytest.verify().message().content("Due date could not be parsed")
     # Tests duedate without an argument
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$duedate")
+        await dpytest.message("$dueDate")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the duedate command, do: $duedate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n ( For example: $duedate CSC510 HW2 SEP 25 2024 17:02 EST )"
+            "To use the duedate command, do: $dueDate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n ( For example: $dueDate CSC510 HW2 SEP 25 2024 17:02 EST )"
         )
     )
 
     # Tests deletereminder without an argument
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$deletereminder")
+        await dpytest.message("$deleteReminder")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the deletereminder command, do: $deletereminder CLASSNAME HW_NAME \n "
-            "( For example: $deletereminder CSC510 HW2 )"
+            "To use the deletereminder command, do: $deleteReminder CLASSNAME HW_NAME \n "
+            "( For example: $deleteReminder CSC510 HW2 )"
         )
     )
 
     # Tests changeduedate without an argument
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$changeduedate")
+        await dpytest.message("$changeDueDate")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the changeduedate command, do: $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n"
-            " ( For example: $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST)"
+            "To use the changeduedate command, do: $changeDueDate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n"
+            " ( For example: $changeDueDate CSC510 HW2 SEP 25 2024 17:02 EST)"
         )
     )
 
     # Test changeduedate with bad argument
     # with pytest.raises(commands.MissingRequiredArgument):
-    await dpytest.message("$changeduedate blab blab blab")
+    await dpytest.message("$changeDueDate blab blab blab")
     assert dpytest.verify().message().content("Due date could not be parsed")
 
     # Tests coursedue without an argument
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$coursedue")
+        await dpytest.message("$courseDue")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the coursedue command, do: $coursedue CLASSNAME \n ( For example: $coursedue CSC510 )"
+            "To use the coursedue command, do: $courseDue CLASSNAME \n ( For example: $courseDue CSC510 )"
         )
     )
 
@@ -1010,7 +1010,7 @@ async def test_updatepin(bot):
         )
     )
     # Tests updatepin
-    await dpytest.message("$updatepin TestMessage2 www.zoom.com test")
+    await dpytest.message("$updatePin TestMessage2 www.zoom.com test")
     assert (
         dpytest.verify()
         .message()
@@ -1027,7 +1027,7 @@ async def test_updatepin(bot):
     )
 
     # Tests updating a non-existent pin
-    await dpytest.message("$updatepin Tag Test")
+    await dpytest.message("$updatePin Tag Test")
     # Confirm no message exists
     assert (
         dpytest.verify()
@@ -1050,7 +1050,7 @@ async def test_updatepin(bot):
 @pytest.mark.asyncio
 async def test_pinnedmessages(bot):
     # Tests getting pins by tag: no pinned messages
-    await dpytest.message("$pinnedmessages TestTag")
+    await dpytest.message("$pinnedMessages TestTag")
     assert (
         dpytest.verify()
         .message()
@@ -1090,7 +1090,7 @@ async def test_pinnedmessages(bot):
     )
 
     # Tests getting pins by tag
-    await dpytest.message("$pinnedmessages Tag1")
+    await dpytest.message("$pinnedMessages Tag1")
     assert (
         dpytest.verify()
         .message()
@@ -1105,7 +1105,7 @@ async def test_pinnedmessages(bot):
     )
 
     # Tests getting all pins
-    await dpytest.message("$pinnedmessages")
+    await dpytest.message("$pinnedMessages")
     assert (
         dpytest.verify()
         .message()
@@ -1158,23 +1158,23 @@ async def test_pinningErrors(bot):
 
     # Tests updating a pin with invalid input
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$updatepin")
+        await dpytest.message("$updatePin")
     assert (
         dpytest.verify()
         .message()
         .contains()
         .content(
-            "To use the updatepin command, do: $pin TAGNAME DESCRIPTION \n ( $updatepin HW8 https://discordapp"
+            "To use the updatepin command, do: $pin TAGNAME DESCRIPTION \n ( $updatePin HW8 https://discordapp"
             ".com/channels/139565116151562240/139565116151562240/890814489480531969 HW8 reminder )"
         )
     )
 
     # Tests using pinnedmessages with invalid input
     # with pytest.raises(commands.CommandError):
-    # await dpytest.message("$pinnedmessages \" please fail omg")
+    # await dpytest.message("$pinnedMessages \" please fail omg")
     # assert dpytest.verify().message().contains().content(
-    # "To use the pinnedmessages command, do: $pinnedmessages:"
-    # " TAGNAME \n ( For example: $pinnedmessages HW8 )")
+    # "To use the pinnedmessages command, do: $pinnedMessages:"
+    # " TAGNAME \n ( For example: $pinnedMessages HW8 )")
 
     # The above test requires the else statement below to be included
     # in pinning.py's retrieveMessages_error function.
@@ -1185,8 +1185,8 @@ async def test_pinningErrors(bot):
     # ...
     # else:
     # await ctx.send(
-    # "To use the pinnedmessages command, do: $pinnedmessages:"
-    # " TAGNAME \n ( For example: $pinnedmessages HW8 )")
+    # "To use the pinnedmessages command, do: $pinnedMessages:"
+    # " TAGNAME \n ( For example: $pinnedMessages HW8 )")
     # print(error)
 
 
@@ -1366,11 +1366,11 @@ async def test_qanda(bot):
     )
 
     # test deleting all answers for a question with none
-    await dpytest.message("$DALLAF 1", channel=channel)
+    await dpytest.message("$deleteAllAnsFor 1", channel=channel)
     assert dpytest.verify().message().contains().content("No answers exist for Q1")
 
     # test deleting all answers
-    await dpytest.message("$DALLAF 2", channel=channel)
+    await dpytest.message("$deleteAllAnsFor 2", channel=channel)
     assert dpytest.verify().message().contains().content("deleted 2 answers for Q2")
 
     # Test reviveGhost: non-existent question
@@ -1506,7 +1506,7 @@ async def test_qanda(bot):
     )
 
     # test deleting all answers for ghost
-    await dpytest.message("$DALLAF 4", channel=channel)
+    await dpytest.message("$deleteAllAnsFor 4", channel=channel)
     assert dpytest.verify().message().contains().content("deleted 1 answers for Q4")
     assert dpytest.verify().message().contains().content("Q4 is a ghost!")
 
@@ -1638,7 +1638,7 @@ async def test_qanda(bot):
     # ghosts: 2, zombies: 1
 
     # test deleting all answers for zombie
-    await dpytest.message("$DALLAF 7", channel=channel)
+    await dpytest.message("$deleteAllAnsFor 7", channel=channel)
     assert dpytest.verify().message().contains().content("deleted 1 answers for Q7")
     assert dpytest.verify().message().contains().content("Q7 is a zombie!")
 
@@ -1809,7 +1809,7 @@ async def test_qanda_errors(bot):
     )
 
     # Test that deleting answers does not work outside of QA
-    msg = await dpytest.message("$DALLAF 1", channel=gen_channel)
+    msg = await dpytest.message("$deleteAllAnsFor 1", channel=gen_channel)
     with pytest.raises(discord.NotFound):
         await gen_channel.fetch_message(msg.id)
     assert (
@@ -1821,28 +1821,28 @@ async def test_qanda_errors(bot):
 
     # test deleting all answers with bad input: no args
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$DALLAF", channel=channel)
+        await dpytest.message("$deleteAllAnsFor", channel=channel)
     assert (
         dpytest.verify()
         .message()
         .contains()
         .content(
-            "To use the deleteAllAnswersFor command, do: $DALLAF QUESTION_NUMBER\n "
-            "(Example: $DALLAF 1)"
+            "To use the deleteAllAnsFor command, do: $deleteAllAnsFor QUESTION_NUMBER\n "
+            "(Example: $deleteAllAnsFor 1)"
         )
     )
 
     # test deleting all answers with bad input
-    await dpytest.message("$DALLAF abc", channel=channel)
+    await dpytest.message("$deleteAllAnsFor abc", channel=channel)
     assert (
         dpytest.verify()
         .message()
         .contains()
-        .content("Please include a valid question number. EX: $DALLAF 1")
+        .content("Please include a valid question number. EX: $deleteAllAnsFor 1")
     )
 
     # test deleting all answers for a non-existent question
-    await dpytest.message("$DALLAF 100", channel=channel)
+    await dpytest.message("$deleteAllAnsFor 100", channel=channel)
     assert (
         dpytest.verify()
         .message()
@@ -2187,28 +2187,28 @@ async def test_quizpoll(bot):
 
     # Test quizpoll: no input
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$quizpoll")
+        await dpytest.message("$quizPoll")
     assert (
         dpytest.verify()
         .message()
         .contains()
         .content(
-            'To use the quizpoll command, do: $quizpoll "TITLE" [option1] [option2] ... [option6]\n '
+            'To use the quizpoll command, do: $quizPoll "TITLE" [option1] [option2] ... [option6]\n '
             "Be sure to enclose title with quotes and options with brackets!\n"
-            'EX: $quizpoll "I am a poll" [Vote for me!] [I am option 2]'
+            'EX: $quizPoll "I am a poll" [Vote for me!] [I am option 2]'
         )
     )
 
     # Test quizpoll: title is whitespace
-    await dpytest.message('$quizpoll "  " [a] [b] [c] [d] [e] [f]')
+    await dpytest.message('$quizPoll "  " [a] [b] [c] [d] [e] [f]')
     assert dpytest.verify().message().contains().content("Please enter a valid title.")
 
     # Test quizpoll: title is too short
-    await dpytest.message('$quizpoll "a" [a] [b] [c] [d] [e] [f]')
+    await dpytest.message('$quizPoll "a" [a] [b] [c] [d] [e] [f]')
     assert dpytest.verify().message().contains().content("Title too short.")
 
     # Test quizpoll: too few options
-    await dpytest.message('$quizpoll "TITLE" [a]')
+    await dpytest.message('$quizPoll "TITLE" [a]')
     assert (
         dpytest.verify()
         .message()
@@ -2217,7 +2217,7 @@ async def test_quizpoll(bot):
     )
 
     # Test quizpoll: too many options
-    await dpytest.message('$quizpoll "TITLE" [a] [b] [c] [d] [e] [f] [g]')
+    await dpytest.message('$quizPoll "TITLE" [a] [b] [c] [d] [e] [f] [g]')
     assert (
         dpytest.verify()
         .message()
@@ -2226,7 +2226,7 @@ async def test_quizpoll(bot):
     )
 
     # Test quizpoll: option is empty
-    await dpytest.message('$quizpoll "TITLE" [] [b] [c]')
+    await dpytest.message('$quizPoll "TITLE" [] [b] [c]')
     assert (
         dpytest.verify()
         .message()
@@ -2241,7 +2241,7 @@ async def test_quizpoll(bot):
     )
 
     # Test quizpoll embed
-    await dpytest.message('$quizpoll "TITLE" [a] [b] [c]')
+    await dpytest.message('$quizPoll "TITLE" [a] [b] [c]')
     assert dpytest.verify().message().embed(e)
 
 
