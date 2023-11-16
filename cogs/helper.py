@@ -64,21 +64,7 @@ class Helper(commands.Cog):
             await ctx.send(f"```Command Categories:\n{f'{new_line}'.join(all_categories)}```")
         except Exception as e:
             print("Failed to execute showCommandCategories")
-
-    # -----------------------------------------------------------------------------------------------------------------
-    #    Function: ping_error(self, ctx, error)
-    #    Description: prints error message for ping command
-    #    Inputs:
-    #       - ctx: context of the command
-    #       - error: error message
-    #    Outputs:
-    #       - Error details
-    # -----------------------------------------------------------------------------------------------------------------
-    # @ping.error
-    # async def ping_error(self, ctx, error):
-    #    await ctx.author.send(error)
-    #    print(error)
-
+            
 
 # -------------------------------------
 # add the file to the bot's cog system

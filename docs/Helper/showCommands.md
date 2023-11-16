@@ -2,7 +2,7 @@
 This command lets the users to see a list of all the commands availble to them throught the classmate bot. 
 
 # Location of Code
-The code that implements the above mentioned gets functionality is located [here](https://github.com/nfoster1492/ClassMateBot-1/blob/main/cogs/calendar.py)
+The code that implements the above mentioned gets functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/feat/helper/cogs/helper.py)
 
 # Code Description
 ## Functions
