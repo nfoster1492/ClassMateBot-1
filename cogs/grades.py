@@ -78,7 +78,7 @@ class Grades(commands.Cog):
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: gradebycategory(self, ctx, categoryName)
+    #    Function: gradeByCategory(self, ctx, categoryName)
     #    Description: This command lets a student get their average grade for a certain category
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -88,9 +88,9 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="gradeByCategory",
-        help="get your grade for a specific category $gradebycategory CATEGORY",
+        help="get your grade for a specific category $gradeByCategory CATEGORY",
     )
-    async def gradebycategory(self, ctx, categoryName: str):
+    async def gradeByCategory(self, ctx, categoryName: str):
         """Lets a student get their grade for a specific grade category"""
         memberName = ctx.author.name
 
@@ -132,20 +132,20 @@ class Grades(commands.Cog):
         await ctx.author.send(f"Grade for {categoryName}: {average:.2f}%")
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: gradebycategory_error(self, ctx, error)
-    #    Description: prints error message for gradebycategory command
+    #    Function: gradeByCategory_error(self, ctx, error)
+    #    Description: prints error message for gradeByCategory command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @gradebycategory.error
-    async def gradebycategory_error(self, ctx, error):
-        """Error handling of gradebycategory function"""
+    @gradeByCategory.error
+    async def gradeByCategory_error(self, ctx, error):
+        """Error handling of gradeByCategory function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the gradebycategory command, do: $gradebycategory <categoryname>\n ( For example: $gradebycategory tests )"
+                "To use the gradeByCategory command, do: $gradeByCategory <categoryname>\n ( For example: $gradeByCategory tests )"
             )
             await ctx.message.delete()
         else:

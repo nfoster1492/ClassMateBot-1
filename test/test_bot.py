@@ -50,7 +50,7 @@ async def test_groupJoin(bot):
 
     # try to join a different group
     await dpytest.message("$join 1")
-    assert dpytest.verify().message().content("You are already in Group 99")
+    assert dpytest.verify().message().content("You are already in Group 99. Please leave your current group first with $leave")
 
     # leave your group
     await dpytest.message("$leave")
@@ -375,7 +375,7 @@ async def test_gradesStudentError(bot):
         dpytest.verify()
         .message()
         .content(
-            "To use the gradebycategory command, do: $gradeByCategory <categoryname>\n ( For example: $gradeByCategory tests )"
+            "To use the gradeByCategory command, do: $gradeByCategory <categoryname>\n ( For example: $gradeByCategory tests )"
         )
     )
     await dpytest.message("$gradeByCategory FakeCat")
@@ -539,7 +539,7 @@ async def test_gradesInstructorError(bot):
         .content("A grading category has been added for: Homework  with weight: 0.2 ")
     )
     await dpytest.message("$addGradeCategory Homework asdf")
-    assert dpytest.verify().message().content("Weight could not be parsed")
+    assert dpytest.verify().message().content("Weight could not be parsed. Please use a float between 0.0 and 1.0")
     await dpytest.message("$addGradeCategory Homework -1")
     assert dpytest.verify().message().content("Weight must be greater than 0")
     await dpytest.message("$addGradeCategory Homework 0.5")
@@ -555,7 +555,7 @@ async def test_gradesInstructorError(bot):
         .content("To use the gradecategory command")
     )
     await dpytest.message("$editGradeCategory Homework asdf")
-    assert dpytest.verify().message().content("Weight could not be parsed")
+    assert dpytest.verify().message().content("Weight could not be parsed. Please use a float between 0.0 and 1.0")
     await dpytest.message("$editGradeCategory Homework -1")
     assert dpytest.verify().message().content("Weight must be greater than 0")
     await dpytest.message("$editGradeCategory Invalid 0.5")
@@ -599,13 +599,13 @@ async def test_deadline(bot):
     await dpytest.add_role(user, role)
     # Clear our reminders: Only if testing fails and leaves a reminders.JSON file with values behind
     # await dpytest.message("$clearReminders")
-    # assert dpytest.verify().message().contains().content("All reminders have been cleared..!!")
+    # assert dpytest.verify().message().contains().content("All reminders have been cleared")
     # Test reminders while none have been set
     await dpytest.message("$courseDue CSC505")
     assert (
         dpytest.verify()
         .message()
-        .content("Rejoice..!! You have no pending reminders for CSC505..!!")
+        .content("No pending reminders for CSC505")
     )
     # Test setting 1 reminder
     await dpytest.message("$dueDate CSC505 DANCE SEP 21 2050 10:00")
@@ -658,7 +658,7 @@ async def test_deadline(bot):
 
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearReminders")
-    assert dpytest.verify().message().content("All reminders have been cleared..!!")
+    assert dpytest.verify().message().content("All reminders have been cleared")
 
 
 # --------------------------------
@@ -715,7 +715,7 @@ async def test_listreminders(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content("All reminders have been cleared..!!")
+        .content("All reminders have been cleared")
     )
 
     # Tests cogs/deadline.py
@@ -752,7 +752,7 @@ async def test_duethisweek(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content("All reminders have been cleared..!!")
+        .content("All reminders have been cleared")
     )
 
 
@@ -787,7 +787,7 @@ async def test_duetoday(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content("All reminders have been cleared..!!")
+        .content("All reminders have been cleared")
     )
 
 
@@ -856,7 +856,7 @@ async def test_deadline_errors(bot):
         dpytest.verify()
         .message()
         .content(
-            "To use the timenow command (with current time), do: "
+            "To use the timeNow command (with current time), do: "
             "$timeNow MMM DD YYYY HH:MM ex. $timeNow SEP 25 2024 17:02"
         )
     )
@@ -1164,7 +1164,7 @@ async def test_pinningErrors(bot):
         .message()
         .contains()
         .content(
-            "To use the updatepin command, do: $pin TAGNAME DESCRIPTION \n ( $updatePin HW8 https://discordapp"
+            "To use the updatePin command, do: $pin TAGNAME DESCRIPTION \n ( $updatePin HW8 https://discordapp"
             ".com/channels/139565116151562240/139565116151562240/890814489480531969 HW8 reminder )"
         )
     )
@@ -1282,7 +1282,7 @@ async def test_voting(bot):
         )
     )
     await dpytest.message(content="$vote -1")
-    assert dpytest.verify().message().content("A valid project number is 1-99.")
+    assert dpytest.verify().message().content("Invalid project number. A valid project number is an integer in the range 1-99")
 
 
 # -------------------
@@ -2193,7 +2193,7 @@ async def test_quizpoll(bot):
         .message()
         .contains()
         .content(
-            'To use the quizpoll command, do: $quizPoll "TITLE" [option1] [option2] ... [option6]\n '
+            'To use the quizPoll command, do: $quizPoll "TITLE" [option1] [option2] ... [option6]\n '
             "Be sure to enclose title with quotes and options with brackets!\n"
             'EX: $quizPoll "I am a poll" [Vote for me!] [I am option 2]'
         )
