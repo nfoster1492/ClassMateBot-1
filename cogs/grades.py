@@ -231,7 +231,7 @@ class Grades(commands.Cog):
         print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: graderequired(self, ctx, categoryName, pointValue, desiredGrade)
+    #    Function: gradeRequired(self, ctx, categoryName, pointValue, desiredGrade)
     #    Description: This command lets a student get the grade they need on the next assignment to keep a desired grade
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -243,9 +243,9 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="gradeRequired",
-        help="get your grade required on the next assignment for a category and a desired grade $graderequired CATEGORY POINTS GRADE",
+        help="get your grade required on the next assignment for a category and a desired grade $gradeRequired CATEGORY POINTS GRADE",
     )
-    async def graderequired(
+    async def gradeRequired(
         self, ctx, categoryName: str, pointValue: str, desiredGrade: str
     ):
         """Lets a student calculate the grade they need for a desired grade in a category"""
@@ -301,20 +301,20 @@ class Grades(commands.Cog):
         )
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: graderequired_error(self, ctx, error)
-    #    Description: prints error message for graderequired command
+    #    Function: gradeRequired_error(self, ctx, error)
+    #    Description: prints error message for gradeRequired command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @graderequired.error
-    async def graderequired_error(self, ctx, error):
-        """Error handling of graderequired function"""
+    @gradeRequired.error
+    async def gradeRequired_error(self, ctx, error):
+        """Error handling of gradeRequired function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the graderequired command, do: $graderequired <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $graderequired tests 200 90 )"
+                "To use the gradeRequired command, do: $gradeRequired <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $gradeRequired tests 200 90 )"
             )
             await ctx.message.delete()
         else:
@@ -322,7 +322,7 @@ class Grades(commands.Cog):
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: graderequiredforclass(self, ctx, categoryName, pointValue, desiredGrade)
+    #    Function: gradeRequiredForClass(self, ctx, categoryName, pointValue, desiredGrade)
     #    Description: This command lets a student get the grade they need on the next assignment to keep a desired grade
     #    in the class
     #    Inputs:
@@ -335,9 +335,9 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="gradeRequiredForClass",
-        help="get your grade required on the next assignment to keep a desired grade $graderequiredforclass CATEGORY POINTS GRADE",
+        help="get your grade required on the next assignment to keep a desired grade $gradeRequiredForClass CATEGORY POINTS GRADE",
     )
-    async def graderequiredforclass(
+    async def gradeRequiredForClass(
         self, ctx, categoryName: str, pointValue: str, desiredGrade: str
     ):
         """Lets a student calculate the grade required on the next assignment to keep an overall desired class grade"""
@@ -452,20 +452,20 @@ class Grades(commands.Cog):
         )
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: graderequiredforclass_error(self, ctx, error)
-    #    Description: prints error message for graderequiredforclass command
+    #    Function: gradeRequiredForClass_error(self, ctx, error)
+    #    Description: prints error message for gradeRequiredForClass command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @graderequiredforclass.error
-    async def graderequiredforclass_error(self, ctx, error):
-        """Error handling of graderequiredforclass function"""
+    @gradeRequiredForClass.error
+    async def gradeRequiredForClass_error(self, ctx, error):
+        """Error handling of gradeRequiredForClass function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the graderequiredforclass command, do: $graderequiredforclass <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $graderequiredforclass tests 200 90 )"
+                "To use the gradeRequiredForClass command, do: $gradeRequiredForClass <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $gradeRequiredForClass tests 200 90 )"
             )
             await ctx.message.delete()
         else:

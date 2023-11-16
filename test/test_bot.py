@@ -544,7 +544,7 @@ async def test_gradesInstructorError(bot):
     assert dpytest.verify().message().content("Weight must be greater than 0")
     await dpytest.message("$addGradeCategory Homework 0.5")
     assert (
-        dpytest.verify().message().content("This category has already been added..!!")
+        dpytest.verify().message().content("A category with this name has already been added. All categories must have unique names")
     )
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$addGradeCategory")
@@ -559,7 +559,7 @@ async def test_gradesInstructorError(bot):
     await dpytest.message("$editGradeCategory Homework -1")
     assert dpytest.verify().message().content("Weight must be greater than 0")
     await dpytest.message("$editGradeCategory Invalid 0.5")
-    assert dpytest.verify().message().content("This category does not exist")
+    assert dpytest.verify().message().content("This category does not exist. Check the spelling of the category name or use $addGradeCategory to add a new one")
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$editGradeCategory")
     assert (
@@ -569,7 +569,7 @@ async def test_gradesInstructorError(bot):
         .content("To use the editgradecategory command")
     )
     await dpytest.message("$deleteGradeCategory Invalid")
-    assert dpytest.verify().message().content("This category does not exist")
+    assert dpytest.verify().message().content("This category does not exist. Please check the spelling of the category name")
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$deleteGradeCategory")
     assert (
@@ -633,7 +633,7 @@ async def test_deadline(bot):
         dpytest.verify()
         .message()
         .content(
-            "Following reminder has been deleted: Course: CSC510, reminder Name: HW1, Due Date: 2050-12-21 19:59:00"
+            "The following reminder has been deleted: Course: CSC510, reminder Name: HW1, Due Date: 2050-12-21 19:59:00"
         )
     )
     # Test re-adding a reminder
@@ -864,60 +864,60 @@ async def test_deadline_errors(bot):
     # Test timenow with bad argument
     # with pytest.raises(commands.MissingRequiredArgument):
     await dpytest.message("$timeNow blab")
-    assert dpytest.verify().message().content("Due date could not be parsed")
+    assert dpytest.verify().message().content("Date could not be parsed")
 
-    # Test duedate with bad argument
+    # Test dueDate with bad argument
     # with pytest.raises(commands.MissingRequiredArgument):
     await dpytest.message("$dueDate blab blab blab")
     assert dpytest.verify().message().content("Due date could not be parsed")
-    # Tests duedate without an argument
+    # Tests dueDate without an argument
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$dueDate")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the duedate command, do: $dueDate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n ( For example: $dueDate CSC510 HW2 SEP 25 2024 17:02 EST )"
+            "To use the dueDate command, do: $dueDate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n ( For example: $dueDate CSC510 HW2 SEP 25 2024 17:02 EST )"
         )
     )
 
-    # Tests deletereminder without an argument
+    # Tests deleteReminder without an argument
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$deleteReminder")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the deletereminder command, do: $deleteReminder CLASSNAME HW_NAME \n "
+            "To use the deleteReminder command, do: $deleteReminder CLASSNAME HW_NAME \n "
             "( For example: $deleteReminder CSC510 HW2 )"
         )
     )
 
-    # Tests changeduedate without an argument
+    # Tests changeDueDate without an argument
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$changeDueDate")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the changeduedate command, do: $changeDueDate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n"
+            "To use the changeDueDate command, do: $changeDueDate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n"
             " ( For example: $changeDueDate CSC510 HW2 SEP 25 2024 17:02 EST)"
         )
     )
 
-    # Test changeduedate with bad argument
+    # Test changeDueDate with bad argument
     # with pytest.raises(commands.MissingRequiredArgument):
     await dpytest.message("$changeDueDate blab blab blab")
     assert dpytest.verify().message().content("Due date could not be parsed")
 
-    # Tests coursedue without an argument
+    # Tests courseDue without an argument
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$courseDue")
     assert (
         dpytest.verify()
         .message()
         .content(
-            "To use the coursedue command, do: $courseDue CLASSNAME \n ( For example: $courseDue CSC510 )"
+            "To use the courseDue command, do: $courseDue CLASSNAME \n ( For example: $courseDue CSC510 )"
         )
     )
 
@@ -2205,7 +2205,7 @@ async def test_quizpoll(bot):
 
     # Test quizpoll: title is too short
     await dpytest.message('$quizPoll "a" [a] [b] [c] [d] [e] [f]')
-    assert dpytest.verify().message().contains().content("Title too short.")
+    assert dpytest.verify().message().contains().content("title is too short")
 
     # Test quizpoll: too few options
     await dpytest.message('$quizPoll "TITLE" [a]')
@@ -2213,7 +2213,7 @@ async def test_quizpoll(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content("Polls need at least two options.")
+        .content("Too few options. Polls can have anywhere between 2 and 6 options")
     )
 
     # Test quizpoll: too many options
@@ -2222,7 +2222,7 @@ async def test_quizpoll(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content("Polls cannot have more than six options.")
+        .content("Too many options. Polls can have anywhere between 2 and 6 options")
     )
 
     # Test quizpoll: option is empty
