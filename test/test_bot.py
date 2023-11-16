@@ -50,7 +50,13 @@ async def test_groupJoin(bot):
 
     # try to join a different group
     await dpytest.message("$join 1")
-    assert dpytest.verify().message().content("You are already in Group 99. Please leave your current group first with $leave")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "You are already in Group 99. Please leave your current group first with $leave"
+        )
+    )
 
     # leave your group
     await dpytest.message("$leave")
@@ -539,12 +545,20 @@ async def test_gradesInstructorError(bot):
         .content("A grading category has been added for: Homework  with weight: 0.2 ")
     )
     await dpytest.message("$addGradeCategory Homework asdf")
-    assert dpytest.verify().message().content("Weight could not be parsed. Please use a float between 0.0 and 1.0")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Weight could not be parsed. Please use a float between 0.0 and 1.0")
+    )
     await dpytest.message("$addGradeCategory Homework -1")
     assert dpytest.verify().message().content("Weight must be greater than 0")
     await dpytest.message("$addGradeCategory Homework 0.5")
     assert (
-        dpytest.verify().message().content("A category with this name has already been added. All categories must have unique names")
+        dpytest.verify()
+        .message()
+        .content(
+            "A category with this name has already been added. All categories must have unique names"
+        )
     )
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$addGradeCategory")
@@ -555,11 +569,21 @@ async def test_gradesInstructorError(bot):
         .content("To use the gradecategory command")
     )
     await dpytest.message("$editGradeCategory Homework asdf")
-    assert dpytest.verify().message().content("Weight could not be parsed. Please use a float between 0.0 and 1.0")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Weight could not be parsed. Please use a float between 0.0 and 1.0")
+    )
     await dpytest.message("$editGradeCategory Homework -1")
     assert dpytest.verify().message().content("Weight must be greater than 0")
     await dpytest.message("$editGradeCategory Invalid 0.5")
-    assert dpytest.verify().message().content("This category does not exist. Check the spelling of the category name or use $addGradeCategory to add a new one")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "This category does not exist. Check the spelling of the category name or use $addGradeCategory to add a new one"
+        )
+    )
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$editGradeCategory")
     assert (
@@ -569,7 +593,13 @@ async def test_gradesInstructorError(bot):
         .content("To use the editgradecategory command")
     )
     await dpytest.message("$deleteGradeCategory Invalid")
-    assert dpytest.verify().message().content("This category does not exist. Please check the spelling of the category name")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "This category does not exist. Please check the spelling of the category name"
+        )
+    )
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$deleteGradeCategory")
     assert (
@@ -602,11 +632,7 @@ async def test_deadline(bot):
     # assert dpytest.verify().message().contains().content("All reminders have been cleared")
     # Test reminders while none have been set
     await dpytest.message("$courseDue CSC505")
-    assert (
-        dpytest.verify()
-        .message()
-        .content("No pending reminders for CSC505")
-    )
+    assert dpytest.verify().message().content("No pending reminders for CSC505")
     # Test setting 1 reminder
     await dpytest.message("$dueDate CSC505 DANCE SEP 21 2050 10:00")
     assert (
@@ -712,10 +738,7 @@ async def test_listreminders(bot):
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearReminders")
     assert (
-        dpytest.verify()
-        .message()
-        .contains()
-        .content("All reminders have been cleared")
+        dpytest.verify().message().contains().content("All reminders have been cleared")
     )
 
     # Tests cogs/deadline.py
@@ -749,10 +772,7 @@ async def test_duethisweek(bot):
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearReminders")
     assert (
-        dpytest.verify()
-        .message()
-        .contains()
-        .content("All reminders have been cleared")
+        dpytest.verify().message().contains().content("All reminders have been cleared")
     )
 
 
@@ -784,10 +804,7 @@ async def test_duetoday(bot):
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearReminders")
     assert (
-        dpytest.verify()
-        .message()
-        .contains()
-        .content("All reminders have been cleared")
+        dpytest.verify().message().contains().content("All reminders have been cleared")
     )
 
 
@@ -1282,7 +1299,13 @@ async def test_voting(bot):
         )
     )
     await dpytest.message(content="$vote -1")
-    assert dpytest.verify().message().content("Invalid project number. A valid project number is an integer in the range 1-99")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "Invalid project number. A valid project number is an integer in the range 1-99"
+        )
+    )
 
 
 # -------------------
