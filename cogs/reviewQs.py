@@ -62,7 +62,7 @@ class ReviewQs(commands.Cog):
     @commands.has_role("Instructor")
     @commands.command(
         name="addQuestion",
-        help="Add a review question. "
+        help="Add a review question. \n" \
         'EX: $addQuestion "What class is this?" "Software Engineering"',
     )
     async def addQuestion(self, ctx, qs: str, ans: str):
