@@ -16,6 +16,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import pdfkit
+import re
 import pandas as pd
 
 
@@ -195,7 +196,7 @@ class Calendar(commands.Cog):
             creds = self.credsSetUp()
         except FileNotFoundError as error:
             await ctx.author.send(f"An error occurred: {error}")
-            await ctx.send(
+            await ctx.author.send(
                 "An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve"
             )
             return
@@ -315,12 +316,17 @@ class Calendar(commands.Cog):
             creds = self.credsSetUp()
         except FileNotFoundError as error:
             await ctx.author.send(f"An error occurred: {error}")
-            await ctx.send(
+            await ctx.author.send(
                 "An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve"
             )
             return
 
         try:
+            regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+            if not re.fullmatch(regex, userEmail):
+                await ctx.author.send(f"Error adding user: {userEmail} is not a valid email.")
+                return
+
             service = build("calendar", "v3", credentials=creds)
             calendar = os.getenv("CALENDAR_ID")
             acl_rule = {
@@ -333,7 +339,7 @@ class Calendar(commands.Cog):
 
             await ctx.author.send(f"Added {userEmail} to the calendar.")
         except HttpError as e:
-            await ctx.send(f"An error occurred: {e}")
+            await ctx.author.send(f"An error occurred: {e}")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: removeCalendar(self, ctx, userEmail)
