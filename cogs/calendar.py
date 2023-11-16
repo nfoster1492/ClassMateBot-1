@@ -322,9 +322,11 @@ class Calendar(commands.Cog):
             return
 
         try:
-            regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+            regex = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b"
             if not re.fullmatch(regex, userEmail):
-                await ctx.author.send(f"Error adding user: {userEmail} is not a valid email.")
+                await ctx.author.send(
+                    f"Error adding user: {userEmail} is not a valid email."
+                )
                 return
 
             service = build("calendar", "v3", credentials=creds)
