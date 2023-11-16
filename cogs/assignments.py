@@ -46,7 +46,9 @@ class Assignments(commands.Cog):
         )
 
         if not category:
-            await ctx.send(f"Category with name {categoryname} does not exist. Assignments must be linked to an existing grade category. For more information enter ```$help Grades```")
+            await ctx.send(
+                f"Category with name {categoryname} does not exist. Assignments must be linked to an existing grade category. For more information enter ```$help Grades```"
+            )
             return
         if assignmentpoints < 0:
             await ctx.send("Assignment points must be greater than or equal to zero")

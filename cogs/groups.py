@@ -196,7 +196,9 @@ class Groups(commands.Cog):
         )
 
         if current_group_num:
-            await ctx.send(f"You are already in Group {current_group_num[0][0]}. Please leave your current group first with $leave")
+            await ctx.send(
+                f"You are already in Group {current_group_num[0][0]}. Please leave your current group first with $leave"
+            )
             return
 
         db.query(

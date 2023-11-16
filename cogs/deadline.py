@@ -181,7 +181,9 @@ class Deadline(commands.Cog):
                 (ctx.guild.id, hwName, courseName),
             )
         else:
-            await ctx.send("The specified reminder could not be found in the database. Check the info and try again")
+            await ctx.send(
+                "The specified reminder could not be found in the database. Check the info and try again"
+            )
             return
 
         for course, reminder_name, due_date in reminders_deleted:
@@ -252,7 +254,9 @@ class Deadline(commands.Cog):
                 f"{classid} {hwid} has been updated with following date: {dueDate}"
             )
         else:
-            await ctx.send("The specified reminder could not be found in the database. Check the info and try again")
+            await ctx.send(
+                "The specified reminder could not be found in the database. Check the info and try again"
+            )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: changeDueDate_error(self, ctx, error)
@@ -404,9 +408,7 @@ class Deadline(commands.Cog):
             formatted_due_date = due_date.strftime("%b %d %Y %H:%M:%S")
             await ctx.author.send(f"{reminder_name} is due at {formatted_due_date}")
         if len(reminders) == 0:
-            await ctx.author.send(
-                f"No pending reminders for {courseid}"
-            )
+            await ctx.author.send(f"No pending reminders for {courseid}")
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -456,9 +458,7 @@ class Deadline(commands.Cog):
                 f"{course} reminder named: {reminder_name} which is due on: {formatted_due_date} by {author.name}"
             )
         if not reminders:
-            await ctx.author.send(
-                "No pending reminders"
-            )
+            await ctx.author.send("No pending reminders")
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------

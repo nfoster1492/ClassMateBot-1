@@ -34,12 +34,16 @@ class Qanda(commands.Cog):
             return
 
         if not qs or qs.isspace():
-            await ctx.author.send("Please enter a valid question. Questions must be at least 3 characters and contain more than spaces")
+            await ctx.author.send(
+                "Please enter a valid question. Questions must be at least 3 characters and contain more than spaces"
+            )
             await ctx.message.delete()
             return
 
         if len(qs) <= 2:
-            await ctx.author.send("Question too short. Questions must be at least 3 characters and contain more than spaces")
+            await ctx.author.send(
+                "Question too short. Questions must be at least 3 characters and contain more than spaces"
+            )
             await ctx.message.delete()
             return
 
@@ -128,7 +132,9 @@ class Qanda(commands.Cog):
             return
 
         if not ans or ans.isspace():
-            await ctx.author.send("Please enter a valid answer. Answers must contain more than just space characters")
+            await ctx.author.send(
+                "Please enter a valid answer. Answers must contain more than just space characters"
+            )
             await ctx.message.delete()
             return
 
@@ -165,7 +171,11 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num) + ". Please ensure you are using the correct number")
+            await ctx.author.send(
+                "No such question with the number: "
+                + str(num)
+                + ". Please ensure you are using the correct number"
+            )
             # delete user msg
             await ctx.message.delete()
             return
@@ -290,7 +300,11 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num) + ". Please ensure you are using the correct number")
+            await ctx.author.send(
+                "No such question with the number: "
+                + str(num)
+                + ". Please ensure you are using the correct number"
+            )
             # delete user msg
             await ctx.message.delete()
             return
@@ -316,7 +330,9 @@ class Qanda(commands.Cog):
         )
 
         if rd == 0:
-            await ctx.author.send(f"No answers exist for Q{num}. There is nothing to be deleted")
+            await ctx.author.send(
+                f"No answers exist for Q{num}. There is nothing to be deleted"
+            )
         else:
             await ctx.author.send(f"deleted {rd} answers for Q{num}")
 
@@ -704,7 +720,11 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("Question number not in database: " + str(num) + ". Please ensure you are using the correct number")
+            await ctx.author.send(
+                "Question number not in database: "
+                + str(num)
+                + ". Please ensure you are using the correct number"
+            )
             # delete user msg
             await ctx.message.delete()
             return
@@ -796,7 +816,11 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num) + ". Please ensure you are using the correct number")
+            await ctx.author.send(
+                "No such question with the number: "
+                + str(num)
+                + ". Please ensure you are using the correct number"
+            )
             # delete user msg
             await ctx.message.delete()
             return
@@ -1054,7 +1078,11 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num) + ". Please ensure you are using the correct number")
+            await ctx.author.send(
+                "No such question with the number: "
+                + str(num)
+                + ". Please ensure you are using the correct number"
+            )
             # delete user msg
             await ctx.message.delete()
             return

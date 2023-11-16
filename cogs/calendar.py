@@ -79,7 +79,9 @@ class Calendar(commands.Cog):
             creds = self.credsSetUp()
         except FileNotFoundError as error:
             await ctx.author.send(f"An error occurred: {error}")
-            await ctx.send("An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve")
+            await ctx.send(
+                "An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve"
+            )
             return
 
         try:
@@ -113,7 +115,9 @@ class Calendar(commands.Cog):
             creds = self.credsSetUp()
         except FileNotFoundError as error:
             await ctx.author.send(f"An error occurred: {error}")
-            await ctx.send("An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve")
+            await ctx.send(
+                "An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve"
+            )
             return
 
         try:
@@ -191,7 +195,9 @@ class Calendar(commands.Cog):
             creds = self.credsSetUp()
         except FileNotFoundError as error:
             await ctx.author.send(f"An error occurred: {error}")
-            await ctx.send("An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve")
+            await ctx.send(
+                "An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve"
+            )
             return
 
         try:
@@ -248,7 +254,9 @@ class Calendar(commands.Cog):
                 for channel in guild.text_channels:
                     # Find the general channel and ping
                     if channel.name == "general":
-                        await channel.send("An error occurred during the daily assignments due check. Contact an administrator to resolve")
+                        await channel.send(
+                            "An error occurred during the daily assignments due check. Contact an administrator to resolve"
+                        )
                         break
             return
 
@@ -307,7 +315,9 @@ class Calendar(commands.Cog):
             creds = self.credsSetUp()
         except FileNotFoundError as error:
             await ctx.author.send(f"An error occurred: {error}")
-            await ctx.send("An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve")
+            await ctx.send(
+                "An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve"
+            )
             return
 
         try:
@@ -346,7 +356,9 @@ class Calendar(commands.Cog):
             creds = self.credsSetUp()
         except FileNotFoundError as error:
             await ctx.author.send(f"An error occurred: {error}")
-            await ctx.send("An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve")
+            await ctx.send(
+                "An error occurred while processing. Please try again and talk to the administrator if it doesn't resolve"
+            )
             return
 
         try:

@@ -27,7 +27,9 @@ class ReviewQs(commands.Cog):
         )
 
         if not rand:
-            await ctx.send("No questions found in database. Add some with $addQuestion and try again")
+            await ctx.send(
+                "No questions found in database. Add some with $addQuestion and try again"
+            )
             return
 
         # send question to guild
