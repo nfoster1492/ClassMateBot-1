@@ -75,7 +75,7 @@ class Calendar(commands.Cog):
     )
     async def addCalendarEvent(
         self,
-        ctx, 
+        ctx,
         name: str = commands.parameter(description="Name of the event"),
         description: str = commands.parameter(description="Description of the event"),
         eventTime: str = commands.parameter(description="Time of the event"),
@@ -277,7 +277,7 @@ class Calendar(commands.Cog):
     )
     async def subscribeCalendar(
         self,
-        ctx, 
+        ctx,
         userEmail: str = commands.parameter(
             description="Email of user to add target Google Calendar"
         ),
@@ -319,7 +319,7 @@ class Calendar(commands.Cog):
     )
     async def removeCalendar(
         self,
-        ctx, 
+        ctx,
         userEmail: str = commands.parameter(
             description="Email of user to remove the target Google Calendar"
             ),

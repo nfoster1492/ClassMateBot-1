@@ -67,10 +67,10 @@ class Poll(commands.Cog):
     )
     async def quizpoll(
         self,
-        ctx, 
+        ctx,
         title: str = commands.parameter(description="The quiz title"),
         *,
-        ops = commands.parameter(description="The quiz options"),
+        ops=commands.parameter(description="The quiz options"),
     ):
         """Allows the user to begin quiz polls; that is, multi-reaction polls with listed questions"""
         # message = ctx.message

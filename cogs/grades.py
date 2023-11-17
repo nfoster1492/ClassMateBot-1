@@ -653,7 +653,7 @@ class Grades(commands.Cog):
         categoryname: str = commands.parameter(
             description="Name of the grade category"
         ),
-        weight: str= commands.parameter(
+        weight: str = commands.parameter(
             description="The weight of the category, must be greater than 0"
         ),
     ):

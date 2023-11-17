@@ -224,7 +224,7 @@ class Pinning(commands.Cog):
             description="Tag of the message to be updated"
         ),
         *,
-        description: str= commands.parameter(
+        description: str = commands.parameter(
             description="The new description for the pinned message"
         ),
     ):

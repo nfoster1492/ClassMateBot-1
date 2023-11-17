@@ -63,7 +63,6 @@ async def on_guild_join(guild):
                 await guild.create_text_channel("classmate-commands")
                 await channel.send("classmate-commands has been added!")
 
-
             if discord.utils.get(guild.roles, name="verified") is None:
                 await guild.create_role(
                     name="verified",
@@ -130,7 +129,6 @@ async def on_guild_join(guild):
             await commands_channel.set_permissions(
                 guild.default_role, send_messages=False
             )
-            
 
 
 # ------------------------------------------------------------------------------------------------------------------
@@ -158,8 +156,7 @@ async def on_ready():
         if filename.endswith(".py"):
             cog_name = filename[:-3]
             cog_path = f"cogs.{cog_name}"
-            
-            
+
             try:
                 await bot.load_extension(cog_path)
             except commands.ExtensionError as e:

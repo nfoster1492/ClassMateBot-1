@@ -181,7 +181,7 @@ class Deadline(commands.Cog):
         name="deleteReminder",
         pass_context=True,
         help="Delete a specific reminder using course name and reminder name using "
-        "$deletereminder CLASSNAME HW_NAME ex. $deletereminder CSC510 HW2"
+        "$deletereminder CLASSNAME HW_NAME ex. $deletereminder CSC510 HW2",
     )
     async def deleteReminder(
         self,
@@ -247,7 +247,7 @@ class Deadline(commands.Cog):
         name="changeDueDate",
         pass_context=True,
         help="Update the assignment date. $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
-        "ex. $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST"
+        "ex. $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST",
     )
     async def changeduedate(
         self,
@@ -411,11 +411,11 @@ class Deadline(commands.Cog):
         name="courseDue",
         pass_context=True,
         help="Check all the reminders that are due for a specific course $coursedue coursename "
-        "ex. $coursedue CSC505"
+        "ex. $coursedue CSC505",
     )
     async def coursedue(
         self,
-        ctx, 
+        ctx,
         courseid: str = commands.parameter(
             description="Name of the course for which all reminders are checked"
         ),

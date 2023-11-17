@@ -133,7 +133,7 @@ class Qanda(commands.Cog):
         ans: str = commands.parameter(description="Answer to the question specified"),
         anonymous: str = commands.parameter(
             description="Option if the user wants their question to be shown anonymously",
-            default=""
+            default="",
         ),
     ):
         """Adds user to specific question and post anonymously"""
@@ -283,9 +283,7 @@ class Qanda(commands.Cog):
         "$getAnswersFor QUESTION_NUMBER",
     )
     async def deleteAllAnsFor(
-        self,
-        ctx,
-        num: str = commands.parameter(description="Question number")
+        self, ctx, num: str = commands.parameter(description="Question number")
     ):
         """Lets instructor delete all answers for a question"""
         # make sure to check that this is actually being asked in the Q&A channel
@@ -396,9 +394,7 @@ class Qanda(commands.Cog):
         help="Get a question and all its answers\n" "EX: $getAnswersFor 1",
     )
     async def getAllAnsFor(
-        self,
-        ctx,
-        num: str = commands.parameter(description="Question number")
+        self, ctx, num: str = commands.parameter(description="Question number")
     ):
         """Gets all answers for a question and DMs them to the user"""
         # make sure to check that this is actually being used in the Q&A channel
@@ -1061,7 +1057,7 @@ class Qanda(commands.Cog):
         "EX: $reviveGhost 1",
     )
     async def restoreGhost(
-        self, 
+        self,
         ctx,
         num: str = commands.parameter(
             description="Question number that you want to restore"

@@ -20,7 +20,7 @@ class Helper(commands.Cog):
     #    Outputs: prints the list of commands the bot has access to
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
-            name="showCommands", help="List all the commands the bot has access to"
+        name="showCommands", help="List all the commands the bot has access to"
     )
     async def showCommands(self, ctx):
         """Prints all the commands that the bot has"""  
@@ -48,7 +48,7 @@ class Helper(commands.Cog):
     #    Outputs: prints the list of categories for commands
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
-            name="showCommandCategories", help="List all the commands the bot has access to"
+        name="showCommandCategories", help="List all the commands the bot has access to"
     )
     async def showCommandCategories(self, ctx):
         """Print all the categories for the commands"""
