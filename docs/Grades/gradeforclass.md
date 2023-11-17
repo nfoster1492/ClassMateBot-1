@@ -1,4 +1,4 @@
-# About $gradeforclass _(New Project 2 Command)_
+# About $gradeForClass _(New Project 2 Command)_
 This command lets a student get their average grade for the whole class.
 ## Changes
 
@@ -9,14 +9,14 @@ The code that implements the above mentioned functionality is located in `[cogs/
 
 # Code Description
 ## Functions
-gradeforclass(self, ctx): <br>
+gradeForClass(self, ctx): <br>
 This function takes as arguments the values provided by the constructor through self and context in which the command was called.
 
 # How to run it? (Small Example)
-You are in the server that has the Classmate Bot active and online. You are a Student. From the general channel, enter the command `$gradeforclass`.
+You are in the server that has the Classmate Bot active and online. You are a Student. From the general channel, enter the command `$gradeForClass`.
 
 ```
-$gradeforclass
+$gradeForClass
 ```
 Successful execution of this command will DM the student their overall grade for the course.
 

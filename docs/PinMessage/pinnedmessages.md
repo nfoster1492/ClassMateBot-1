@@ -1,4 +1,4 @@
-# About $pinnedmessages
+# About $pinnedMessages
 This command lets the student to retrieve all the pinned messages from their private pinning board with an optional given tagname.
 
 # Location of Code
@@ -13,8 +13,8 @@ This function takes as arguments the values provided by the constructor through 
 Let's say that you are in the server that has the Classmate Bot active and online. All you have to do is 
 enter the command 'pinnedmessage'. You can also add the optional tagname of the messages to get all messages with the tagname.
 ```
-$pinnedmessages TAGNAME(optional) 
-$pinnedmessages HW
+$pinnedMessages TAGNAME(optional) 
+$pinnedMessages HW
 ```
 Successful execution of this command will list all the pinned messages or the ones with the given tagname.
 

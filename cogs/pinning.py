@@ -183,7 +183,7 @@ class Pinning(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: retrieveMessages_error(self, ctx, error)
-    #    Description: prints error message for pinnedmessages command
+    #    Description: prints error message for pinnedMessages command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -195,8 +195,8 @@ class Pinning(commands.Cog):
         """Error handling for retrievemessages function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the pinnedmessages command, do: $pinnedmessages:"
-                " TAGNAME \n ( For example: $pinnedmessages HW8 )"
+                "To use the pinnedMessages command, do: $pinnedMessages:"
+                " TAGNAME \n ( For example: $pinnedMessages HW8 )"
             )
         else:
             await ctx.author.send(error)
@@ -236,7 +236,7 @@ class Pinning(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: updatePinnedMessage_error(self, ctx, error)
-    #    Description: prints error message for updatepin command
+    #    Description: prints error message for updatePin command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -245,10 +245,10 @@ class Pinning(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @updatePinnedMessage.error
     async def updatePinnedMessage_error(self, ctx, error):
-        """Error handling for updatepinnedmessage function"""
+        """Error handling for updatePinnedmessage function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the updatepin command, do: $pin TAGNAME DESCRIPTION \n ( $updatepin HW8 https://discordapp"
+                "To use the updatePin command, do: $pin TAGNAME DESCRIPTION \n ( $updatePin HW8 https://discordapp"
                 ".com/channels/139565116151562240/139565116151562240/890814489480531969 HW8 reminder )"
             )
         else:

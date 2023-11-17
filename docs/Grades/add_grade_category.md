@@ -1,4 +1,4 @@
-# About $add_grade_category _(New Project 2 Command)_
+# About $addGradeCategory _(New Project 2 Command)_
 This command allows the instructor to add a new grade category with a designated weight
 ## Changes
 
@@ -9,15 +9,15 @@ The code that implements the above mentioned functionality is located in `[cogs/
 
 # Code Description
 ## Functions
-add_grade_category(self, ctx, categoryname: str, weight: str): <br>
+addGradeCategory(self, ctx, categoryname: str, weight: str): <br>
 This function takes as arguments the values provided by the constructor through self, context in which the command was called, the name of the category being added, and the weight of the category being added.
 
 # How to run it? (Small Example)
-You are in the server that has the Classmate Bot active and online. You are an Instructor. From the instructor commands channel, enter the command `$add_grade_category <category_name> <weight>` with the desired category name and weight.
+You are in the server that has the Classmate Bot active and online. You are an Instructor. From the instructor commands channel, enter the command `$addGradeCategory <category_name> <weight>` with the desired category name and weight.
 
 ```
-$add_grade_category CATEGORY_NAME, WEIGHT
-$add_grade_category Tests .5
+$addGradeCategory CATEGORY_NAME, WEIGHT
+$addGradeCategory Tests .5
 ```
 Successful execution of this command will add a grade category into the database with the desired weight. The bot will report on the success or failure of the command.
 

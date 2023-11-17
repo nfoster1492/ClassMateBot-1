@@ -30,7 +30,7 @@ class Deadline(commands.Cog):
         }
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: timenow(self, ctx, *, date: str)
+    #    Function: timeNow(self, ctx, *, date: str)
     #    Description: This command lets the user get the offset needed for proper datetime reminders in UTC.
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -41,9 +41,9 @@ class Deadline(commands.Cog):
     @commands.command(
         name="timeNow",
         help="Put in current time to get offset needed for proper "
-        "datetime notifications $timenow MMM DD YYYY HH:MM ex. $timenow SEP 25 2024 17:02",
+        "datetime notifications $timeNow MMM DD YYYY HH:MM ex. $timeNow SEP 25 2024 17:02",
     )
-    async def timenow(
+    async def timeNow(
         self,
         ctx,
         *,
@@ -66,21 +66,21 @@ class Deadline(commands.Cog):
         )
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: timenow_error(self, ctx, error)
-    #    Description: prints error message for timenow command
+    #    Function: timeNow_error(self, ctx, error)
+    #    Description: prints error message for timeNow command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @timenow.error
-    async def timenow_error(self, ctx, error):
-        """Error handling for timenow command"""
+    @timeNow.error
+    async def timeNow_error(self, ctx, error):
+        """Error handling for timeNow command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the timenow command (with current time), do: "
-                "$timenow MMM DD YYYY HH:MM ex. $timenow SEP 25 2024 17:02"
+                "To use the timeNow command (with current time), do: "
+                "$timeNow MMM DD YYYY HH:MM ex. $timeNow SEP 25 2024 17:02"
             )
         else:
             await ctx.author.send(error)
@@ -88,7 +88,7 @@ class Deadline(commands.Cog):
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: duedate(self, ctx, coursename: str, hwcount: str, *, date: str)
+    #    Function: dueDate(self, ctx, coursename: str, hwcount: str, *, date: str)
     #    Description: Adds the reminder to database in the specified format
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -102,10 +102,10 @@ class Deadline(commands.Cog):
     @commands.has_role("Instructor")
     @commands.command(
         name="dueDate",
-        help="Add reminder and due-date $duedate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
-        "ex. $duedate CSC510 HW2 SEP 25 2024 17:02 EST",
+        help="Add reminder and due-date $dueDate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
+        "ex. $dueDate CSC510 HW2 SEP 25 2024 17:02 EST",
     )
-    async def duedate(
+    async def dueDate(
         self,
         ctx,
         coursename: str = commands.parameter(
@@ -119,7 +119,7 @@ class Deadline(commands.Cog):
         author = ctx.message.author
 
         try:
-            duedate = parser.parse(date)
+            dueDate = parser.parse(date)
         except ValueError:
             await ctx.send("Due date could not be parsed")
             return
@@ -131,34 +131,34 @@ class Deadline(commands.Cog):
         if not existing:
             db.query(
                 "INSERT INTO reminders (guild_id, author_id, course, reminder_name, due_date) VALUES (%s, %s, %s, %s, %s)",
-                (ctx.guild.id, author.id, coursename, hwcount, duedate),
+                (ctx.guild.id, author.id, coursename, hwcount, dueDate),
             )
-            calduedate = duedate.astimezone(timezone.utc)
-            isodate = calduedate.isoformat(timespec="seconds")[:-6]
+            caldueDate = dueDate.astimezone(timezone.utc)
+            isodate = caldueDate.isoformat(timespec="seconds")[:-6]
             await ctx.send(
                 f"A date has been added for: {coursename} reminder named: {hwcount} "
-                f"which is due on: {duedate} by {author}."
+                f"which is due on: {dueDate} by {author}."
                 f"Use this command to add the reminder to the calendar! **`$addCalendarEvent {hwcount} {coursename} {isodate}Z`**"
             )
         else:
             await ctx.send("This reminder has already been added..!!")
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: duedate_error(self, ctx, error)
-    #    Description: prints error message for duedate command
+    #    Function: dueDate_error(self, ctx, error)
+    #    Description: prints error message for dueDate command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @duedate.error
-    async def duedate_error(self, ctx, error):
-        """Error handling for duedate command"""
+    @dueDate.error
+    async def dueDate_error(self, ctx, error):
+        """Error handling for dueDate command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the duedate command, do: $duedate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n "
-                "( For example: $duedate CSC510 HW2 SEP 25 2024 17:02 EST )"
+                "To use the dueDate command, do: $dueDate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n "
+                "( For example: $dueDate CSC510 HW2 SEP 25 2024 17:02 EST )"
             )
         else:
             await ctx.author.send(error)
@@ -181,7 +181,7 @@ class Deadline(commands.Cog):
         name="deleteReminder",
         pass_context=True,
         help="Delete a specific reminder using course name and reminder name using "
-        "$deletereminder CLASSNAME HW_NAME ex. $deletereminder CSC510 HW2",
+        "$deleteReminder CLASSNAME HW_NAME ex. $deleteReminder CSC510 HW2",
     )
     async def deleteReminder(
         self,
@@ -210,7 +210,7 @@ class Deadline(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: deleteReminder_error(self, ctx, error)
-    #    Description: prints error message for deletereminder command
+    #    Description: prints error message for deleteReminder command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -222,8 +222,8 @@ class Deadline(commands.Cog):
         """Error handling for deleteReminder"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the deletereminder command, do: $deletereminder CLASSNAME HW_NAME \n "
-                "( For example: $deletereminder CSC510 HW2 )"
+                "To use the deleteReminder command, do: $deleteReminder CLASSNAME HW_NAME \n "
+                "( For example: $deleteReminder CSC510 HW2 )"
             )
         else:
             await ctx.author.send(error)
@@ -231,7 +231,7 @@ class Deadline(commands.Cog):
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: changeduedate(self, ctx, classid: str, hwid: str, *, date: str)
+    #    Function: changeDueDate(self, ctx, classid: str, hwid: str, *, date: str)
     #    Description: Update the 'Due date' for a homework by providing the classname and homewwork name
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -246,10 +246,10 @@ class Deadline(commands.Cog):
     @commands.command(
         name="changeDueDate",
         pass_context=True,
-        help="Update the assignment date. $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
-        "ex. $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST",
+        help="Update the assignment date. $changeDueDate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
+        "ex. $changeDueDate CSC510 HW2 SEP 25 2024 17:02 EST",
     )
-    async def changeduedate(
+    async def changeDueDate(
         self,
         ctx,
         classid: str = commands.parameter(
@@ -262,37 +262,37 @@ class Deadline(commands.Cog):
         """Updates an assignment's due date in the database"""
         author = ctx.message.author
         try:
-            duedate = parser.parse(date)
-            print(duedate)
+            dueDate = parser.parse(date)
+            print(dueDate)
         except ValueError:
             await ctx.send("Due date could not be parsed")
             return
 
-        # future = (time.time() + (duedate - datetime.today()).total_seconds())
+        # future = (time.time() + (dueDate - datetime.today()).total_seconds())
         db.query(
             "UPDATE reminders SET author_id = %s, due_date = %s WHERE guild_id = %s AND reminder_name = %s AND course = %s",
-            (author.id, duedate, ctx.guild.id, hwid, classid),
+            (author.id, dueDate, ctx.guild.id, hwid, classid),
         )
         await ctx.send(
-            f"{classid} {hwid} has been updated with following date: {duedate}"
+            f"{classid} {hwid} has been updated with following date: {dueDate}"
         )
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: changeduedate_error(self, ctx, error)
-    #    Description: prints error message for changeduedate command
+    #    Function: changeDueDate_error(self, ctx, error)
+    #    Description: prints error message for changeDueDate command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @changeduedate.error
-    async def changeduedate_error(self, ctx, error):
-        """Error handling for changeduedate command"""
+    @changeDueDate.error
+    async def changeDueDate_error(self, ctx, error):
+        """Error handling for changeDueDate command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the changeduedate command, do: $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n"
-                " ( For example: $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST)"
+                "To use the changeDueDate command, do: $changeDueDate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)\n"
+                " ( For example: $changeDueDate CSC510 HW2 SEP 25 2024 17:02 EST)"
             )
         else:
             await ctx.author.send(error)
@@ -300,7 +300,7 @@ class Deadline(commands.Cog):
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: duethisweek(self, ctx)
+    #    Function: dueThisWeek(self, ctx)
     #    Description: Displays all the homeworks that are due this week along with the coursename and due date
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -311,9 +311,9 @@ class Deadline(commands.Cog):
     @commands.command(
         name="dueThisWeek",
         pass_context=True,
-        help="Check all the homeworks that are due this week $duethisweek",
+        help="Check all the homeworks that are due this week $dueThisWeek",
     )
-    async def duethisweek(self, ctx):
+    async def dueThisWeek(self, ctx):
         """Checks all homeworks or assignments due this week"""
         reminders = db.query(
             "SELECT course, reminder_name, due_date "
@@ -335,22 +335,22 @@ class Deadline(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: duethisweek_error(self, ctx, error)
-    #    Description: prints error message for duethisweek command
+    #    Description: prints error message for dueThisWeek command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @duethisweek.error
+    @dueThisWeek.error
     async def duethisweek_error(self, ctx, error):
-        """Error handling for duethisweek command"""
+        """Error handling for dueThisWeek command"""
         await ctx.author.send(error)
         print(error)
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: duetoday(self, ctx)
+    #    Function: dueToday(self, ctx)
     #    Description: Displays all the homeworks that are due today
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -361,9 +361,9 @@ class Deadline(commands.Cog):
     @commands.command(
         name="dueToday",
         pass_context=True,
-        help="Check all the reminders that are due today $duetoday",
+        help="Check all the reminders that are due today $dueToday",
     )
-    async def duetoday(self, ctx):
+    async def dueToday(self, ctx):
         """Checks for all reminders that are due today"""
         due_today = db.query(
             "SELECT course, reminder_name, due_date "
@@ -383,22 +383,22 @@ class Deadline(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: duetoday_error(self, ctx, error)
-    #    Description: prints error message for duetoday command
+    #    Description: prints error message for dueToday command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @duetoday.error
-    async def duetoday_error(self, ctx, error):
-        """Error handling for duetoday command"""
+    @dueToday.error
+    async def dueToday_error(self, ctx, error):
+        """Error handling for dueToday command"""
         await ctx.author.send(error)
         print(error)
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: coursedue(self, ctx, courseid: str)
+    #    Function: courseDue(self, ctx, courseid: str)
     #    Description: Displays all the reminder_names that are due for a specific course
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -410,10 +410,10 @@ class Deadline(commands.Cog):
     @commands.command(
         name="courseDue",
         pass_context=True,
-        help="Check all the reminders that are due for a specific course $coursedue coursename "
-        "ex. $coursedue CSC505",
+        help="Check all the reminders that are due for a specific course $courseDue coursename "
+        "ex. $courseDue CSC505",
     )
-    async def coursedue(
+    async def courseDue(
         self,
         ctx,
         courseid: str = commands.parameter(
@@ -435,20 +435,20 @@ class Deadline(commands.Cog):
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: coursedue_error(self, ctx, error)
-    #    Description: prints error message for coursedue command
+    #    Function: courseDue_error(self, ctx, error)
+    #    Description: prints error message for courseDue command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @coursedue.error
-    async def coursedue_error(self, ctx, error):
-        """Error handling for coursedue command"""
+    @courseDue.error
+    async def courseDue_error(self, ctx, error):
+        """Error handling for courseDue command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
-                "To use the coursedue command, do: $coursedue CLASSNAME \n ( For example: $coursedue CSC510 )"
+                "To use the courseDue command, do: $courseDue CLASSNAME \n ( For example: $courseDue CSC510 )"
             )
         else:
             await ctx.author.send(error)
@@ -456,7 +456,7 @@ class Deadline(commands.Cog):
         await ctx.message.delete()
 
     # ---------------------------------------------------------------------------------
-    #    Function: listreminders(self, ctx)
+    #    Function: listReminders(self, ctx)
     #    Description: Print out all the reminders
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -467,7 +467,7 @@ class Deadline(commands.Cog):
     @commands.command(
         name="listReminders", pass_context=True, help="Lists all reminders"
     )
-    async def listreminders(self, ctx):
+    async def listReminders(self, ctx):
         """Displays user with list of all reminders"""
         author = ctx.message.author
         reminders = db.query(
@@ -488,16 +488,16 @@ class Deadline(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: listreminders_error(self, ctx, error)
-    #    Description: prints error message for listreminders command
+    #    Description: prints error message for listReminders command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @listreminders.error
-    async def listreminders_error(self, ctx, error):
-        """Error handling for listreminders command"""
+    @listReminders.error
+    async def listReminders_error(self, ctx, error):
+        """Error handling for listReminders command"""
         await ctx.author.send(error)
         print(error)
         await ctx.message.delete()
@@ -532,7 +532,7 @@ class Deadline(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: listreminders_error(self, ctx, error)
-    #    Description: prints error message for listreminders command
+    #    Description: prints error message for listReminders command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -625,7 +625,7 @@ class Deadline(commands.Cog):
     #     await ctx.send('Unidentified command..please use $help to get the list of available commands')
 
     # -----------------------------------------------------------------------------------------------------
-    #    Function: clearoverdue(self)
+    #    Function: clearOverdue(self)
     #    Description: checks for expired reminders and cleans them.
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -634,23 +634,23 @@ class Deadline(commands.Cog):
     @commands.command(
         name="clearOverdue", pass_context=True, help="Deletes overdue reminders"
     )
-    async def clearoverdue(self, ctx):
+    async def clearOverdue(self, ctx):
         """Clears all overdue reminders from database"""
         db.query("DELETE FROM reminders WHERE now() > due_date")
         await ctx.send("All overdue reminders have been cleared..!!")
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: clearoverdue_error(self, ctx, error)
-    #    Description: prints error message for clearoverdue command
+    #    Function: clearOverdue_error(self, ctx, error)
+    #    Description: prints error message for clearOverdue command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @clearoverdue.error
-    async def clearoverdue_error(self, ctx, error):
-        """Error handling for clearoverdue"""
+    @clearOverdue.error
+    async def clearOverdue_error(self, ctx, error):
+        """Error handling for clearOverdue"""
         await ctx.author.send(error)
         print(error)
 

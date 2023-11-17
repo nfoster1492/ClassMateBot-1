@@ -63,7 +63,7 @@ class Groups(commands.Cog):
         await ctx.author.send(error)
 
     # -------------------------------------------------------------------------------------------------------
-    #    Function: startupgroups(self, ctx)
+    #    Function: startupGroups(self, ctx)
     #    Description: creates roles for the groups
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -71,7 +71,7 @@ class Groups(commands.Cog):
     #    Outputs: creates roles for groups
     # -------------------------------------------------------------------------------------------------------
     @commands.command(name="startupGroups", help="Creates group roles for members")
-    async def startupgroups(self, ctx):
+    async def startupGroups(self, ctx):
         """Creates roles for the groups"""
         await ctx.send("Creating roles....")
 
@@ -85,17 +85,17 @@ class Groups(commands.Cog):
         print("Roles created successfully!")
 
     # -------------------------------------------------------------------------------------------------------
-    #    Function: startupgroups_error(self, ctx, error)
-    #    Description: prints error message for startupgroups command
+    #    Function: startupGroups_error(self, ctx, error)
+    #    Description: prints error message for startupGroups command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -------------------------------------------------------------------------------------------------------
-    @startupgroups.error
-    async def startupgroups_error(self, ctx, error):
-        """Error handling for startupgroups command"""
+    @startupGroups.error
+    async def startupGroups_error(self, ctx, error):
+        """Error handling for startupGroups command"""
         await ctx.author.send(error)
 
     # -------------------------------------------------------------------------------------------------------

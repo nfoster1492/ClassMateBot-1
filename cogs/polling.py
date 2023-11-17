@@ -50,7 +50,7 @@ class Poll(commands.Cog):
 
     # @commands.cooldown(2, 60, BucketType.user)
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: quizpoll(self, ctx, title: str, *, ops)
+    #    Function: quizPoll(self, ctx, title: str, *, ops)
     #    Description: Allows the user to begin quiz polls; that is, multi-reaction polls with listed options.
     #    Inputs:
     #       - ctx: context of the command
@@ -63,9 +63,9 @@ class Poll(commands.Cog):
         name="quizPoll",
         help='Create a multi reaction poll by typing \n$poll "TITLE" [option 1] ... [option 6]\n '
         "Be sure to enclose title with quotes and options with brackets!\n"
-        'EX: $quizpoll "I am a poll" [Vote for me!] [I am option 2]',
+        'EX: $quizPoll "I am a poll" [Vote for me!] [I am option 2]',
     )
-    async def quizpoll(
+    async def quizPoll(
         self,
         ctx,
         title: str = commands.parameter(description="The quiz title"),
@@ -134,9 +134,9 @@ class Poll(commands.Cog):
                 i += 1
         except KeyError:
             await ctx.author.send(
-                'To use the quizpoll command, do: $quizpoll "TITLE" [option1] [option2] ... [option6]\n '
+                'To use the quizPoll command, do: $quizPoll "TITLE" [option1] [option2] ... [option6]\n '
                 "Be sure to enclose title with quotes and options with brackets!\n"
-                'EX: $quizpoll "I am a poll" [Vote for me!] [I am option 2]'
+                'EX: $quizPoll "I am a poll" [Vote for me!] [I am option 2]'
             )
             await ctx.message.delete()
             return
@@ -144,22 +144,22 @@ class Poll(commands.Cog):
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: quizpoll_error(self, ctx, error)
-    #    Description: prints error message for quizpoll command
+    #    Function: quizPoll_error(self, ctx, error)
+    #    Description: prints error message for quizPoll command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @quizpoll.error
-    async def quizpoll_error(self, ctx, error):
-        """Error handling for quizpoll command"""
+    @quizPoll.error
+    async def quizPoll_error(self, ctx, error):
+        """Error handling for quizPoll command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
-                'To use the quizpoll command, do: $quizpoll "TITLE" [option1] [option2] ... [option6]\n '
+                'To use the quizPoll command, do: $quizPoll "TITLE" [option1] [option2] ... [option6]\n '
                 "Be sure to enclose title with quotes and options with brackets!\n"
-                'EX: $quizpoll "I am a poll" [Vote for me!] [I am option 2]'
+                'EX: $quizPoll "I am a poll" [Vote for me!] [I am option 2]'
             )
         else:
             await ctx.author.send(error)
@@ -180,7 +180,7 @@ class Poll(commands.Cog):
         "EX: $poll What do you think about cats?",
     )
     async def poll(
-        self, ctx, *, qs: str = commands.parameter(description="Question for the poll")
+        self, ctx, *, qs: str = commands.parameter(description="Question for the poll", default="")
     ):
         """Allows the user to create a simple reaction poll with thumbs up, thumbs down, and unsure"""
         if qs == "":

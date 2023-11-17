@@ -30,7 +30,7 @@ class Assignments(commands.Cog):
     @commands.has_role("Instructor")
     @commands.command(
         name="addAssignment",
-        help="Add a grading assignment and points $addassignment NAME CATEGORY POINTS",
+        help="Add a grading assignment and points $addAssignment NAME CATEGORY POINTS",
     )
     async def add_assignment(
         self,
@@ -92,7 +92,7 @@ class Assignments(commands.Cog):
     @commands.has_role("Instructor")
     @commands.command(
         name="editAssignment",
-        help="Edit a grading assignment and points $editassignment NAME CATEGORY POINTS",
+        help="Edit a grading assignment and points $editAssignment NAME CATEGORY POINTS",
     )
     async def edit_assignment(
         self,
@@ -107,7 +107,7 @@ class Assignments(commands.Cog):
             description="The new amount of points the assignment is worth"
         ),
     ):
-        """edit a grading assignment and points $editassignment NAME CATEGORY POINTS"""
+        """edit a grading assignment and points $editAssignment NAME CATEGORY POINTS"""
         try:
             assignmentpoints = int(points)
         except ValueError:
@@ -150,7 +150,7 @@ class Assignments(commands.Cog):
     @commands.has_role("Instructor")
     @commands.command(
         name="deleteAssignment",
-        help="Delete a grading assignment $deleteassignment NAME",
+        help="Delete a grading assignment $deleteAssignment NAME",
     )
     async def delete_assignment(
         self,
@@ -159,7 +159,7 @@ class Assignments(commands.Cog):
             description="Name of the assignment you want to delete"
         ),
     ):
-        """delete a grading assignment $deleteassignment NAME"""
+        """delete a grading assignment $deleteAssignment NAME"""
         existing = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",
             (ctx.guild.id, assignmentname),
@@ -172,7 +172,7 @@ class Assignments(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: add_assignment_error(self, ctx, error)
-    #    Description: prints error message for addassignment command
+    #    Description: prints error message for addAssignment command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -181,10 +181,10 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @add_assignment.error
     async def add_assignment_error(self, ctx, error):
-        """Error handling of addassignment function"""
+        """Error handling of addAssignment function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the addassignment command, do: $addassignment <assignmentname> <categoryname> <points> \n ( For example: $addassignment test1 tests 100 )"
+                "To use the addAssignment command, do: $addAssignment <assignmentname> <categoryname> <points> \n ( For example: $addAssignment test1 tests 100 )"
             )
             await ctx.message.delete()
         else:
@@ -193,7 +193,7 @@ class Assignments(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: edit_assignment_error(self, ctx, error)
-    #    Description: prints error message for editassignment command
+    #    Description: prints error message for editAssignment command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -202,10 +202,10 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @edit_assignment.error
     async def edit_assignment_error(self, ctx, error):
-        """Error handling of editassignment function"""
+        """Error handling of editAssignment function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the editassignment command, do: $editassignment <assignmentname> <categoryname> <points> \n ( For example: $editassignment test1 tests 95 )"
+                "To use the editAssignment command, do: $editAssignment <assignmentname> <categoryname> <points> \n ( For example: $editAssignment test1 tests 95 )"
             )
             await ctx.message.delete()
         else:
@@ -214,7 +214,7 @@ class Assignments(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: delete_assignment_error(self, ctx, error)
-    #    Description: prints error message for deleteassignment command
+    #    Description: prints error message for deleteAssignment command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -223,10 +223,10 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @delete_assignment.error
     async def delete_assignment_error(self, ctx, error):
-        """Error handling of deleteassignment function"""
+        """Error handling of deleteAssignment function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the deleteassignment command, do: $deleteassignment <assignmentname>\n ( For example: $deleteassignment test1)"
+                "To use the deleteAssignment command, do: $deleteAssignment <assignmentname>\n ( For example: $deleteAssignment test1)"
             )
             await ctx.message.delete()
         else:

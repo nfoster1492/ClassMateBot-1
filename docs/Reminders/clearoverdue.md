@@ -1,4 +1,4 @@
-# About $clearoverdue
+# About $clearOverdue
 Clears overdue reminders from the database. 
 
 ## Changes
@@ -10,16 +10,16 @@ The code that implements the above mentioned functionality is located in [cogs/d
 
 # Code Description
 ## Functions
-clearoverdue(self, ctx): <br>
+clearOverdue(self, ctx): <br>
 This function takes as arguments the values provided by the constructor through self and context in which the command was called and deletes any 
 past due reminders from the database
 
 # How to run it? (Small Example)
 You are in the server that has the Classmate Bot active and online. You go to
- the #reminders channel, enter the command `$clearoverdue`.
+ the #reminders channel, enter the command `$clearOverdue`.
 
 ```
-$clearoverdue
+$clearOverdue
 ```
 Successful execution of this command will remove overdue reminders from the database and give a success message.
 

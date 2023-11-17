@@ -1,4 +1,4 @@
-# About $gradebycategory _(New Project 2 Command)_
+# About $gradeByCategory _(New Project 2 Command)_
  This command lets a student get their average grade for a certain category.
 
 ## Changes
@@ -14,11 +14,11 @@ gradebycateogory(self, ctx, categoryName: str): <br>
 This function takes as arguments the values provided by the constructor through self, context in which the command was called, and the name of the category whose average grade is desired.
 
 # How to run it? (Small Example)
-You are in the server that has the Classmate Bot active and online. From the general channel, enter the command `$gradebycategory categoryName`
+You are in the server that has the Classmate Bot active and online. From the general channel, enter the command `$gradeByCategory categoryName`
 
 ```
-$gradebycategory CATEGORY_NAME
-$gradebycategory projects
+$gradeByCategory CATEGORY_NAME
+$gradeByCategory projects
 ```
 Successful execution of this command will send a DM to the student with their average grade for the given category.
 
