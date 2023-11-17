@@ -322,8 +322,8 @@ class Calendar(commands.Cog):
         ctx,
         userEmail: str = commands.parameter(
             description="Email of user to remove the target Google Calendar"
-            ),
-        ):
+        ),
+    ):
         """Removes user from shared Google Calendar"""
         creds = self.credsSetUp()
         try:

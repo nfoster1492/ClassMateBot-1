@@ -23,7 +23,7 @@ class Helper(commands.Cog):
         name="showCommands", help="List all the commands the bot has access to"
     )
     async def showCommands(self, ctx):
-        """Prints all the commands that the bot has"""  
+        """Prints all the commands that the bot has"""
         # Get all of the commands
         deny_access_commands = ["helpful3", "jishaku"]
         all_commands = []
