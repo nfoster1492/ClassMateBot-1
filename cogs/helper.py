@@ -38,7 +38,6 @@ class Helper(commands.Cog):
         )
         await ctx.send(f"```All commands: {', '.join(all_commands)}```")
 
-
     # -------------------------------------------------------------------------------------------------------
     #    Function: getCategories(self, ctx)
     #    Description: all of the commands that the bot has
