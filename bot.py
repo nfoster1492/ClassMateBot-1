@@ -62,7 +62,8 @@ async def on_guild_join(guild):
             if "classmate-commands" not in guild.text_channels:
                 await guild.create_text_channel("classmate-commands")
                 await channel.send("classmate-commands has been added!")
-                
+
+
             if discord.utils.get(guild.roles, name="verified") is None:
                 await guild.create_role(
                     name="verified",
@@ -104,7 +105,7 @@ async def on_guild_join(guild):
                     await member.add_roles(unverified, reason=None, atomic=True)
             await channel.send('To verify yourself, use "$verify <FirstName LastName>"')
 
-    #Initialize classmate-commands with the list of categories of commands for the users
+    # Initialize classmate-commands with the list of categories of commands for the users
     categories_list = []
     for channel in guild.text_channels:
         if channel.name == "classmate-commands":
@@ -114,11 +115,21 @@ async def on_guild_join(guild):
                     categories_list.append(cog_name)
 
             new_line = "\n"
-            await commands_channel.send("```Provided is a list of categories that encompass all the commands this bot has available!```")
-            await commands_channel.send("```To learn more about these categories and the commands they have run $help category_name```")
-            await commands_channel.send(f"```Command Categories:\n{f'{new_line}'.join(categories_list)}```")
-            await commands_channel.send("```Or you can run $showCommands to see the full list of commands right away!```")
-            await commands_channel.set_permissions(guild.default_role, send_messages=False)
+            await commands_channel.send(
+                "```Provided is a list of categories that encompass all the commands this bot has available!```"
+            )
+            await commands_channel.send(
+                "```To learn more about these categories and the commands they have run $help category_name```"
+            )
+            await commands_channel.send(
+                f"```Command Categories:\n{f'{new_line}'.join(categories_list)}```"
+            )
+            await commands_channel.send(
+                "```Or you can run $showCommands to see the full list of commands right away!```"
+            )
+            await commands_channel.set_permissions(
+                guild.default_role, send_messages=False
+            )
             
 
 
@@ -147,6 +158,7 @@ async def on_ready():
         if filename.endswith(".py"):
             cog_name = filename[:-3]
             cog_path = f"cogs.{cog_name}"
+            
             
             try:
                 await bot.load_extension(cog_path)

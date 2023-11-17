@@ -36,11 +36,17 @@ class Pinning(commands.Cog):
         help="Pin a message by adding a tagname (single word) "
         "and a description(can be multi word). EX: $pin Homework Resources for HW2",
     )
-    async def addMessage(self, ctx, 
-                         tagname: str = commands.parameter(description="Tag given by the user to their pinned message"),
-                         *, 
-                         description: str = commands.parameter(description="Description of the pinned message")
-                        ):
+    async def addMessage(
+        self,
+        ctx,
+        tagname: str = commands.parameter(
+            description="Tag given by the user to their pinned message"
+        ),
+        *,
+        description: str = commands.parameter(
+            description="Description of the pinned message"
+        ),
+    ):
         """Used to pin a message by the user"""
         author = ctx.message.author
 
@@ -84,9 +90,13 @@ class Pinning(commands.Cog):
     #    - tagname: the tag used to identify which pinned messages are to be deleted.
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(name="unpin", help="Unpin a message by passing the tagname.")
-    async def deleteMessage(self, ctx, 
-                            tagname: str = commands.parameter(description="Tag used to identify which pinned messages are to be deleted")
-                        ):
+    async def deleteMessage(
+        self,
+        ctx,
+        tagname: str = commands.parameter(
+            description="Tag used to identify which pinned messages are to be deleted"
+        ),
+    ):
         """Unpins the pinned messages with provided tagname"""
         author = ctx.message.author
 
@@ -139,12 +149,17 @@ class Pinning(commands.Cog):
     #    - tagname: the tag used to identify which pinned messages are to be retrieved.
     # ----------------------------------------------------------------------------------
     @commands.command(
-        name="pinnedmessages",
+        name="pinnedMessages",
         help="Retrieve the pinned messages by a particular tag or all messages.",
     )
-    async def retrieveMessages(self, ctx, 
-                               tagname: str = commands.parameter(description="Tag used to identify which pinned messages are to be retreived", default="")
-                            ):
+    async def retrieveMessages(
+        self,
+        ctx,
+        tagname: str = commands.parameter(
+            description="Tag used to identify which pinned messages are to be retreived",
+            default="",
+        ),
+    ):
         """Retrieves all pinned messages under a given tagname by either everyone or a particular user"""
         author = ctx.message.author
 
@@ -198,15 +213,21 @@ class Pinning(commands.Cog):
     #    - description: new description
     # ----------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="updatepin",
+        name="updatePin",
         help="Update a previously pinned message by passing the "
         "tagname and old description in the same order",
     )
-    async def updatePinnedMessage(self, ctx, 
-                                  tagname: str = commands.parameter(description="Tag of the message to be updated"),
-                                  *, 
-                                  description: str= commands.parameter(description="The new description for the pinned message")
-                                ):
+    async def updatePinnedMessage(
+        self,
+        ctx,
+        tagname: str = commands.parameter(
+            description="Tag of the message to be updated"
+        ),
+        *,
+        description: str= commands.parameter(
+            description="The new description for the pinned message"
+        ),
+    ):
         """Updates a pinned message with a given tagname, deletes old messages for the tag"""
         await ctx.invoke(self.bot.get_command("unpin"), tagname)
         await ctx.invoke(

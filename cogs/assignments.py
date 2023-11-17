@@ -29,14 +29,22 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="addassignment",
-        help="add a grading assignment and points $addassignment NAME CATEGORY POINTS",
+        name="addAssignment",
+        help="Add a grading assignment and points $addassignment NAME CATEGORY POINTS",
     )
-    async def add_assignment(self, ctx, 
-                             assignmentname: str = commands.parameter(description="The name of the assignment"),
-                             categoryname: str = commands.parameter(description="The name of category for the assignment"),
-                             points: str = commands.parameter(description="How many points the assignment is worth")
-                            ):
+    async def add_assignment(
+        self,
+        ctx,
+        assignmentname: str = commands.parameter(
+            description="The name of the assignment"
+        ),
+        categoryname: str = commands.parameter(
+            description="The name of category for the assignment"
+        ),
+        points: str = commands.parameter(
+            description="How many points the assignment is worth"
+        ),
+    ):
         """Add a grading assignment and points"""
         try:
             assignmentpoints = int(points)
@@ -83,14 +91,22 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="editassignment",
-        help="edit a grading assignment and points $editassignment NAME CATEGORY POINTS",
+        name="editAssignment",
+        help="Edit a grading assignment and points $editassignment NAME CATEGORY POINTS",
     )
-    async def edit_assignment(self, ctx, 
-                              assignmentname: str = commands.parameter(description="Name of assignment you want to edit"),
-                              categoryname: str = commands.parameter(description="The new name of the grade category for the assignment"), 
-                              points: str = commands.parameter(description="The new amount of points the assignment is worth")
-                            ):
+    async def edit_assignment(
+        self,
+        ctx,
+        assignmentname: str = commands.parameter(
+            description="Name of assignment you want to edit"
+        ),
+        categoryname: str = commands.parameter(
+            description="The new name of the grade category for the assignment"
+        ),
+        points: str = commands.parameter(
+            description="The new amount of points the assignment is worth"
+        ),
+    ):
         """edit a grading assignment and points $editassignment NAME CATEGORY POINTS"""
         try:
             assignmentpoints = int(points)
@@ -133,11 +149,16 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="deleteassignment",
-        help="delete a grading assignment $deleteassignment NAME",
+        name="deleteAssignment",
+        help="Delete a grading assignment $deleteassignment NAME",
     )
-    async def delete_assignment(self, ctx, 
-                                assignmentname: str = commands.parameter(description="Name of the assignment you want to delete")):
+    async def delete_assignment(
+        self,
+        ctx,
+        assignmentname: str = commands.parameter(
+            description="Name of the assignment you want to delete"
+        ),
+    ):
         """delete a grading assignment $deleteassignment NAME"""
         existing = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",

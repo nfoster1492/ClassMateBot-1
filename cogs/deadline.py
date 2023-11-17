@@ -39,13 +39,16 @@ class Deadline(commands.Cog):
     #    Outputs: offset from the user's current time with UTC.
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="timenow",
-        help="put in current time to get offset needed for proper "
+        name="timeNow",
+        help="Put in current time to get offset needed for proper "
         "datetime notifications $timenow MMM DD YYYY HH:MM ex. $timenow SEP 25 2024 17:02",
     )
-    async def timenow(self, ctx, *, 
-                      date: str = commands.parameter(description="Current date and 24-hour time")
-                    ):
+    async def timenow(
+        self,
+        ctx,
+        *,
+        date: str = commands.parameter(description="Current date and 24-hour time"),
+    ):
         """Gets offset for proper datetime notifications compared to UTC"""
         try:
             input_time = parser.parse(date)
@@ -98,15 +101,20 @@ class Deadline(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="duedate",
-        help="add reminder and due-date $duedate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
+        name="dueDate",
+        help="Add reminder and due-date $duedate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
         "ex. $duedate CSC510 HW2 SEP 25 2024 17:02 EST",
     )
-    async def duedate(self, ctx, 
-                      coursename: str = commands.parameter(description="Name of the course for which the reminder is to be added"), 
-                      hwcount: str = commands.parameter(description="Name of the reminder"), *, 
-                      date: str = commands.parameter(description="Due date of the assignment")
-                    ):
+    async def duedate(
+        self,
+        ctx,
+        coursename: str = commands.parameter(
+            description="Name of the course for which the reminder is to be added"
+        ),
+        hwcount: str = commands.parameter(description="Name of the reminder"),
+        *,
+        date: str = commands.parameter(description="Due date of the assignment"),
+    ):
         """Add reminder for specified course, assignment, and date"""
         author = ctx.message.author
 
@@ -170,15 +178,19 @@ class Deadline(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="deletereminder",
+        name="deleteReminder",
         pass_context=True,
-        help="delete a specific reminder using course name and reminder name using "
-        "$deletereminder CLASSNAME HW_NAME ex. $deletereminder CSC510 HW2 ",
+        help="Delete a specific reminder using course name and reminder name using "
+        "$deletereminder CLASSNAME HW_NAME ex. $deletereminder CSC510 HW2"
     )
-    async def deleteReminder(self, ctx, 
-                             courseName: str = commands.parameter(description="Name of the course for which homework is to be added"), 
-                             hwName: str = commands.parameter(description="Name of the homework")
-                            ):
+    async def deleteReminder(
+        self,
+        ctx,
+        courseName: str = commands.parameter(
+            description="Name of the course for which homework is to be added"
+        ),
+        hwName: str = commands.parameter(description="Name of the homework"),
+    ):
         """Deletes a specified reminder"""
         reminders_deleted = db.query(
             "SELECT course, reminder_name, due_date FROM reminders WHERE guild_id = %s AND reminder_name = %s AND course = %s",
@@ -232,17 +244,21 @@ class Deadline(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="changeduedate",
+        name="changeDueDate",
         pass_context=True,
-        help="update the assignment date. $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
-        "ex. $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST",
+        help="Update the assignment date. $changeduedate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM) optional(TIMEZONE)"
+        "ex. $changeduedate CSC510 HW2 SEP 25 2024 17:02 EST"
     )
-    async def changeduedate(self, ctx, 
-                            classid: str = commands.parameter(description="Name of the course for which homework is to be added"), 
-                            hwid: str = commands.parameter(description="Name of the homework"),
-                            *, 
-                            date: str = commands.parameter(description="New due date of the assignment")
-                        ):
+    async def changeduedate(
+        self,
+        ctx,
+        classid: str = commands.parameter(
+            description="Name of the course for which homework is to be added"
+        ),
+        hwid: str = commands.parameter(description="Name of the homework"),
+        *,
+        date: str = commands.parameter(description="New due date of the assignment"),
+    ):
         """Updates an assignment's due date in the database"""
         author = ctx.message.author
         try:
@@ -293,9 +309,9 @@ class Deadline(commands.Cog):
     #             or returns a list of all the assignments that are due this week
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="duethisweek",
+        name="dueThisWeek",
         pass_context=True,
-        help="check all the homeworks that are due this week $duethisweek",
+        help="Check all the homeworks that are due this week $duethisweek",
     )
     async def duethisweek(self, ctx):
         """Checks all homeworks or assignments due this week"""
@@ -343,9 +359,9 @@ class Deadline(commands.Cog):
     #          returns a list of all the assignments that are due on the day the command is run
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="duetoday",
+        name="dueToday",
         pass_context=True,
-        help="check all the reminders that are due today $duetoday",
+        help="Check all the reminders that are due today $duetoday",
     )
     async def duetoday(self, ctx):
         """Checks for all reminders that are due today"""
@@ -392,14 +408,18 @@ class Deadline(commands.Cog):
     #          a list of assignments that are due for the provided courseid
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="coursedue",
+        name="courseDue",
         pass_context=True,
-        help="check all the reminders that are due for a specific course $coursedue coursename "
-        "ex. $coursedue CSC505",
+        help="Check all the reminders that are due for a specific course $coursedue coursename "
+        "ex. $coursedue CSC505"
     )
-    async def coursedue(self, ctx, 
-                        courseid: str = commands.parameter(description="Name of the course for which all reminders are checked")
-                    ):
+    async def coursedue(
+        self,
+        ctx, 
+        courseid: str = commands.parameter(
+            description="Name of the course for which all reminders are checked"
+        ),
+    ):
         """Displays a list of all reminders due for a specific course"""
         reminders = db.query(
             "SELECT reminder_name, due_date FROM reminders WHERE guild_id = %s AND course = %s",
@@ -445,7 +465,7 @@ class Deadline(commands.Cog):
     #             returns a list of all the assignments
     # ---------------------------------------------------------------------------------
     @commands.command(
-        name="listreminders", pass_context=True, help="lists all reminders"
+        name="listReminders", pass_context=True, help="Lists all reminders"
     )
     async def listreminders(self, ctx):
         """Displays user with list of all reminders"""
@@ -491,7 +511,7 @@ class Deadline(commands.Cog):
     #    Outputs: returns either an error stating a reason for failure or
     #             returns a list of all the assignments
     # ---------------------------------------------------------------------------------
-    @commands.command(name="overdue", pass_context=True, help="lists overdue reminders")
+    @commands.command(name="overdue", pass_context=True, help="Lists overdue reminders")
     async def overdue(self, ctx):
         """Displays list of homeworks and assignments that are overdue"""
         author = ctx.message.author
@@ -537,7 +557,7 @@ class Deadline(commands.Cog):
     # ---------------------------------------------------------------------------------
 
     @commands.command(
-        name="clearreminders", pass_context=True, help="deletes all reminders"
+        name="clearReminders", pass_context=True, help="Deletes all reminders"
     )
     async def clearallreminders(self, ctx):
         """Clears all reminders from database"""
@@ -612,7 +632,7 @@ class Deadline(commands.Cog):
     #    - ctx: context of the command
     # -----------------------------------------------------------------------------------------------------
     @commands.command(
-        name="clearoverdue", pass_context=True, help="deletes overdue reminders"
+        name="clearOverdue", pass_context=True, help="Deletes overdue reminders"
     )
     async def clearoverdue(self, ctx):
         """Clears all overdue reminders from database"""

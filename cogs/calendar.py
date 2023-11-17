@@ -73,11 +73,13 @@ class Calendar(commands.Cog):
         help="Add an event to the course calendar using the format"
         ": $addCalendarEvent NAME DESCRIPTION DATE/TIME",
     )
-    async def addCalendarEvent(self, ctx, 
-                               name: str = commands.parameter(description="Name of the event"),
-                               description: str = commands.parameter(description="Description of the event"), 
-                               eventTime: str = commands.parameter(description="Time of the event")
-                            ):
+    async def addCalendarEvent(
+        self,
+        ctx, 
+        name: str = commands.parameter(description="Name of the event"),
+        description: str = commands.parameter(description="Description of the event"),
+        eventTime: str = commands.parameter(description="Time of the event"),
+    ):
         """Adds specified event to shared Google Calendar"""
         creds = self.credsSetUp()
         try:
@@ -273,9 +275,13 @@ class Calendar(commands.Cog):
         name="subscribeCalendar",
         help="Adds user to shared Google Calendar. Ex: subscribeCalendar john.doe@gmail.com",
     )
-    async def subscribeCalendar(self, ctx, 
-                                userEmail: str = commands.parameter(description="Email of user to add target Google Calendar")
-                            ):
+    async def subscribeCalendar(
+        self,
+        ctx, 
+        userEmail: str = commands.parameter(
+            description="Email of user to add target Google Calendar"
+        ),
+    ):
         """Adds user to shared Google Calendar"""
         creds = self.credsSetUp()
         try:
@@ -311,9 +317,13 @@ class Calendar(commands.Cog):
         name="removeCalendar",
         help="Removes user from shared Google Calendar. Ex: removeCalendar john.doe@gmail.com",
     )
-    async def removeCalendar(self, ctx, 
-                             userEmail: str = commands.parameter(description="Email of user to remove the target Google Calendar")
-                            ):
+    async def removeCalendar(
+        self,
+        ctx, 
+        userEmail: str = commands.parameter(
+            description="Email of user to remove the target Google Calendar"
+            ),
+        ):
         """Removes user from shared Google Calendar"""
         creds = self.credsSetUp()
         try:

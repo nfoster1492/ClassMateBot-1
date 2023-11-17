@@ -65,9 +65,12 @@ class ReviewQs(commands.Cog):
         help="Add a review question. \n" \
         'EX: $addQuestion "What class is this?" "Software Engineering"',
     )
-    async def addQuestion(self, ctx, 
-                          qs: str = commands.parameter(description="The question you want to add"), 
-                          ans: str = commands.parameter(description="The answer to the question")):
+    async def addQuestion(
+        self,
+        ctx,
+        qs: str = commands.parameter(description="The question you want to add"),
+        ans: str = commands.parameter(description="The answer to the question"),
+    ):
         """Allows instructors to add review questions"""
         # add question to database
         db.query(

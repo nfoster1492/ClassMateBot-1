@@ -35,9 +35,14 @@ class NewComer(commands.Cog):
         help="User self-verifies by attaching their real name to their discord username in this server: "
         "$verify <FirstName LastName>",
     )
-    async def verify(self, ctx, *, 
-                     name: str = commands.parameter(description="Name of the user to verify", default=None)
-                    ):
+    async def verify(
+        self,
+        ctx,
+        *,
+        name: str = commands.parameter(
+            description="Name of the user to verify", default=None
+        ),
+    ):
         """Gives the user the `verified` role in the server"""
         member = ctx.message.author
 

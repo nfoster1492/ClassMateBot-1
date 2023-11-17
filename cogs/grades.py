@@ -28,11 +28,15 @@ class Grades(commands.Cog):
     #    Outputs: Grade of the provided assignment
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="grade", help="get your grade for a specific assignment $grade ASSIGNMENT"
+        name="grade", help="Get your grade for a specific assignment $grade ASSIGNMENT"
     )
-    async def grade(self, ctx, 
-                    assignmentName: str = commands.parameter(description="Name of assignment to get the grade for")
-                ):
+    async def grade(
+        self,
+        ctx,
+        assignmentName: str = commands.parameter(
+            description="Name of assignment to get the grade for"
+        ),
+    ):
         """Lets a student get their grade for a certain assignment"""
         memberName = ctx.author.name
 
@@ -89,12 +93,16 @@ class Grades(commands.Cog):
     #    Outputs: Average grade of all the assignments in the provided category, accounting for assignment point values
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="gradebycategory",
-        help="get your grade for a specific category $gradebycategory CATEGORY",
+        name="gradeByCategory",
+        help="Get your grade for a specific category $gradebycategory CATEGORY",
     )
-    async def gradebycategory(self, ctx, 
-                              categoryName: str = commands.parameter(description="Name of category to get your grades from")
-                            ):
+    async def gradebycategory(
+        self,
+        ctx,
+        categoryName: str = commands.parameter(
+            description="Name of category to get your grades from"
+        ),
+    ):
         """Lets a student get their grade for a specific grade category"""
         memberName = ctx.author.name
 
@@ -165,8 +173,8 @@ class Grades(commands.Cog):
     #    Outputs: Average grade of all the assignments in the class, weighted by category, accounting for assignment point values
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="gradeforclass",
-        help="get your grade for the whole class $gradeforclass",
+        name="gradeForClass",
+        help="Get your grade for the whole class $gradeforclass",
     )
     async def gradeforclass(self, ctx):
         """Lets a student get their overall average grade for the class"""
@@ -246,14 +254,22 @@ class Grades(commands.Cog):
     #    Outputs: The necessary grade on the next assignment to maintain a certain grade in a category
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="graderequired",
-        help="get your grade required on the next assignment for a category and a desired grade $graderequired CATEGORY POINTS GRADE",
+        name="gradeRequired",
+        help="Get your grade required on the next assignment for a category and a desired grade $graderequired CATEGORY POINTS GRADE",
     )
-    async def graderequired(self, ctx, 
-                            categoryName: str = commands.parameter(description="Name of the desired category"), 
-                            pointValue: str = commands.parameter(description="The amount of points the next assignment will be worth"), 
-                            desiredGrade: str = commands.parameter(description="The grade desired for the category")
-                        ):
+    async def graderequired(
+        self,
+        ctx,
+        categoryName: str = commands.parameter(
+            description="Name of the desired category"
+        ),
+        pointValue: str = commands.parameter(
+            description="The amount of points the next assignment will be worth"
+        ),
+        desiredGrade: str = commands.parameter(
+            description="The grade desired for the category"
+        ),
+    ):
         """Lets a student calculate the grade they need for a desired grade in a category"""
         memberName = ctx.author.name
 
@@ -340,14 +356,22 @@ class Grades(commands.Cog):
     #    Outputs: The necessary grade on the next assignment to maintain a desired grade in the class
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="graderequiredforclass",
-        help="get your grade required on the next assignment to keep a desired grade $graderequiredforclass CATEGORY POINTS GRADE",
+        name="gradeRequiredForClass",
+        help="Get your grade required on the next assignment to keep a desired grade $graderequiredforclass CATEGORY POINTS GRADE",
     )
-    async def graderequiredforclass(self, ctx, 
-                                    categoryName: str = commands.parameter(description="The name of the category the next assignment will fall in"), 
-                                    pointValue: str = commands.parameter(description="The amount of points the next assignment will be worth"), 
-                                    desiredGrade: str = commands.parameter(description="The grade desired for the class")
-                                ):
+    async def graderequiredforclass(
+        self,
+        ctx,
+        categoryName: str = commands.parameter(
+            description="The name of the category the next assignment will fall in"
+        ),
+        pointValue: str = commands.parameter(
+            description="The amount of points the next assignment will be worth"
+        ),
+        desiredGrade: str = commands.parameter(
+            description="The grade desired for the class"
+        ),
+    ):
         """Lets a student calculate the grade required on the next assignment to keep an overall desired class grade"""
         memberName = ctx.author.name
 
@@ -489,7 +513,7 @@ class Grades(commands.Cog):
     #    Outputs: A list of the grade categories in the system
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="categories", help="display all grading categories and weights $categories"
+        name="categories", help="Display all grading categories and weights $categories"
     )
     async def categories(self, ctx):
         """Lets the user list the categories of grades that are in the database"""
@@ -514,12 +538,16 @@ class Grades(commands.Cog):
     #    Outputs: A report on how the grades in the system were altered
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
-    @commands.command(name="inputgrades", help="Insert grades using a csv file")
-    async def input_grades(self, ctx, 
-                           assignmentname: str = commands.parameter(description="Name of the assignment grades are being put in for"), 
-                           test="False", 
-                           path=""
-                        ):
+    @commands.command(name="inputGrades", help="Insert grades using a csv file")
+    async def input_grades(
+        self,
+        ctx,
+        assignmentname: str = commands.parameter(
+            description="Name of the assignment grades are being put in for"
+        ),
+        test="False",
+        path="",
+    ):
         """Lets the instructor input grades into the system for a given assignment"""
         print(assignmentname)
         assignment = db.query(
@@ -616,13 +644,19 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="addgradecategory",
-        help="add a grading category and weight $addgradecategory NAME WEIGHT",
+        name="addGradeCategory",
+        help="Add a grading category and weight $addgradecategory NAME WEIGHT",
     )
-    async def add_grade_category(self, ctx, 
-                                 categoryname: str = commands.parameter(description="Name of the grade category"), 
-                                 weight: str= commands.parameter(description="The weight of the category, must be greater than 0")
-                                ):
+    async def add_grade_category(
+        self,
+        ctx,
+        categoryname: str = commands.parameter(
+            description="Name of the grade category"
+        ),
+        weight: str= commands.parameter(
+            description="The weight of the category, must be greater than 0"
+        ),
+    ):
         """Lets the instructor add a grade category with a specified weight"""
         try:
             categoryweight = float(weight)
@@ -680,13 +714,19 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="editgradecategory",
-        help="edit a grading category and weight $editgradecategory NAME WEIGHT",
+        name="editGradeCategory",
+        help="Edit a grading category and weight $editgradecategory NAME WEIGHT",
     )
-    async def edit_grade_category(self, ctx, 
-                                  categoryname: str = commands.parameter(description="Name of the grade category to edit"), 
-                                  weight: str = commands.parameter(description="Weight of the category to edit, must be greater than 0")
-                                ):
+    async def edit_grade_category(
+        self,
+        ctx,
+        categoryname: str = commands.parameter(
+            description="Name of the grade category to edit"
+        ),
+        weight: str = commands.parameter(
+            description="Weight of the category to edit, must be greater than 0"
+        ),
+    ):
         """Lets the instructor edit a grade category and weight"""
         try:
             categoryweight = float(weight)
@@ -743,12 +783,16 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="deletegradecategory",
-        help="delete a grading category $deletegradecategory NAME",
+        name="deleteGradeCategory",
+        help="Delete a grading category $deletegradecategory NAME",
     )
-    async def delete_grade_category(self, ctx, 
-                                    categoryname: str= commands.parameter(description="Name of category to delete")
-                                ):
+    async def delete_grade_category(
+        self,
+        ctx,
+        categoryname: str = commands.parameter(
+            description="Name of category to delete"
+        ),
+    ):
         """Lets the user delete a grade category from the database"""
         existing = db.query(
             "SELECT id FROM grade_categories WHERE guild_id = %s AND category_name = %s",
@@ -791,7 +835,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="gradereportcategory",
+        name="gradeReportCategory",
         help="Report on the classes scores all grade categories",
     )
     async def grade_report_category(self, ctx):
@@ -822,7 +866,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="gradereportassignment",
+        name="gradeReportAssignment",
         help="Report on the classes scores all assignments",
     )
     async def grade_report_assignment(self, ctx):
