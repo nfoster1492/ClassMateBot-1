@@ -180,7 +180,10 @@ class Poll(commands.Cog):
         "EX: $poll What do you think about cats?",
     )
     async def poll(
-        self, ctx, *, qs: str = commands.parameter(description="Question for the poll", default="")
+        self,
+        ctx,
+        *,
+        qs: str = commands.parameter(description="Question for the poll", default=""),
     ):
         """Allows the user to create a simple reaction poll with thumbs up, thumbs down, and unsure"""
         if qs == "":
