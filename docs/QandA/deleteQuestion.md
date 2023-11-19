@@ -18,7 +18,7 @@ Because their message IDs remain the same, their contents can be unhidden.
 This command was introduced by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBot/).
 
 # Location of Code
-The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/cogs/qanda.py).
+The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/qanda.py).
 
 # Code Description
 ## Functions
@@ -38,10 +38,11 @@ Successful execution of this command will hide the question and all its answers.
 
 Note: BananaBot is also a ClassMateBot
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/deleteQuestion/deleteq1.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/deleteQuestion/deleteq1.png?raw=true" width="500">
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/deleteQuestion/deleteq2.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/deleteQuestion/deleteq2.png?raw=true" width="500">
 
+<<<<<<< HEAD
 <img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/deleteQuestion/deleteq3.png?raw=true" width="500">
 
 # Aliases
@@ -50,3 +51,6 @@ This function can also be called with one or more aliases, or different names re
 
  - removeQuestion
  
+=======
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/deleteQuestion/deleteq3.png?raw=true" width="500">
+>>>>>>> 547f17274859d061ede9c9f942fa239b52de7682

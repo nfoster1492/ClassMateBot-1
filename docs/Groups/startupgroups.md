@@ -1,18 +1,18 @@
-# About $startupgroups
+# About $startupGroups
 This command lets the user set up the roles required for the grouping. This is required as a part of the group making/joining/leaving functionality.
 
 # Location of Code
-The code that implements the above-mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/groups.py).
+The code that implements the above-mentioned gits functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/groups.py).
 
 # Code Description
 ## Functions
-def startupgroups(self, ctx): <br>
+def startupGroups(self, ctx): <br>
 This function takes as arguments the values provided by the constructor through self and context in which the command was called.
 
 # How to run it?
-In any channel of the server, you can set upp the roles for the group by typing `startupgroups`. This needs to be done only ONCE!
+In any channel of the server, you can set upp the roles for the group by typing `startupGroups`. This needs to be done only ONCE!
 ```
-$startupgroups
+$startupGroups
 ```
 Successful execution of this command will create 100 unassigned group roles for the users in the server.
 

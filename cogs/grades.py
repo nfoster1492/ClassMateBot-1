@@ -36,7 +36,13 @@ class Grades(commands.Cog):
         aliases=["getGrade, assignmentGrade"],
         help="get your grade for a specific assignment $grade ASSIGNMENT",
     )
-    async def grade(self, ctx, assignmentName: str):
+    async def grade(
+        self,
+        ctx,
+        assignmentName: str = commands.parameter(
+            description="Name of assignment to get the grade for"
+        ),
+    ):
         """Lets a student get their grade for a certain assignment"""
         memberName = ctx.author.name
 
@@ -96,11 +102,17 @@ class Grades(commands.Cog):
     #    - categoryGrade
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="gradebycategory",
+        name="gradeByCategory",
         aliases=["categoryGrade"],
         help="get your grade for a specific category $gradebycategory CATEGORY",
     )
-    async def gradebycategory(self, ctx, categoryName: str):
+    async def gradebycategory(
+        self,
+        ctx,
+        categoryName: str = commands.parameter(
+            description="Name of category to get your grades from"
+        ),
+    ):
         """Lets a student get their grade for a specific grade category"""
         memberName = ctx.author.name
 
@@ -143,7 +155,7 @@ class Grades(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: gradebycategory_error(self, ctx, error)
-    #    Description: prints error message for gradebycategory command
+    #    Description: prints error message for gradeByCategory command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -152,10 +164,10 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @gradebycategory.error
     async def gradebycategory_error(self, ctx, error):
-        """Error handling of gradebycategory function"""
+        """Error handling of gradeByCategory function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the gradebycategory command, do: $gradebycategory <categoryname>\n ( For example: $gradebycategory tests )"
+                "To use the gradeByCategory command, do: $gradeByCategory <categoryname>\n ( For example: $gradeByCategory tests )"
             )
             await ctx.message.delete()
         else:
@@ -174,7 +186,7 @@ class Grades(commands.Cog):
     #    - classGrade
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="gradeforclass",
+        name="gradeForClass",
         aliases=["classGrade"],
         help="get your grade for the whole class $gradeforclass",
     )
@@ -231,7 +243,7 @@ class Grades(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: gradeforclass_error(self, ctx, error)
-    #    Description: prints error message for gradeforclass command
+    #    Description: prints error message for gradeForClass command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -240,7 +252,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @gradeforclass.error
     async def gradeforclass_error(self, ctx, error):
-        """Error handling of gradeforclass function"""
+        """Error handling of gradeForClass function"""
         await ctx.author.send(error)
         print(error)
 
@@ -259,12 +271,22 @@ class Grades(commands.Cog):
     #    - gradereq
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="graderequired",
+        name="gradeRequired",
         aliases=["gradereq"],
-        help="get your grade required on the next assignment for a category and a desired grade $graderequired CATEGORY POINTS GRADE",
+        help="get your grade required on the next assignment for a category and a desired grade $gradeRequired CATEGORY POINTS GRADE",
     )
     async def graderequired(
-        self, ctx, categoryName: str, pointValue: str, desiredGrade: str
+        self,
+        ctx,
+        categoryName: str = commands.parameter(
+            description="Name of the desired category"
+        ),
+        pointValue: str = commands.parameter(
+            description="The amount of points the next assignment will be worth"
+        ),
+        desiredGrade: str = commands.parameter(
+            description="The grade desired for the category"
+        ),
     ):
         """Lets a student calculate the grade they need for a desired grade in a category"""
         memberName = ctx.author.name
@@ -320,7 +342,7 @@ class Grades(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: graderequired_error(self, ctx, error)
-    #    Description: prints error message for graderequired command
+    #    Description: prints error message for gradeRequired command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -329,10 +351,10 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @graderequired.error
     async def graderequired_error(self, ctx, error):
-        """Error handling of graderequired function"""
+        """Error handling of gradeRequired function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the graderequired command, do: $graderequired <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $graderequired tests 200 90 )"
+                "To use the gradeRequired command, do: $gradeRequired <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $gradeRequired tests 200 90 )"
             )
             await ctx.message.delete()
         else:
@@ -355,12 +377,22 @@ class Grades(commands.Cog):
     #    - classGradeReq
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="graderequiredforclass",
+        name="gradeRequiredForClass",
         aliases=["classGradeReq"],
         help="get your grade required on the next assignment to keep a desired grade $graderequiredforclass CATEGORY POINTS GRADE",
     )
     async def graderequiredforclass(
-        self, ctx, categoryName: str, pointValue: str, desiredGrade: str
+        self,
+        ctx,
+        categoryName: str = commands.parameter(
+            description="The name of the category the next assignment will fall in"
+        ),
+        pointValue: str = commands.parameter(
+            description="The amount of points the next assignment will be worth"
+        ),
+        desiredGrade: str = commands.parameter(
+            description="The grade desired for the class"
+        ),
     ):
         """Lets a student calculate the grade required on the next assignment to keep an overall desired class grade"""
         memberName = ctx.author.name
@@ -475,7 +507,7 @@ class Grades(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: graderequiredforclass_error(self, ctx, error)
-    #    Description: prints error message for graderequiredforclass command
+    #    Description: prints error message for gradeRequiredForClass command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -484,10 +516,10 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @graderequiredforclass.error
     async def graderequiredforclass_error(self, ctx, error):
-        """Error handling of graderequiredforclass function"""
+        """Error handling of gradeRequiredForClass function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the graderequiredforclass command, do: $graderequiredforclass <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $graderequiredforclass tests 200 90 )"
+                "To use the gradeRequiredForClass command, do: $gradeRequiredForClass <categoryname> <pointsvalue> <desiredgrade>\n ( For example: $gradeRequiredForClass tests 200 90 )"
             )
             await ctx.message.delete()
         else:
@@ -537,7 +569,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="inputgrades",
+        name="inputGrades",
         aliases=["feedGrades"],
         help="Insert grades using a csv file",
     )
@@ -607,7 +639,7 @@ class Grades(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: input_grades_error(self, ctx, error)
-    #    Description: prints error message for inputgrades command
+    #    Description: prints error message for inputGrades command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -616,10 +648,10 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @input_grades.error
     async def input_grades_error(self, ctx, error):
-        """Error handling for inputgrades command"""
+        """Error handling for inputGrades command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the inputgrades command, do: $inputgrades <assignmentname> and add your csv file attachment\n ( For example: $editgradecategory test1 )"
+                "To use the inputGrades command, do: $inputGrades <assignmentname> and add your csv file attachment\n ( For example: $editGradeCategory test1 )"
             )
             await ctx.message.delete()
         else:
@@ -641,11 +673,20 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="addgradecategory",
+        name="addGradeCategory",
         aliases=["addCategory"],
-        help="add a grading category and weight $addgradecategory NAME WEIGHT",
+        help="add a grading category and weight $addGradeCategory NAME WEIGHT",
     )
-    async def add_grade_category(self, ctx, categoryname: str, weight: str):
+    async def add_grade_category(
+        self,
+        ctx,
+        categoryname: str = commands.parameter(
+            description="Name of the grade category"
+        ),
+        weight: str = commands.parameter(
+            description="The weight of the category, must be greater than 0"
+        ),
+    ):
         """Lets the instructor add a grade category with a specified weight"""
         try:
             categoryweight = float(weight)
@@ -672,7 +713,7 @@ class Grades(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: add_grade_category_error(self, ctx, error)
-    #    Description: prints error message for addgradecategory command
+    #    Description: prints error message for addGradeCategory command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -706,11 +747,20 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="editgradecategory",
+        name="editGradeCategory",
         aliases=["editCategory"],
-        help="edit a grading category and weight $editgradecategory NAME WEIGHT",
+        help="edit a grading category and weight $editGradeCategory NAME WEIGHT",
     )
-    async def edit_grade_category(self, ctx, categoryname: str, weight: str):
+    async def edit_grade_category(
+        self,
+        ctx,
+        categoryname: str = commands.parameter(
+            description="Name of the grade category to edit"
+        ),
+        weight: str = commands.parameter(
+            description="Weight of the category to edit, must be greater than 0"
+        ),
+    ):
         """Lets the instructor edit a grade category and weight"""
         try:
             categoryweight = float(weight)
@@ -737,7 +787,7 @@ class Grades(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: edit_grade_category_error(self, ctx, error)
-    #    Description: prints error message for editgradecategory command
+    #    Description: prints error message for editGradeCategory command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -749,7 +799,7 @@ class Grades(commands.Cog):
         """Error handling for edit_grade_category command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the editgradecategory command, do: $editgradecategory <categoryname> <weight> \n ( For example: $editgradecategory tests .5 )"
+                "To use the editGradeCategory command, do: $editGradeCategory <categoryname> <weight> \n ( For example: $editGradeCategory tests .5 )"
             )
             await ctx.message.delete()
         else:
@@ -770,11 +820,17 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="deletegradecategory",
+        name="deleteGradeCategory",
         aliases=["deleteCategory"],
-        help="delete a grading category $deletegradecategory NAME",
+        help="delete a grading category $deleteGradeCategory NAME",
     )
-    async def delete_grade_category(self, ctx, categoryname: str):
+    async def delete_grade_category(
+        self,
+        ctx,
+        categoryname: str = commands.parameter(
+            description="Name of category to delete"
+        ),
+    ):
         """Lets the user delete a grade category from the database"""
         existing = db.query(
             "SELECT id FROM grade_categories WHERE guild_id = %s AND category_name = %s",
@@ -788,7 +844,7 @@ class Grades(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: delete_grade_category_error(self, ctx, error)
-    #    Description: prints error message for deletegradecategory command
+    #    Description: prints error message for deleteGradeCategory command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -800,7 +856,7 @@ class Grades(commands.Cog):
         """Error handling for delete_grade_category command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the deletegradecategory command, do: $deletegradecategory <categoryname> \n ( For example: $deletegradecategory tests)"
+                "To use the deleteGradeCategory command, do: $deleteGradeCategory <categoryname> \n ( For example: $deleteGradeCategory tests)"
             )
             await ctx.message.delete()
         else:
@@ -820,7 +876,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="gradereportcategory",
+        name="gradeReportCategory",
         aliases=["getCategoryReport"],
         help="Report on the classes scores all grade categories",
     )
@@ -855,7 +911,7 @@ class Grades(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="gradereportassignment",
+        name="gradeReportAssignment",
         aliases=["getAssignmentReport"],
         help="Report on the classes scores all assignments",
     )

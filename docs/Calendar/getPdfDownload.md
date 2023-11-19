@@ -2,7 +2,7 @@
 This command lets students download a pdf so that they can import the class calendar into their calendar software of choice. 
 
 # Location of Code
-The code that implements the above mentioned gets functionality is located [here](https://github.com/nfoster1492/ClassMateBot-1/blob/main/cogs/calendar.py)
+The code that implements the above mentioned gets functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/calendar.py)
 
 # Code Description
 ## Functions
@@ -17,11 +17,10 @@ $getPdfDownload
 ```
 Successful execution of this command will result in a pdf being sent in the same channel
 
-![image](https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/getPdfDownload.JPG)
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj2media/getPdfDownload.JPG?raw=true" width=500>
 
 # Aliases
 
 This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
 
  - getPdfDownload 
- 
