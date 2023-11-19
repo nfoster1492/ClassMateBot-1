@@ -289,12 +289,9 @@ class Deadline(commands.Cog):
             return
 
         # future = (time.time() + (dueDate - datetime.today()).total_seconds())
-        db.query(
+        update = db.query(
             "UPDATE reminders SET author_id = %s, due_date = %s WHERE guild_id = %s AND reminder_name = %s AND course = %s",
             (author.id, dueDate, ctx.guild.id, hwid, classid),
-        )
-        await ctx.send(
-            f"{classid} {hwid} has been updated with following date: {dueDate}"
         )
         if update:
             await ctx.send(

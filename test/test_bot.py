@@ -1389,11 +1389,11 @@ async def test_qanda(bot):
     )
 
     # test deleting all answers for a question with none
-    await dpytest.message("$deleteAllAnsFor 1", channel=channel)
+    await dpytest.message("$deleteAnswers 1", channel=channel)
     assert dpytest.verify().message().contains().content("No answers exist for Q1")
 
     # test deleting all answers
-    await dpytest.message("$deleteAllAnsFor 2", channel=channel)
+    await dpytest.message("$deleteAnswers 2", channel=channel)
     assert dpytest.verify().message().contains().content("deleted 2 answers for Q2")
 
     # Test reviveGhost: non-existent question
@@ -1529,7 +1529,7 @@ async def test_qanda(bot):
     )
 
     # test deleting all answers for ghost
-    await dpytest.message("$deleteAllAnsFor 4", channel=channel)
+    await dpytest.message("$deleteAnswers 4", channel=channel)
     assert dpytest.verify().message().contains().content("deleted 1 answers for Q4")
     assert dpytest.verify().message().contains().content("Q4 is a ghost!")
 
@@ -1661,7 +1661,7 @@ async def test_qanda(bot):
     # ghosts: 2, zombies: 1
 
     # test deleting all answers for zombie
-    await dpytest.message("$deleteAllAnsFor 7", channel=channel)
+    await dpytest.message("$deleteAnswers 7", channel=channel)
     assert dpytest.verify().message().contains().content("deleted 1 answers for Q7")
     assert dpytest.verify().message().contains().content("Q7 is a zombie!")
 
@@ -1832,7 +1832,7 @@ async def test_qanda_errors(bot):
     )
 
     # Test that deleting answers does not work outside of QA
-    msg = await dpytest.message("$deleteAllAnsFor 1", channel=gen_channel)
+    msg = await dpytest.message("$deleteAnswers 1", channel=gen_channel)
     with pytest.raises(discord.NotFound):
         await gen_channel.fetch_message(msg.id)
     assert (
@@ -1844,28 +1844,28 @@ async def test_qanda_errors(bot):
 
     # test deleting all answers with bad input: no args
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$deleteAllAnsFor", channel=channel)
+        await dpytest.message("$deleteAnswers", channel=channel)
     assert (
         dpytest.verify()
         .message()
         .contains()
         .content(
-            "To use the deleteAllAnsFor command, do: $deleteAllAnsFor QUESTION_NUMBER\n "
-            "(Example: $deleteAllAnsFor 1)"
+            "To use the deleteAnswers command, do: $deleteAnswers QUESTION_NUMBER\n "
+            "(Example: $deleteAnswers 1)"
         )
     )
 
     # test deleting all answers with bad input
-    await dpytest.message("$deleteAllAnsFor abc", channel=channel)
+    await dpytest.message("$deleteAnswers abc", channel=channel)
     assert (
         dpytest.verify()
         .message()
         .contains()
-        .content("Please include a valid question number. EX: $deleteAllAnsFor 1")
+        .content("Please include a valid question number. EX: $deleteAnswers 1")
     )
 
     # test deleting all answers for a non-existent question
-    await dpytest.message("$deleteAllAnsFor 100", channel=channel)
+    await dpytest.message("$deleteAnswers 100", channel=channel)
     assert (
         dpytest.verify()
         .message()
