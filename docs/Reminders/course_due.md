@@ -19,3 +19,10 @@ $coursedue CSC505
 Successful execution of this command will display all the homeworks that are due on that day.
 
 ![$coursedue](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/coursedue.gif)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getCourseDue
+ 

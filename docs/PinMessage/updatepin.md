@@ -19,3 +19,9 @@ $updatepin HW https://discordapp.com/channels/139565116151562240/139565116151562
 Successful execution of this command will update the description of the pinned message.
 
 ![image](https://user-images.githubusercontent.com/32313919/140256002-0ae1f0c6-b84a-43a4-9f83-42356d47cc7b.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - updatePinnedMessage

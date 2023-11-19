@@ -36,10 +36,14 @@ class WordFilter(commands.Cog):
     #       - word: the word to whitelist
     #    Outputs:
     #       - success message
+    #    Aliases:
+    #       - whitelist
+    #       - addCensorWord
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="whitelisttest",
+        aliases=["whitelist", "addCensorWord"],
         help='Add a word to the censor whitelist. Enclose in quotation marks. EX: $whitelist "WORD"',
     )
     async def whitelistWordTest(self, ctx, word: str = ""):
@@ -77,10 +81,13 @@ class WordFilter(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - success message
+    #    Aliases:
+    #       - purgeWhitelist
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="clearWhitelist",
+        aliases=["purgeWhitelist"],
         help="Clears all words from the saved whitelist. EX: $clearwhitelist",
     )
     async def clearWhitelist(self, ctx):
@@ -116,10 +123,13 @@ class WordFilter(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - success message
+    #    Aliases:
+    #       - setupWhitelist
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="loadWhitelist",
+        aliases=["setupWhitelist"],
         help="Adds all words in the saved whitelist to the censor whitelist. EX: $loadWhitelist",
     )
     async def loadWhitelist(self, ctx):

@@ -20,3 +20,10 @@ $deletereminder CSC510 HW2
 Successful execution of this command will delete the reminder for a specified coursework and homework.
 
 ![$deletereminder CSC510 HW2](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/deletereminder.gif)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - removeReminder
+  

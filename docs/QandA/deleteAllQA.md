@@ -36,3 +36,10 @@ Successful execution of this command will remove all questions and answers from 
 The bot will then DM the user the number of questions that have been deleted.
 
 <img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/deleteAllQA/deleteall3.png?raw=true" width="500">
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - deleteQuestionsAnswers 
+ 

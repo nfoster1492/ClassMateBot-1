@@ -20,3 +20,8 @@ Successful execution of this command will create 100 unassigned group roles for 
 
 ![image](https://user-images.githubusercontent.com/89809302/140447634-2ba168bf-9b27-4b6a-9a8a-af5ca3da9182.png)
 
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - makeGroupRoles

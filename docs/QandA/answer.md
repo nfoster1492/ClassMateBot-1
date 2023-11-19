@@ -35,3 +35,8 @@ Successful execution of this command will delete the user's original message and
 
 ![image](https://user-images.githubusercontent.com/32313919/140245276-e2752e1b-eea0-4998-9dcc-2f6c6df6dac4.png)
 
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - answerQuestion

@@ -22,3 +22,11 @@ $addhw CSC510 HW2 SEP 25 2024 17:02 EST
 Successful execution of this command will add the reminder for the specified coursework on the specified time.
 
 ![$duedate CSC510 HW2 SEP 25 2024 17:02](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/addhomework.gif)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - whenDue 
+ - setDueDate
+ 

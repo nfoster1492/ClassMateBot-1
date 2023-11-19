@@ -18,3 +18,10 @@ $connect
 Successful execution of this command will create private text channels for all occupied groups for the users in the server.
 
 ![image](https://user-images.githubusercontent.com/89809302/140448623-d3cb5658-b3cc-4ffa-a984-679fc20fbc9f.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - connectGroups
+ 

@@ -25,3 +25,9 @@ Successful execution of this command will update the grades in the database and 
 <img src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/inputGradesHelp.PNG?raw=true" width="500">
 
 <img src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/inputGrades.PNG?raw=true" width="500">
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - feedGrades

@@ -20,3 +20,9 @@ $pin HW https://discordapp.com/channels/139565116151562240/139565116151562240/89
 Successful execution of this command will pin the message for the specific user.
 
 ![image](https://user-images.githubusercontent.com/32313919/140243037-8e4c192c-5842-4fd9-85b0-6cccaf3f74ab.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - pinMessage

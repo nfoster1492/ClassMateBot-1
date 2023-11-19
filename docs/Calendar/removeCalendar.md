@@ -16,3 +16,9 @@ $removeCalendar *email-to-remove*
 ```
 Successful execution of this command will result in a Discord DM confirmation and the user being removed from the calendar.
 
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - rmFromCal 
+ 

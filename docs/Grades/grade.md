@@ -22,3 +22,11 @@ $grade hw1
 Successful execution of this command will DM the student their grade for that specific assignment.
 
 <img src="https://github.com/nfoster1492/ClassMateBot-1/blob/c8e9fdaf0560a8c93743aaba67ceccb8b94bd845/data/proj2media/gradeHelp.png" width="500">
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getGrade
+ - assignmentGrade
+ 

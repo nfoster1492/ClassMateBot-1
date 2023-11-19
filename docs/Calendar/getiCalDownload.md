@@ -18,3 +18,10 @@ $getiCalDownload
 Successful execution of this command will result in an .ics file being sent in the same channel
 
 ![image](https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/getiCalPic.JPG)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getCalDownload 
+ 

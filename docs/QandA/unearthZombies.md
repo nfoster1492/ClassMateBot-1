@@ -38,3 +38,10 @@ Note: BananaBot is also a ClassMateBot
 <img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/unearthZombies/zombie2.png?raw=true" width="500">
 
 <img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/unearthZombies/zombie3.png?raw=true" width="500">
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - assignGhosts
+ 

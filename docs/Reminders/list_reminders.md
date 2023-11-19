@@ -19,3 +19,10 @@ $listreminders
 Successful execution of this command will list all the reminders for all the courses and their corresponding homeworks.
 
 ![$listreminders](https://github.com/War-Keeper/ClassMateBot/blob/main/data/media/listreminders.gif)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getReminders
+ 

@@ -25,3 +25,11 @@ $overdue
 Successful execution of this command will send a message with all over due reminders.
 
 <img width="666" alt="Screen Shot 2021-12-04 at 10 02 21 AM" src="https://user-images.githubusercontent.com/78971563/144714572-795322dd-a29c-4a1d-8fd4-5c15acd6f41a.png">
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getOverdue
+ - getLateAssignments
+ 

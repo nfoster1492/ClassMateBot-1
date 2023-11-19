@@ -67,9 +67,12 @@ class Calendar(commands.Cog):
     #       - eventTime: Time of event
     #    Outputs:
     #       - Event added to calendar
+    #    Aliases:
+    #       - addCalEvent
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="addCalendarEvent",
+        aliases=["addCalEvent"],
         help="Add an event to the course calendar using the format"
         ": $addCalendarEvent NAME DESCRIPTION DATE/TIME",
     )
@@ -99,8 +102,14 @@ class Calendar(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - Whether the command was a success or a failure
+    #    Aliases:
+    #       - clearCal
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="clearCalendar", help="Clear all events from calendar")
+    @commands.command(
+        name="clearCalendar",
+        aliases=["clearCal"],
+        help="Clear all events from calendar",
+    )
     async def clearCalendar(self, ctx):
         """Clears all events from shared Google Calendar"""
         creds = self.credsSetUp()
@@ -135,9 +144,12 @@ class Calendar(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - The ics file of the calendar
+    #    Aliases:
+    #       - getCalDownload
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="getiCalDownload",
+        aliases=["getCalDownload"],
         help="Enter the command to receive an ics"
         " file of the calendar$getiCalDownload",
     )
@@ -164,9 +176,12 @@ class Calendar(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - The pdf file of the calendar
+    #    Aliases:
+    #       - getPdfCal
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="getPdfDownload",
+        aliases=["getPdfCal"],
         help="Enter the command to receive an ics"
         " file of the calendar$getiCalDownload",
     )
@@ -264,9 +279,12 @@ class Calendar(commands.Cog):
     #       - userEmail: user to add to target Google Calendar
     #    Outputs:
     #       - Confirmation string for successful add, error string for failure.
+    #    Aliases:
+    #       - subscToCal
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="subscribeCalendar",
+        alias=["subscToCal"],
         help="Adds user to shared Google Calendar. Ex: subscribeCalendar john.doe@gmail.com",
     )
     async def subscribeCalendar(self, ctx, userEmail):
@@ -299,10 +317,13 @@ class Calendar(commands.Cog):
     #       - userEmail: user to remove from target Google Calendar
     #    Outputs:
     #       - Confirmation string for successful removal, error string for failure.
+    #    Aliases:
+    #       - rmFromCal
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="removeCalendar",
+        aliases=["rmFromCal"],
         help="Removes user from shared Google Calendar. Ex: removeCalendar john.doe@gmail.com",
     )
     async def removeCalendar(self, ctx, userEmail):

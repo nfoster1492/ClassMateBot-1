@@ -24,3 +24,11 @@ $clearoverdue
 Successful execution of this command will remove overdue reminders from the database and give a success message.
 
 <img width="607" alt="Screen Shot 2021-12-04 at 10 02 42 AM" src="https://user-images.githubusercontent.com/78971563/144714701-43a806ea-7df6-45bf-a636-8a689add876f.png">
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - removeOverdue 
+ - clearLate
+ 

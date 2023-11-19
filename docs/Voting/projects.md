@@ -17,3 +17,10 @@ $projects
 Successful execution of this command will display the projects and all the groups that have voted for each project.
 
 ![image](https://user-images.githubusercontent.com/32313919/140250910-3aa8d6cd-000d-4b51-949a-0c60f3464c3b.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getProjects
+ 

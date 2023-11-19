@@ -123,9 +123,12 @@ class Voting(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    Outputs: prints the list of current projects
+    #    Aliases:
+    #    - getProjects
     # ----------------------------------------------------------------------------------
     @commands.command(
         name="projects",
+        aliases=["getProjects"],
         help="print projects with groups assigned to them",
         pass_context=True,
     )
