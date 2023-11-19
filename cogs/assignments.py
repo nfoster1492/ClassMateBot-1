@@ -1,7 +1,7 @@
 # Copyright (c) 2023 nfoster1492
 # This functionality provides various methods to manage assignments
 # The isntructor is able to add/edit/and delete assignments
-# and specify their grading category and point value.
+# and specify their grading category and point value
 import os
 import sys
 from click import command
@@ -61,7 +61,9 @@ class Assignments(commands.Cog):
         )
 
         if not category:
-            await ctx.send(f"Category with name {categoryname} does not exist")
+            await ctx.send(
+                f"Category with name {categoryname} does not exist. Assignments must be linked to an existing grade category. For more information enter ```$help Grades```"
+            )
             return
         if assignmentpoints < 0:
             await ctx.send("Assignment points must be greater than or equal to zero")

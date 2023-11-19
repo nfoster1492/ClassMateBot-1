@@ -85,12 +85,16 @@ class Poll(commands.Cog):
 
         # if title is blank, whitespace only, or just too short!
         if not title or title.isspace():
-            await ctx.author.send("Please enter a valid title.")
+            await ctx.author.send(
+                "Please enter a valid title. Titles can by any text, including spaces, but cannot be empty or less than 3 characters long"
+            )
             await ctx.message.delete()
             return
 
         if len(title) <= 2:
-            await ctx.author.send("Title too short.")
+            await ctx.author.send(
+                "The title is too short. Titles can by any text, including spaces, but cannot be empty or less than 3 characters long"
+            )
             await ctx.message.delete()
             return
 
@@ -98,12 +102,16 @@ class Poll(commands.Cog):
         options = re.findall(r"\[([^[\]]*)\]", ops)
 
         if len(options) < 2:
-            await ctx.author.send("Polls need at least two options.")
+            await ctx.author.send(
+                "Too few options. Polls can have anywhere between 2 and 6 options"
+            )
             await ctx.message.delete()
             return
 
         if len(options) > 6:
-            await ctx.author.send("Polls cannot have more than six options.")
+            await ctx.author.send(
+                "Too many options. Polls can have anywhere between 2 and 6 options"
+            )
             await ctx.message.delete()
             return
 
@@ -211,7 +219,9 @@ class Poll(commands.Cog):
         #    return
 
         if len(qs) <= 2:
-            await ctx.author.send("Poll question too short.")
+            await ctx.author.send(
+                "Poll question too short. Questions must be at least 3 characters long"
+            )
             await ctx.message.delete()
             return
 

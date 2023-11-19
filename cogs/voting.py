@@ -48,7 +48,9 @@ class Voting(commands.Cog):
         member_name = ctx.message.author.display_name.upper()
 
         if project_num < 0 or project_num > 99:
-            await ctx.send("A valid project number is 1-99.")
+            await ctx.send(
+                "Invalid project number. A valid project number is an integer in the range 1-99"
+            )
             return
 
         group = db.query(

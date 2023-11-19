@@ -90,7 +90,7 @@ class Grades(commands.Cog):
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: gradebycategory(self, ctx, categoryName)
+    #    Function: gradeByCategory(self, ctx, categoryName)
     #    Description: This command lets a student get their average grade for a certain category
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -257,7 +257,7 @@ class Grades(commands.Cog):
         print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: graderequired(self, ctx, categoryName, pointValue, desiredGrade)
+    #    Function: gradeRequired(self, ctx, categoryName, pointValue, desiredGrade)
     #    Description: This command lets a student get the grade they need on the next assignment to keep a desired grade
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -362,7 +362,7 @@ class Grades(commands.Cog):
             print(error)
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: graderequiredforclass(self, ctx, categoryName, pointValue, desiredGrade)
+    #    Function: gradeRequiredForClass(self, ctx, categoryName, pointValue, desiredGrade)
     #    Description: This command lets a student get the grade they need on the next assignment to keep a desired grade
     #    in the class
     #    Inputs:
@@ -592,6 +592,7 @@ class Grades(commands.Cog):
             and ctx.message.attachments[0].content_type != "text/csv; charset=utf-8"
         ):
             await ctx.send("Invalid filetype")
+            return
         data = None
         if test == "False":
             attachmenturl = ctx.message.attachments[0].url
@@ -691,7 +692,9 @@ class Grades(commands.Cog):
         try:
             categoryweight = float(weight)
         except ValueError:
-            await ctx.send("Weight could not be parsed")
+            await ctx.send(
+                "Weight could not be parsed. Please use a float between 0.0 and 1.0"
+            )
             return
         if categoryweight < 0:
             await ctx.send("Weight must be greater than 0")
@@ -709,7 +712,9 @@ class Grades(commands.Cog):
                 f"A grading category has been added for: {categoryname}  with weight: {weight} "
             )
         else:
-            await ctx.send("This category has already been added..!!")
+            await ctx.send(
+                "A category with this name has already been added. All categories must have unique names"
+            )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: add_grade_category_error(self, ctx, error)
@@ -765,7 +770,9 @@ class Grades(commands.Cog):
         try:
             categoryweight = float(weight)
         except ValueError:
-            await ctx.send("Weight could not be parsed")
+            await ctx.send(
+                "Weight could not be parsed. Please use a float between 0.0 and 1.0"
+            )
             return
         if categoryweight < 0:
             await ctx.send("Weight must be greater than 0")
@@ -783,7 +790,9 @@ class Grades(commands.Cog):
                 f"{categoryname} category has been updated with weight:{weight} "
             )
         else:
-            await ctx.send("This category does not exist")
+            await ctx.send(
+                "This category does not exist. Check the spelling of the category name or use $addGradeCategory to add a new one"
+            )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: edit_grade_category_error(self, ctx, error)
@@ -840,7 +849,9 @@ class Grades(commands.Cog):
             db.query("DELETE FROM grade_categories WHERE id = %s", (existing[0]))
             await ctx.send(f"{categoryname} category has been deleted ")
         else:
-            await ctx.send("This category does not exist")
+            await ctx.send(
+                "This category does not exist. Please check the spelling of the category name"
+            )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: delete_grade_category_error(self, ctx, error)

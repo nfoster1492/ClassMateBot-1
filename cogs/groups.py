@@ -221,7 +221,9 @@ class Groups(commands.Cog):
         )
 
         if current_group_num:
-            await ctx.send(f"You are already in Group {current_group_num[0][0]}")
+            await ctx.send(
+                f"You are already in Group {current_group_num[0][0]}. Please leave your current group first with $leave"
+            )
             return
 
         db.query(
@@ -282,7 +284,7 @@ class Groups(commands.Cog):
         pass_context=True,
     )
     async def leave(self, ctx):
-        """Removes the user from the given group"""
+        """Removes the user from their current group"""
         # get the name of the caller
         member_name = ctx.message.author.display_name.upper()
         member = ctx.message.author

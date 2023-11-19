@@ -50,7 +50,13 @@ async def test_groupJoin(bot):
 
     # try to join a different group
     await dpytest.message("$join 1")
-    assert dpytest.verify().message().content("You are already in Group 99")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "You are already in Group 99. Please leave your current group first with $leave"
+        )
+    )
 
     # leave your group
     await dpytest.message("$leave")
@@ -539,12 +545,20 @@ async def test_gradesInstructorError(bot):
         .content("A grading category has been added for: Homework  with weight: 0.2 ")
     )
     await dpytest.message("$addGradeCategory Homework asdf")
-    assert dpytest.verify().message().content("Weight could not be parsed")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Weight could not be parsed. Please use a float between 0.0 and 1.0")
+    )
     await dpytest.message("$addGradeCategory Homework -1")
     assert dpytest.verify().message().content("Weight must be greater than 0")
     await dpytest.message("$addGradeCategory Homework 0.5")
     assert (
-        dpytest.verify().message().content("This category has already been added..!!")
+        dpytest.verify()
+        .message()
+        .content(
+            "A category with this name has already been added. All categories must have unique names"
+        )
     )
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$addGradeCategory")
@@ -555,11 +569,21 @@ async def test_gradesInstructorError(bot):
         .content("To use the gradecategory command")
     )
     await dpytest.message("$editGradeCategory Homework asdf")
-    assert dpytest.verify().message().content("Weight could not be parsed")
+    assert (
+        dpytest.verify()
+        .message()
+        .content("Weight could not be parsed. Please use a float between 0.0 and 1.0")
+    )
     await dpytest.message("$editGradeCategory Homework -1")
     assert dpytest.verify().message().content("Weight must be greater than 0")
     await dpytest.message("$editGradeCategory Invalid 0.5")
-    assert dpytest.verify().message().content("This category does not exist")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "This category does not exist. Check the spelling of the category name or use $addGradeCategory to add a new one"
+        )
+    )
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$editGradeCategory")
     assert (
@@ -569,7 +593,13 @@ async def test_gradesInstructorError(bot):
         .content("To use the editGradeCategory command")
     )
     await dpytest.message("$deleteGradeCategory Invalid")
-    assert dpytest.verify().message().content("This category does not exist")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "This category does not exist. Please check the spelling of the category name"
+        )
+    )
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$deleteGradeCategory")
     assert (
@@ -598,15 +628,11 @@ async def test_deadline(bot):
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
     # Clear our reminders: Only if testing fails and leaves a reminders.JSON file with values behind
-    # await dpytest.message("$clearreminders")
-    # assert dpytest.verify().message().contains().content("All reminders have been cleared..!!")
+    # await dpytest.message("$clearReminders")
+    # assert dpytest.verify().message().contains().content("All reminders have been cleared")
     # Test reminders while none have been set
     await dpytest.message("$courseDue CSC505")
-    assert (
-        dpytest.verify()
-        .message()
-        .content("Rejoice..!! You have no pending reminders for CSC505..!!")
-    )
+    assert dpytest.verify().message().content("No pending reminders for CSC505")
     # Test setting 1 reminder
     await dpytest.message("$dueDate CSC505 DANCE SEP 21 2050 10:00")
     assert (
@@ -633,7 +659,7 @@ async def test_deadline(bot):
         dpytest.verify()
         .message()
         .content(
-            "Following reminder has been deleted: Course: CSC510, reminder Name: HW1, Due Date: 2050-12-21 19:59:00"
+            "The following reminder has been deleted: Course: CSC510, reminder Name: HW1, Due Date: 2050-12-21 19:59:00"
         )
     )
     # Test re-adding a reminder
@@ -658,7 +684,7 @@ async def test_deadline(bot):
 
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearReminders")
-    assert dpytest.verify().message().content("All reminders have been cleared..!!")
+    assert dpytest.verify().message().content("All reminders have been cleared")
 
 
 # --------------------------------
@@ -712,10 +738,7 @@ async def test_listreminders(bot):
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearReminders")
     assert (
-        dpytest.verify()
-        .message()
-        .contains()
-        .content("All reminders have been cleared..!!")
+        dpytest.verify().message().contains().content("All reminders have been cleared")
     )
 
     # Tests cogs/deadline.py
@@ -749,10 +772,7 @@ async def test_duethisweek(bot):
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearReminders")
     assert (
-        dpytest.verify()
-        .message()
-        .contains()
-        .content("All reminders have been cleared..!!")
+        dpytest.verify().message().contains().content("All reminders have been cleared")
     )
 
 
@@ -784,10 +804,7 @@ async def test_duetoday(bot):
     # Clear reminders at the end of testing since we're using a local JSON file to store them
     await dpytest.message("$clearReminders")
     assert (
-        dpytest.verify()
-        .message()
-        .contains()
-        .content("All reminders have been cleared..!!")
+        dpytest.verify().message().contains().content("All reminders have been cleared")
     )
 
 
@@ -864,7 +881,7 @@ async def test_deadline_errors(bot):
     # Test timeNow with bad argument
     # with pytest.raises(commands.MissingRequiredArgument):
     await dpytest.message("$timeNow blab")
-    assert dpytest.verify().message().content("Due date could not be parsed")
+    assert dpytest.verify().message().content("Date could not be parsed")
 
     # Test dueDate with bad argument
     # with pytest.raises(commands.MissingRequiredArgument):
@@ -1173,7 +1190,7 @@ async def test_pinningErrors(bot):
     # with pytest.raises(commands.CommandError):
     # await dpytest.message("$pinnedMessages \" please fail omg")
     # assert dpytest.verify().message().contains().content(
-    # "To use the pinnedMessages command, do: $pinnedMessages:"
+    # "To use the pinnedmessages command, do: $pinnedMessages:"
     # " TAGNAME \n ( For example: $pinnedMessages HW8 )")
 
     # The above test requires the else statement below to be included
@@ -1185,7 +1202,7 @@ async def test_pinningErrors(bot):
     # ...
     # else:
     # await ctx.send(
-    # "To use the pinnedMessages command, do: $pinnedMessages:"
+    # "To use the pinnedmessages command, do: $pinnedMessages:"
     # " TAGNAME \n ( For example: $pinnedMessages HW8 )")
     # print(error)
 
@@ -1282,7 +1299,13 @@ async def test_voting(bot):
         )
     )
     await dpytest.message(content="$vote -1")
-    assert dpytest.verify().message().content("A valid project number is 1-99.")
+    assert (
+        dpytest.verify()
+        .message()
+        .content(
+            "Invalid project number. A valid project number is an integer in the range 1-99"
+        )
+    )
 
 
 # -------------------
@@ -1366,11 +1389,11 @@ async def test_qanda(bot):
     )
 
     # test deleting all answers for a question with none
-    await dpytest.message("$DALLAF 1", channel=channel)
+    await dpytest.message("$deleteAnswers 1", channel=channel)
     assert dpytest.verify().message().contains().content("No answers exist for Q1")
 
     # test deleting all answers
-    await dpytest.message("$DALLAF 2", channel=channel)
+    await dpytest.message("$deleteAnswers 2", channel=channel)
     assert dpytest.verify().message().contains().content("deleted 2 answers for Q2")
 
     # Test reviveGhost: non-existent question
@@ -1506,7 +1529,7 @@ async def test_qanda(bot):
     )
 
     # test deleting all answers for ghost
-    await dpytest.message("$DALLAF 4", channel=channel)
+    await dpytest.message("$deleteAnswers 4", channel=channel)
     assert dpytest.verify().message().contains().content("deleted 1 answers for Q4")
     assert dpytest.verify().message().contains().content("Q4 is a ghost!")
 
@@ -1638,7 +1661,7 @@ async def test_qanda(bot):
     # ghosts: 2, zombies: 1
 
     # test deleting all answers for zombie
-    await dpytest.message("$DALLAF 7", channel=channel)
+    await dpytest.message("$deleteAnswers 7", channel=channel)
     assert dpytest.verify().message().contains().content("deleted 1 answers for Q7")
     assert dpytest.verify().message().contains().content("Q7 is a zombie!")
 
@@ -1809,7 +1832,7 @@ async def test_qanda_errors(bot):
     )
 
     # Test that deleting answers does not work outside of QA
-    msg = await dpytest.message("$DALLAF 1", channel=gen_channel)
+    msg = await dpytest.message("$deleteAnswers 1", channel=gen_channel)
     with pytest.raises(discord.NotFound):
         await gen_channel.fetch_message(msg.id)
     assert (
@@ -1821,28 +1844,28 @@ async def test_qanda_errors(bot):
 
     # test deleting all answers with bad input: no args
     with pytest.raises(commands.MissingRequiredArgument):
-        await dpytest.message("$DALLAF", channel=channel)
+        await dpytest.message("$deleteAnswers", channel=channel)
     assert (
         dpytest.verify()
         .message()
         .contains()
         .content(
-            "To use the deleteAllAnswersFor command, do: $DALLAF QUESTION_NUMBER\n "
-            "(Example: $DALLAF 1)"
+            "To use the deleteAnswers command, do: $deleteAnswers QUESTION_NUMBER\n "
+            "(Example: $deleteAnswers 1)"
         )
     )
 
     # test deleting all answers with bad input
-    await dpytest.message("$DALLAF abc", channel=channel)
+    await dpytest.message("$deleteAnswers abc", channel=channel)
     assert (
         dpytest.verify()
         .message()
         .contains()
-        .content("Please include a valid question number. EX: $DALLAF 1")
+        .content("Please include a valid question number. EX: $deleteAnswers 1")
     )
 
     # test deleting all answers for a non-existent question
-    await dpytest.message("$DALLAF 100", channel=channel)
+    await dpytest.message("$deleteAnswers 100", channel=channel)
     assert (
         dpytest.verify()
         .message()
@@ -2199,21 +2222,21 @@ async def test_quizPoll(bot):
         )
     )
 
-    # Test quizPoll: title is whitespace
+    # Test quizpoll: title is whitespace
     await dpytest.message('$quizPoll "  " [a] [b] [c] [d] [e] [f]')
     assert dpytest.verify().message().contains().content("Please enter a valid title.")
 
-    # Test quizPoll: title is too short
+    # Test quizpoll: title is too short
     await dpytest.message('$quizPoll "a" [a] [b] [c] [d] [e] [f]')
-    assert dpytest.verify().message().contains().content("Title too short.")
+    assert dpytest.verify().message().contains().content("title is too short")
 
-    # Test quizPoll: too few options
+    # Test quizpoll: too few options
     await dpytest.message('$quizPoll "TITLE" [a]')
     assert (
         dpytest.verify()
         .message()
         .contains()
-        .content("Polls need at least two options.")
+        .content("Too few options. Polls can have anywhere between 2 and 6 options")
     )
 
     # Test quizPoll: too many options
@@ -2222,7 +2245,7 @@ async def test_quizPoll(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content("Polls cannot have more than six options.")
+        .content("Too many options. Polls can have anywhere between 2 and 6 options")
     )
 
     # Test quizPoll: option is empty

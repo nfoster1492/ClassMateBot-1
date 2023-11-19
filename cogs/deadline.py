@@ -57,7 +57,7 @@ class Deadline(commands.Cog):
         try:
             input_time = parser.parse(date)
         except ValueError:
-            await ctx.send("Due date could not be parsed")
+            await ctx.send("Date could not be parsed")
             return
 
         utc_dt = datetime.utcnow()
@@ -207,15 +207,21 @@ class Deadline(commands.Cog):
             "SELECT course, reminder_name, due_date FROM reminders WHERE guild_id = %s AND reminder_name = %s AND course = %s",
             (ctx.guild.id, hwName, courseName),
         )
-        db.query(
-            "DELETE FROM reminders WHERE guild_id = %s AND reminder_name = %s AND course = %s",
-            (ctx.guild.id, hwName, courseName),
-        )
+        if reminders_deleted:
+            db.query(
+                "DELETE FROM reminders WHERE guild_id = %s AND reminder_name = %s AND course = %s",
+                (ctx.guild.id, hwName, courseName),
+            )
+        else:
+            await ctx.send(
+                "The specified reminder could not be found in the database. Check the info and try again"
+            )
+            return
 
         for course, reminder_name, due_date in reminders_deleted:
             due = due_date.strftime("%Y-%m-%d %H:%M:%S")
             await ctx.send(
-                f"Following reminder has been deleted: Course: {course}, "
+                f"The following reminder has been deleted: Course: {course}, "
                 f"reminder Name: {reminder_name}, Due Date: {due}"
             )
 
@@ -283,13 +289,18 @@ class Deadline(commands.Cog):
             return
 
         # future = (time.time() + (dueDate - datetime.today()).total_seconds())
-        db.query(
+        update = db.query(
             "UPDATE reminders SET author_id = %s, due_date = %s WHERE guild_id = %s AND reminder_name = %s AND course = %s",
             (author.id, dueDate, ctx.guild.id, hwid, classid),
         )
-        await ctx.send(
-            f"{classid} {hwid} has been updated with following date: {dueDate}"
-        )
+        if update:
+            await ctx.send(
+                f"{classid} {hwid} has been updated with following date: {dueDate}"
+            )
+        else:
+            await ctx.send(
+                "The specified reminder could not be found in the database. Check the info and try again"
+            )
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: changeDueDate_error(self, ctx, error)
@@ -341,13 +352,17 @@ class Deadline(commands.Cog):
 
         curr_date = datetime.now(timezone.utc)
 
-        for course, reminder_name, due_date in reminders:
-            delta = due_date - curr_date
-            formatted_due_date = due_date.strftime("%b %d %Y %H:%M:%S%z")
-            await ctx.author.send(
-                f"{course} {reminder_name} is due in {delta.days} days, {delta.seconds//3600}"
-                f" hours and {(delta.seconds//60)%60} minutes ({formatted_due_date})"
-            )
+        if reminders:
+            for course, reminder_name, due_date in reminders:
+                delta = due_date - curr_date
+                formatted_due_date = due_date.strftime("%b %d %Y %H:%M:%S%z")
+                await ctx.author.send(
+                    f"{course} {reminder_name} is due in {delta.days} days, {delta.seconds//3600}"
+                    f" hours and {(delta.seconds//60)%60} minutes ({formatted_due_date})"
+                )
+        else:
+            await ctx.author.send("No assignments due this week")
+
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -398,7 +413,7 @@ class Deadline(commands.Cog):
                 f" hours and {(delta.seconds//60)%60} minutes"
             )
         if len(due_today) == 0:
-            await ctx.author.send("You have no dues today..!!")
+            await ctx.author.send("No assignments due today")
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -452,9 +467,7 @@ class Deadline(commands.Cog):
             formatted_due_date = due_date.strftime("%b %d %Y %H:%M:%S")
             await ctx.author.send(f"{reminder_name} is due at {formatted_due_date}")
         if len(reminders) == 0:
-            await ctx.author.send(
-                f"Rejoice..!! You have no pending reminders for {courseid}..!!"
-            )
+            await ctx.author.send(f"No pending reminders for {courseid}")
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -509,9 +522,7 @@ class Deadline(commands.Cog):
                 f"{course} reminder named: {reminder_name} which is due on: {formatted_due_date} by {author.name}"
             )
         if not reminders:
-            await ctx.author.send(
-                "Mission Accomplished..!! You don't have any more dues..!!"
-            )
+            await ctx.author.send("No pending reminders")
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -604,7 +615,7 @@ class Deadline(commands.Cog):
     async def clearallreminders(self, ctx):
         """Clears all reminders from database"""
         db.query("DELETE FROM reminders WHERE guild_id = %s", (ctx.guild.id,))
-        await ctx.send("All reminders have been cleared..!!")
+        await ctx.send("All reminders have been cleared")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: clearallreminders_error(self, ctx, error)
