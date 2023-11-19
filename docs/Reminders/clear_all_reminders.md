@@ -1,12 +1,12 @@
-# About $clearreminders
+# About $clearReminders
 This command lets the user delete all the reminders irrespective of courses or homeworks. 
 
 # Location of Code
-The code that implements the above mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/deadline.py).
+The code that implements the above mentioned gits functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/deadline.py).
 
 # Code Description
 ## Functions
-clearallreminders(self, ctx): <br>
+clearReminders(self, ctx): <br>
 This function takes as arguments the values provided by the constructor through self and the context in which the command was called. 
 
 # How to run it? (Small Example)
@@ -14,8 +14,8 @@ Let's say that you are in the server that has the Classmate Bot active and onlin
 enter the command '$clearreminders' with no other parameters:
 
 ```
-$clearreminders
+$clearReminders
 ```
 Successful execution of this command will delete all the reminders.
 
-![$clearreminders](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/clearreminders.PNG)
+![$clearreminders](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/clearreminders.PNG?raw=true)

@@ -2,7 +2,7 @@
 This command lets the student to delete a pinned message from their private pinning board.
 
 # Location of Code
-The code that implements the above mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/pinning.py).
+The code that implements the above mentioned gits functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/pinning.py).
 
 # Code Description
 ## Functions

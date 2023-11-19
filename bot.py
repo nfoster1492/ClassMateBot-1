@@ -1,12 +1,14 @@
 # bot.py
 # Copyright (c) 2021 War-Keeper
 
+import importlib
 import os
 
 import discord
 from discord.utils import get
 from discord import Intents
 from dotenv import load_dotenv
+from discord.ext import commands
 from discord.ext.commands import Bot, has_permissions, CheckFailure
 
 # from better_profanity import profanity
@@ -57,6 +59,9 @@ async def on_guild_join(guild):
             if "reminders" not in guild.text_channels:
                 await guild.create_text_channel("reminders")
                 await channel.send("reminders channel has been added!")
+            if "classmate-commands" not in guild.text_channels:
+                await guild.create_text_channel("classmate-commands")
+                await channel.send("classmate-commands has been added!")
 
             if discord.utils.get(guild.roles, name="verified") is None:
                 await guild.create_role(
@@ -99,6 +104,32 @@ async def on_guild_join(guild):
                     await member.add_roles(unverified, reason=None, atomic=True)
             await channel.send('To verify yourself, use "$verify <FirstName LastName>"')
 
+    # Initialize classmate-commands with the list of categories of commands for the users
+    categories_list = []
+    for channel in guild.text_channels:
+        if channel.name == "classmate-commands":
+            commands_channel = bot.get_channel(channel.id)
+            for cog_name, cog in bot.cogs.items():
+                if cog_name not in categories_list:
+                    categories_list.append(cog_name)
+
+            new_line = "\n"
+            await commands_channel.send(
+                "```Provided is a list of categories that encompass all the commands this bot has available!```"
+            )
+            await commands_channel.send(
+                "```To learn more about these categories and the commands they have run $help category_name```"
+            )
+            await commands_channel.send(
+                f"```Command Categories:\n{f'{new_line}'.join(categories_list)}```"
+            )
+            await commands_channel.send(
+                "```Or you can run $showCommands to see the full list of commands right away!```"
+            )
+            await commands_channel.set_permissions(
+                guild.default_role, send_messages=False
+            )
+
 
 # ------------------------------------------------------------------------------------------------------------------
 #    Function: on_ready()
@@ -123,7 +154,14 @@ async def on_ready():
 
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
-            await bot.load_extension(f"cogs.{filename[:-3]}")
+            cog_name = filename[:-3]
+            cog_path = f"cogs.{cog_name}"
+
+            try:
+                await bot.load_extension(cog_path)
+            except commands.ExtensionError as e:
+                print(f"Failed to load extension {cog_path}: {e}")
+
     await bot.load_extension("jishaku")
 
     await bot.change_presence(

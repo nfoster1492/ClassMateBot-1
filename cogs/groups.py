@@ -63,15 +63,15 @@ class Groups(commands.Cog):
         await ctx.author.send(error)
 
     # -------------------------------------------------------------------------------------------------------
-    #    Function: startupgroups(self, ctx)
+    #    Function: startupGroups(self, ctx)
     #    Description: creates roles for the groups
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    Outputs: creates roles for groups
     # -------------------------------------------------------------------------------------------------------
-    @commands.command(name="startupgroups", help="Creates group roles for members")
-    async def startupgroups(self, ctx):
+    @commands.command(name="startupGroups", help="Creates group roles for members")
+    async def startupGroups(self, ctx):
         """Creates roles for the groups"""
         await ctx.send("Creating roles....")
 
@@ -85,17 +85,17 @@ class Groups(commands.Cog):
         print("Roles created successfully!")
 
     # -------------------------------------------------------------------------------------------------------
-    #    Function: startupgroups_error(self, ctx, error)
-    #    Description: prints error message for startupgroups command
+    #    Function: startupGroups_error(self, ctx, error)
+    #    Description: prints error message for startupGroups command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -------------------------------------------------------------------------------------------------------
-    @startupgroups.error
-    async def startupgroups_error(self, ctx, error):
-        """Error handling for startupgroups command"""
+    @startupGroups.error
+    async def startupGroups_error(self, ctx, error):
+        """Error handling for startupGroups command"""
         await ctx.author.send(error)
 
     # -------------------------------------------------------------------------------------------------------
@@ -167,7 +167,11 @@ class Groups(commands.Cog):
     ( For example: $join 0 )",
         pass_context=True,
     )
-    async def join(self, ctx, group_num: int):
+    async def join(
+        self,
+        ctx,
+        group_num: int = commands.parameter(description="Number of the group"),
+    ):
         """Joins the user to given group"""
         # get the name of the caller
         member_name = ctx.message.author.display_name.upper()
@@ -303,7 +307,7 @@ class Groups(commands.Cog):
     #    - ctx: used to access the values passed through the current context
     #    Outputs: prints the list of groups
     # -------------------------------------------------------------------------------------------------------
-    @commands.command(name="groups", help="prints group counts", pass_context=True)
+    @commands.command(name="groups", help="Prints group counts", pass_context=True)
     # @commands.dm_only()
     # TODO maybe include channel where all groups displayed
     async def groups(self, ctx):
@@ -358,13 +362,19 @@ class Groups(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
         name="group",
-        help="print names of members in a group, or current groups members \n \
+        help="Print names of members in a group, or current groups members \n \
     ( For example: $group or $group 8 )",
         pass_context=True,
     )
     # @commands.dm_only()
     # TODO maybe include channel where all groups displayed
-    async def group(self, ctx, group_num: int = -1):
+    async def group(
+        self,
+        ctx,
+        group_num: int = commands.parameter(
+            description="Group number to list names for", default=-1
+        ),
+    ):
         """Prints the members of the group, or the current member's group if they have joined one"""
         if group_num == -1:
             member_name = ctx.message.author.display_name.upper()

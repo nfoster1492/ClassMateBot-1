@@ -25,7 +25,14 @@ class Qanda(commands.Cog):
         help="Ask question. Please put question text in quotes. Add *anonymous* or *anon* if desired."
         'EX: $ask /"When is the exam?/" anonymous',
     )
-    async def askQuestion(self, ctx, qs: str, anonymous=""):
+    async def askQuestion(
+        self,
+        ctx,
+        qs: str = commands.parameter(description="The question you want to ask"),
+        anonymous: str = commands.parameter(
+            description="Option if the user wants to be anonymous or not", default=""
+        ),
+    ):
         """Takes question from the user the reposts it anonymously and numbered"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -119,7 +126,16 @@ class Qanda(commands.Cog):
         help="Answer question. Please put answer text in quotes. Add *anonymous* or *anon* if desired."
         'EX: $answer 1 /"Oct 12/" anonymous',
     )
-    async def answer(self, ctx, num, ans: str, anonymous=""):
+    async def answer(
+        self,
+        ctx,
+        num: str = commands.parameter(description="Question number being answered"),
+        ans: str = commands.parameter(description="Answer to the question specified"),
+        anonymous: str = commands.parameter(
+            description="Option if the user wants their question to be shown anonymously",
+            default="",
+        ),
+    ):
         """Adds user to specific question and post anonymously"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -266,7 +282,9 @@ class Qanda(commands.Cog):
         "Before deletion, archive the question and its answers with\n"
         "$getAnswersFor QUESTION_NUMBER",
     )
-    async def deleteAllAnsFor(self, ctx, num):
+    async def deleteAllAnsFor(
+        self, ctx, num: str = commands.parameter(description="Question number")
+    ):
         """Lets instructor delete all answers for a question"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -375,7 +393,9 @@ class Qanda(commands.Cog):
         name="getAnswersFor",
         help="Get a question and all its answers\n" "EX: $getAnswersFor 1",
     )
-    async def getAllAnsFor(self, ctx, num):
+    async def getAllAnsFor(
+        self, ctx, num: str = commands.parameter(description="Question number")
+    ):
         """Gets all answers for a question and DMs them to the user"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -680,7 +700,11 @@ class Qanda(commands.Cog):
         " Leaves database ghosts.\n"
         "EX: $deleteQuestion QUESTION_NUMBER\n",
     )
-    async def deleteOneQuestion(self, ctx, num):
+    async def deleteOneQuestion(
+        self,
+        ctx,
+        num: str = commands.parameter(description="Number of the quesiton to delete"),
+    ):
         """Lets the instructor delete one question, but leave the answers untouched"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -772,7 +796,9 @@ class Qanda(commands.Cog):
         help="Gets a specific ghost (question deleted with command) and all its answers.\n"
         "EX: $channelGhost 1",
     )
-    async def channelOneGhost(self, ctx, num):
+    async def channelOneGhost(
+        self, ctx, num: str = commands.parameter(description="Question number")
+    ):
         """Lets the instructor get a specific ghost question"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -1030,7 +1056,13 @@ class Qanda(commands.Cog):
         help="Restores a ghost or deleted/hidden question to the channel.\n"
         "EX: $reviveGhost 1",
     )
-    async def restoreGhost(self, ctx, num):
+    async def restoreGhost(
+        self,
+        ctx,
+        num: str = commands.parameter(
+            description="Question number that you want to restore"
+        ),
+    ):
         """Restores a ghost of deleted question to the channel"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":

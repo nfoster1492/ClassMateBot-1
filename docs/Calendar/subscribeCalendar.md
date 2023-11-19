@@ -2,7 +2,7 @@
 This command allows a user to subscribe to the shared class Google Calendar.
 
 # Location of Code
-The code that implements the above mentioned gets functionality is located [here](https://github.com/nfoster1492/ClassMateBot-1/blob/main/cogs/calendar.py)
+The code that implements the above mentioned gets functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/calendar.py)
 
 # Code Description
 ## Functions
@@ -16,7 +16,6 @@ $subscribeCalendar *email-to-add*
 ```
 Successful execution of this command will result in a Discord DM confirmation and the user being added the calendar.
 
-![image](https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/subscribeCalendar1.png)
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj2media/subscribeCalendar1.png?raw=true" width=500>
 
-![image](https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/subscribeCalendar2.png)
-
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj2media/subscribeCalendar2.png?raw=true" width=500>
