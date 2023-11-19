@@ -281,7 +281,7 @@ class Qanda(commands.Cog):
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: deleteAllAnsFor
+    #    Function: deleteAnswers
     #    Description: Deletes all answers for a question. Instructor only.
     #    Inputs:
     #       - ctx: context of the command
@@ -296,12 +296,12 @@ class Qanda(commands.Cog):
         name="DALLAF",
         aliases=["deleteAnswers"],
         help="(PLACEHOLDER NAME) Delete all answers for a question.\n"
-        "EX: $deleteAllAnsFor 1\n"
+        "EX: $deleteAnswers 1\n"
         "THIS ACTION IS IRREVERSIBLE.\n"
         "Before deletion, archive the question and its answers with\n"
         "$getAnswersFor QUESTION_NUMBER",
     )
-    async def deleteAllAnsFor(
+    async def deleteAnswers(
         self, ctx, num: str = commands.parameter(description="Question number")
     ):
         """Lets instructor delete all answers for a question"""
@@ -316,7 +316,7 @@ class Qanda(commands.Cog):
         # to stop SQL from freezing. Only allows valid numbers.
         if not re.match(r"^([1-9]\d*|0)$", num):
             await ctx.author.send(
-                "Please include a valid question number. EX: $deleteAllAnsFor 1"
+                "Please include a valid question number. EX: $deleteAnswers 1"
             )
             await ctx.message.delete()
             return
@@ -385,21 +385,21 @@ class Qanda(commands.Cog):
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: deleteAllAnsFor_error(self, ctx, error)
-    #    Description: prints error message for deleteAllAnsFor command
+    #    Function: deleteAnswers_error(self, ctx, error)
+    #    Description: prints error message for deleteAnswers command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @deleteAllAnsFor.error
-    async def deleteAllAnsFor_error(self, ctx, error):
-        """Error handling for deleteAllAnsFor command"""
+    @deleteAnswers.error
+    async def deleteAnswers_error(self, ctx, error):
+        """Error handling for deleteAnswers command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
-                "To use the deleteAllAnsFor command, do: $deleteAllAnsFor QUESTION_NUMBER\n "
-                "(Example: $deleteAllAnsFor 1)"
+                "To use the deleteAnswers command, do: $deleteAnswers QUESTION_NUMBER\n "
+                "(Example: $deleteAnswers 1)"
             )
         else:
             await ctx.author.send(error)
