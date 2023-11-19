@@ -1,7 +1,7 @@
 ## Project 3 Self-Assessment
 
 
-|Notes|Score (78)|evidence|
+|Notes|Score (96)|evidence|
 |-----|-----|---------|
 | Video                                       | 3     | [2min video of new functionality, showing a significant delta from prior.](https://www.youtube.com/watch?v=8CfEfXnoKMs)  |
 |Workload is spread over the whole team | 3 |[evidence in GH](https://github.com/maddaicita/ClassMateBot-1.1/pulse/monthly)|
