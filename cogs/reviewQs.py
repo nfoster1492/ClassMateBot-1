@@ -14,9 +14,13 @@ class ReviewQs(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - a random question from the database (in user guild) is sent by the bot
+    #    Aliases:
+    #       - getReviewQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="getQuestion", help="Get a review question. EX: $getQuestion"
+        name="getQuestion",
+        aliases=["getReviewQuestion"],
+        help="Get a review question. EX: $getQuestion",
     )
     async def getQuestion(self, ctx):
         """Prints a random question from the database"""
@@ -58,11 +62,14 @@ class ReviewQs(commands.Cog):
     #       - ans: answer to review question
     #    Outputs:
     #       - success message
+    #    Aliases:
+    #       - addReviewQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="addQuestion",
-        help="Add a review question. \n"
+        aliases=["addReviewQuestion"],
+        help="Add a review question. "
         'EX: $addQuestion "What class is this?" "Software Engineering"',
     )
     async def addQuestion(

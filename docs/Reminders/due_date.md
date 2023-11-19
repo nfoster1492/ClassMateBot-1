@@ -20,5 +20,12 @@ $dueDate CLASSNAME NAME MMM DD YYYY optional(HH:MM) optional(timezone)
 $dueDate CSC510 HW2 SEP 25 2024 17:02 EST
 ```
 Successful execution of this command will add the reminder for the specified coursework on the specified time.
-
+ 
 ![$dueDate CSC510 HW2 SEP 25 2024 17:02](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/media/addhomework.gif?raw=true)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - whenDue 
+ - setDueDate

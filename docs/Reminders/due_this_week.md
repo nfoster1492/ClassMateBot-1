@@ -19,3 +19,10 @@ $dueThisWeek
 Successful execution of this command will display all the homeworks that are due this week with time delta.
 
 <img width="769" alt="Screen Shot 2021-12-04 at 10 19 24 AM" src="https://user-images.githubusercontent.com/78971563/144714876-4d3a7226-91f7-4b6e-8e1b-a15d45e1e3d0.png">
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getWeeklyDue 
+ 

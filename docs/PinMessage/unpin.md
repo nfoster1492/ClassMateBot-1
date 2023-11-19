@@ -19,3 +19,9 @@ $unpin HW
 Successful execution of this command will unpin the message with the tagname for the specific user.
 
 ![image](https://user-images.githubusercontent.com/32313919/140254980-48641eed-7cd0-4eba-8481-3b8537679823.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - unpinMessage

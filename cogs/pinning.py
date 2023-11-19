@@ -30,9 +30,12 @@ class Pinning(commands.Cog):
     #    - ctx: used to access the values passed through the current context
     #    - tagname: a tag given by the user to their pinned message.
     #    - description: description of the pinned message given by the user.
+    #    Aliases:
+    #    - pinMessage
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="pin",
+        aliases=["pinMessage"],
         help="Pin a message by adding a tagname (single word) "
         "and a description(can be multi word). EX: $pin Homework Resources for HW2",
     )
@@ -88,15 +91,15 @@ class Pinning(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    - tagname: the tag used to identify which pinned messages are to be deleted.
+    #    Aliases:
+    #    - unpinMessage
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="unpin", help="Unpin a message by passing the tagname.")
-    async def deleteMessage(
-        self,
-        ctx,
-        tagname: str = commands.parameter(
-            description="Tag used to identify which pinned messages are to be deleted"
-        ),
-    ):
+    @commands.command(
+        name="unpin",
+        aliases=["unpinMessage"],
+        help="Unpin a message by passing the tagname.",
+    )
+    async def deleteMessage(self, ctx, tagname: str):
         """Unpins the pinned messages with provided tagname"""
         author = ctx.message.author
 
@@ -147,9 +150,12 @@ class Pinning(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    - tagname: the tag used to identify which pinned messages are to be retrieved.
+    #    Aliases:
+    #    - getPinnedMessages
     # ----------------------------------------------------------------------------------
     @commands.command(
         name="pinnedMessages",
+        aliases=["getPinnedMessages"],
         help="Retrieve the pinned messages by a particular tag or all messages.",
     )
     async def retrieveMessages(
@@ -211,9 +217,12 @@ class Pinning(commands.Cog):
     #    - ctx: used to access the values passed through the current context
     #    - tagname: tag to be updated
     #    - description: new description
+    #    Aliases:
+    #    - updatePinnedMessage
     # ----------------------------------------------------------------------------------------------------------
     @commands.command(
         name="updatePin",
+        aliases=["updatePinnedMessage"],
         help="Update a previously pinned message by passing the "
         "tagname and old description in the same order",
     )

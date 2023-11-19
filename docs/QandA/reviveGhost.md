@@ -50,4 +50,14 @@ $reviveGhost 2
 
 <img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/reviveghost/reviveghost1b.png?raw=true" width="500">
 
+<<<<<<< HEAD
+<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/reviveghost/reviveghost1c.png?raw=true" width="500">
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - restoreGhost
+=======
 <img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/reviveghost/reviveghost1c.png?raw=true" width="500">
+>>>>>>> 547f17274859d061ede9c9f942fa239b52de7682

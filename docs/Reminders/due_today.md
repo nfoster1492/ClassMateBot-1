@@ -19,3 +19,10 @@ $dueToday
 Successful execution of this command will display all the homeworks that are due on that day with time delta.
 
 <img width="855" alt="Screen Shot 2021-12-04 at 10 03 39 AM" src="https://user-images.githubusercontent.com/78971563/144714806-5f36e62e-3e3e-4a47-9e14-b6419f1463d1.png">
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getDailyDue
+ 

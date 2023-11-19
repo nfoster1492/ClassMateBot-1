@@ -18,3 +18,9 @@ $addCalendarEvent HW1a CSC510 2023-10-11T12:00:00Z
 Successful execution of this command will result in an event being placed on the shared calendar for all subscribers to see and confirmation output.
 
 <img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj2media/addCalendarEvent.png?raw=true" width=500>
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - addCalEvent

@@ -19,3 +19,9 @@ $pinnedMessages HW
 Successful execution of this command will list all the pinned messages or the ones with the given tagname.
 
 ![image](https://user-images.githubusercontent.com/32313919/140255106-07a4d952-4fb7-48c2-964e-b340fb2b0829.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getPinnedMessages

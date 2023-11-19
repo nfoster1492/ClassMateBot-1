@@ -58,9 +58,13 @@ class Poll(commands.Cog):
     #       - ops: up to six options, each in brackets
     #    Outputs:
     #       - an embedded quiz
+    #    Aliases:
+    #       - startQuiz
+    #       - startPoll
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="quizPoll",
+        aliases=["startQuiz", "startPoll"],
         help='Create a multi reaction poll by typing \n$poll "TITLE" [option 1] ... [option 6]\n '
         "Be sure to enclose title with quotes and options with brackets!\n"
         'EX: $quizPoll "I am a poll" [Vote for me!] [I am option 2]',
@@ -173,9 +177,12 @@ class Poll(commands.Cog):
     #       - qs: question string; the poll question
     #    Outputs:
     #       - an embedded reaction poll
+    #    Aliases:
+    #       - reactionPoll
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="poll",
+        aliases=["reactionPoll"],
         help="Create a reaction poll by typing $poll QUESTION\n"
         "EX: $poll What do you think about cats?",
     )

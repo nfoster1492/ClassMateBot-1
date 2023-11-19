@@ -17,3 +17,11 @@ $group GROUP_NUMBER(optional)
 Successful execution of this command will display the names of members in the group.
 
 ![image](https://user-images.githubusercontent.com/32313919/140251786-390e5656-4234-44f9-a663-32fad3d0fcb7.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getGroup
+ - checkGroup
+ 

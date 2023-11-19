@@ -19,9 +19,12 @@ class Qanda(commands.Cog):
     #       - anonymous: option if user wants their question to be shown anonymously
     #    Outputs:
     #       - User question in new post
+    #    Aliases:
+    #       - askQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="ask",
+        aliases=["askQuestion"],
         help="Ask question. Please put question text in quotes. Add *anonymous* or *anon* if desired."
         'EX: $ask /"When is the exam?/" anonymous',
     )
@@ -120,9 +123,12 @@ class Qanda(commands.Cog):
     #      - anonymous: option if user wants their question to be shown anonymously
     # Outputs:
     #      - User answer added to question post
+    # Aliases:
+    #      - answerQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="answer",
+        aliases=["answerQuestion"],
         help="Answer question. Please put answer text in quotes. Add *anonymous* or *anon* if desired."
         'EX: $answer 1 /"Oct 12/" anonymous',
     )
@@ -272,10 +278,13 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - deleteAnswers
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="DALLAF",
+        aliases=["deleteAnswers"],
         help="(PLACEHOLDER NAME) Delete all answers for a question.\n"
         "EX: $DALLAF 1\n"
         "THIS ACTION IS IRREVERSIBLE.\n"
@@ -388,9 +397,12 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       - All answers for a question, if any
+    #    Aliases:
+    #       - getAnswers
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="getAnswersFor",
+        aliases=["getAnswers"],
         help="Get a question and all its answers\n" "EX: $getAnswersFor 1",
     )
     async def getAllAnsFor(
@@ -501,9 +513,12 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - DMs all questions and answers to the user
+    #    Aliases:
+    #       - sendGuide
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="archiveQA",
+        aliases=["sendGuide"],
         help="(PLACEHOLDER NAME) DM all questions and their answers\n" "EX: $archiveQA",
     )
     async def archiveQA(self, ctx):
@@ -597,10 +612,13 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - deleteQuestionsAnswers
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="deleteAllQA",
+        aliases=["deleteQuestionsAnswers"],
         help="Delete all questions and answers from the database and channel.\n"
         "EX: $deleteAllQA\n"
         "THIS COMMAND IS IRREVERSIBLE.\n"
@@ -692,10 +710,13 @@ class Qanda(commands.Cog):
     #       - num: number of the question to delete
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - removeQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="deleteQuestion",
+        aliases=["removeQuestion"],
         help="Delete (hide) one question but leave answers untouched."
         " Leaves database ghosts.\n"
         "EX: $deleteQuestion QUESTION_NUMBER\n",
@@ -789,10 +810,13 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       - All answers for a ghost question, if any
+    #    Aliases:
+    #       - getGhostQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="channelGhost",
+        aliases=["getGhostQuestion"],
         help="Gets a specific ghost (question deleted with command) and all its answers.\n"
         "EX: $channelGhost 1",
     )
@@ -891,10 +915,13 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - getAllGhostQuestions
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="allChannelGhosts",
+        aliases=["getAllGhostQuestions"],
         help="Get all the questions that are in the database but "
         "not in the channel. Does not detect zombies.\n"
         "EX: $allChannelGhosts\n"
@@ -975,10 +1002,13 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - assignGhosts
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="unearthZombies",
+        aliases=["assignGhosts"],
         help="Assign ghost status to all manually deleted questions "
         "in case there is a need to restore them.\n"
         "EX: $unearthZombies\n",
@@ -1049,10 +1079,13 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       - All answers for a ghost question, if any
+    #    Aliases:
+    #       - restoreGhost
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="reviveGhost",
+        aliases=["restoreGhost"],
         help="Restores a ghost or deleted/hidden question to the channel.\n"
         "EX: $reviveGhost 1",
     )
@@ -1165,8 +1198,14 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - The number of ghost questions
+    #    Aliases:
+    #       - getGhostCount
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="spooky", help="Is this channel haunted?\n" "EX: $spooky")
+    @commands.command(
+        name="spooky",
+        aliases=["getGhostCount"],
+        help="Is this channel haunted?\n" "EX: $spooky",
+    )
     async def countGhosts(self, ctx):
         """Counts the number of ghost and zombie questions in the channel. Mainly for fun but could be useful"""
         # make sure to check that this is actually being used in the Q&A channel

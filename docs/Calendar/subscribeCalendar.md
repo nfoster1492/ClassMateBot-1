@@ -16,6 +16,10 @@ $subscribeCalendar *email-to-add*
 ```
 Successful execution of this command will result in a Discord DM confirmation and the user being added the calendar.
 
-<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj2media/subscribeCalendar1.png?raw=true" width=500>
-
 <img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj2media/subscribeCalendar2.png?raw=true" width=500>
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - subcsToCal 

@@ -19,3 +19,9 @@ $join 2
 Successful execution of this command will return a message saying you have joined the group.
 
 ![image](https://user-images.githubusercontent.com/32313919/140244316-7fac7ce4-32a7-444d-b8cf-b3b8b2d2dea1.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - joinGroup

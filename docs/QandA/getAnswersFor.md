@@ -38,4 +38,8 @@ Successful execution of this command will DM the user the question and all its a
 
 <img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/getAnswersFor/answersfor2.png?raw=true" width="500">
 
+# Aliases
 
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getAnswers

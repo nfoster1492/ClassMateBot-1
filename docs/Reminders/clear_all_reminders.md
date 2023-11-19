@@ -17,5 +17,12 @@ enter the command '$clearreminders' with no other parameters:
 $clearReminders
 ```
 Successful execution of this command will delete all the reminders.
-
+ 
 ![$clearreminders](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/clearreminders.PNG?raw=true)
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - deleteAllReminders 
+ - rmAllReminds
+ 

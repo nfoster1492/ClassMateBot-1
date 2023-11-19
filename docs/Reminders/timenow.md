@@ -20,3 +20,10 @@ $timeNow SEP 25 2024 17:02
 Successful execution of this command will get the offset from the user's current time with UTC.
 
 ![image](https://user-images.githubusercontent.com/32313919/140256682-5d86ca22-402f-417d-b9f6-4328565cd1b4.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - currTime
+ - setCurrTime

@@ -21,3 +21,9 @@ $gradeForClass
 Successful execution of this command will DM the student their overall grade for the course.
 
 <img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj2media/gradeforclassHelp.png?raw=true" width="500">
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - classGrade

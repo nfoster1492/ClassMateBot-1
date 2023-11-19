@@ -18,3 +18,10 @@ $leave
 Successful execution of this command will return a message saying you have been removed from the group.
 
 ![image](https://user-images.githubusercontent.com/32313919/140252700-18d6a7bd-11ad-468c-beee-a597ed5f4d10.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - leaveGroup
+ 

@@ -26,11 +26,15 @@ class Assignments(commands.Cog):
     #    - categoryname: the name of the grade category if the assignment
     #    - points: the points that the assignment is worth
     #    Outputs: Whether or not the add was a success
+    #    Aliases:
+    #    - addWork
+    #    - addWask
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="addAssignment",
-        help="Add a grading assignment and points $addAssignment NAME CATEGORY POINTS",
+        aliases=["addWork", "addTask"],
+        help="add a grading assignment and points $addAssignment NAME CATEGORY POINTS",
     )
     async def add_assignment(
         self,
@@ -88,11 +92,15 @@ class Assignments(commands.Cog):
     #    - categoryname: the new name of the grade category if the assignment
     #    - points: the new points that the assignment is worth
     #    Outputs: Whether or not the edit was a success
+    #    Aliases:
+    #    - editWork
+    #    - editTask
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="editAssignment",
-        help="Edit a grading assignment and points $editAssignment NAME CATEGORY POINTS",
+        aliases=["editWork", "editTask"],
+        help="edit a grading assignment and points $editAssignment NAME CATEGORY POINTS",
     )
     async def edit_assignment(
         self,
@@ -146,11 +154,15 @@ class Assignments(commands.Cog):
     #    - ctx: used to access the values passed through the current context
     #    - assignmentname: the name of the assignment
     #    Outputs: Whether or not the delete was a success
+    #    Aliases:
+    #    - deleteWork
+    #    - deleteTask
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="deleteAssignment",
-        help="Delete a grading assignment $deleteAssignment NAME",
+        aliases=["deleteWork", "deleteTask"],
+        help="delete a grading assignment $deleteAssignment NAME",
     )
     async def delete_assignment(
         self,

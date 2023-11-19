@@ -18,3 +18,9 @@ $addQuestion "What class is this?" "CSC510"
 Successful execution of this command will add a review question to the database and return a success message.
 
 ![image](https://user-images.githubusercontent.com/32313919/140245925-22769537-ef22-420f-9ed2-b9153a71938e.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - addReviewQuestion

@@ -18,3 +18,9 @@ $getPdfDownload
 Successful execution of this command will result in a pdf being sent in the same channel
 
 <img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj2media/getPdfDownload.JPG?raw=true" width=500>
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getPdfDownload 

@@ -18,5 +18,11 @@ $changeDueDate CLASSNAME HW_NAME MMM DD YYYY optional(HH:MM)
 $changeDueDate CSC510 HW2 SEP 25 2024 17:02
 ```
 Successful execution of this command will update the reminder for the specified coursework and homework on the specified time.
-
+ 
 ![$changeduedate CSC510 HW2 SEP 25 2024 17:02](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/changeduedate.gif?raw=true)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - changeDue

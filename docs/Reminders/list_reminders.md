@@ -17,5 +17,12 @@ enter the command 'listReminders' with no parameters:
 $listReminders
 ```
 Successful execution of this command will list all the reminders for all the courses and their corresponding homeworks.
-
+ 
 ![$listReminders](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/media/listreminders.gif?raw=true)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getReminders
+
