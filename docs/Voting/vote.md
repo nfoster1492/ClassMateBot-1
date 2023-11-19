@@ -2,7 +2,7 @@
 This command lets the groups vote on projects that they want to be working on next.
 
 # Location of Code
-The code that implements the above-mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/voting.py)
+The code that implements the above-mentioned gits functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/voting.py)
 
 # Code Description
 ## Functions

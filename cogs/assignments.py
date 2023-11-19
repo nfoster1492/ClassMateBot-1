@@ -4,6 +4,7 @@
 # and specify their grading category and point value
 import os
 import sys
+from click import command
 import discord
 from discord.ext import commands
 
@@ -25,14 +26,28 @@ class Assignments(commands.Cog):
     #    - categoryname: the name of the grade category if the assignment
     #    - points: the points that the assignment is worth
     #    Outputs: Whether or not the add was a success
+    #    Aliases:
+    #    - addWork
+    #    - addWask
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="addAssignment",
+        aliases=["addWork", "addTask"],
         help="add a grading assignment and points $addAssignment NAME CATEGORY POINTS",
     )
     async def add_assignment(
-        self, ctx, assignmentname: str, categoryname: str, points: str
+        self,
+        ctx,
+        assignmentname: str = commands.parameter(
+            description="The name of the assignment"
+        ),
+        categoryname: str = commands.parameter(
+            description="The name of category for the assignment"
+        ),
+        points: str = commands.parameter(
+            description="How many points the assignment is worth"
+        ),
     ):
         """Add a grading assignment and points"""
         try:
@@ -79,14 +94,28 @@ class Assignments(commands.Cog):
     #    - categoryname: the new name of the grade category if the assignment
     #    - points: the new points that the assignment is worth
     #    Outputs: Whether or not the edit was a success
+    #    Aliases:
+    #    - editWork
+    #    - editTask
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="editAssignment",
+        aliases=["editWork", "editTask"],
         help="edit a grading assignment and points $editAssignment NAME CATEGORY POINTS",
     )
     async def edit_assignment(
-        self, ctx, assignmentname: str, categoryname: str, points: str
+        self,
+        ctx,
+        assignmentname: str = commands.parameter(
+            description="Name of assignment you want to edit"
+        ),
+        categoryname: str = commands.parameter(
+            description="The new name of the grade category for the assignment"
+        ),
+        points: str = commands.parameter(
+            description="The new amount of points the assignment is worth"
+        ),
     ):
         """edit a grading assignment and points $editAssignment NAME CATEGORY POINTS"""
         try:
@@ -127,13 +156,23 @@ class Assignments(commands.Cog):
     #    - ctx: used to access the values passed through the current context
     #    - assignmentname: the name of the assignment
     #    Outputs: Whether or not the delete was a success
+    #    Aliases:
+    #    - deleteWork
+    #    - deleteTask
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="deleteAssignment",
+        aliases=["deleteWork", "deleteTask"],
         help="delete a grading assignment $deleteAssignment NAME",
     )
-    async def delete_assignment(self, ctx, assignmentname: str):
+    async def delete_assignment(
+        self,
+        ctx,
+        assignmentname: str = commands.parameter(
+            description="Name of the assignment you want to delete"
+        ),
+    ):
         """delete a grading assignment $deleteAssignment NAME"""
         existing = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",

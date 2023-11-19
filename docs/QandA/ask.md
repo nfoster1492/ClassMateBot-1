@@ -12,7 +12,7 @@ Changes made by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBo
 
 
 # Location of Code
-The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/cogs/qanda.py).
+The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/qanda.py).
 
 # Code Description
 ## Functions
@@ -32,4 +32,11 @@ $ask "When is the project due?"
 Successful execution of this command will delete the user's original message and the bot will
  send a new message with the question.
 
-![image](https://user-images.githubusercontent.com/32313919/140245147-80aca7ff-525a-4cfb-89d0-df5d10afd691.png) 
+![image](https://user-images.githubusercontent.com/32313919/140245147-80aca7ff-525a-4cfb-89d0-df5d10afd691.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - askQuestion
+ 

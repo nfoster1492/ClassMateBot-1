@@ -2,7 +2,7 @@
 This command lets the student view the names of members in their group or the names of members in a specified group. This is useful for students to contact each other and for instructors to find out the names of people in a specific group.
 
 # Location of Code
-The code that implements the above-mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/groups.py).
+The code that implements the above-mentioned gits functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/groups.py).
 
 # Code Description
 ## Functions
@@ -17,3 +17,11 @@ $group GROUP_NUMBER(optional)
 Successful execution of this command will display the names of members in the group.
 
 ![image](https://user-images.githubusercontent.com/32313919/140251786-390e5656-4234-44f9-a663-32fad3d0fcb7.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getGroup
+ - checkGroup
+ 

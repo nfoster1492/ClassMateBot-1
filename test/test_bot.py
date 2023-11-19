@@ -590,7 +590,7 @@ async def test_gradesInstructorError(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content("To use the editgradecategory command")
+        .content("To use the editGradeCategory command")
     )
     await dpytest.message("$deleteGradeCategory Invalid")
     assert (
@@ -606,12 +606,12 @@ async def test_gradesInstructorError(bot):
         dpytest.verify()
         .message()
         .contains()
-        .content("To use the deletegradecategory command")
+        .content("To use the deleteGradeCategory command")
     )
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$inputGrades")
     assert (
-        dpytest.verify().message().contains().content("To use the inputgrades command")
+        dpytest.verify().message().contains().content("To use the inputGrades command")
     )
 
 
@@ -866,7 +866,7 @@ async def test_deadline_errors(bot):
     role = discord.utils.get(guild.roles, name="Instructor")
     await dpytest.add_role(user, role)
 
-    # Tests timenow without an argument
+    # Tests timeNow without an argument
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$timeNow")
     assert (
@@ -878,7 +878,7 @@ async def test_deadline_errors(bot):
         )
     )
 
-    # Test timenow with bad argument
+    # Test timeNow with bad argument
     # with pytest.raises(commands.MissingRequiredArgument):
     await dpytest.message("$timeNow blab")
     assert dpytest.verify().message().content("Date could not be parsed")
@@ -1015,7 +1015,7 @@ async def test_unpinning(bot):
 # Tests updating pins
 # ---------------------
 @pytest.mark.asyncio
-async def test_updatepin(bot):
+async def test_updatePin(bot):
     # Tests adding another message to update pins
     await dpytest.message("$pin TestMessage2 www.discord.com test")
     assert (
@@ -1026,7 +1026,7 @@ async def test_updatepin(bot):
             "A new message has been pinned with tag: TestMessage2 and description: www.discord.com test"
         )
     )
-    # Tests updatepin
+    # Tests updatePin
     await dpytest.message("$updatePin TestMessage2 www.zoom.com test")
     assert (
         dpytest.verify()
@@ -1062,10 +1062,10 @@ async def test_updatepin(bot):
 
 
 # ------------------------
-# Tests pinnedmessages
+# Tests pinnedMessages
 # ------------------------
 @pytest.mark.asyncio
-async def test_pinnedmessages(bot):
+async def test_pinnedMessages(bot):
     # Tests getting pins by tag: no pinned messages
     await dpytest.message("$pinnedMessages TestTag")
     assert (
@@ -1186,7 +1186,7 @@ async def test_pinningErrors(bot):
         )
     )
 
-    # Tests using pinnedmessages with invalid input
+    # Tests using pinnedMessages with invalid input
     # with pytest.raises(commands.CommandError):
     # await dpytest.message("$pinnedMessages \" please fail omg")
     # assert dpytest.verify().message().contains().content(
@@ -2200,15 +2200,15 @@ async def test_poll(bot):
 
 
 # --------------------------------
-# Test polling: quizpoll
+# Test polling: quizPoll
 # --------------------------------
 @pytest.mark.asyncio
-async def test_quizpoll(bot):
+async def test_quizPoll(bot):
     # user = dpytest.get_config().members[0]
     # guild = dpytest.get_config().guilds[0]
     # channel = await guild.create_text_channel('polls')
 
-    # Test quizpoll: no input
+    # Test quizPoll: no input
     with pytest.raises(commands.MissingRequiredArgument):
         await dpytest.message("$quizPoll")
     assert (
@@ -2239,7 +2239,7 @@ async def test_quizpoll(bot):
         .content("Too few options. Polls can have anywhere between 2 and 6 options")
     )
 
-    # Test quizpoll: too many options
+    # Test quizPoll: too many options
     await dpytest.message('$quizPoll "TITLE" [a] [b] [c] [d] [e] [f] [g]')
     assert (
         dpytest.verify()
@@ -2248,7 +2248,7 @@ async def test_quizpoll(bot):
         .content("Too many options. Polls can have anywhere between 2 and 6 options")
     )
 
-    # Test quizpoll: option is empty
+    # Test quizPoll: option is empty
     await dpytest.message('$quizPoll "TITLE" [] [b] [c]')
     assert (
         dpytest.verify()
@@ -2263,7 +2263,7 @@ async def test_quizpoll(bot):
         colour=0x83BAE3,
     )
 
-    # Test quizpoll embed
+    # Test quizPoll embed
     await dpytest.message('$quizPoll "TITLE" [a] [b] [c]')
     assert dpytest.verify().message().embed(e)
 

@@ -8,7 +8,7 @@ Deletes all answers for a question. Instructor only.
 This command was introduced by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBot/).
 
 # Location of Code
-The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/cogs/qanda.py).
+The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/qanda.py).
 
 # Code Description
 ## Functions
@@ -30,13 +30,18 @@ $DALLAF <q_num>
 $DALLAF 7
 ```
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/dallaf/dallaf1.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/dallaf/dallaf1.png?raw=true" width="500">
 
 Successful execution of this command will delete all answers for the question on the channel and in the database, 
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/dallaf/dallaf2.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/dallaf/dallaf2.png?raw=true" width="500">
 
 and DM the user the number of answers that were deleted.
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/dallaf/dallaf3.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/dallaf/dallaf3.png?raw=true" width="500">
 
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - deleteAnswers

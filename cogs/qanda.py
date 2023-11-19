@@ -19,13 +19,23 @@ class Qanda(commands.Cog):
     #       - anonymous: option if user wants their question to be shown anonymously
     #    Outputs:
     #       - User question in new post
+    #    Aliases:
+    #       - askQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="ask",
+        aliases=["askQuestion"],
         help="Ask question. Please put question text in quotes. Add *anonymous* or *anon* if desired."
         'EX: $ask /"When is the exam?/" anonymous',
     )
-    async def askQuestion(self, ctx, qs: str, anonymous=""):
+    async def askQuestion(
+        self,
+        ctx,
+        qs: str = commands.parameter(description="The question you want to ask"),
+        anonymous: str = commands.parameter(
+            description="Option if the user wants to be anonymous or not", default=""
+        ),
+    ):
         """Takes question from the user the reposts it anonymously and numbered"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -117,13 +127,25 @@ class Qanda(commands.Cog):
     #      - anonymous: option if user wants their question to be shown anonymously
     # Outputs:
     #      - User answer added to question post
+    # Aliases:
+    #      - answerQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="answer",
+        aliases=["answerQuestion"],
         help="Answer question. Please put answer text in quotes. Add *anonymous* or *anon* if desired."
         'EX: $answer 1 /"Oct 12/" anonymous',
     )
-    async def answer(self, ctx, num, ans: str, anonymous=""):
+    async def answer(
+        self,
+        ctx,
+        num: str = commands.parameter(description="Question number being answered"),
+        ans: str = commands.parameter(description="Answer to the question specified"),
+        anonymous: str = commands.parameter(
+            description="Option if the user wants their question to be shown anonymously",
+            default="",
+        ),
+    ):
         """Adds user to specific question and post anonymously"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -266,17 +288,22 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - deleteAnswers
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="deleteAllAnsFor",
+        name="DALLAF",
+        aliases=["deleteAnswers"],
         help="(PLACEHOLDER NAME) Delete all answers for a question.\n"
         "EX: $deleteAllAnsFor 1\n"
         "THIS ACTION IS IRREVERSIBLE.\n"
         "Before deletion, archive the question and its answers with\n"
         "$getAnswersFor QUESTION_NUMBER",
     )
-    async def deleteAllAnsFor(self, ctx, num):
+    async def deleteAllAnsFor(
+        self, ctx, num: str = commands.parameter(description="Question number")
+    ):
         """Lets instructor delete all answers for a question"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -386,12 +413,17 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       - All answers for a question, if any
+    #    Aliases:
+    #       - getAnswers
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="getAnswersFor",
+        aliases=["getAnswers"],
         help="Get a question and all its answers\n" "EX: $getAnswersFor 1",
     )
-    async def getAllAnsFor(self, ctx, num):
+    async def getAllAnsFor(
+        self, ctx, num: str = commands.parameter(description="Question number")
+    ):
         """Gets all answers for a question and DMs them to the user"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -497,10 +529,13 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - DMs all questions and answers to the user
+    #    Aliases:
+    #       - sendGuide
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="archiveQA",
-        help="DM all questions and their answers\n" "EX: $archiveQA",
+        aliases=["sendGuide"],
+        help="(PLACEHOLDER NAME) DM all questions and their answers\n" "EX: $archiveQA",
     )
     async def archiveQA(self, ctx):
         """DM all questions and their answers to the user"""
@@ -593,10 +628,13 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - deleteQuestionsAnswers
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="deleteAllQA",
+        aliases=["deleteQuestionsAnswers"],
         help="Delete all questions and answers from the database and channel.\n"
         "EX: $deleteAllQA\n"
         "THIS COMMAND IS IRREVERSIBLE.\n"
@@ -688,15 +726,22 @@ class Qanda(commands.Cog):
     #       - num: number of the question to delete
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - removeQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="deleteQuestion",
+        aliases=["removeQuestion"],
         help="Delete (hide) one question but leave answers untouched."
         " Leaves database ghosts.\n"
         "EX: $deleteQuestion QUESTION_NUMBER\n",
     )
-    async def deleteOneQuestion(self, ctx, num):
+    async def deleteOneQuestion(
+        self,
+        ctx,
+        num: str = commands.parameter(description="Number of the quesiton to delete"),
+    ):
         """Lets the instructor delete one question, but leave the answers untouched"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -785,14 +830,19 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       - All answers for a ghost question, if any
+    #    Aliases:
+    #       - getGhostQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="channelGhost",
+        aliases=["getGhostQuestion"],
         help="Gets a specific ghost (question deleted with command) and all its answers.\n"
         "EX: $channelGhost 1",
     )
-    async def channelOneGhost(self, ctx, num):
+    async def channelOneGhost(
+        self, ctx, num: str = commands.parameter(description="Question number")
+    ):
         """Lets the instructor get a specific ghost question"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -889,10 +939,13 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - getAllGhostQuestions
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="allChannelGhosts",
+        aliases=["getAllGhostQuestions"],
         help="Get all the questions that are in the database but "
         "not in the channel. Does not detect zombies.\n"
         "EX: $allChannelGhosts\n"
@@ -973,10 +1026,13 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - assignGhosts
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="unearthZombies",
+        aliases=["assignGhosts"],
         help="Assign ghost status to all manually deleted questions "
         "in case there is a need to restore them.\n"
         "EX: $unearthZombies\n",
@@ -1047,14 +1103,23 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       - All answers for a ghost question, if any
+    #    Aliases:
+    #       - restoreGhost
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="reviveGhost",
+        aliases=["restoreGhost"],
         help="Restores a ghost or deleted/hidden question to the channel.\n"
         "EX: $reviveGhost 1",
     )
-    async def restoreGhost(self, ctx, num):
+    async def restoreGhost(
+        self,
+        ctx,
+        num: str = commands.parameter(
+            description="Question number that you want to restore"
+        ),
+    ):
         """Restores a ghost of deleted question to the channel"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -1161,8 +1226,14 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - The number of ghost questions
+    #    Aliases:
+    #       - getGhostCount
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="spooky", help="Is this channel haunted?\n" "EX: $spooky")
+    @commands.command(
+        name="spooky",
+        aliases=["getGhostCount"],
+        help="Is this channel haunted?\n" "EX: $spooky",
+    )
     async def countGhosts(self, ctx):
         """Counts the number of ghost and zombie questions in the channel. Mainly for fun but could be useful"""
         # make sure to check that this is actually being used in the Q&A channel

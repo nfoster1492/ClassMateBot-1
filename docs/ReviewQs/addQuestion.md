@@ -2,7 +2,7 @@
 This command lets instructors add review questions to the system. 
 
 # Location of Code
-The code that implements the above mentioned functionality is located in [cogs/reviewQs.py](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/reviewQs.py).
+The code that implements the above mentioned functionality is located in [cogs/reviewQs.py](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/reviewQs.py).
 
 # Code Description
 ## Functions
@@ -18,3 +18,9 @@ $addQuestion "What class is this?" "CSC510"
 Successful execution of this command will add a review question to the database and return a success message.
 
 ![image](https://user-images.githubusercontent.com/32313919/140245925-22769537-ef22-420f-9ed2-b9153a71938e.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - addReviewQuestion

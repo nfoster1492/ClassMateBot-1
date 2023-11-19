@@ -29,10 +29,15 @@ class Groups(commands.Cog):
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
-    #    Outputs: confirms role deletion
+    #    Outputs:
+    #    - confirms role deletion
+    #    Aliases:
+    #    - deleteGroupRoles
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="reset", help="Resets group channels and roles. DO NOT USE IN PRODUCTION!"
+        name="reset",
+        aliases=["deleteGroupRoles"],
+        help="Resets group channels and roles. DO NOT USE IN PRODUCTION!",
     )
     async def reset(self, ctx):
         """Deletes all group roles in the server"""
@@ -63,15 +68,22 @@ class Groups(commands.Cog):
         await ctx.author.send(error)
 
     # -------------------------------------------------------------------------------------------------------
-    #    Function: startupgroups(self, ctx)
+    #    Function: startupGroups(self, ctx)
     #    Description: creates roles for the groups
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
-    #    Outputs: creates roles for groups
+    #    Outputs:
+    #    - creates roles for groups
+    #    Aliases:
+    #    - makeGroupRoles
     # -------------------------------------------------------------------------------------------------------
-    @commands.command(name="startupGroups", help="Creates group roles for members")
-    async def startupgroups(self, ctx):
+    @commands.command(
+        name="startupGroups",
+        aliases=["makeGroupRoles"],
+        help="Creates group roles for members",
+    )
+    async def startupGroups(self, ctx):
         """Creates roles for the groups"""
         await ctx.send("Creating roles....")
 
@@ -85,17 +97,17 @@ class Groups(commands.Cog):
         print("Roles created successfully!")
 
     # -------------------------------------------------------------------------------------------------------
-    #    Function: startupgroups_error(self, ctx, error)
-    #    Description: prints error message for startupgroups command
+    #    Function: startupGroups_error(self, ctx, error)
+    #    Description: prints error message for startupGroups command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -------------------------------------------------------------------------------------------------------
-    @startupgroups.error
-    async def startupgroups_error(self, ctx, error):
-        """Error handling for startupgroups command"""
+    @startupGroups.error
+    async def startupGroups_error(self, ctx, error):
+        """Error handling for startupGroups command"""
         await ctx.author.send(error)
 
     # -------------------------------------------------------------------------------------------------------
@@ -104,9 +116,14 @@ class Groups(commands.Cog):
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
-    #    Outputs: creates a private text channel for all groups
+    #    Outputs:
+    #    - creates a private text channel for all groups
+    #    Aliases:
+    #    - connectGroups
     # -------------------------------------------------------------------------------------------------------
-    @commands.command(name="connect", help="Creates group roles for members")
+    @commands.command(
+        name="connect", aliases=["connectGroups"], help="Connect members to group roles"
+    )
     async def connect(self, ctx):
         """Connects all users with their groups"""
         for i in range(100):
@@ -158,16 +175,24 @@ class Groups(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    - group_num: the number of the group
-    #    Outputs: adds the user to the given group or returns an error if the group is invalid or in case of
-    #             syntax errors
+    #    Outputs:
+    #    - adds the user to the given group or returns an error if the group is invalid or in case of
+    #      syntax errors
+    #    Aliases:
+    #    - joinGroup
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
         name="join",
-        help="Joins the current user to the specified group. To use the join command, do: $join <Num> \n \
+        aliases=["joinGroup"],
+        help="To use the join command, do: $join <Num> \n \
     ( For example: $join 0 )",
         pass_context=True,
     )
-    async def join(self, ctx, group_num: int):
+    async def join(
+        self,
+        ctx,
+        group_num: int = commands.parameter(description="Number of the group"),
+    ):
         """Joins the user to given group"""
         # get the name of the caller
         member_name = ctx.message.author.display_name.upper()
@@ -245,12 +270,16 @@ class Groups(commands.Cog):
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
-    #    Outputs: removes the user from the given group or returns an error if the group is invalid or in
-    #             case of syntax errors
+    #    Outputs:
+    #    - removes the user from the given group or returns an error if the group is invalid or in
+    #      case of syntax errors
+    #    Aliases:
+    #    - leaveGroup
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
         name="leave",
-        help="Removes the user from their current group. To use the leave command, do: $leave \n \
+        aliases=["leaveGroup"],
+        help="To use the leave command, do: $leave \n \
     ( For example: $leave )",
         pass_context=True,
     )
@@ -303,9 +332,18 @@ class Groups(commands.Cog):
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
-    #    Outputs: prints the list of groups
+    #    Outputs:
+    #    - prints the list of groups
+    #    Aliases:
+    #    - getGroups
+    #    - getGroupDistribution
     # -------------------------------------------------------------------------------------------------------
-    @commands.command(name="groups", help="prints group counts", pass_context=True)
+    @commands.command(
+        name="groups",
+        aliases=["getGroups", "getGroupDistribution"],
+        help="prints group counts",
+        pass_context=True,
+    )
     # @commands.dm_only()
     # TODO maybe include channel where all groups displayed
     async def groups(self, ctx):
@@ -356,17 +394,28 @@ class Groups(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    - group_num: the group number to list names for
-    #    Outputs: prints the name of people in the group
+    #    Outputs:
+    #    - prints the name of people in the group
+    #    Aliases:
+    #    - getGroup
+    #    - checkGroup
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
         name="group",
+        aliases=["getGroup", "checkGroup"],
         help="print names of members in a group, or current groups members \n \
     ( For example: $group or $group 8 )",
         pass_context=True,
     )
     # @commands.dm_only()
     # TODO maybe include channel where all groups displayed
-    async def group(self, ctx, group_num: int = -1):
+    async def group(
+        self,
+        ctx,
+        group_num: int = commands.parameter(
+            description="Group number to list names for", default=-1
+        ),
+    ):
         """Prints the members of the group, or the current member's group if they have joined one"""
         if group_num == -1:
             member_name = ctx.message.author.display_name.upper()
