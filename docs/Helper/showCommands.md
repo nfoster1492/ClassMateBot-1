@@ -17,4 +17,4 @@ $showCommands
 ```
 Successful execution of this command will result in a pdf being sent in the same channel
 
-![image](https://github.com/maddaicita/ClassMateBot-1.1/blob/feat/helper/data/fall2023proj3media/showCommands.png)
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/feat/helper/data/fall2023proj3media/showCommands.png?raw=true" width=500>

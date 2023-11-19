@@ -2,7 +2,7 @@
 This command lets the user display all the homeworks that are due for a specific course. 
 
 # Location of Code
-The code that implements the above mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/deadline.py).
+The code that implements the above mentioned gits functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/deadline.py).
 
 # Code Description
 ## Functions
@@ -18,4 +18,4 @@ $coursedue CSC505
 ```
 Successful execution of this command will display all the homeworks that are due on that day.
 
-![$coursedue](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/coursedue.gif)
+![$coursedue](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/media/coursedue.gif?raw=true)

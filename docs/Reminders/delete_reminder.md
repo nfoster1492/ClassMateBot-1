@@ -2,7 +2,7 @@
 This command lets the user delete a reminder for a specified coursename and homework. 
 
 # Location of Code
-The code that implements the above mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/deadline.py).
+The code that implements the above mentioned gits functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/main/cogs/deadline.py).
 
 # Code Description
 ## Functions
@@ -19,4 +19,4 @@ $deleteReminder CSC510 HW2
 ```
 Successful execution of this command will delete the reminder for a specified coursework and homework.
 
-![$deleteReminder CSC510 HW2](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/deletereminder.gif)
+![$deleteReminder CSC510 HW2](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/media/deletereminder.gif?raw=true)

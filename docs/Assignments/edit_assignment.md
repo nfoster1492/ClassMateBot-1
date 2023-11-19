@@ -5,7 +5,7 @@ This command lets the instructor edit a new gradeable assignment
 This command was introduced by [CSC510-Group-1](https://github.com/nfoster1492/ClassMateBot-1/).
 
 # Location of Code
-The code that implements the above mentioned functionality is located in `[cogs/grades.py](https://github.com/nfoster1492/ClassMateBot-1/tree/main/cogs/assignments.py)`.
+The code that implements the above mentioned functionality is located in [cogs/grades.py](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/assignments.py).
 
 # Code Description
 ## Functions
@@ -21,6 +21,6 @@ $editAssignment test1 tests 100
 ```
 Successful execution of this command will edit an assignment in the database with the given name, with the desired category, and points. The bot will report on the success or failure of the command.
 
-<img src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/editAssignmentHelp.PNG?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj2media/editAssignmentHelp.PNG?raw=true" width="500">
 
-<img src="https://github.com/nfoster1492/ClassMateBot-1/blob/main/data/proj2media/editAssignment.PNG?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj2media/editAssignment.PNG?raw=true" width="500">

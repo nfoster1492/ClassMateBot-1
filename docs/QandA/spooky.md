@@ -14,7 +14,7 @@ Because their message IDs remain the same, their contents can just be unhidden.
 This command was introduced by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBot/).
 
 # Location of Code
-The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/cogs/qanda.py).
+The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/qanda.py).
 
 # Code Description
 ## Functions
@@ -30,6 +30,6 @@ the #q-and-a channel and enter the command `$spooky`.
 Successful execution of this command will DM the user the number of ghosts and zombies present in the channel.
 
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/spooky/spooky1.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/spooky/spooky1.png?raw=true" width="500">
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/spooky/spooky2.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/spooky/spooky2.png?raw=true" width="500">

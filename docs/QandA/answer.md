@@ -14,7 +14,7 @@ Changes made by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBo
 
 
 # Location of Code
-The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/cogs/qanda.py).
+The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/qanda.py).
 
 # Code Description
 ## Functions

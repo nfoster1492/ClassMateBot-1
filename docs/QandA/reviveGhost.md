@@ -14,7 +14,7 @@ Because their message IDs remain the same, their contents can be unhidden.
 This command was introduced by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBot/).
 
 # Location of Code
-The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/cogs/qanda.py).
+The code that implements the above mentioned functionality is located in [cogs/qanda.py](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/qanda.py).
 
 # Code Description
 ## Functions
@@ -36,9 +36,9 @@ Note: BananaBot is also a ClassMateBot
 
 Restoring a zombie:
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/reviveghost/reviveghost1.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/reviveghost/reviveghost1.png?raw=true" width="500">
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/reviveghost/reviveghost2.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/reviveghost/reviveghost2.png?raw=true" width="500">
 
 
 Restoring a ghost:
@@ -48,6 +48,6 @@ $reviveGhost <num>
 $reviveGhost 2
 ```
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/reviveghost/reviveghost1b.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/reviveghost/reviveghost1b.png?raw=true" width="500">
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/reviveghost/reviveghost1c.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/reviveghost/reviveghost1c.png?raw=true" width="500">

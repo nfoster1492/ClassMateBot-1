@@ -4,7 +4,7 @@ This command lets the user (either the TAs or professor) to add a reminder to th
 New in project two, this command now provides the runner with a command that will allow them to add the due date to the google calendar programmatically.
 
 # Location of Code
-The code that implements the above mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/deadline.py).
+The code that implements the above mentioned gits functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/deadline.py).
 
 # Code Description
 ## Functions
@@ -21,4 +21,4 @@ $dueDate CSC510 HW2 SEP 25 2024 17:02 EST
 ```
 Successful execution of this command will add the reminder for the specified coursework on the specified time.
 
-![$dueDate CSC510 HW2 SEP 25 2024 17:02](https://github.com/SE21-Team2/ClassMateBot/blob/main/data/media/addhomework.gif)
+![$dueDate CSC510 HW2 SEP 25 2024 17:02](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/media/addhomework.gif?raw=true)

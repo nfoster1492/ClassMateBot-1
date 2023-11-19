@@ -7,7 +7,7 @@ Command that adds removes a word or sentence from the censor whitelist. Instruct
 This command was introduced by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBot/).
 
 # Location of Code
-The code that implements the above mentioned functionality is located in [bot.py](https://github.com/CSC510-Group-25/ClassMateBot/blob/main/bot.py).
+The code that implements the above mentioned functionality is located in [bot.py](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/bot.py).
 
 # Code Description
 ## Functions
@@ -28,10 +28,10 @@ Successful execution of this command will remove a word or sentence from the lis
 
 Note: BananaBot is also a ClassMateBot
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/profanity/filterdemo1.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/profanity/filterdemo1.png?raw=true" width="500">
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/profanity/filterdemo2.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/profanity/filterdemo2?raw=true" width="500">
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/profanity/vodka.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/profanity/vodka.png?raw=true" width="500">
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/profanity/filterdemo3.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/profanity/filterdemo3.png?raw=true" width="500">

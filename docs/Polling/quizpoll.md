@@ -7,7 +7,7 @@ This command allows the user to start a quiz-style reaction poll with a given ti
 This command was introduced by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBot/).
 
 # Location of Code
-The code that implements the above mentioned functionality is located in [cogs/polling.py](https://github.com/CSC510-Group-25/ClassMateBot/tree/main/cogs/polling.py).
+The code that implements the above mentioned functionality is located in [cogs/polling.py](https://github.com/maddaicita/ClassMateBot-1.1/tree/main/cogs/polling.py).
 
 # Code Description
 ## Functions
@@ -34,6 +34,6 @@ Successful execution of this command will embed a quiz poll into the channel.
 
 Note: BananaBot is also a ClassMateBot
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/polling/quizPoll1.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/polling/quizpoll1.png?raw=true" width="500">
 
-<img src="https://github.com/CSC510-Group-25/ClassMateBot/blob/group25-command-docs/data/proj3media/polling/quizPoll2.png?raw=true" width="500">
+<img src="https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/proj3media/polling/quizpoll2.png?raw=true" width="500">

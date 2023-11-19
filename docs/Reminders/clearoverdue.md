@@ -6,7 +6,7 @@ Clears overdue reminders from the database.
 This command was introduced by [CSC510-Group-25](https://github.com/CSC510-Group-25/ClassMateBot/).
 
 # Location of Code
-The code that implements the above mentioned functionality is located in [cogs/deadline.py](https://github.com/CSC510-Group-25/ClassMateBot/tree/main/cogs/deadline.py).
+The code that implements the above mentioned functionality is located in [cogs/deadline.py](https://github.com/maddaicita/ClassMateBot-1.1/tree/main/cogs/deadline.py).
 
 # Code Description
 ## Functions

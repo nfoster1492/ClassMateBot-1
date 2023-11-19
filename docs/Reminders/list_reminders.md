@@ -2,7 +2,7 @@
 This command lets the user display all the homeworks that are due for all the courses. 
 
 # Location of Code
-The code that implements the above mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/deadline.py).
+The code that implements the above mentioned gits functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/deadline.py).
 
 # Code Description
 ## Functions
@@ -18,4 +18,4 @@ $listReminders
 ```
 Successful execution of this command will list all the reminders for all the courses and their corresponding homeworks.
 
-![$listReminders](https://github.com/War-Keeper/ClassMateBot/blob/main/data/media/listreminders.gif)
+![$listReminders](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/data/media/listreminders.gif?raw=true)
