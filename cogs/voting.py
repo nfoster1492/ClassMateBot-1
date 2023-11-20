@@ -36,13 +36,21 @@ class Voting(commands.Cog):
     (For example: $vote 0)",
         pass_context=True,
     )
-    async def vote(self, ctx, project_num: int):
+    async def vote(
+        self,
+        ctx,
+        project_num: int = commands.parameter(
+            description="The number of the project to vote for with group"
+        ),
+    ):
         """Used for voting for projects. "Votes" for the given project by adding the user's group to it"""
         # get the name of the caller
         member_name = ctx.message.author.display_name.upper()
 
         if project_num < 0 or project_num > 99:
-            await ctx.send("A valid project number is 1-99.")
+            await ctx.send(
+                "Invalid project number. A valid project number is an integer in the range 1-99"
+            )
             return
 
         group = db.query(
@@ -123,9 +131,12 @@ class Voting(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    Outputs: prints the list of current projects
+    #    Aliases:
+    #    - getProjects
     # ----------------------------------------------------------------------------------
     @commands.command(
         name="projects",
+        aliases=["getProjects"],
         help="print projects with groups assigned to them",
         pass_context=True,
     )

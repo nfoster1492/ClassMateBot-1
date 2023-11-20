@@ -2,7 +2,7 @@
 This command allows the instructor to remove a specified user from the shared class Google Calendar.
 
 # Location of Code
-The code that implements the above mentioned gets functionality is located [here](https://github.com/nfoster1492/ClassMateBot-1/blob/main/cogs/calendar.py)
+The code that implements the above mentioned gets functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/calendar.py)
 
 # Code Description
 ## Functions
@@ -16,3 +16,9 @@ $removeCalendar *email-to-remove*
 ```
 Successful execution of this command will result in a Discord DM confirmation and the user being removed from the calendar.
 
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - rmFromCal 
+ 

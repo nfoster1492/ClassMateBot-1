@@ -14,9 +14,13 @@ class ReviewQs(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - a random question from the database (in user guild) is sent by the bot
+    #    Aliases:
+    #       - getReviewQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="getQuestion", help="Get a review question. EX: $getQuestion"
+        name="getQuestion",
+        aliases=["getReviewQuestion"],
+        help="Get a review question. EX: $getQuestion",
     )
     async def getQuestion(self, ctx):
         """Prints a random question from the database"""
@@ -25,6 +29,12 @@ class ReviewQs(commands.Cog):
             "SELECT question, answer FROM review_questions WHERE guild_id = %s ORDER BY RANDOM() LIMIT 1",
             (ctx.guild.id,),
         )
+
+        if not rand:
+            await ctx.send(
+                "No questions found in database. Add some with $addQuestion and try again"
+            )
+            return
 
         # send question to guild
         for q, a in rand:
@@ -58,14 +68,22 @@ class ReviewQs(commands.Cog):
     #       - ans: answer to review question
     #    Outputs:
     #       - success message
+    #    Aliases:
+    #       - addReviewQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="addQuestion",
+        aliases=["addReviewQuestion"],
         help="Add a review question. "
         'EX: $addQuestion "What class is this?" "Software Engineering"',
     )
-    async def addQuestion(self, ctx, qs: str, ans: str):
+    async def addQuestion(
+        self,
+        ctx,
+        qs: str = commands.parameter(description="The question you want to add"),
+        ans: str = commands.parameter(description="The answer to the question"),
+    ):
         """Allows instructors to add review questions"""
         # add question to database
         db.query(

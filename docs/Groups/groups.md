@@ -2,7 +2,7 @@
 This command lets the student view the amount of people there are in each group from the private discord DM with the bot. This is useful for viewing which group numbers are taken, which groups are still empty and which groups are already full.
 
 # Location of Code
-The code that implements the above-mentioned gits functionality is located [here](https://github.com/SE21-Team2/ClassMateBot/blob/main/cogs/groups.py).
+The code that implements the above-mentioned gits functionality is located [here](https://github.com/maddaicita/ClassMateBot-1.1/blob/main/cogs/groups.py).
 
 # Code Description
 ## Functions
@@ -18,3 +18,10 @@ $groups
 Successful execution of this command will display the groups with existing members and the amount of people in each group.
 
 ![image](https://user-images.githubusercontent.com/32313919/140244316-7fac7ce4-32a7-444d-b8cf-b3b8b2d2dea1.png)
+
+# Aliases
+
+This function can also be called with one or more aliases, or different names reffering to the same function. Here are the aliases for this function:
+
+ - getGroups
+ - getGroupDistribution

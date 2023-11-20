@@ -30,13 +30,26 @@ class Pinning(commands.Cog):
     #    - ctx: used to access the values passed through the current context
     #    - tagname: a tag given by the user to their pinned message.
     #    - description: description of the pinned message given by the user.
+    #    Aliases:
+    #    - pinMessage
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="pin",
+        aliases=["pinMessage"],
         help="Pin a message by adding a tagname (single word) "
         "and a description(can be multi word). EX: $pin Homework Resources for HW2",
     )
-    async def addMessage(self, ctx, tagname: str, *, description: str):
+    async def addMessage(
+        self,
+        ctx,
+        tagname: str = commands.parameter(
+            description="Tag given by the user to their pinned message"
+        ),
+        *,
+        description: str = commands.parameter(
+            description="Description of the pinned message"
+        ),
+    ):
         """Used to pin a message by the user"""
         author = ctx.message.author
 
@@ -78,8 +91,14 @@ class Pinning(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    - tagname: the tag used to identify which pinned messages are to be deleted.
+    #    Aliases:
+    #    - unpinMessage
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="unpin", help="Unpin a message by passing the tagname.")
+    @commands.command(
+        name="unpin",
+        aliases=["unpinMessage"],
+        help="Unpin a message by passing the tagname.",
+    )
     async def deleteMessage(self, ctx, tagname: str):
         """Unpins the pinned messages with provided tagname"""
         author = ctx.message.author
@@ -131,12 +150,22 @@ class Pinning(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    - tagname: the tag used to identify which pinned messages are to be retrieved.
+    #    Aliases:
+    #    - getPinnedMessages
     # ----------------------------------------------------------------------------------
     @commands.command(
-        name="pinnedmessages",
+        name="pinnedMessages",
+        aliases=["getPinnedMessages"],
         help="Retrieve the pinned messages by a particular tag or all messages.",
     )
-    async def retrieveMessages(self, ctx, tagname: str = ""):
+    async def retrieveMessages(
+        self,
+        ctx,
+        tagname: str = commands.parameter(
+            description="Tag used to identify which pinned messages are to be retreived",
+            default="",
+        ),
+    ):
         """Retrieves all pinned messages under a given tagname by either everyone or a particular user"""
         author = ctx.message.author
 
@@ -153,14 +182,14 @@ class Pinning(commands.Cog):
 
         if len(messages) == 0:
             await ctx.send(
-                "No messages found with the given tagname and author combination"
+                "No messages found with the given tagname and author combination. Please check your spelling"
             )
         for tag, description in messages:
             await ctx.send(f"Tag: {tag}, Description: {description}")
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: retrieveMessages_error(self, ctx, error)
-    #    Description: prints error message for pinnedmessages command
+    #    Description: prints error message for pinnedMessages command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -172,8 +201,8 @@ class Pinning(commands.Cog):
         """Error handling for retrievemessages function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the pinnedmessages command, do: $pinnedmessages:"
-                " TAGNAME \n ( For example: $pinnedmessages HW8 )"
+                "To use the pinnedMessages command, do: $pinnedMessages:"
+                " TAGNAME \n ( For example: $pinnedMessages HW8 )"
             )
         else:
             await ctx.author.send(error)
@@ -188,13 +217,26 @@ class Pinning(commands.Cog):
     #    - ctx: used to access the values passed through the current context
     #    - tagname: tag to be updated
     #    - description: new description
+    #    Aliases:
+    #    - updatePinnedMessage
     # ----------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="updatepin",
+        name="updatePin",
+        aliases=["updatePinnedMessage"],
         help="Update a previously pinned message by passing the "
         "tagname and old description in the same order",
     )
-    async def updatePinnedMessage(self, ctx, tagname: str, *, description: str):
+    async def updatePinnedMessage(
+        self,
+        ctx,
+        tagname: str = commands.parameter(
+            description="Tag of the message to be updated"
+        ),
+        *,
+        description: str = commands.parameter(
+            description="The new description for the pinned message"
+        ),
+    ):
         """Updates a pinned message with a given tagname, deletes old messages for the tag"""
         await ctx.invoke(self.bot.get_command("unpin"), tagname)
         await ctx.invoke(
@@ -203,7 +245,7 @@ class Pinning(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: updatePinnedMessage_error(self, ctx, error)
-    #    Description: prints error message for updatepin command
+    #    Description: prints error message for updatePin command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -212,10 +254,10 @@ class Pinning(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @updatePinnedMessage.error
     async def updatePinnedMessage_error(self, ctx, error):
-        """Error handling for updatepinnedmessage function"""
+        """Error handling for updatePinnedmessage function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the updatepin command, do: $pin TAGNAME DESCRIPTION \n ( $updatepin HW8 https://discordapp"
+                "To use the updatePin command, do: $pin TAGNAME DESCRIPTION \n ( $updatePin HW8 https://discordapp"
                 ".com/channels/139565116151562240/139565116151562240/890814489480531969 HW8 reminder )"
             )
         else:

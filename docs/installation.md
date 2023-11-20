@@ -113,7 +113,15 @@ Congratulations! You now have your tables set up.
       CALENDAR_ICS={your-secret-address}
       CALENDAR_PATH={path-to-files}
       ```
-6. Download wkhtmltopdf ([Download here](https://wkhtmltopdf.org/downloads.html)) Note: If you are on Windows add the path of the downloaded file to your PATH environment variable 
+6. Download wkhtmltopdf ([Download here](https://wkhtmltopdf.org/downloads.html)) Note: If you are on Windows add the path of the downloaded file to your PATH environment variable
+
+7. Go to the google cloud developer console and log in. Click create project and name it what you want. On the left hit the hamburger icon and click "APIs & Services"
+
+8. Under "APIs & Services", Click "OAuth consent screen." Go through the pages and fill out the relevant info like a name and your contact email. You can leave the ones without red stars (like the "App domain" section) blank. When adding scopes, hit the "ADD OR REMOVE SCOPES" button add the scope ".../auth/caledar".
+
+9. The project will have to be left in the "Testing" state rather than "Released", so on the "Test Users" screen add your email address as a test user. Click return at the summary screen.
+
+10. Go to the "Credentials" screen on the left. Click "Create Credentials" at the top, and then "OAuth client ID." Select "Desktop app" and give it a name. Once it is created, download the credentials as a json (there are several buttons to do it), and rename the file "credentials.json." Put it in the base directory of the bot wherever it is running.
 
 #### Resolving calendar issues
 

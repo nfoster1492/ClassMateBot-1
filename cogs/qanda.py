@@ -19,13 +19,23 @@ class Qanda(commands.Cog):
     #       - anonymous: option if user wants their question to be shown anonymously
     #    Outputs:
     #       - User question in new post
+    #    Aliases:
+    #       - askQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="ask",
+        aliases=["askQuestion"],
         help="Ask question. Please put question text in quotes. Add *anonymous* or *anon* if desired."
         'EX: $ask /"When is the exam?/" anonymous',
     )
-    async def askQuestion(self, ctx, qs: str, anonymous=""):
+    async def askQuestion(
+        self,
+        ctx,
+        qs: str = commands.parameter(description="The question you want to ask"),
+        anonymous: str = commands.parameter(
+            description="Option if the user wants to be anonymous or not", default=""
+        ),
+    ):
         """Takes question from the user the reposts it anonymously and numbered"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -34,12 +44,16 @@ class Qanda(commands.Cog):
             return
 
         if not qs or qs.isspace():
-            await ctx.author.send("Please enter a valid question.")
+            await ctx.author.send(
+                "Please enter a valid question. Questions must be at least 3 characters and contain more than spaces"
+            )
             await ctx.message.delete()
             return
 
         if len(qs) <= 2:
-            await ctx.author.send("Question too short.")
+            await ctx.author.send(
+                "Question too short. Questions must be at least 3 characters and contain more than spaces"
+            )
             await ctx.message.delete()
             return
 
@@ -113,13 +127,25 @@ class Qanda(commands.Cog):
     #      - anonymous: option if user wants their question to be shown anonymously
     # Outputs:
     #      - User answer added to question post
+    # Aliases:
+    #      - answerQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="answer",
+        aliases=["answerQuestion"],
         help="Answer question. Please put answer text in quotes. Add *anonymous* or *anon* if desired."
         'EX: $answer 1 /"Oct 12/" anonymous',
     )
-    async def answer(self, ctx, num, ans: str, anonymous=""):
+    async def answer(
+        self,
+        ctx,
+        num: str = commands.parameter(description="Question number being answered"),
+        ans: str = commands.parameter(description="Answer to the question specified"),
+        anonymous: str = commands.parameter(
+            description="Option if the user wants their question to be shown anonymously",
+            default="",
+        ),
+    ):
         """Adds user to specific question and post anonymously"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -128,7 +154,9 @@ class Qanda(commands.Cog):
             return
 
         if not ans or ans.isspace():
-            await ctx.author.send("Please enter a valid answer.")
+            await ctx.author.send(
+                "Please enter a valid answer. Answers must contain more than just space characters"
+            )
             await ctx.message.delete()
             return
 
@@ -165,7 +193,11 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num))
+            await ctx.author.send(
+                "No such question with the number: "
+                + str(num)
+                + ". Please ensure you are using the correct number"
+            )
             # delete user msg
             await ctx.message.delete()
             return
@@ -249,24 +281,29 @@ class Qanda(commands.Cog):
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: deleteAllAnswersFor
+    #    Function: deleteAnswers
     #    Description: Deletes all answers for a question. Instructor only.
     #    Inputs:
     #       - ctx: context of the command
     #       - num: question number
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - deleteAnswers
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="DALLAF",
+        aliases=["deleteAnswers"],
         help="(PLACEHOLDER NAME) Delete all answers for a question.\n"
-        "EX: $DALLAF 1\n"
+        "EX: $deleteAnswers 1\n"
         "THIS ACTION IS IRREVERSIBLE.\n"
         "Before deletion, archive the question and its answers with\n"
         "$getAnswersFor QUESTION_NUMBER",
     )
-    async def deleteAllAnsFor(self, ctx, num):
+    async def deleteAnswers(
+        self, ctx, num: str = commands.parameter(description="Question number")
+    ):
         """Lets instructor delete all answers for a question"""
         # make sure to check that this is actually being asked in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -279,7 +316,7 @@ class Qanda(commands.Cog):
         # to stop SQL from freezing. Only allows valid numbers.
         if not re.match(r"^([1-9]\d*|0)$", num):
             await ctx.author.send(
-                "Please include a valid question number. EX: $DALLAF 1"
+                "Please include a valid question number. EX: $deleteAnswers 1"
             )
             await ctx.message.delete()
             return
@@ -290,7 +327,11 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num))
+            await ctx.author.send(
+                "No such question with the number: "
+                + str(num)
+                + ". Please ensure you are using the correct number"
+            )
             # delete user msg
             await ctx.message.delete()
             return
@@ -316,7 +357,9 @@ class Qanda(commands.Cog):
         )
 
         if rd == 0:
-            await ctx.author.send(f"No answers exist for Q{num}")
+            await ctx.author.send(
+                f"No answers exist for Q{num}. There is nothing to be deleted"
+            )
         else:
             await ctx.author.send(f"deleted {rd} answers for Q{num}")
 
@@ -327,7 +370,7 @@ class Qanda(commands.Cog):
             await ctx.message.delete()
             return
 
-        # check if message exists on the channel. If it does, restore the question!
+        # check if message exists on the channel. If it does, restore the question
         try:
             message = await ctx.fetch_message(q[3])
         except NotFound:
@@ -342,21 +385,21 @@ class Qanda(commands.Cog):
         await ctx.message.delete()
 
     # -----------------------------------------------------------------------------------------------------------------
-    #    Function: deleteAllAnswersFor_error(self, ctx, error)
-    #    Description: prints error message for deleteAllAnswersFor command
+    #    Function: deleteAnswers_error(self, ctx, error)
+    #    Description: prints error message for deleteAnswers command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
     #    Outputs:
     #       - Error details
     # -----------------------------------------------------------------------------------------------------------------
-    @deleteAllAnsFor.error
-    async def deleteAllAnsFor_error(self, ctx, error):
-        """Error handling for deleteAllAnswersFor command"""
+    @deleteAnswers.error
+    async def deleteAnswers_error(self, ctx, error):
+        """Error handling for deleteAnswers command"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(
-                "To use the deleteAllAnswersFor command, do: $DALLAF QUESTION_NUMBER\n "
-                "(Example: $DALLAF 1)"
+                "To use the deleteAnswers command, do: $deleteAnswers QUESTION_NUMBER\n "
+                "(Example: $deleteAnswers 1)"
             )
         else:
             await ctx.author.send(error)
@@ -370,12 +413,17 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       - All answers for a question, if any
+    #    Aliases:
+    #       - getAnswers
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="getAnswersFor",
+        aliases=["getAnswers"],
         help="Get a question and all its answers\n" "EX: $getAnswersFor 1",
     )
-    async def getAllAnsFor(self, ctx, num):
+    async def getAllAnsFor(
+        self, ctx, num: str = commands.parameter(description="Question number")
+    ):
         """Gets all answers for a question and DMs them to the user"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -481,9 +529,12 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - DMs all questions and answers to the user
+    #    Aliases:
+    #       - sendGuide
     # -----------------------------------------------------------------------------------------------------------------
     @commands.command(
         name="archiveQA",
+        aliases=["sendGuide"],
         help="(PLACEHOLDER NAME) DM all questions and their answers\n" "EX: $archiveQA",
     )
     async def archiveQA(self, ctx):
@@ -577,10 +628,13 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - deleteQuestionsAnswers
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="deleteAllQA",
+        aliases=["deleteQuestionsAnswers"],
         help="Delete all questions and answers from the database and channel.\n"
         "EX: $deleteAllQA\n"
         "THIS COMMAND IS IRREVERSIBLE.\n"
@@ -606,7 +660,7 @@ class Qanda(commands.Cog):
 
         numqs = len(q)
         if numqs == 0:
-            await ctx.author.send("No questions found in database.")
+            await ctx.author.send("No questions found in database. Nothing to delete")
             return
 
         # Zombies are questions that were manually deleted from the channel. They need to be
@@ -672,15 +726,22 @@ class Qanda(commands.Cog):
     #       - num: number of the question to delete
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - removeQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="deleteQuestion",
+        aliases=["removeQuestion"],
         help="Delete (hide) one question but leave answers untouched."
         " Leaves database ghosts.\n"
         "EX: $deleteQuestion QUESTION_NUMBER\n",
     )
-    async def deleteOneQuestion(self, ctx, num):
+    async def deleteOneQuestion(
+        self,
+        ctx,
+        num: str = commands.parameter(description="Number of the quesiton to delete"),
+    ):
         """Lets the instructor delete one question, but leave the answers untouched"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -704,7 +765,11 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("Question number not in database: " + str(num))
+            await ctx.author.send(
+                "Question number not in database: "
+                + str(num)
+                + ". Please ensure you are using the correct number"
+            )
             # delete user msg
             await ctx.message.delete()
             return
@@ -765,14 +830,19 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       - All answers for a ghost question, if any
+    #    Aliases:
+    #       - getGhostQuestion
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="channelGhost",
+        aliases=["getGhostQuestion"],
         help="Gets a specific ghost (question deleted with command) and all its answers.\n"
         "EX: $channelGhost 1",
     )
-    async def channelOneGhost(self, ctx, num):
+    async def channelOneGhost(
+        self, ctx, num: str = commands.parameter(description="Question number")
+    ):
         """Lets the instructor get a specific ghost question"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -796,7 +866,11 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num))
+            await ctx.author.send(
+                "No such question with the number: "
+                + str(num)
+                + ". Please ensure you are using the correct number"
+            )
             # delete user msg
             await ctx.message.delete()
             return
@@ -865,10 +939,13 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - getAllGhostQuestions
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="allChannelGhosts",
+        aliases=["getAllGhostQuestions"],
         help="Get all the questions that are in the database but "
         "not in the channel. Does not detect zombies.\n"
         "EX: $allChannelGhosts\n"
@@ -949,10 +1026,13 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       -
+    #    Aliases:
+    #       - assignGhosts
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="unearthZombies",
+        aliases=["assignGhosts"],
         help="Assign ghost status to all manually deleted questions "
         "in case there is a need to restore them.\n"
         "EX: $unearthZombies\n",
@@ -1023,14 +1103,23 @@ class Qanda(commands.Cog):
     #       - num: question number
     #    Outputs:
     #       - All answers for a ghost question, if any
+    #    Aliases:
+    #       - restoreGhost
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
         name="reviveGhost",
+        aliases=["restoreGhost"],
         help="Restores a ghost or deleted/hidden question to the channel.\n"
         "EX: $reviveGhost 1",
     )
-    async def restoreGhost(self, ctx, num):
+    async def restoreGhost(
+        self,
+        ctx,
+        num: str = commands.parameter(
+            description="Question number that you want to restore"
+        ),
+    ):
         """Restores a ghost of deleted question to the channel"""
         # make sure to check that this is actually being used in the Q&A channel
         if not ctx.channel.name == "q-and-a":
@@ -1054,7 +1143,11 @@ class Qanda(commands.Cog):
             (ctx.guild.id, num),
         )
         if len(q) == 0:
-            await ctx.author.send("No such question with the number: " + str(num))
+            await ctx.author.send(
+                "No such question with the number: "
+                + str(num)
+                + ". Please ensure you are using the correct number"
+            )
             # delete user msg
             await ctx.message.delete()
             return
@@ -1133,8 +1226,14 @@ class Qanda(commands.Cog):
     #       - ctx: context of the command
     #    Outputs:
     #       - The number of ghost questions
+    #    Aliases:
+    #       - getGhostCount
     # -----------------------------------------------------------------------------------------------------------------
-    @commands.command(name="spooky", help="Is this channel haunted?\n" "EX: $spooky")
+    @commands.command(
+        name="spooky",
+        aliases=["getGhostCount"],
+        help="Is this channel haunted?\n" "EX: $spooky",
+    )
     async def countGhosts(self, ctx):
         """Counts the number of ghost and zombie questions in the channel. Mainly for fun but could be useful"""
         # make sure to check that this is actually being used in the Q&A channel

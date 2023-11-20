@@ -1,9 +1,10 @@
 # Copyright (c) 2023 nfoster1492
 # This functionality provides various methods to manage assignments
 # The isntructor is able to add/edit/and delete assignments
-# and specify their grading category and point value.
+# and specify their grading category and point value
 import os
 import sys
+from click import command
 import discord
 from discord.ext import commands
 
@@ -25,14 +26,28 @@ class Assignments(commands.Cog):
     #    - categoryname: the name of the grade category if the assignment
     #    - points: the points that the assignment is worth
     #    Outputs: Whether or not the add was a success
+    #    Aliases:
+    #    - addWork
+    #    - addWask
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="addassignment",
-        help="add a grading assignment and points $addassignment NAME CATEGORY POINTS",
+        name="addAssignment",
+        aliases=["addWork", "addTask"],
+        help="add a grading assignment and points $addAssignment NAME CATEGORY POINTS",
     )
     async def add_assignment(
-        self, ctx, assignmentname: str, categoryname: str, points: str
+        self,
+        ctx,
+        assignmentname: str = commands.parameter(
+            description="The name of the assignment"
+        ),
+        categoryname: str = commands.parameter(
+            description="The name of category for the assignment"
+        ),
+        points: str = commands.parameter(
+            description="How many points the assignment is worth"
+        ),
     ):
         """Add a grading assignment and points"""
         try:
@@ -46,7 +61,9 @@ class Assignments(commands.Cog):
         )
 
         if not category:
-            await ctx.send(f"Category with name {categoryname} does not exist")
+            await ctx.send(
+                f"Category with name {categoryname} does not exist. Assignments must be linked to an existing grade category. For more information enter ```$help Grades```"
+            )
             return
         if assignmentpoints < 0:
             await ctx.send("Assignment points must be greater than or equal to zero")
@@ -77,16 +94,30 @@ class Assignments(commands.Cog):
     #    - categoryname: the new name of the grade category if the assignment
     #    - points: the new points that the assignment is worth
     #    Outputs: Whether or not the edit was a success
+    #    Aliases:
+    #    - editWork
+    #    - editTask
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="editassignment",
-        help="edit a grading assignment and points $editassignment NAME CATEGORY POINTS",
+        name="editAssignment",
+        aliases=["editWork", "editTask"],
+        help="edit a grading assignment and points $editAssignment NAME CATEGORY POINTS",
     )
     async def edit_assignment(
-        self, ctx, assignmentname: str, categoryname: str, points: str
+        self,
+        ctx,
+        assignmentname: str = commands.parameter(
+            description="Name of assignment you want to edit"
+        ),
+        categoryname: str = commands.parameter(
+            description="The new name of the grade category for the assignment"
+        ),
+        points: str = commands.parameter(
+            description="The new amount of points the assignment is worth"
+        ),
     ):
-        """edit a grading assignment and points $editassignment NAME CATEGORY POINTS"""
+        """edit a grading assignment and points $editAssignment NAME CATEGORY POINTS"""
         try:
             assignmentpoints = int(points)
         except ValueError:
@@ -125,14 +156,24 @@ class Assignments(commands.Cog):
     #    - ctx: used to access the values passed through the current context
     #    - assignmentname: the name of the assignment
     #    Outputs: Whether or not the delete was a success
+    #    Aliases:
+    #    - deleteWork
+    #    - deleteTask
     # -----------------------------------------------------------------------------------------------------------------
     @commands.has_role("Instructor")
     @commands.command(
-        name="deleteassignment",
-        help="delete a grading assignment $deleteassignment NAME",
+        name="deleteAssignment",
+        aliases=["deleteWork", "deleteTask"],
+        help="delete a grading assignment $deleteAssignment NAME",
     )
-    async def delete_assignment(self, ctx, assignmentname: str):
-        """delete a grading assignment $deleteassignment NAME"""
+    async def delete_assignment(
+        self,
+        ctx,
+        assignmentname: str = commands.parameter(
+            description="Name of the assignment you want to delete"
+        ),
+    ):
+        """delete a grading assignment $deleteAssignment NAME"""
         existing = db.query(
             "SELECT id FROM assignments WHERE guild_id = %s AND assignment_name = %s",
             (ctx.guild.id, assignmentname),
@@ -145,7 +186,7 @@ class Assignments(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: add_assignment_error(self, ctx, error)
-    #    Description: prints error message for addassignment command
+    #    Description: prints error message for addAssignment command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -154,10 +195,10 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @add_assignment.error
     async def add_assignment_error(self, ctx, error):
-        """Error handling of addassignment function"""
+        """Error handling of addAssignment function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the addassignment command, do: $addassignment <assignmentname> <categoryname> <points> \n ( For example: $addassignment test1 tests 100 )"
+                "To use the addAssignment command, do: $addAssignment <assignmentname> <categoryname> <points> \n ( For example: $addAssignment test1 tests 100 )"
             )
             await ctx.message.delete()
         else:
@@ -166,7 +207,7 @@ class Assignments(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: edit_assignment_error(self, ctx, error)
-    #    Description: prints error message for editassignment command
+    #    Description: prints error message for editAssignment command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -175,10 +216,10 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @edit_assignment.error
     async def edit_assignment_error(self, ctx, error):
-        """Error handling of editassignment function"""
+        """Error handling of editAssignment function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the editassignment command, do: $editassignment <assignmentname> <categoryname> <points> \n ( For example: $editassignment test1 tests 95 )"
+                "To use the editAssignment command, do: $editAssignment <assignmentname> <categoryname> <points> \n ( For example: $editAssignment test1 tests 95 )"
             )
             await ctx.message.delete()
         else:
@@ -187,7 +228,7 @@ class Assignments(commands.Cog):
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: delete_assignment_error(self, ctx, error)
-    #    Description: prints error message for deleteassignment command
+    #    Description: prints error message for deleteAssignment command
     #    Inputs:
     #       - ctx: context of the command
     #       - error: error message
@@ -196,10 +237,10 @@ class Assignments(commands.Cog):
     # -----------------------------------------------------------------------------------------------------------------
     @delete_assignment.error
     async def delete_assignment_error(self, ctx, error):
-        """Error handling of deleteassignment function"""
+        """Error handling of deleteAssignment function"""
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(
-                "To use the deleteassignment command, do: $deleteassignment <assignmentname>\n ( For example: $deleteassignment test1)"
+                "To use the deleteAssignment command, do: $deleteAssignment <assignmentname>\n ( For example: $deleteAssignment test1)"
             )
             await ctx.message.delete()
         else:
