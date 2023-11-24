@@ -617,20 +617,34 @@ class Grades(commands.Cog):
         if categoryweight < 0:
             await ctx.send("Weight must be greater than 0")
             return
+        if categoryweight >= 1:
+            await ctx.send("Weight must be less than 1")
+            return
+
         existing = db.query(
             "SELECT id FROM grade_categories WHERE guild_id = %s AND category_name = %s",
             (ctx.guild.id, categoryname),
         )
-        if not existing:
-            db.query(
-                "INSERT INTO grade_categories (guild_id, category_name, category_weight) VALUES (%s, %s, %s)",
-                (ctx.guild.id, categoryname, weight),
-            )
-            await ctx.send(
-                f"A grading category has been added for: {categoryname}  with weight: {weight} "
-            )
-        else:
+        if existing:
             await ctx.send("This category has already been added..!!")
+            return
+        
+        current_weight_sum = float(db.query(
+            '''SELECT SUM(category_weight)
+            FROM grade_categories
+            WHERE guild_id = %s''',
+        (ctx.guild.id,))[0][0])
+        if current_weight_sum + categoryweight > 1:
+            await ctx.send("This category weight would make the total weight less than 1..!!")
+            return
+        
+        db.query(
+            "INSERT INTO grade_categories (guild_id, category_name, category_weight) VALUES (%s, %s, %s)",
+            (ctx.guild.id, categoryname, weight),
+        )
+        await ctx.send(
+            f"A grading category has been added for: {categoryname}  with weight: {weight} "
+        )         
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: add_grade_category_error(self, ctx, error)

@@ -11,7 +11,7 @@ TESTING_MODE = False
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 try:
-    CONN = psycopg2.connect(DATABASE_URL, sslmode="require")
+    CONN = psycopg2.connect(DATABASE_URL, sslmode="allow")
     print("PostgreSQL connection successful")
 except (Exception, psycopg2.DatabaseError) as error:
     print(error)
