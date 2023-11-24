@@ -14,6 +14,48 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import db
 
 
+def get_grade_for_class(member_name: str, guild_id: str) -> int:
+    categories = db.query(
+        "SELECT category_name, category_weight FROM grade_categories WHERE guild_id = %s ORDER BY category_weight DESC",
+        (guild_id,),
+    )
+    
+    class_total = 0
+    
+    for category_name, category_weight in categories:
+        grades = db.query(
+            "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grades.member_name = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
+            (guild_id, member_name, category_name),
+        )
+
+        points = db.query(
+            "SELECT assignments.points FROM assignments INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE assignments.guild_id = %s AND grade_categories.category_name = %s ORDER BY assignments.id",
+            (guild_id, category_name),
+        )
+
+        if not grades:
+            raise RuntimeError(f"Grades for {category_name} do not exist")
+
+        if not points:
+            raise RuntimeError(f"Assignments for {category_name} do not exist")
+
+        actual_grades = [x[0] for x in grades]
+        actual_points = [x[0] for x in points]
+
+        total = 0
+        points_total = 0
+
+        for i in range(len(actual_grades)):
+            total = total + (actual_grades[i] / 100) * actual_points[i]
+            points_total = points_total + actual_points[i]
+
+        average = (total / points_total) * 100
+
+        class_total += (average * float(category_weight))
+        
+    return class_total
+
+
 class Grades(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -159,61 +201,26 @@ class Grades(commands.Cog):
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    Outputs: Average grade of all the assignments in the class, weighted by category, accounting for assignment point values
-    # -----------------------------------------------------------------------------------------------------------------
+    # -----------------------------------------------------------------------------------------------------------------    
     @commands.command(
         name="gradeforclass",
         help="get your grade for the whole class $gradeforclass",
     )
     async def gradeforclass(self, ctx):
         """Lets a student get their overall average grade for the class"""
-        memberName = ctx.author.name
-
-        categories = db.query(
-            "SELECT category_name, category_weight FROM grade_categories WHERE guild_id = %s ORDER BY category_weight DESC",
-            (ctx.guild.id,),
-        )
-
-        classTotal = 0
-
-        for category_name, category_weight in categories:
-            grades = db.query(
-                "SELECT grades.grade FROM grades INNER JOIN assignments ON grades.assignment_id = assignments.id INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE grades.guild_id = %s AND grades.member_name = %s AND grade_categories.category_name = %s ORDER BY grades.assignment_id",
-                (ctx.guild.id, memberName, category_name),
-            )
-
-            points = db.query(
-                "SELECT assignments.points FROM assignments INNER JOIN grade_categories ON assignments.category_id = grade_categories.id WHERE assignments.guild_id = %s AND grade_categories.category_name = %s ORDER BY assignments.id",
-                (ctx.guild.id, category_name),
-            )
-
-            if not grades:
-                await ctx.author.send(f"Grades for {category_name} do not exist")
-                return
-
-            if not points:
-                await ctx.author.send(f"Assignments for {category_name} do not exist")
-                return
-
-            actualGrades = []
-            for grade in grades:
-                actualGrades.append(grade[0])
-
-            actualPoints = []
-            for point in points:
-                actualPoints.append(point[0])
-
-            total = 0
-            pointsTotal = 0
-
-            for i in range(len(actualGrades)):
-                total = total + (actualGrades[i] / 100) * actualPoints[i]
-                pointsTotal = pointsTotal + actualPoints[i]
-
-            average = (total / pointsTotal) * 100
-
-            classTotal = classTotal + (average * float(category_weight))
-
-        await ctx.author.send(f"Grade for class: {classTotal:.2f}%")
+        try:
+            await ctx.send(f"Grade for class: {get_grade_for_class(ctx.author.name, ctx.guild.id):.2f}%")
+        except RuntimeError as e:
+            await ctx.send(str(e))
+            
+    @commands.command(
+        name="calculate_gpa"
+    )
+    async def calculate_gpa(self, ctx):
+        try:
+            await ctx.send("working")
+        except Exception as e:
+            print(e)
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: gradeforclass_error(self, ctx, error)
