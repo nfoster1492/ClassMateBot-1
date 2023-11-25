@@ -218,7 +218,56 @@ class Grades(commands.Cog):
     )
     async def calculate_gpa(self, ctx):
         try:
-            await ctx.send("working")
+            curr_grade = get_grade_for_class(ctx.author.name, ctx.guild.id)
+            
+            curr_letter_grade = db.query(
+                f'''SELECT grade_point
+                FROM (
+                    SELECT grade_letter
+                    FROM grade_bounds
+                    WHERE {curr_grade} BETWEEN lower_bound AND upper_bound
+                ) AS curr_grade_letter
+                JOIN letter_grades
+                ON letter = grade_letter'''
+            )[0][0]
+            
+            previous_gpa = db.query(
+                '''SELECT AVG(grade_point)
+                FROM (
+                    SELECT grade_point
+                    FROM letter_grades JOIN (
+                        SELECT course_grade
+                        FROM previous_course_grades
+                        WHERE member_name = %s
+                    ) AS student_grades
+                    ON letter = course_grade
+                ) AS previous_grades''',
+            (ctx.author.name,))[0][0]
+            
+            forcasted_gpa = db.query(
+                f'''SELECT AVG(grade_point)
+                FROM (
+                    SELECT grade_point
+                    FROM letter_grades JOIN (
+                        SELECT course_grade
+                        FROM previous_course_grades
+                        WHERE member_name = %s
+                    ) AS student_grades
+                    ON letter = course_grade
+
+                    UNION ALL
+
+                    SELECT {curr_letter_grade} AS grade_point
+                ) AS all_grades''',
+            (ctx.author.name,))[0][0]
+            
+            await ctx.send(
+                f'Current grade for class: {curr_grade:.2f}\n' +
+                f'Current letter grade for class: {curr_letter_grade}\n' +
+                f'Previous GPA: {previous_gpa:.2f}\n' + 
+                f'Forcasted GPA: {forcasted_gpa:.2f}'
+            )
+
         except Exception as e:
             print(e)
 
