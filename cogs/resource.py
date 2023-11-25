@@ -12,8 +12,7 @@ import db
 # -----------------------------------------------------------
 # This File contains commands for joining a group, Adding Deleting and retriving resource,
 # -----------------------------------------------------------
-class Resources(commands.Cog):
-    student_pool = {}
+class Resource(commands.Cog):
     # -----------------------------------------------------------
     # initialize
     # -----------------------------------------------------------
@@ -28,21 +27,23 @@ class Resources(commands.Cog):
     #    - ctx: used to access the values passed through the current context
     #    Outputs: confirms role deletion
     # -------------------------------------------------------------------------------------------------------
-  @commands.command(
+    @commands.command(
         name="addresource",
         help="To use the addresource command, do: $addresource topic_name topic_resource <Num> \n \
-    ( For example: $addresource Ethical_Software_Engineering  )",
-        pass_context=True,
+        ( For example: $addresource Ethical_Software_Engineering  )"
     )
-    aync def add(self, ctx, resource, resource_link):
-        if resource is NULL :
+    async def addresource(self, ctx, resource, resource_link):
+        if resource is None :
             await ctx.send("To add resource, You must provide the resource name")
             return
-        if resource_link is NULL :
+        if resource_link is None :
             await ctx.send("To add resource, You must provide the resource name")
             return
-
         
         await ctx.send("Done")
         return
+
+async def setup(bot):
+    """Adds the file to the bot's cog system"""
+    await bot.add_cog(Resource(bot))
    
