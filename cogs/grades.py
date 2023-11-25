@@ -59,6 +59,37 @@ def get_grade_for_class(member_name: str, guild_id: str) -> int:
 class Grades(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.has_role("Instructor")
+    @commands.command(
+        name="add_grade_bound",
+        help='add upper bound and lower bound for a letter grade'
+    )
+    async def add_grade_bound(self, ctx, letter_grade: str, lower_bound: float, upper_bound: float):
+        try:
+            exists_result = db.query(
+                '''SELECT lower_bound, upper_bound
+                FROM grade_bounds
+                WHERE grade_letter = %s''',
+            (letter_grade,))
+            
+            # ASSUMES THAT VALUES DO NOT OVERLAP AND ARE INPUT CORRECTLY
+            if len(exists_result) >= 1:
+                db.query(
+                    '''UPDATE grade_bounds
+                    SET lower_bound = %s, upper_bound = %s
+                    WHERE grade_letter = %s''',
+                (lower_bound, upper_bound, letter_grade))
+                await ctx.author.send(f'"{letter_grade}" lower bound updated from {exists_result[0][0]} to ' +
+                                      f'{lower_bound}, upper bound updated from {exists_result[0][1]} to {upper_bound}')
+            else:
+                db.query('INSERT INTO grade_bounds VALUES (%s, %s, %s)', (letter_grade, lower_bound, upper_bound))
+                await ctx.author.send(f'"{letter_grade}" added with lower bound: {lower_bound}, ' +
+                                f'and upper bound: {upper_bound}')
+        except Exception as e:
+            await ctx.author.send(str(e))
+        
+        
 
     # -----------------------------------------------------------------------------------------------------------------
     #    Function: grade(self, ctx, assignmentName)

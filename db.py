@@ -24,6 +24,7 @@ def query(sql, args=()):
         cur.execute(sql, args)
     except Exception as e:
         print(type(e).__name__, e)
+        CONN.rollback()
         raise e
     if cur.description is None:
         rows = []
