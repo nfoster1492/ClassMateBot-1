@@ -209,9 +209,9 @@ class Grades(commands.Cog):
     async def gradeforclass(self, ctx):
         """Lets a student get their overall average grade for the class"""
         try:
-            await ctx.send(f"Grade for class: {get_grade_for_class(ctx.author.name, ctx.guild.id):.2f}%")
+            await ctx.author.send(f"Grade for class: {get_grade_for_class(ctx.author.name, ctx.guild.id):.2f}%")
         except RuntimeError as e:
-            await ctx.send(str(e))
+            await ctx.author.send(str(e))
             
     @commands.command(
         name="calculate_gpa"
@@ -261,7 +261,7 @@ class Grades(commands.Cog):
                 ) AS all_grades''',
             (ctx.author.name,))[0][0]
             
-            await ctx.send(
+            await ctx.author.send(
                 f'Current grade for class: {curr_grade:.2f}\n' +
                 f'Current letter grade for class: {curr_letter_grade}\n' +
                 f'Previous GPA: {previous_gpa:.2f}\n' + 
@@ -269,7 +269,7 @@ class Grades(commands.Cog):
             )
 
         except Exception as e:
-            await ctx.send(str(e))
+            await ctx.author.send(str(e))
             print(e)
 
     # -----------------------------------------------------------------------------------------------------------------
@@ -669,13 +669,13 @@ class Grades(commands.Cog):
         try:
             categoryweight = float(weight)
         except ValueError:
-            await ctx.send("Weight could not be parsed")
+            await ctx.author.send("Weight could not be parsed")
             return
         if categoryweight < 0:
-            await ctx.send("Weight must be greater than 0")
+            await ctx.author.send("Weight must be greater than 0")
             return
-        if categoryweight >= 1:
-            await ctx.send("Weight must be less than 1")
+        if categoryweight > 1:
+            await ctx.author.send("Weight must be less than 1")
             return
 
         existing = db.query(
@@ -683,7 +683,7 @@ class Grades(commands.Cog):
             (ctx.guild.id, categoryname),
         )
         if existing:
-            await ctx.send("This category has already been added..!!")
+            await ctx.author.send("This category has already been added..!!")
             return
         
         current_weight_sum = float(db.query(
@@ -692,7 +692,7 @@ class Grades(commands.Cog):
             WHERE guild_id = %s''',
         (ctx.guild.id,))[0][0])
         if current_weight_sum + categoryweight > 1:
-            await ctx.send("This category weight would make the total weight less than 1..!!")
+            await ctx.author.send("This category weight would make the total weight less than 1..!!")
             return
         
         db.query(
