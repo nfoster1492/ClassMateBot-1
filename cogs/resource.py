@@ -52,6 +52,17 @@ class Resource(commands.Cog):
         )
         await ctx.send(f"Resource successfully added to the topic {topic}")
         return
+    @addResource.error
+    async def addResource_error(self, ctx, error):
+        """Error handling for group command"""
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send(
+                "To use the group command, do: $group <Num> \n ( For example: $group 0 )"
+            )
+        else:
+            await ctx.author.send(error)
+            # await ctx.message.delete()
+            print(error)
 
 async def setup(bot):
     """Adds the file to the bot's cog system"""
