@@ -28,22 +28,29 @@ class Resource(commands.Cog):
     #    Outputs: confirms role deletion
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="addresource",
+        name="addResource",
         help="To use the addresource command, do: $addresource topic_name resource_link <Num> \n \
         ( For example: $addresource Ethical_Software_Engineering  )"
     )
-    async def addresource(self, ctx, topic, resource_link):
-        if resource is None :
+    async def addResource(self, ctx, topic, resource_link):
+        if topic is None :
             await ctx.send("To add resource, You must provide the topic name")
             return
         if resource_link is None :
             await ctx.send("To add resource, You must provide the resource link")
             return
+        create_table_query = """
+            CREATE TABLE resources (
+                guild_id        BIGINT NOT NULL,
+                topic_name      VARCHAR NOT NULL,
+                resource_link   VARCHAR NOT NULL
+            );
+            """
         db.query(
             "INSERT INTO resources (guild_id, topic_name, resource_link) VALUES (%s, %s, %s)",
-            (ctx.guild.id, , topic, resource_link),
+            (ctx.guild.id,  topic, resource_link),
         )
-        await ctx.send("Done")
+        await ctx.send(f"Resource successfully added to the topic {topic}")
         return
 
 async def setup(bot):

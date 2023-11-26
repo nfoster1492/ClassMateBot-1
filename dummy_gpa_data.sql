@@ -33,6 +33,12 @@ VALUES
 
 INSERT INTO grades
 VALUES
-    ('1143956280222957578', 'cornonjacob', 1, 92),
-    ('1143956280222957578', 'cornonjacob', 2, 70),
-    ('1143956280222957578', 'cornonjacob', 4, 90);
+    ('1143956280222957578', 'Ethical Software Enginnering', 1, 92),
+    ('1143956280222957578', 'Software Testing', 2, 70),
+    ('1143956280222957578', 'Version Controlling in SE', 4, 90);
+
+INSERT INTO resources
+VALUES
+    ('1143956280222957580', 'Ethical Software Enginnering', "https://github.com/txt/se23/blob/main/docs/ethics.md"),
+    ('1143956280222957580', 'Software Testing', "https://github.com/txt/se23/blob/main/docs/testing1.md"),
+    ('1143956280222957580', 'Version Controlling in SE', "https://github.com/txt/se23/blob/main/docs/cloud.md");
