@@ -29,17 +29,20 @@ class Resource(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
         name="addresource",
-        help="To use the addresource command, do: $addresource topic_name topic_resource <Num> \n \
+        help="To use the addresource command, do: $addresource topic_name resource_link <Num> \n \
         ( For example: $addresource Ethical_Software_Engineering  )"
     )
-    async def addresource(self, ctx, resource, resource_link):
+    async def addresource(self, ctx, topic, resource_link):
         if resource is None :
-            await ctx.send("To add resource, You must provide the resource name")
+            await ctx.send("To add resource, You must provide the topic name")
             return
         if resource_link is None :
-            await ctx.send("To add resource, You must provide the resource name")
+            await ctx.send("To add resource, You must provide the resource link")
             return
-        
+        db.query(
+            "INSERT INTO resources (guild_id, topic_name, resource_link) VALUES (%s, %s, %s)",
+            (ctx.guild.id, , topic, resource_link),
+        )
         await ctx.send("Done")
         return
 
