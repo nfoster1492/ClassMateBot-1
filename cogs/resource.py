@@ -29,6 +29,7 @@ class Resource(commands.Cog):
     #    - resource_link : used to provide the topic's resource link 
     #    Outputs: It will add a new rosource in the list of course material resource
     # -------------------------------------------------------------------------------------------------------
+    @commands.has_role("Instructor")
     @commands.command(
         name="addResource",
         help="To use the addResource command, do: $addResource <topic_name> <resource_link>  \n \
@@ -93,7 +94,8 @@ class Resource(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
         name="showResourceByTopic",
-        help="To use the showResourceByTopic command, do: $showResourceByTopic <Topic Name>"
+        help="To use the showResourceByTopic command, do: $showResourceByTopic <Topic Name> \n \
+        To see the Topic List, use $showTopicList"
     )
     async def showResourceByTopic(self, ctx, topic_name):
         result = db.query("SELECT * FROM resources WHERE topic_name = %s", (topic_name,))
@@ -116,7 +118,8 @@ class Resource(commands.Cog):
     async def showResourceByTopic_error(self, ctx, error):
         """Error handling for getting resource"""
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("To use the showResourceByTopic command, do: $showResourceByTopic <Topic Name>")
+            await ctx.send("To use the showResourceByTopic command, do: $showResourceByTopic <Topic Name> \n \
+            To see the Topic List, use $showTopicList")
         else:
             print(error)
     # -------------------------------------------------------------------------------------------------------
@@ -129,10 +132,13 @@ class Resource(commands.Cog):
     #    - resource_link : used to provide the resource topic's link 
     #    Outputs: It will add a new rosource under a topic
     # -------------------------------------------------------------------------------------------------------
+    @commands.has_role("Instructor")
     @commands.command(
         name="deleteResource",
         help="To use the deleteResource command, do: $deleteResource <topic_name> <resource_link>  \n \
-        ( For example: $deleteResource Ethical_Software_Engineering, https://github.com/txt/se23/blob/main/docs/ethics.md  )")
+        ( For example: $deleteResource Ethical_Software_Engineering, https://github.com/txt/se23/blob/main/docs/ethics.md  ) \n \
+        To see all the resource use $showAllResource"
+        )
     async def deleteResource(self, ctx, topic, resource_link):
         result = db.query("SELECT * FROM resources WHERE guild_id = %s AND topic_name = %s AND resource_link = %s",
                     (ctx.guild.id, topic, resource_link))
@@ -150,7 +156,7 @@ class Resource(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("To use the deleteResource command, do: $deleteResource <topic_name> <resource_link>  \n \
             ( For example: $DeleteResource Ethical_Software_Engineering, https://github.com/txt/se23/blob/main/docs/ethics.md  ) \n \
-            To see all the resouce use $showAllResource"
+            To see all the resource use $showAllResource"
             )
 
 

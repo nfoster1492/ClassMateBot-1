@@ -2341,3 +2341,27 @@ async def test_get_calendar_downloads(bot):
                 assert component.dtstart.valueRepr().year == caldate.year
                 assert component.dtstart.valueRepr().day == caldate.day
                 assert component.dtstart.valueRepr().hour == caldate.hour
+
+
+@pytest.mark.asyncio
+async def test_get_resource_by_topic(bot):
+    # create instuctor user
+    user = dpytest.get_config().members[0]
+    guild = dpytest.get_config().guilds[0]
+    irole = await guild.create_role(name="Instructor")
+    await irole.edit(permissions=discord.Permissions(8))
+    role = discord.utils.get(guild.roles, name="Instructor")
+    await dpytest.add_role(user, role)
+
+    ##Testing add resource
+    await dpytest.message("$addResource Testing https://github.com/txt/se23/blob/main/docs/testing1.md")
+    assert dpytest.verify().message().contains().content("Resource successfully added to the Testing")
+
+    ##Testing delete Resource
+
+    await dpytest.message("$deleteResource Testing https://github.com/txt/se23/blob/main/docs/testing1.md")
+    assert dpytest.verify().message().contains().content("The Resource has been deleted successfully.")
+
+    ##Test missing argument topic
+    await dpytest.message("$showResourceByTopic")
+    assert dpytest.verify().message().contains().content("To use the showResourceByTopic command, do: $showResourceByTopic <Topic Name>")
