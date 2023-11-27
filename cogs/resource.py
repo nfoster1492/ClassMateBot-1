@@ -51,7 +51,7 @@ class Resource(commands.Cog):
 
 
     # -------------------------------------------------------------------------------------------------------
-    #    Function: addResource(self, ctx):
+    #    Function: showAllResource(self, ctx):
     #    Description: This function is used to get the resources
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
@@ -59,11 +59,11 @@ class Resource(commands.Cog):
     #    Outputs: Return the list of resources
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
-        name="getResource",
-        help="To use the getResource command, do: $getResource"
+        name="showAllResource",
+        help="To use the showAllResource command, do: $showAllResource"
     )
-    async def getResource(self, ctx):
-        result = db.query("SELECT * FROM resources WHERE guild_id = %s", (ctx.guild.id,))
+    async def showAllResource(self, ctx):
+        result = db.query("SELECT * FROM resources")
 
         if not result:
             await ctx.send("No resources found.")
@@ -77,11 +77,44 @@ class Resource(commands.Cog):
         await ctx.send(embed=embed)
         return
 
-    @getResource.error
-    async def getResource_error(self, ctx, error):
+    @showAllResource.error
+    async def showAllResource_error(self, ctx, error):
         """Error handling for getting resource"""
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send0("To use the getResource command, do: $getResource")
+            await ctx.send0("To use the showAllResource command, do: $showAllResource")
+
+    # -------------------------------------------------------------------------------------------------------
+    #    Function: showResourceByTopic(self, ctx, topic_name):
+    #    Description: This function is used to get the resources
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    Outputs: Return the list of resources of a specific Topic
+    # -------------------------------------------------------------------------------------------------------
+    @commands.command(
+        name="showResourceByTopic",
+        help="To use the showAllResource command, do: $showResourceByTopic <Topic Name>"
+    )
+    async def showResourceByTopic(self, ctx, topic_name):
+        result = db.query("SELECT * FROM resources WHERE topic_name = %s", (topic_name))
+
+        if not result:
+            await ctx.send("No resources found.")
+            return
+        embed = discord.Embed(title=f"List of Resources for topic {topic_name} ", color=0x00ff00) 
+
+        for row in result:
+            topic = row[1]
+            resource_link = row[2]
+            embed.add_field(name=f"Topic: {topic}", value=f"Resource Link: {resource_link}", inline=False)
+        await ctx.send(embed=embed)
+        return
+
+    @showResourceByTopic.error
+    async def showResourceByTopic(self, ctx, error):
+        """Error handling for getting resource"""
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send0("To use the showResourceByTopic command, do: $showResourceByTopic <Topic Name>")
 
 
 async def setup(bot):
