@@ -167,7 +167,7 @@ class Resource(commands.Cog):
         help="To use the showTopicList command, do: $showTopicList"
     )
     async def showTopicList(self, ctx):
-        result = db.query("SELECT DISTINCT topic_name FROM resources"))
+        result = db.query("SELECT DISTINCT topic_name FROM resources")
 
         if not result:
             await ctx.send("No topic has been created yet.")
