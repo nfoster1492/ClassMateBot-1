@@ -20,11 +20,13 @@ class Resource(commands.Cog):
         self.bot = bot
 
     # -------------------------------------------------------------------------------------------------------
-    #    Function: reset(self, ctx)
-    #    Description: deletes all group roles in the server
+    #    Function: addResource(self, ctx, topic, resource_link):
+    #    Description: This function is used to add the topic and the link the of resources of this topic
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
+    #    - topic : used to provide the name of a topic
+    #    - resource_link : used to provide the resource topic's link 
     #    Outputs: confirms role deletion
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
@@ -46,10 +48,8 @@ class Resource(commands.Cog):
             await ctx.send("To use the addresource command, do: $addresource topic_name resource_link <Num> \n \
             ( For example: $addresource Ethical_Software_Engineering, https://github.com/txt/se23/blob/main/docs/ethics.md  )"
             )
-        else:
-            await ctx.author.send(error)
-            # await ctx.message.delete()
-            print(error)
+
+
 
 async def setup(bot):
     """Adds the file to the bot's cog system"""
