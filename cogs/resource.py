@@ -107,7 +107,7 @@ class Resource(commands.Cog):
         for row in result:
             topic = row[1]
             resource_link = row[2]
-            embed.add_field(name="", value=f"Resource Link: {resource_link}", inline=False)
+            embed.add_field(name="", value=f"Resource: {resource_link}", inline=False)
 
         await ctx.send(embed=embed)
         return
