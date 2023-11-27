@@ -167,25 +167,24 @@ class Resource(commands.Cog):
         help="To use the showTopicList command, do: $showTopicList"
     )
     async def showTopicList(self, ctx):
-        result = db.query("SELECT * FROM resources")
+        result = db.query("SELECT DISTINCT topic_name FROM resources"))
 
         if not result:
-            await ctx.send("No resources found.")
+            await ctx.send("No topic has been created yet.")
             return
-        embed = discord.Embed(title="List of Resources", color=0x00ff00) 
 
-        for row in result:
-            topic = row[1]
-            resource_link = row[2]
-            embed.add_field(name=f"Topic: {topic}", value=f"Resource Link: {resource_link}", inline=False)
-        await ctx.send(embed=embed)
+        topic_list = [row[0] for row in result]
+
+        formatted_topic_list = "\n".join(topic_list)
+
+        await ctx.send(f"List of Topics:\n{formatted_topic_list}")
         return
 
     @showTopicList.error
     async def showTopicList_error(self, ctx, error):
         """Error handling for getting resource"""
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send0("To use the showTopicList command, do: $showTopicList")
+            await ctx.send("To use the showTopicList command, do: $showTopicList")
 
 
 async def setup(bot):
