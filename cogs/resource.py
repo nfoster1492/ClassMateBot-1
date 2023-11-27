@@ -85,7 +85,7 @@ class Resource(commands.Cog):
 
     # -------------------------------------------------------------------------------------------------------
     #    Function: showResourceByTopic(self, ctx, topic_name):
-    #    Description: This function is used to get the resources
+    #    Description: This function is used to get the resources of a sprcific topic
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
@@ -96,25 +96,63 @@ class Resource(commands.Cog):
         help="To use the showAllResource command, do: $showResourceByTopic <Topic Name>"
     )
     async def showResourceByTopic(self, ctx, topic_name):
-        result = db.query("SELECT * FROM resources WHERE topic_name = %s", (topic_name))
+        result = db.query("SELECT * FROM resources WHERE topic_name = %s", (topic_name,))
 
         if not result:
             await ctx.send("No resources found.")
             return
-        embed = discord.Embed(title=f"List of Resources for topic {topic_name} ", color=0x00ff00) 
+
+        embed = discord.Embed(title=f"List of Resources for topic {topic_name}", color=0x00ff00)
 
         for row in result:
             topic = row[1]
             resource_link = row[2]
-            embed.add_field(name=f"Topic: {topic}", value=f"Resource Link: {resource_link}", inline=False)
+            embed.add_field(name="", value=f"Resource Link: {resource_link}", inline=False)
+
         await ctx.send(embed=embed)
         return
 
     @showResourceByTopic.error
-    async def showResourceByTopic(self, ctx, error):
+    async def showResourceByTopic_error(self, ctx, error):
         """Error handling for getting resource"""
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send0("To use the showResourceByTopic command, do: $showResourceByTopic <Topic Name>")
+            await ctx.send("To use the showResourceByTopic command, do: $showResourceByTopic <Topic Name>")
+        else:
+            print(error)
+    # -------------------------------------------------------------------------------------------------------
+    #    Function: deleteResource(self, ctx, topic, resource_link):
+    #    Description: This function will delete a resource from the resource list
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    - topic : used to provide the name of a topic
+    #    - resource_link : used to provide the resource topic's link 
+    #    Outputs: It will add a new rosource under a topic
+    # -------------------------------------------------------------------------------------------------------
+    @commands.command(
+        name="deleteResource",
+        help="To use the deleteResource command, do: $deleteResource <topic_name> <resource_link>  \n \
+        ( For example: $deleteResource Ethical_Software_Engineering, https://github.com/txt/se23/blob/main/docs/ethics.md  )")
+    async def deleteResource(self, ctx, topic, resource_link):
+        result = db.query("SELECT * FROM resources WHERE guild_id = %s AND topic_name = %s AND resource_link = %s",
+                    (ctx.guild.id, topic, resource_link))
+
+        if not result:
+            await ctx.send("No matching element found.To see all the resouce use $showAllResource")
+            return
+        db.query("DELETE FROM resources WHERE topic_name = %s AND resource_link = %s",
+        (topic, resource_link))
+        await ctx.send("The Resource has been deleted successfully.")
+        return
+    @deleteResource.error
+    async def deleteResource_error(self, ctx, error):
+        """Error handling for resource add"""
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("To use the deleteResource command, do: $deleteResource <topic_name> <resource_link>  \n \
+            ( For example: $DeleteResource Ethical_Software_Engineering, https://github.com/txt/se23/blob/main/docs/ethics.md  ) \n \
+            To see all the resouce use $showAllResource"
+            )
+
 
 
 async def setup(bot):
