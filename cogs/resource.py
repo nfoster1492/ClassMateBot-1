@@ -154,6 +154,39 @@ class Resource(commands.Cog):
             )
 
 
+    # -------------------------------------------------------------------------------------------------------
+    #    Function: showTopicList(self, ctx):
+    #    Description: This function is used to get the resources
+    #    Inputs:
+    #    - self: used to access parameters passed to the class through the constructor
+    #    - ctx: used to access the values passed through the current context
+    #    Outputs: Return the list of topics
+    # -------------------------------------------------------------------------------------------------------
+    @commands.command(
+        name="showTopicList",
+        help="To use the showTopicList command, do: $showTopicList"
+    )
+    async def showTopicList(self, ctx):
+        result = db.query("SELECT * FROM resources")
+
+        if not result:
+            await ctx.send("No resources found.")
+            return
+        embed = discord.Embed(title="List of Resources", color=0x00ff00) 
+
+        for row in result:
+            topic = row[1]
+            resource_link = row[2]
+            embed.add_field(name=f"Topic: {topic}", value=f"Resource Link: {resource_link}", inline=False)
+        await ctx.send(embed=embed)
+        return
+
+    @showTopicList.error
+    async def showTopicList_error(self, ctx, error):
+        """Error handling for getting resource"""
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send0("To use the showTopicList command, do: $showTopicList")
+
 
 async def setup(bot):
     """Adds the file to the bot's cog system"""
