@@ -10,7 +10,7 @@ import db
 
 
 # -----------------------------------------------------------
-# This File contains commands for joining a group, Adding Deleting and retriving resource,
+# This File contains commands for Managing Resources, Adding Deleting and Retriving Resource,
 # -----------------------------------------------------------
 class Resource(commands.Cog):
     # -----------------------------------------------------------
@@ -21,17 +21,17 @@ class Resource(commands.Cog):
 
     # -------------------------------------------------------------------------------------------------------
     #    Function: addResource(self, ctx, topic, resource_link):
-    #    Description: This function is used to add the topic and the link the of resources of this topic
+    #    Description: This function is used to add the topic and the link the of resource of this topic
     #    Inputs:
     #    - self: used to access parameters passed to the class through the constructor
     #    - ctx: used to access the values passed through the current context
     #    - topic : used to provide the name of a topic
-    #    - resource_link : used to provide the resource topic's link 
-    #    Outputs: It will add a new rosource under a topic
+    #    - resource_link : used to provide the topic's resource link 
+    #    Outputs: It will add a new rosource in the list of course material resource
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
         name="addResource",
-        help="To use the addresource command, do: $addresource <topic_name> <resource_link>  \n \
+        help="To use the addResource command, do: $addResource <topic_name> <resource_link>  \n \
         ( For example: $addResource Ethical_Software_Engineering, https://github.com/txt/se23/blob/main/docs/ethics.md  )"
     )
     async def addResource(self, ctx, topic, resource_link):
@@ -45,8 +45,8 @@ class Resource(commands.Cog):
     async def addResource_error(self, ctx, error):
         """Error handling for resource add"""
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("To use the addresource command, do: $addresource topic_name resource_link <Num> \n \
-            ( For example: $addresource Ethical_Software_Engineering, https://github.com/txt/se23/blob/main/docs/ethics.md  )"
+            await ctx.send("To use the addResource command, do: $addResource <topic_name> <resource_link>  \n \
+            ( For example: $addResource Ethical_Software_Engineering, https://github.com/txt/se23/blob/main/docs/ethics.md  )"
             )
 
 
@@ -93,7 +93,7 @@ class Resource(commands.Cog):
     # -------------------------------------------------------------------------------------------------------
     @commands.command(
         name="showResourceByTopic",
-        help="To use the showAllResource command, do: $showResourceByTopic <Topic Name>"
+        help="To use the showResourceByTopic command, do: $showResourceByTopic <Topic Name>"
     )
     async def showResourceByTopic(self, ctx, topic_name):
         result = db.query("SELECT * FROM resources WHERE topic_name = %s", (topic_name,))
