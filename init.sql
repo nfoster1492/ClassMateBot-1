@@ -78,3 +78,11 @@ CREATE TABLE answers (
     author_id       BIGINT,
     author_role     VARCHAR NOT NULL
 );
+
+CREATE TABLE attendance(
+    guild_id        BIGINT NOT NULL,
+    student_name    BIGINT NOT NULL,
+    class_date      VARCHAR NOT NULL,
+    author_id       BIGINT,
+    author_role     VARCHAR NOT NULL       
+)
